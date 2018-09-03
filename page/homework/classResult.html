@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>成绩统计</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+	<style type="text/css">
+
+        .decorate{
+        	color: #008000;
+            background-color: #fff;
+            height: 24px;
+            line-height: 24px;
+            width: 110px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            margin-left: 4px;
+            display: inline-block;
+
+        }
+        .decorates{
+            color: #008000;
+            background-color: #fff;
+            line-height: 20px;
+            width: 110px;
+            text-align: center;
+            font-size: 14px;
+          
+            margin-bottom: 4px;
+            margin-left: 4px;
+            display: inline-block;
+        }
+       
+    
+        .serial{
+           width: 20px;
+           line-height: 20px;
+           background-image: url(../../img/homework/u1888.png);
+           background-repeat: no-repeat;
+           background-size: 100% 100%;
+           text-align: center;
+
+        }
+        .chapter{
+        	font-weight: 600;
+        	overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+        }
+        .dbtn{
+        	width: 35px;
+        	line-height: 22px;
+        	text-align: center;
+        	border:1px solid #999;
+        	border-radius: 3px;
+        	background-color: #f0f0f0;
+        	color: red;
+        	font-size: 12px;
+        	cursor: pointer ;
+        }
+        .countcla{
+            width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .preview{
+            margin-left: 26%;
+        }
+        .view{
+            margin-left: 10%;
+        }
+        
+        .premask{
+            position: absolute;
+            top: 100px;
+            left: 280px;
+            width: 860px;
+            height: 630px;
+            background-image: url(../../img/homework/u3250.png);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            z-index: 2000;
+            padding-top: 30px;
+            box-sizing: border-box;
+            display: none;
+        }
+        .close{
+            background-image: url(../../img/homework/u3254.png);
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            background-size: 100% 100%;
+            cursor: pointer ;
+        }
+        .maskline p{
+            width: 200px;
+            text-align: center;
+            line-height: 30px;
+            font-size: 18px;
+        }
+        .maskline p input{
+            width: 16px;
+            height: 16px;
+        }
+        .maskline span{
+            display: inline-block;
+            line-height: 30px;
+            font-size: 18px;
+            text-align: center;
+            width: 60px;
+        }
+        .masksection{
+            margin-top: 10px;
+        }
+        .masksection>p{
+            line-height: 26px;
+            margin-top: 5px;
+            padding-left: 26px;
+            box-sizing: border-box;
+            font-size: 18px;
+            width: 96%;
+        }
+        .parsing{
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+        }
+        .cell1{
+            width: 10%;
+        }
+        .cell2{
+            width: 10%;
+        }
+        .cell3{
+            width: 10%;
+        }
+        .cell4{
+            width: 10%;
+        }
+        .cell5{
+            width: 10%;
+        }
+        .cell6{
+            width: 10%;
+        }
+        .cell7{
+            width: 10%;
+        }
+        .cell8{
+            width: 8%;
+        }
+        .cell9{
+            width: 10%;
+        }
+        .cell10{
+            width: 10%;
+        }
+        .allCount{
+            position: absolute;
+            bottom: -5%;
+            right: 33%;
+            width: 60px;
+            text-align: center;
+            line-height: 30px;
+            color: #fff;
+            background-color: rgba(98, 201, 210, 1);
+            font-size: 16px;
+            border-radius: 24px;
+        }
+        .bg-line{
+            bottom: 0px;
+        }
+	</style>
+</head>
+<body>
+    <div class="container">
+    	<div class="nav">
+    		<div class="logos lf">
+    			<img src="../../img/120.gif">
+    			<span>启思教育</span>
+    		</div>
+    		<div class="con_title">英语阅读宝</div>
+    		<div class="operation rf">
+    			<div class="ope_first lf">
+    				<img src="../../img/120.png">
+    				<span>张三</span>
+    				<img src="../../img/homework/u2104.png" class="tags">
+    				<ul class="message_list">
+    					<li>
+    						<a href="#">基本资料</a>
+    					</li>
+    					<li>
+    						<a href="#">安全设置</a>
+    					</li>
+    				</ul>
+    			</div>
+    			<div class="exit lf">
+    				<a href="../../index.html">退出</a>
+    			</div>
+    		</div>
+    		<div class="leafbg">
+    			<img src="../../img/homework/u1884.gif">
+    		</div>
+    	</div>
+        <div class="mainContent">
+
+        	
+            <div class="cenContent">
+                <div class="main">
+                <div class="mainleft">
+                    <ul class="nav_list">
+                        <li><a href="homework.html">布置作业</a> </li>
+                        <li>
+                            <a href="personal.html">个人作业</a>            
+                        </li>
+                        <li class="navactive"><a href="result.html">成绩统计</a></li>
+                        <li><a href="read.html">阅卷</a></li>
+                        <li><a href="were.html">错题库</a></li>
+                        <li><a href="assessment.html">评估</a></li>
+                        <li><a href="management.html">班级管理</a></li>
+                    </ul>
+                </div>
+                <div class="maincenter">
+                    
+                    <div class="cen_content">
+                        <div class="task_list">BACK</div>
+                        
+                        <div>
+                            <div class="decorate">布置班级作业</div>
+                            <div class="decorates">班级任务列表</div>
+                        </div>
+                         <!-- 表格 -->
+                        
+                         <ul class="tablelist">
+                             <!-- <li><p class="cell1">发布日期</p><p class="cell2">任务名称</p><p class="cell3">总分</p><p class="cell4">平均分</p><p class="cell5">平均用时</p><p class="cell6">得分率</p><p class="cell7">平均速度</p><p class="cell8">完成率</p><p class="cell9">查看</p></li>
+                             <li class="trline"  style="border-bottom:1px solid">
+                                 <p class="cell1">2018-01-01</p>
+                                 <p class="cell2">个人练习</p>
+                                 <p class="cell3">5</p>
+                                 <p class="cell4">2</p>
+                                 <p class="cell5">0.07</p>
+                                 <p class="cell6">40%</p>
+                                 <p class="cell7">2025.000</p>
+                                 <p class="cell8">100%</p>
+                                 <p class="cell9">
+                                    <span class="preview dbtn lf">预览</span>
+                                    <span class="view dbtn lf">查看</span>
+                                 </p>
+                             </li> -->
+                         </ul>
+                         <!-- 页码 -->
+                         <div class="count">1</div>
+                         <!-- 发布任务 -->
+                         <div class="release">
+                            发布任务
+                         </div>
+                        <!-- 左右翻页 -->
+                        <div class="left_btn">
+                            <img src="../../img/homework/u1878.gif">
+                        </div>
+                        <div class="right_btn">
+                            <img src="../../img/homework/u1879.gif">
+                        </div>
+                    </div>
+                </div>
+                <div class="mainright">
+                    <div class="classes">
+                        <div class="sec">
+                            
+                         </div>
+                        <div class="lastsec">
+                            <div class="lf classLf"><</div>
+                            <div class="lf classcount">1</div>
+                            <div class="lf classRf">></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+             <div class="bg-line"></div>   
+            <div class="premask">
+                <div class="close"></div>
+                <div class="masksection">
+                    <div class="maskline">
+                        <span class="lf" style="display: inline-block;">1.</span>
+                        <p class="lf">
+                            <input type="radio" name="x">
+                            <label>A. partly</label>
+                        </p>
+                        <p class="lf">
+                            <input type="radio" name="x">
+                            <label>B. finally</label>
+                        </p>
+                        <p class="lf">
+                            <input type="radio" name="x">
+                            <label>C. actually</label>
+                        </p>
+                        <p class="lf">
+                            <input type="radio" name="x">
+                            <label>D. actual</label>
+                        </p>
+                    </div>
+                    <p>答错学生：stu003|stu004</p>
+                    <p>正确答案：C</p>
+                    <p>大能力：词法</p>
+                    <p>小能力：副词</p>
+                    <p>解析：</p>
+                    <p class="parsing">南大街是否你说的烦恼是今年就发生的进口分年级开始的年福建省的那份你说的减肥你说的烦恼坚实的能否解释道南大街是否你说的烦恼是今年就发生的进口分年级开始的年福建省的那份你说的减肥你说的烦恼坚实的能否解释道南大街是否你说的烦恼是今年就发生的进口分年级开始的年福建省的那份你说的减肥你说的烦恼坚实的能否解释道</p>
+                </div>
+                <div class="masksection">
+                    <div class="maskline">
+                        <span class="lf" style="display: inline-block;">2.</span>
+                        <p class="lf">
+                            <input type="radio" name="y">
+                            <label>A. partly</label>
+                        </p>
+                        <p class="lf">
+                            <input type="radio" name="y">
+                            <label>B. finally</label>
+                        </p>
+                        <p class="lf">
+                            <input type="radio" name="y">
+                            <label>C. actually</label>
+                        </p>
+                        <p class="lf">
+                            <input type="radio" name="y">
+                            <label>D. actual</label>
+                        </p>
+                    </div>
+                    <p>答错学生：stu003|stu004</p>
+                    <p>正确答案：C</p>
+                    <p>大能力：词法</p>
+                    <p>小能力：副词</p>
+                    <p>解析：</p>
+                    <p class="parsing">南大街是否你说的烦恼是今年就发生的进口分年级开始的年福建省的那份你说的减肥你说的烦恼坚实的能否解释道南大街是否你说的烦恼是今年就发生的进口分年级开始的年福建省的那份你说的减肥你说的烦恼坚实的能否解释道南大街是否你说的烦恼是今年就发生的进口分年级开始的年福建省的那份你说的减肥你说的烦恼坚实的能否解释道</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/request.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript">
+    	$(function () {
+            //获取列表数据
+            var param={
+                'IndexPage':1,
+                'IndexSize':10
+                
+            }
+            var paramClass={
+                "IndexPage": 1,
+                "IndexSize":6
+            }
+            var classListId=[],gradeid='',gradeName='';//班级id列表
+            paramClass.TeacherId=localStorage.getItem('TeacherIds');
+            if(localStorage.getItem('teacherNames')){
+                $(".ope_first").find('span').text(localStorage.getItem('teacherNames'));
+             }
+            // param.SchoolId=localStorage.getItem('SchoolId');
+            //获取成绩列表
+            function getdata(){
+
+                var resultData=C.POST(param,httpUrl.TeacherTaskListClassAll);
+                if(resultData.result==1){
+                    createList(resultData.data);
+                }else{
+                    alert(resultData.message);
+                }
+            }
+            function createList(data){
+                var list='<li><p class="cell1">发布日期</p><p class="cell2">任务名称</p><p class="cell3">总分</p><p class="cell4">平均分</p><p class="cell5">平均用时</p><p class="cell6">得分率</p><p class="cell7">平均速度</p><p class="cell8">完成率</p><p class="cell9">班级详情</p><p class="cell10">个人详情</p></li>';
+                for(var i=0;i<data.length;i++){
+                   
+                    if(i<data.length-1){
+                        list+='<li class="trline"  style="border-bottom:1px solid">';
+                    }else{
+                        list+='<li class="trline">';
+                    }
+                    list+='<p class="chapter cell1">'+data[i].createDate+'</p>';
+                    list+='<p class="cell2">'+data[i].name+'</p>';
+                    list+='<p class="cell3">'+data[i].totalScore+'</p>';
+                    list+='<p class="cell4">'+data[i].writingScore+'</p>';
+                    list+='<p class="cell5">'+data[i].doQuestions+'</p>';
+                    list+='<p class="cell6">'+data[i].scoringRate+'</p>';
+                    list+='<p class="cell7">'+data[i].studentCount+'</p>';
+                    list+='<p class="cell8">'+data[i].completionRate+'</p>';
+                    list+=' <p class="cell9"><span class="preview dbtn lf">预览</span></p>';
+                    list+='<p class="cell10"><span class="view dbtn lf">查看</span></p>'
+                    list+='</li>';
+                }
+                $(".tablelist").html(list);
+            }
+            //获取班级列表
+            getClassData();
+            function getClassData(){
+                console.log(paramClass);
+                var classData=C.POST(paramClass,httpUrl.GetClassListByTeacherID);
+                if(classData.result==1){
+                    createClassList(classData.data);
+                    setClassCheck();
+                    // param.ClassId=classData.data[1].id;
+                    param.ClassId='aaa';
+                    getdata();
+                    classCount=classData.count;
+                }else{
+                    alert(classData.message);
+                }
+                
+            }
+            function createClassList(data){
+                console.log(data);
+                var list='';
+                for(var i=0;i<data.length;i++){
+                    if(param.ClassId==''){
+                        param.ClassId=data[i].id;
+                        getdata();
+                    }
+                    list+='<div id='+data[i].id+' gradeid='+data[i].gradeId+' gradename='+data[i].gradeName+' class="lf classtable">'+data[i].name+'<span>选中</span></div>'
+                }
+                $(".sec").html(list);
+
+            }
+            
+            $(".classLf").on("click",function(){
+                if(paramClass.IndexPage>1){
+                    paramClass.IndexPage--;
+                    $(".classcount").text(paramClass.IndexPage);
+                    
+                    getClassData();
+                }else{
+                    paramClass.IndexPage=1;
+                    alert("已经是第一页啦！");
+                }
+            });
+            $(".classRf").on("click",function(){
+                if(paramClass.IndexPage<classCount){
+                    paramClass.IndexPage++;
+                    $(".classcount").text(paramClass.IndexPage);
+                    getClassData();
+
+                }else{
+                    paramClass.IndexPage=classCount;
+                    alert("已经是最后一页啦！");
+                }
+            });
+            $(".classes").on("click",'.classtable',function(){
+                $(this).find('span').toggle();
+                //判断是否所有的班级选中全部清除
+                var spanbox=$('.classes').find('span');
+                // var boxBool=true;
+                var spanBool=$(this).find('span').css("display");
+                var spanId=$(this).attr('id');
+                var grades=$(this).attr('gradeid');  
+            
+                if(spanBool=='block'){
+                    if(gradeid==''){
+                        gradeid = grades;
+                         param.ClassId=spanId;
+                        getdata();
+                        gradeName = $(this).attr('gradeName');
+                        // return false; 
+                    }else{
+                        alert("不能同时选择两个班级！");
+                        $(this).find('span').hide();
+                        return false;
+                    }
+                }else{
+                    gradeid='';
+                }
+   
+                if(spanBool=='block'){
+                    classListId.push(spanId);
+                }else{
+                    var j=classListId.indexOf(spanId);
+                    classListId.splice(j,1);
+                }
+                 // getdata();
+            });
+            //翻页后班级是否选中
+            function setClassCheck(){
+                console.log(classListId);
+                if(classListId.length!=0){
+                    var spanRember=$(".classtable");
+                    for(var i=0;i<spanRember.length;i++){
+                        var ids=spanRember[i].id;
+                        if(classListId.indexOf(ids,0)!=-1){
+                            $(spanRember).eq(i).find('span').show();
+                        }else{
+                            $(spanRember).eq(i).find('span').hide();//可以不要
+                        }
+
+                    }
+                }
+            }
+            //页面自适应
+           $(window).resize(function () {  
+                C.resezes();
+            });
+            C.resizes();
+           
+    		
+            
+    	});
+    </script>
+</body>
+</html>

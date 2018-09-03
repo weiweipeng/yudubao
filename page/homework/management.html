@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>教师布置作业</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+	<style type="text/css">
+
+        .decorate,.decorates{
+        	color: #008000;
+            background-color: #fff;
+            height: 24px;
+            line-height: 24px;
+            width: 110px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            margin-left: 4px;
+            float: left;
+        }
+        .decorates{
+            float: right;
+        }
+        /*thead th{
+        	
+        	line-height: 26px;
+            text-align: center;
+        }
+        table{
+        	padding-left: 20px;
+        	padding-right: 20px;
+        	box-sizing: border-box;
+        	text-align: left;
+        	z-index: 20000;
+                margin-top: 4px;
+        }
+
+        tbody{
+        	text-align: center;
+        }
+        .trline{
+        	line-height: 45px;
+        }
+
+        tbody td{
+        	border-collapse: inherit;
+        }*/
+        /*.serial{
+           width: 20px;
+           line-height: 20px;
+           background-image: url(../../img/homework/u1888.png);
+           background-repeat: no-repeat;
+           background-size: 100% 100%;
+           text-align: center;
+           margin: 0 auto;
+        }
+
+            
+        .chapter{
+        	font-weight: 600;
+        	overflow: hidden;
+        	text-overflow: ellipsis;
+        	white-space: nowrap;
+        }
+        .dbtn{
+        	width: 35px;
+        	line-height: 22px;
+        	text-align: center;
+        	border:1px solid #999;
+        	border-radius: 3px;
+        	background-color: #f0f0f0;
+        	color: red;
+        	font-size: 12px;
+        	margin: 0 auto;
+        }*/
+        .title{
+            margin-top: 32px;
+        }
+        .title>span{
+            color: #fff;
+            font-size: 14px;
+        }
+        .title>span:last-child{
+            float: right;
+        }
+        .titrf{
+            margin-left: 60px;
+        }
+        .textlf,.textrf{
+            float: left;
+            width: 50%;
+            
+            box-sizing: border-box;
+        }
+        .che{
+            margin-left: 16px;
+        }
+        .choose>div{
+            line-height: 80px;
+            text-align: center;
+            color: #fff;
+        }
+        .join{
+            background-color: rgba(136, 200, 155, 1);
+        }
+        .create{
+            background-color: rgba(242, 139, 39, 1);
+        }
+        .chosec{
+            height: 80px;
+        }
+        .chosec>div{
+            width: 50%;
+            text-align: center;
+            line-height: 80px;
+        }
+        .add{
+            background-color: rgba(254, 105, 106, 1);
+        }
+        .delete{
+            background-color: rgba(195, 62, 177, 1);
+        }
+        .imformation{
+            height: 80px;
+            background-color: rgba(65, 179, 20, 1);
+            padding-top: 20px;
+            box-sizing: border-box;
+        }
+        .imformation>p{
+            height: 20px;
+            line-height: 20px;
+           
+        }
+        .bg-line{
+            bottom: 0px;
+        }
+        .cell1{
+            width: 15%;
+        }
+        .cell2{
+            width: 15%;
+        }
+        .cell3{
+            width: 15%;
+        }
+        .cell4{
+            width: 15%;
+        }
+        .cell5{
+            width: 36%;
+        }
+        .trline {
+            height: 40px;
+            margin-top: 3px;
+            box-sizing: border-box;
+            line-height: 45px;
+        }
+        .cell5>span{
+            cursor: pointer;
+        }
+        .che .input_che:checked+span:after{
+            top: -7px;
+        }
+        .rightSure{
+            width: 60px!important;
+            line-height: 28px!important;
+            border-radius: 5px;
+            background-color: #5FB878;
+            margin: 0 auto;
+            text-align: center;
+            color: #fff;
+        }
+        .layerMask .layers {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            line-height: 140px;
+            margin-top: -70px;
+            margin-left: -100px;
+            border-radius: 5px;
+            background-color: #fff;
+            float: left;
+            padding: 10px;
+        }
+        .layerMask .layers .imfor {
+            padding: 0px 20px;
+            height: 50px;
+            line-height: 55px;
+            width: 280px;
+            font-size: 14px;
+        }
+        .layerMask .layers span {
+            background-image: url(../../img/img.png);
+            height: 40px;
+            width: 40px;
+            display: inline-block;
+            float: left;
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+
+        .addMask{
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            background-color: rgba(0,0,0,0.3);
+            display: none;
+        }
+        .layers,.createClass,.joinClass{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+           
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            display: none;
+        }
+        .layers{
+            width: 300px;
+            height: 200px;
+            margin-left: -150px;
+            margin-top: -100px;
+        }
+        .createClass{
+            width: 300px;
+            height: 280px;
+            margin-left: -150px;
+            margin-top: -140px;
+            
+        }
+        .joinClass{
+            width: 300px;
+            height: 120px;
+            margin-left: -150px;
+            margin-top: -60px;
+        }
+        .apply{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            background-color: #fff;
+            /* border-radius: 10px; */
+            padding: 10px;
+            width: 360px;
+            height: 180px;
+            margin-left: -180px;
+            margin-top: -90px;
+            display: none;
+        }
+        #addform{
+            width: 100%;
+            text-align: center;
+        }
+        .inlines{
+            margin-top: 20px;
+            width: 210px;
+            margin-left: 45px;
+        }
+        .inlines>label{
+            width: 60px;
+            display: inline-block;
+        }
+        .inlines>input,.inlines>select{
+            width: 140px;
+            height: 26px;
+            line-height: 26px;
+            padding-left: 6px;
+            border-radius: 2px;
+            border:1px solid #999;
+            box-sizing: border-box;
+            /*background?-color: #f0f0f0;*/
+        }
+        .inline_btn{
+            margin-top: 30px;
+            width: 200px;
+            margin-left: 50px;
+            color: #fff;
+        }
+        .inline_btn>div{
+            width: 60px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-left: 26px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .inline_sure,.inline_create,.join_sure,.applySure{
+            background-color: #5FB878
+        }
+        .inline_exit,.inline_createExit,.join_exit,.applyError{
+            background-color: #FFB800;
+        }
+        #AfterSchool{
+            width: 60px;
+        }
+        .inlines>p{
+            font-size: 12px;
+            color: red;
+
+        }
+        .apply>p{
+            display: inline-block;
+            padding: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .apply>p:first-child{
+            height: 36px;
+            line-height: 26px;
+        }
+        .applyclose{
+            float: right;
+            cursor: pointer;
+        }
+        .apply_list{
+            /*border-top: 1px solid #D1D1D1;*/
+            overflow-y: auto;
+            height: 140px;
+        }
+        .apply_list li{
+            height: 50px;
+            width: 100%;
+            border-bottom: 1px solid #D1D1D1;
+            display: flex;
+            
+            align-items: center;
+        }
+        .apply_list li>div{
+            display: inline-block;
+
+        }
+        .applyImfor{
+            width: 70%;
+            float: left;
+        }
+        .applyImfor>p{
+            line-height: 25px;
+            font-size: 14px;
+        }
+        .applyImfor span{
+            color: red;
+            margin-right: 5px;
+        }
+        .applyBtn{
+            width: 30%;
+            float: right;
+        }
+        .applyBtn>p{
+            display: inline-block;
+            width: 50px;
+            line-height: 26px;
+            text-align: center;
+            border-radius: 3px;
+            color: #fff;
+        }
+        .applySure{
+            float: left;
+        }
+        .applyError{
+            float: right;
+        }
+	</style>
+
+</head>
+<body>
+    <div class="container">
+    	<div class="nav">
+    		<div class="logos lf">
+    			<img src="../../img/120.png">
+    			<span>启思教育</span>
+    		</div>
+    		<div class="con_title">英语阅读宝</div>
+    		<div class="operation rf">
+    			<div class="ope_first lf">
+    				<img src="../../img/120.png">
+    				<span>张三</span>
+    				<img src="../../img/homework/u2104.png" class="tags">
+    				<ul class="message_list">
+    					<li>
+    						<a href="#">基本资料</a>
+    					</li>
+    					<li>
+    						<a href="#">安全设置</a>
+    					</li>
+    				</ul>
+    			</div>
+    			<div class="exit lf">
+    				<a href="../../index.html">退出</a>
+    			</div>
+    		</div>
+    		<div class="leafbg">
+    			<img src="../../img/homework/u1884.gif">
+    		</div>
+    	</div>
+        <div class="mainContent">
+            <div class="cenContent">
+                <div class="main">
+                <div class="mainleft">
+                    <ul class="nav_list">
+                        <li><a href="homework.html">布置作业</a> </li>
+                        <li>
+                            <a href="personal.html">个人作业</a>            
+                        </li>
+                        <li><a href="result.html">成绩统计</a></li>
+                        <li><a href="read.html">阅卷</a></li>
+                        <li><a href="were.html">错题库</a></li>
+                        <li><a href="assessment.html">评估</a></li>
+                        <li class="navactive"><a href="management.html">班级管理</a></li>
+                    </ul>
+                </div>
+                <div class="maincenter">
+                    
+                    <div class="cen_content">
+                        <div class="task_list">任务列表</div>
+                        
+                        <div>
+                            <div class="decorate">布置班级作业</div>
+                            <div class="decorates">布置班级作业</div>
+                            <div class="decorates">布置班级作业</div>
+                        </div>
+                        <div class="title">
+                            <span>八年级</span>
+                            <span>106班</span>
+                            <span class="titrf">班级编号</span>
+                            <span>100009</span>
+                            <span>班级编号由系统自动生成。请将班级编号告知本班学生，以加入班级</span>
+                        </div>
+                         <!-- 表格 -->
+                         <div class="textlf">
+                            <ul class="tablelist1 tablelist "></ul>
+                         </div>
+                         <div class="textrf">
+                             <ul class="tablelist2 tablelist "></ul>
+                         </div>
+                         <!-- 页码 -->
+                         <div class="count">1</div>
+                        
+                        <!-- 左右翻页 -->
+                        <div class="left_btn">
+                            <img src="../../img/homework/u1878.gif">
+                        </div>
+                        <div class="right_btn">
+                            <img src="../../img/homework/u1879.gif">
+                        </div>
+                    </div>
+                </div>
+                <div class="mainright">
+                    <div class="classes">
+                        <div class="sec">
+                            
+                         </div>
+                        <div class="lastsec">
+                            <div class="lf classLf"><</div>
+                            <div class="lf classcount">1</div>
+                            <div class="lf classRf">></div>
+                        </div>
+                    </div>
+                    <div class="choose">
+                        <div class="join">加入班级</div>
+                        <div class="create">创建班级</div>
+                        <div class="chosec">
+                            <div class="lf add">
+                                添加学生
+                                
+                            </div>
+                            <div class="lf delete">
+                                删除学生
+                            </div>
+                        </div>
+                        <div class="imformation">
+                            <p>xx请求加入您的班级</p>
+                            <P>消息提醒</P>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        	<div class="bg-line"></div>    
+        </div>
+    </div>
+    <div class="layerMask"></div>
+    <div class="addMask">
+        <div class="layers">
+            <form id="addform">
+                <div class="inlines">
+                    <label>学生学号：</label>
+                    <input type="text" name="StudentId" id="StudentId">
+                </div>
+                <div class="inlines">
+                    <label>班级：</label>
+                    <select name="ClassId" id="ClassId">
+                        
+                    </select>
+                </div>
+                <div class="inline_btn">
+                    <div class="inline_sure">确定</div>
+                    <div class="inline_exit">取消</div>
+                </div>
+            </form>
+        </div>
+        <div class="createClass">
+            <form id="createform">
+                <div class="inlines">
+                    <label>班级名称：</label>
+                    <input type="text" name="Name" id="className" maxlength="3">
+                </div>
+                <div class="inlines">
+                    <p>*命名规则：长度为三个字符,例如“八年级六班”为“八六班”,“高一二班”为“高一二”</p>
+                </div>
+                <div class="inlines">
+                    <label>年级编号：</label>
+                    <select name="GradeId" id="GradeId">
+                        <option value="1">一年级</option>
+                        <option value="2">二年级</option>
+                        <option value="3">三年级</option>
+                        <option value="4">四年级</option>
+                        <option value="5">五年级</option>
+                        <option value="6">六年级</option>
+                        <option value="7">七年级</option>
+                        <option value="8">八年级</option>
+                        <option value="9">九年级</option>
+                        <option value="10">高一</option>
+                        <option value="11">高二</option>
+                        <option value="12">高三</option>
+                    </select>
+                </div>
+                <div class="inlines inlines_bool">
+                    <label>是否校外：</label>
+                    <select name="AfterSchool" id="AfterSchool">
+                        <option value="true">true</option>
+                        <option value="false">false</option>
+                    </select>
+                </div>
+                
+                <div class="inline_btn">
+                    <div class="inline_create">确定</div>
+                    <div class="inline_createExit">取消</div>
+                </div>
+            </form>
+        </div>
+        <div class="joinClass" >
+            <form id="joinClass">
+               
+                <div class="inlines">
+                    <label>班级：</label>
+                    <select name="ClassId" id="ClassIds">
+                        
+                    </select>
+                </div>
+                <div class="inline_btn">
+                    <div class="join_sure">确定</div>
+                    <div class="join_exit">取消</div>
+                </div> 
+            </form>
+        </div>
+        <div class="apply">
+            <p>消息盒子</p>
+            <p class="applyclose">×</p>
+            <ul class="apply_list">
+                <li>
+                    <div class="applyImfor">
+                        <!-- <p>喂喂</p> -->
+                        <p><span>喂喂</span>申请加入您的班级</p>
+                    </div>
+                    <div class="applyBtn">
+                        <p class="applySure">同意</p>
+                        <p class="applyError">取消</p>
+                    </div>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="loading">
+        <div class="loadBox">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript" src="../../js/request.js"></script>
+    <script type="text/javascript">
+    	$(function () {
+            var paramClass={
+                "IndexPage": 1,
+                "IndexSize":6
+            }
+            var stu={
+               "IndexPage": 1,
+                "IndexSize":20 
+            }
+            var allClass={
+                "IndexPage": 1,
+                "IndexSize":100
+            }
+            var deleteArr={};//删除学生
+            var applystu={
+                "IndexPage": 1,
+                "IndexSize":10
+            };//获取申请加入的学生的信息
+            //获取班级列表
+             var classListId=[],gradeid='',gradeName='',classCount=1,classNum=0;//班级id列表
+             paramClass.TeacherId=localStorage.getItem('TeacherIds');
+             allClass.TeacherId=localStorage.getItem('TeacherIds');
+            getClassData();
+            function getClassData(){
+                console.log(paramClass);
+                var classData=C.POST(paramClass,httpUrl.GetClassListByTeacherID,successGetclass);
+            }
+            function successGetclass(classData) {
+                if(classData.Result==1){
+                    
+                    $(".classcount").text(paramClass.IndexPage);
+                    createClassList(classData.Data);
+                    setClassCheck();
+                    stu.ClassId=classData.Data[1].Id;
+                    stu.ClassId='aaa';
+                    applystu.ClassId=classData.Data[1].Id;
+                    applystu.ClassId='aaa';
+
+                    getstu();
+                    
+                    if(classData.count%paramClass.IndexSize>0){
+                        classCount=parseInt(classData.Count/paramClass.IndexSize)+1;
+                    }else{
+                        classCount=parseInt(classData.Count/paramClass.IndexSize);
+                    }
+                    
+                }else{
+                    paramClass.IndexPage-=classNum;
+                    C.layer(1,classData.Message);
+                }
+            }
+            function createClassList(data){
+                console.log(data);
+                var list='';
+                for(var i=0;i<data.length;i++){
+                    // if(param.ClassId==''){
+                    //     // param.ClassId=data[i].id;
+                    //     // getdata();
+                    // }
+                    list+='<div id='+data[i].Id+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].Name+'<span>选中</span></div>'
+                }
+                $(".sec").html(list);
+
+            }
+            
+            $(".classLf").on("click",function(){
+                if(paramClass.IndexPage>1){
+                    
+                    classNum=-1;
+                   paramClass.IndexPage+=classNum;
+                    getClassData();
+                }else{
+                    paramClass.IndexPage=1;
+                    C.layer(2,"已经是第一页啦！");
+                }
+            });
+            $(".classRf").on("click",function(){
+                if(paramClass.IndexPage<classCount){
+                    classNum=1;
+                    paramClass.IndexPage+=classNum;
+                    getClassData();
+
+                }else{
+                    paramClass.IndexPage=classCount;
+                    C.layer(2,"已经是最后一页啦！");
+                }
+            });
+            $(".classes").on("click",'.classtable',function(){
+                $('.classes').find('span').hide();
+                //判断是否所有的班级选中全部清除
+                var spanbox=$('.classes').find('span');
+                // var boxBool=true;
+                var spanBool=$(this).find('span').css("display");
+                var spanId=$(this).attr('id');
+                var grades=$(this).attr('gradeid');  
+            
+                deleteArr.ClassId=spanId;
+                gradeid = spanId;
+                applystu.ClassId=spanId;
+                gradeName = $(this).attr('gradeName');
+
+       
+                 $(this).find('span').show();
+                 // getdata();
+            });
+            //翻页后班级是否选中
+            function setClassCheck(){
+                console.log(classListId);
+                var ids=$(".classes").find('.classtable');
+                for(var i=0;i<ids.length;i++){
+                    var ID=$(ids).eq(i).attr('id');
+                    if(gradeid==ID){
+                        $(".classes").find('.classtable').eq(i).find('span').show();
+                    }
+                }
+         
+            }
+            //获取学生信息
+            var tablenum=0;
+            function getstu(){
+                var data=C.POST(stu,httpUrl.GetStudentsListByClassID,successGetstu);
+            }
+            function successGetstu(datas){
+                if(datas.Result==1){
+                    stu.IndexPage+=tablenum;
+                    var data=datas.Data;
+                    var len=datas.Data.length;
+                    var half=parseInt(len/2);
+                    var lists='<li><p class="cell1">编号</p><p class="cell2">选中</p><p class="cell3">账号</p><p class="cell4">姓名</p><p class="cell5">操作</p></li>';
+                    var list1='',list2='';
+                    for(var i=0;i<half;i++){
+                        var index=1;
+                        if(tablenum==0){
+                            index=i+1;
+                        }else{
+                            index=stu.IndexPage*stu.IndexSize+i+1;
+                        }
+                        if(i<data.length-1){
+                            list1+='<li class="trline"  style="border-bottom:1px solid #999">';
+                           
+                        }else{
+                            list1+='<li class="trline">';
+                            
+                        }
+                        
+                        list1+='<p class="cell1"> <span class="serial">'+index+'</span> </p>';
+                        list1+='<p class="cell2"><label class="che"><input id='+data[i].Id+' type="checkbox" class="input_che" ><span></span></label></p>';
+                        list1+='<p class="chapter cell3">'+data[i].Id+'</p>';
+                        list1+='<p class="cell4">'+data[i].StudentName+'</p>';
+                        list1+='<p class="cell5"><span class="reset" id="'+data[i].Id+'">重置密码</span>/<span class="getimfor" id="'+data[i].Id+'">查看密码</span></p>';
+                       
+                        list1+='</li>';
+                    }
+                    $(".tablelist1").html(lists+list1);
+                    for(var i=half;i<len;i++){
+                        var index=1;
+                        if(tablenum==0){
+                            index=i+1;
+                        }else{
+                            index=stu.IndexPage*stu.IndexSize+i+1;
+                        }
+                        if(i<data.length-1){
+                            list2+='<li class="trline"  style="border-bottom:1px solid #999">';
+                           
+                        }else{
+                            list2+='<li class="trline">';
+                            
+                        }
+                        
+                        list2+='<p class="cell1"> <span class="serial">'+index+'</span> </p>';
+                        list2+='<p class="cell2"><label class="che"><input id='+data[i].Id+' type="checkbox" class="input_che" ><span></span></label></p>';
+                        list2+='<p class="chapter cell3">'+data[i].Id+'</p>';
+                        list2+='<p class="cell4">'+data[i].StudentName+'</p>';
+                        list2+='<p class="cell5"><span class="reset" id="'+data[i].Id+'">重置密码</span>/<span class="getimfor" id="'+data[i].Id+'">查看密码</span></p>';
+                       
+                        list2+='</li>';
+                    }
+                    $(".tablelist2").html(lists+list2);
+                    $(".count").text(stu.IndexPage);
+                }else{
+                     stu.IndexPage-=tablenum;
+                    C.layer(1,datas.Message);
+                }
+            }
+
+            $(".left_btn").on("click",function(){
+                if(stu.IndexPage>1){
+                   
+                    tablenum=-1;
+                    
+                    getstu();
+                }else{
+                    stu.IndexPage=1;
+                    C.layer(2,"已经是第一页啦！");
+                }
+            });
+            $(".right_btn").on("click",function(){
+                if(stu.IndexPage<count){
+                   
+                    tablenum=1;
+                    
+                    getstu();
+
+                }else{
+                    stu.IndexPage=count;
+                     C.layer(2,"已经是最后一页啦！");
+                }
+            });
+            //查看密码
+            $('.tablelist').on('click','.getimfor',function(){
+                var option={};
+                option.Id=$(this).attr('id');
+                // option.Id='s004';
+                var data=C.POSTS(JSON.stringify(option),'http://192.168.16.99:3246/api/ClassManager/GetStudentPwd',successGetimfor);
+            });
+            function successGetimfor(data){
+                if(data.Result==1){
+                    C.comfig('您的密码：'+data.Data);
+                }else{
+                    C.layer(1,data.Message)
+                }
+            }
+            //重置密码
+            $('.tablelist').on('click','.reset',function(){
+                var option={};
+                option.Id=$(this).attr('id');
+                var data=C.POSTS(JSON.stringify(option),'http://192.168.16.99:3246/api/ClassManager/GetStudentPwd',successReset);
+            })
+            function successReset(data){
+                if(data.Result==1){
+                    C.comfig('您的密码重置为：'+data.Data);
+                }else{
+                    C.layer(1,data.Message);
+                }
+            }
+            //删除学生
+            
+            $('.delete').on('click',function(){
+              
+                var arr=$('input[type=checkbox]:checked');
+                console.log(arr);
+                 deleteArr.Id=[];
+                $.each(arr,function(i,val){
+                    console.log($(val).attr('id'));
+                    var stuid=$(val).attr('id')
+                   
+                    deleteArr.Id.push(stuid);
+                })
+                console.log(deleteArr.ClassId);
+                if(deleteArr.ClassId==undefined){
+                    C.layer(1,'请先选择班级！');
+                    return false;
+                }
+                console.log(JSON.stringify(deleteArr));
+                C.POST(deleteArr,'http://192.168.16.99:3246/api/ClassManager/DelClassStudent',successDelete);
+            });
+            function successDelete(data){
+                if(data.Result==1){
+                    C.layer(3,data.Message);
+                }else{
+                    C.layer(1,data.Message);
+                }
+            }
+            //添加学生
+            $('.add').on('click',function(){
+                
+                console.log(allClass);
+                C.load(0);
+                var data=C.POST(allClass,httpUrl.GetClassListByTeacherID,successAdd);
+            });
+            function successAdd(datas){
+                var data=datas.Data;
+                var str='';
+                if(datas.Result==1){
+                    for(var i=0;i<data.length;i++){
+                        str+='<option value="'+data[i].Id+'">'+data[i].Name+'</option>'
+                    }
+                    console.log(str);
+                    $("#ClassId").html(str);
+                    $('.addMask').show();
+                    $('.layers').show();
+                    C.load(1);
+                }else{
+                    C.layer(1,datas.Message);
+                }
+            }
+            $("body").on('click',".inline_sure",function(){
+                var stuSubQueListTemp={};
+                $.each($("#addform").serializeArray(), function (i, v) {
+                    if (stuSubQueListTemp[v.name] != undefined) {
+                        stuSubQueListTemp[v.name] += '|' + v.value.trim();
+                    } else {
+                        stuSubQueListTemp[v.name] = v.value.trim();
+                    }
+                });
+                stuSubQueListTemp.schoolId=localStorage.getItem('schoolId');
+                var datas=C.POST(stuSubQueListTemp,'http://192.168.16.99:3246/api/ClassManager/AddStudentToClass',successAddstu);
+                console.log(stuSubQueListTemp);
+            })
+
+            function successAddstu(data){
+                if(data.Result==1){
+                    $('.addMask').hide();
+                    $('.layers').hide();
+                    C.layer(3,data.Message);
+                }else{
+                    C.layer(1,data.Message);
+                }
+            }
+            $('body').on('click','.inline_exit,.inline_createExit,.join_exit',function(){
+                $('.addMask').hide();
+                $('.layers').hide();
+                $('.joinClass').hide();
+                $('.createClass').hide();
+            });
+           
+            //创建班级
+            $('.create').on('click',function(){
+                $('.addMask').show();
+                $('.createClass').show();
+                
+            });
+             $('body').on('click','.inline_create',function(){
+                C.load(0);
+                var stuSubQueListTemp={};
+                $.each($("#createform").serializeArray(), function (i, v) {
+                    if (stuSubQueListTemp[v.name] != undefined) {
+                        stuSubQueListTemp[v.name] += '|' + v.value.trim();
+                    } else {
+                        stuSubQueListTemp[v.name] = v.value.trim();
+                    }
+                });
+                stuSubQueListTemp.schoolId=localStorage.getItem('schoolId');
+                stuSubQueListTemp.CreateId=localStorage.getItem('TeacherIds');
+                console.log(stuSubQueListTemp);
+                var data=C.POST(stuSubQueListTemp,'http://192.168.16.99:3246/api/ClassManager/CreatClass',successCreate);
+            });
+            function successCreate(data){
+                if(data.Result==1){
+                    C.load(1);
+                    $('.addMask').hide();
+                    $('.createClass').hide();
+                    C.layer(3,data.Message);
+                }else{
+                    C.layer(1,data.Message);
+                }
+            }
+            //加入班级
+            $('.join').on('click',function(){
+              
+                 // C.load(0);
+                 console.log(111);
+                var data=C.POST(allClass,httpUrl.GetClassListByTeacherID,successJoinClass);
+            });
+            function successJoinClass(datas){
+                var data=datas.Data;
+                var str='';
+                console.log(111);
+                if(datas.Result==1){
+                    for(var i=0;i<data.length;i++){
+                        str+='<option value="'+data[i].Id+'">'+data[i].Name+'</option>'
+                    }
+                    console.log(222);
+                    console.log(str);
+                    $("#ClassIds").html(str);
+                    $('.addMask').show();
+                    $('.joinClass').show();
+                    C.load(1);
+                }else{
+                    C.layer(1,datas.Message);
+                }
+            }
+            $('body').on('click','.join_sure',function(){
+                C.load(0);
+                var stuSubQueListTemp={};
+                $.each($("#joinClass").serializeArray(), function (i, v) {
+                    if (stuSubQueListTemp[v.name] != undefined) {
+                        stuSubQueListTemp[v.name] += '|' + v.value.trim();
+                    } else {
+                        stuSubQueListTemp[v.name] = v.value.trim();
+                    }
+                });
+                stuSubQueListTemp.CourseId='2';
+                stuSubQueListTemp.schoolId=localStorage.getItem('schoolId');
+                stuSubQueListTemp.TeacherId=localStorage.getItem('TeacherIds');
+                console.log(stuSubQueListTemp);
+                var data=C.POST(stuSubQueListTemp,'http://192.168.16.99:3246/api/ClassManager/JoinClass',successJoin);
+            });
+            function successJoin(data){
+                if(data.Result==1){
+                    C.load(1);
+                    $('.addMask').hide();
+                    $('.joinClass').hide();
+                    C.layer(3,data.Message);
+                }else{
+                    C.layer(1,data.Message);
+                }
+            }
+            //申请加入
+            $('.imformation').on('click',function(){
+                // $('.addMask').show();
+                C.load(0);
+                var data=C.POSTS(JSON.stringify(applystu),httpUrl.GetStudentsListByClassIDNoApproved,successApply);
+            });
+            function successApply(datas){
+                if(datas.Result==1){
+                    C.load(1);
+                    if(datas.Data!=null){
+                        var str='';
+                        var data=datas.Data;
+                        for(var i=0;i<data.length;i++){
+                            str+='<li><div class="applyImfor"><p><span>'+data[i].StudentName+'</span>申请加入您的班级</p></div><div class="applyBtn"><p class="applySure" id="'+data[i].StudentId+'">同意</p><p class="applyError" id="'+data[i].StudentId+'">取消</p></div></li>'
+                        }
+                        $('.addMask').show();
+                        $('.apply').show();
+                        $('.apply_list').html(str);
+                    }else{
+                        C.layer(2,datas.Message);
+                    }
+                    
+                }else{
+                    C.layer(1,datas.Message);
+                }
+            }
+            $('.apply_list').on('click','.applySure',function(){
+                var id=$(this).attr('id');
+                var param={};
+                param.StudentId=id;
+                var data=C.POSTS(JSON.stringify(param),'http://192.168.16.99:3246/api/ClassManager/ApprovedClassStudent',successSure)
+            });
+            function successSure(datas){
+                if(datas.Result==1){
+                    C.layer(3,datas.Message);
+                }else{
+                    C.layer(1,datas.Message);
+                }
+            }
+            $('body').on('click','.applyclose',function(){
+                $('.addMask').hide();
+                $('.apply').hide();
+            });
+            $('.apply_list').on('click','.applySure',function(){
+                var sure={};
+                sure.StudentId = $(this).attr('id');
+                var data=C.POSTS(sure,'http://192.168.16.99:3246/api/ClassManager/ApprovedClassStudent',sucSure);
+            });
+            function sucSure(datas){
+                if(datas.Result==1){
+
+                }else{
+                    C.layer(1,datas.Message);
+                }
+            }
+            //页面自适应
+           $(window).resize(function () {  
+                C.resezes();
+            });
+            C.resizes();
+            if(localStorage.getItem('teacherNames')){
+                $(".ope_first").find('span').text(localStorage.getItem('teacherNames'));
+             }
+    		$(".ope_first").on({
+    			mouseover:function (e) {
+    				e.stopPropagation();
+    				$(".message_list").show();
+    			},
+    			mouseout:function (e) {
+    				e.stopPropagation();
+    				$(".message_list").hide();
+    			}
+    		});
+    		$(".release").on("click",function () {
+    			
+    		});
+    	});
+    </script>
+</body>
+</html>

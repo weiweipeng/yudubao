@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>布置个人作业</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+        <link rel="stylesheet" type="text/css" href="../../css/shijian.css">
+	<style type="text/css">
+		
+        .decorate{
+        	
+        	color: #008000;
+            background-color: #fff;
+            height: 24px;
+            line-height: 24px;
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            /*margin-top: 4px;*/
+            margin-bottom: 4px;
+            margin-left: 4px;
+        }
+  
+   
+        .bg-line{
+            bottom: 0px!important;
+        }
+        .choose{
+            margin-top: 0px;
+            margin-bottom: 25px;
+        }
+        .students{
+            margin-top: 25px;
+        }
+        .starttime,.endtime{
+            background-color: rgba(0, 204, 153, 1);
+        }
+        .starttime{
+            border-right: 1px solid #999;
+            box-sizing: border-box;
+        }
+        .statistical{
+            background-color: rgba(136, 200, 155, 1);
+        }
+        .big{
+            background-color: rgba(0, 172, 223, 1);
+        }
+        .small{
+            background-color: rgba(0, 160, 135, 1);
+        }
+        .stylesta{
+            background-color: rgba(65, 179, 20, 1);
+        }
+        .topicstas{
+            background-color: rgba(195, 62, 177, 1);
+        }
+        .topicsta{
+            background-color: rgba(254, 105, 106, 1);
+        }
+        .bg-line{
+            bottom: 0px;
+        }
+        /*.choose>div{
+            line-height: 57px;
+            text-align: center;
+            color: #fff;
+        }*/
+        .join{
+            background-color: rgba(136, 200, 155, 1);
+        }
+        .create{
+            background-color: rgba(242, 139, 39, 1);
+        }
+        .chosec{
+            height: 57px;
+        }
+        .chosec>div{
+            width: 50%;
+            text-align: center;
+            /*line-height: 57px;*/
+            height: 57px;
+        }
+        .logoTitle:after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+        .cell1{
+            width: 10%;
+           }
+           .cell2{
+            width: 10%;
+           }
+           .cell3{
+            width: 10%;
+           }
+           .cell4{
+            width: 10%;
+           }
+           .cell5{
+            width: 10%;
+           }
+           .cell6{
+            width: 10%;
+           }
+           .cell7{
+            width: 10%;
+           }
+           .cell8{
+            width: 10%;
+           }
+
+           .cell9{
+            width: 10%;
+           }
+           .box{
+                text-align: center;
+            }
+
+            /*.jsbox{
+                max-width: 500px;
+                text-align: left;
+                margin: 0 auto;
+            }*/
+            #startTime,#endTime{
+                background-color: rgba(136,200,155,1);
+                border: 0px;
+                text-align: center;
+                color: #333;
+                width: 100%;
+            }
+	</style>
+</head>
+<body>
+    <div class="container">
+    	<div class="nav">
+    		<div class="logos lf">
+    			<img src="../../img/120.png">
+    			<span>启思教育</span>
+    		</div>
+    		<div class="con_title">英语阅读宝</div>
+    		<div class="operation rf">
+    			<div class="ope_first lf">
+    				<img src="../../img/120.png">
+    				<span class="names"></span>
+    				<img src="../../img/homework/u2104.png" class="tags">
+    				<ul class="message_list">
+    					<li>
+    						<a href="#">基本资料</a>
+    					</li>
+    					<li>
+    						<a href="#">安全设置</a>
+    					</li>
+    				</ul>
+    			</div>
+    			<div class="exit lf">
+    				退出
+    			</div>
+    		</div>
+    		<div class="leafbg">
+    			<img src="../../img/homework/u1884.gif">
+    		</div>
+    	</div>
+        <div class="mainContent">
+            <div class="cenContent">
+            	<div class="main">
+            		<div class="mainleft">
+            			<ul class="nav_list">
+            				<li><a href="practice.html">作业练习</a> </li>
+                            <li>
+                                <a href="statistical.html">成绩统计</a>            
+                            </li>
+                            <li><a href="errorCollection.html">错题库</a></li>
+                           
+                            <li><a href="assessment.html">评估</a></li>
+                            <li class="navactive"><a href="ranking.html">排行榜</a></li>
+            			</ul>
+            		</div>
+        	    	<div class="maincenter">
+        	    		
+        	    		<div class="cen_content">
+        	    			
+                            <div class="logoTitle">
+                                <div class="decorate lf">排行榜</div>
+                                <div class="decorate rf">默认统计一个学期</div>
+                            </div>
+                            
+                             <!-- 表格 -->
+
+                             <ul class="tablelist"></ul>
+                            
+        	    			<!-- 左右翻页 -->
+        	    			<div class="left_btn">
+        		    			<img src="../../img/homework/u1878.gif">
+        		    		</div>
+        		    		<div class="right_btn">
+        		    			<img src="../../img/homework/u1879.gif">
+        		    		</div>
+        	    		</div>
+        	    	</div>
+        	    	<div class="mainright">
+                        <div class="choose">
+                            <div class="chosec">
+                                <div class="lf starttime">
+                                    <p>开始时间</p>
+                                    <div class="box">
+                                        <input type="text"  id="startTime" value="未选择"/>
+                                    
+                                    </div>
+                                    
+                                </div>
+                                <div class="lf endtime">
+                                    <p>结束时间</p>
+                                    <div class="box">
+                                        <input type="text"  id="endTime" value="未选择"/>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                     
+                            <!-- <div class="statistical">速度与成绩统计</div>
+                            <div class="chosec">
+                                <div class="lf big">
+                                    大能力点
+                                    
+                                </div>
+                                <div class="lf small">
+                                    小能力点
+                                </div>
+                            </div>
+                            <div class="stylesta">
+                                文体统计
+                               
+                            </div>
+                            <div class="chosec">
+                                <div class="lf topicsta">
+                                    话题统计
+                                    
+                                </div>
+                                <div class="lf topicstas">
+                                    题型统计
+                                </div>
+                            </div> -->
+                        </div>
+        	    		<div class="classes">
+                            <div class="sec classSec">
+                                
+                             </div>
+                            <div class="lastsec">
+                                <div class="lf classLf"><</div>
+                                <div class="lf classcount">1</div>
+                                <div class="lf classRf">></div>
+                            </div>
+                        
+                        </div>
+        	    	</div>
+            	</div>
+            </div>
+            <div class="bg-line"></div>
+        </div>
+    </div>
+    <div class="layerMask"></div>
+    <div class="loading">
+        <div class="loadBox">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/request.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript" src="../../js/jquer_shijian.js"></script>
+    <script type="text/javascript">
+    	$(function () {
+             var paramClass={
+                "IndexPage": 1,
+                "IndexSize":6
+            }
+            var paramrank={};
+            //默认时间
+            var myDate = new Date();
+            var y= myDate.getFullYear(); 
+            var m=myDate.getMonth();
+            var d=myDate.getDate();
+            paramrank.startDate = y+'-'+(m-1)+'-'+d;
+            paramrank.endDate = y+'-'+m+'-'+d;
+            console.log(paramrank);
+
+            paramClass.studentId ='s004';
+            paramrank.schoolId=localStorage.getItem('schoolId');
+             var classListId=[],gradeid='',gradeName='';//班级id列表
+             var count="";
+             $("#startTime").shijian({
+                // y:-20,//当前年份+10
+                Hour:false,//是否显示小时
+                Minute:false,//是否显分钟
+                // success:function(){}
+            })
+             $("#endTime").shijian({
+                // y:-20,//当前年份+10
+                Hour:false,//是否显示小时
+                Minute:false,//是否显分钟
+                // success:function(){}
+            })
+            if(localStorage.getItem('studentName')){
+                $('.names').text(localStorage.getItem('studentName'));
+            }
+    		 //获取班级信息
+            getClassData();
+            var classCount=0,classNum=0;
+            function getClassData(){
+                var classData=C.POSTS(JSON.stringify(paramClass),httpUrl.GetPageClassStudent,successGetclass);
+            }
+            function successGetclass(classData) {
+                if(classData.Result==1){
+                    $(".classcount").text(paramClass.IndexPage);
+                    paramrank.ClassId='aaa';
+                    getRank();
+                    if(classData.Count%paramClass.IndexSize>0){
+                        classCount=parseInt(classData.Count/paramClass.IndexSize)+1;
+                    }else{
+                        classCount=parseInt(classData.Count/paramClass.IndexSize);
+                    }
+                    createClassList(classData.Data);
+                    setClassCheck();
+         
+                }else{
+                    paramClass.IndexPage-=classNum;
+                    C.layer(1,classData.Message);
+                }
+            }
+            function createClassList(data){
+                console.log(data);
+                var list='';
+                for(var i=0;i<data.length;i++){
+                    list+='<div id='+data[i].ClassId+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].ClassesName+'<span>选中</span></div>'
+                }
+                $(".classSec").html(list);
+
+            }
+          
+            $(".classLf").on("click",function(){
+                if(paramClass.IndexPage>1){
+                    classNum=-1;
+                    paramClass.IndexPage+=classNum;
+                    getClassData();
+                }else{
+                    paramClass.IndexPage=1;
+                    C.layer(2,"已经是第一页啦！");
+                }
+            });
+            $(".classRf").on("click",function(){
+                if(paramClass.IndexPage<classCount){
+                    classNum=1;
+                    paramClass.IndexPage+=classNum;
+                    getClassData();
+
+                }else{
+                    paramClass.IndexPage=classCount;
+                    C.layer(2,"已经是最后一页啦！");
+                }
+            });
+             //选中班级id
+           
+             $(".classes").on("click",'.classtable',function(){
+                C.load(0);
+                $('.classes').find('span').hide();
+                //判断是否所有的班级选中全部清除
+                console.log($('#startTime').val());
+                var endT=$('#startTime').val();
+                var starT=$('#endTime').val();
+                console.log($('#endTime').val());
+                
+                
+                var spanId=$(this).attr('id');
+                var grades=$(this).attr('gradeid');  
+
+              
+                gradeid = spanId; 
+                paramrank.ClassId='aaa';
+                if(starT!='未选择'){
+                    paramrank.startDate = starT;
+                }
+                if(endT!='未选择'){
+                    paramrank.endDate = endT;
+                }
+                getRank();
+                 $(this).find('span').show();
+            });
+            //翻页后班级是否选中
+            function setClassCheck(){
+                var ids=$(".classes").find('.classtable');
+                for(var i=0;i<ids.length;i++){
+                    var ID=$(ids).eq(i).attr('id');
+                    if(gradeid==ID){
+                        $(".classes").find('.classtable').eq(i).find('span').show();
+                    }
+                }
+            }
+            //获取排行榜信息
+            function getRank() {
+                var data=C.POSTS(JSON.stringify(paramrank),httpUrl.GetStuRankingTaskHistoryBase,successGetrankdata);
+            }
+            function successGetrankdata(data) {
+                if(data.Result==1){
+                    C.load(1);
+                    var list='<li><p class="cell1">排名</p><p class="cell2">姓名</p><p class="cell3">等级</p><p class="cell4">积分</p><p class="cell5">在线时间</p><p class="cell6">速度</p><p class="cell7">正确率</p><p class="cell8">完成率</p><p class="cell9">得分</p></li>';
+                    for(var i=0;i<data.Data.length;i++){
+                        if(i<data.Data.length-1){
+                            list+='<li class="trline"  style="border-bottom:1px solid #999">';
+                           
+                        }else{
+                            list+='<li class="trline">';
+                            
+                        }
+                        var index=i+1;
+                        list+='<p class="cell1"> <span class="serial">'+index+'</span> </p>';
+                        list+='<p class="cell2">'+data.data[i].StudentName+'</p>';
+                        list+='<p class="cell3"></p>';
+                        list+='<p class="cell4">'+data.data[i].Integral+'</p>';
+                        list+='<p class="cell5"></p>';
+                        list+='<p class="cell6"></p>';
+                        list+='<p class="cell7"></p>';
+                        list+='<p class="cell8"></p>';
+                        list+='<p class="cell9"></p>';
+                        list+='</li>';
+                    }
+                    $(".tablelist").html(list);
+                }else{
+                   C.load(1);
+                   C.layer(1,data.Message);
+                }
+            }
+           $(window).resize(function () {  
+                
+                C.resezes();
+            });
+            C.resezes();
+            $(".ope_first").on({
+                mouseover:function (e) {
+                    e.stopPropagation();
+                    $(".message_list").show();
+                },
+                mouseout:function (e) {
+                    e.stopPropagation();
+                    $(".message_list").hide();
+                }
+            });
+    	});
+    </script>
+</body>
+</html>

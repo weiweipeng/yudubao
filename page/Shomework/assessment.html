@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>评估</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+	<style type="text/css">
+
+        .decorate,.decorates{
+        	color: #008000;
+            background-color: #fff;
+            height: 24px;
+            line-height: 24px;
+            padding-left: 10px;
+            padding-right: 10px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            margin-left: 4px;
+            float: left;
+        }
+        .decorates{
+            float: right;
+        }
+        
+        .serial{
+           width: 20px;
+           line-height: 20px;
+           background-image: url(../../img/homework/u1888.png);
+           background-repeat: no-repeat;
+           background-size: 100% 100%;
+           text-align: center;
+           margin: 0 auto;
+        }
+
+            
+       
+        .title{
+            margin-top: 32px;
+        }
+        .title>span{
+            color: #fff;
+            font-size: 14px;
+        }
+        .title>span:last-child{
+            float: right;
+        }
+        .titrf{
+            margin-left: 60px;
+        }
+        .textlf,.textrf{
+            float: left;
+            width: 50%;
+            padding-left: 30px;
+            box-sizing: border-box;
+        }
+        .che{
+            margin-left: 16px;
+        }
+        .choose>div{
+            line-height: 57px;
+            text-align: center;
+            color: #fff;
+        }
+        .join{
+            background-color: rgba(136, 200, 155, 1);
+        }
+        .create{
+            background-color: rgba(242, 139, 39, 1);
+        }
+        .chosec{
+            height: 57px;
+        }
+        .chosec>div{
+            width: 50%;
+            text-align: center;
+            line-height: 57px;
+            height: 57px;
+        }
+        .add{
+            background-color: rgba(254, 105, 106, 1);
+        }
+        .delete{
+            background-color: rgba(195, 62, 177, 1);
+        }
+        .imformation{
+            height: 57px;
+            background-color: rgba(65, 179, 20, 1);
+            /*padding-top: 10px;*/
+            box-sizing: border-box;
+        }
+        .imformation>p{
+            height: 20px;
+            line-height: 20px;
+           
+        }
+        .dec{
+            color: #008000;
+            background-color: #fff;
+            line-height: 20px;
+            padding-left: 6px;
+            padding-right: 6px;
+            text-align: center;
+            font-size: 14px;
+            margin-top: 2px;
+            margin-left: 4px;
+            display: inline-block;
+        }
+        .choose{
+            margin-top: 0px;
+            margin-bottom: 25px;
+        }
+        .students{
+            margin-top: 25px;
+        }
+        .starttime,.endtime{
+            background-color: rgba(0, 204, 153, 1);
+        }
+        .starttime{
+            border-right: 1px solid #999;
+            box-sizing: border-box;
+        }
+        .statistical{
+            background-color: rgba(136, 200, 155, 1);
+        }
+        .big{
+            background-color: rgba(0, 172, 223, 1);
+        }
+        .small{
+            background-color: rgba(0, 160, 135, 1);
+        }
+        .stylesta{
+            background-color: rgba(65, 179, 20, 1);
+        }
+        .topicstas{
+            background-color: rgba(195, 62, 177, 1);
+        }
+        .topicsta{
+            background-color: rgba(254, 105, 106, 1);
+        }
+        .bg-line{
+            bottom: 0px;
+        }
+        #tab table{
+            background: rgba(252,248,228,0.7);
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            border-spacing: 0;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        th{
+            font: bold 12px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+            color: #4f6b72;
+            border-right: 1px solid #C1DAD7;
+            border-bottom: 1px solid #C1DAD7;
+            border-top: 1px solid #C1DAD7;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 6px 6px 6px 12px;
+            background: #CAE8EA no-repeat;
+        }
+        html > body td {
+            font-size: 14px;
+        }
+        td {
+            border: 1px solid #C1DAD7;
+            border-bottom: 1px solid #C1DAD7;
+            background: #fff;
+            font-size: 14px;
+            padding: 6px 6px 6px 12px;
+            color: #4f6b72;
+        }
+        #mains{
+            margin-top: 40px;
+        }
+	</style>
+
+</head>
+<body>
+    <div class="container">
+    	<div class="nav">
+    		<div class="logos lf">
+    			<img src="../../img/120.png">
+    			<span>启思教育</span>
+    		</div>
+    		<div class="con_title">英语阅读宝</div>
+    		<div class="operation rf">
+    			<div class="ope_first lf">
+    				<img src="../../img/120.png">
+    				<span class="names"></span>
+    				<!-- <img src="../../img/homework/u2104.png" class="tags"> -->
+                    <p class="tags"></p>
+    				<ul class="message_list">
+    					<li>
+    						<a href="#">基本资料</a>
+    					</li>
+    					<li>
+    						<a href="#">安全设置</a>
+    					</li>
+    				</ul>
+    			</div>
+    			<div class="exit lf">
+    				<a href="../../index.html">退出</a>
+    			</div>
+    		</div>
+    		<div class="leafbg">
+    			<img src="../../img/homework/u1884.gif">
+    		</div>
+    	</div>
+        <div class="mainContent">
+        	
+            <div class="cenContent">
+                <div class="main">
+                <div class="mainleft">
+                    <ul class="nav_list">
+                        <li><a href="practice.html">作业练习</a> </li>
+                        <li>
+                            <a href="statistical.html">成绩统计</a>            
+                        </li>
+                        <li><a href="errorCollection.html">错题库</a></li>
+                       
+                        <li class="navactive"><a href="assessment.html">评估</a></li>
+                        <li><a href="ranking.html">排行榜</a></li>
+                    </ul>
+                </div>
+                <div class="maincenter">
+                    
+                    <div class="cen_content">
+                        <div class="task_list">任务列表</div>
+                        <div class="decorate">评估</div>
+                        <div class="dec">可以选择多个班级</div>
+                        <div id="mains" style="height:400px;">
+                            <div id="main" style="width: 99%;height:100%;"></div>
+                            <div id="tab" style="width: 99%;height:95%; overflow-y:auto;display: none;"></div>
+                        </div>
+                        <!-- 左右翻页 -->
+                        <div class="left_btn">
+                            <img src="../../img/homework/u1878.gif">
+                        </div>
+                        <div class="right_btn">
+                            <img src="../../img/homework/u1879.gif">
+                        </div>
+                    </div>
+                </div>
+                <div class="mainright">
+                    <div class="choose">
+                        <div class="chosec">
+                            <div class="lf starttime">
+                                <p>开始时间</p>
+                                <P>2018-01-01</P>
+                                
+                            </div>
+                            <div class="lf endtime">
+                                <p>结束时间</p>
+                                <p>未选择</p>
+                            </div>
+                        </div>
+                        <!-- <div class="join">加入班级</div> -->
+                        <div class="statistical">速度与成绩统计</div>
+                        <div class="chosec">
+                            <div class="lf big" >
+                                大能力点
+                                
+                            </div>
+                            <div class="lf small">
+                                小能力点
+                            </div>
+                        </div>
+                        <div class="stylesta">
+                            文体统计
+                           
+                        </div>
+                        <div class="chosec">
+                            <div class="lf topicsta">
+                                话题统计
+                                
+                            </div>
+                            <div class="lf topicstas">
+                                题型统计
+                            </div>
+                        </div>
+                    </div>
+                    <div class="classes">
+                        <div class="sec">
+                            
+                         </div>
+                        <div class="lastsec">
+                            <div class="lf classLf"><</div>
+                            <div class="lf classcount">1</div>
+                            <div class="lf classRf">></div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            </div>
+            <div class="bg-line"></div>    
+        </div>
+    </div>
+      <div class="layerMask"></div>
+    <div class="loading">
+        <div class="loadBox">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript" src="../../js/request.js"></script>
+    <script type="text/javascript" src="../../js/echarts.min.js"></script>
+    <script type="text/javascript">
+    	$(function () {
+            var paramClass={
+                "IndexPage": 1,
+                "IndexSize":6
+            }
+            var srtudent={
+                "IndexPage":1,
+                "IndexSize":10
+            }
+            var echeatData={
+                'TaskType':'0',
+                'AfterSchool':true
+            }
+            var classListId=[],gradeid='',gradeName='';//班级id列表
+            paramClass.StudentId=localStorage.getItem('studentId');
+            echeatData.StudentId=localStorage.getItem('studentId');
+             
+             if(localStorage.getItem('studentName')){
+                $('.names').text(localStorage.getItem('studentName'));
+            }
+             //获取班级列表
+
+            getClassData();
+            var classNum=0;
+            function getClassData(){
+                console.log(paramClass);
+                var classData=C.POSTS(JSON.stringify(paramClass),httpUrl.GetPageClassStudent,successGetclass);
+            }
+            function successGetclass(classData) {
+                if(classData.Result==1){
+                    $(".classcount").text(paramClass.IndexPage);
+                    createClassList(classData.Data);
+                    setClassCheck();
+                    // echeatData.ClassId=classData.data[1].id;
+                    echeatData.ClassId='aaa';
+                    // getdata();
+                    // classCount=classData.count;
+                    if(classData.Count%paramClass.IndexSize>0){
+                        classCount=parseInt(classData.Count/paramClass.IndexSize)+1;
+                    }else{
+                        classCount=parseInt(classData.Count/paramClass.IndexSize);
+                    }
+                }else{
+                    paramClass.IndexPage-=classNum;
+                    C.layer(1,classData.Message);
+                }
+            }
+            function createClassList(data){
+                console.log(data);
+                var list='';
+                for(var i=0;i<data.length;i++){
+                    // if(param.ClassId==''){
+                    //     // param.ClassId=data[i].id;
+                    //     // getdata();
+                    // }
+                    list+='<div id='+data[i].Id+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].StudentName+'<span>选中</span></div>'
+                }
+                $(".sec").html(list);
+
+            }
+            
+            $(".classLf").on("click",function(){
+                if(paramClass.IndexPage>1){
+                    
+                    classNum=-1;
+                    paramClass.IndexPage+=classNum;
+                    
+                    
+                    getClassData();
+                }else{
+                    paramClass.IndexPage=1;
+                    C.layer(2,"已经是第一页啦！");
+                }
+            });
+            $(".classRf").on("click",function(){
+                if(paramClass.IndexPage<classCount){
+                    
+                    classNum=1;
+                    paramClass.IndexPage+=classNum;
+                    
+                    getClassData();
+
+                }else{
+                    paramClass.IndexPage=classCount;
+                    C.layer(2,"已经是最后一页啦！");
+                }
+            });
+            $(".classes").on("click",'.classtable',function(){
+                $('.classes').find('span').hide();
+                //判断是否所有的班级选中全部清除
+                var spanbox=$('.classes').find('span');
+                // var boxBool=true;
+                var spanBool=$(this).find('span').css("display");
+                var spanId=$(this).attr('id');
+                var grades=$(this).attr('gradeid');  
+            
+                
+                gradeid = spanId;
+                 // param.ClassId=spanId;
+                // getdata();
+                gradeName = $(this).attr('gradeName');
+                srtudent.ClassId='aaa';
+                // getStudent();//获取学生列表
+                 $(this).find('span').show();
+                 // getdata();
+            });
+            //翻页后班级是否选中
+            function setClassCheck(){
+                console.log(classListId);
+                var ids=$(".classes").find('.classtable');
+                for(var i=0;i<ids.length;i++){
+                    var ID=$(ids).eq(i).attr('id');
+                    if(gradeid==ID){
+                        $(".classes").find('.classtable').eq(i).find('span').show();
+                    }
+                }
+                console.log(ids); 
+            }
+
+            //获取评估信息
+            // var title='图表',names=[],datas=[];
+            // //问题统计
+            $(".stylesta").on('click',function(){
+               stuStyle();
+               
+            });
+           
+            //文体统计
+        function stuStyle() {
+            $("#tab").hide();
+            $("#main").show();
+            var options = {
+                Id: localStorage['userId'],
+                ClassId: $('#classNum').val()
+            }
+
+            var datas = C.POST(echeatData,httpUrl.SLiteraryStyle,successStuStyle);
+           
+        }
+        function successStuStyle(datas) {
+            var xData = new Array();//文体名称
+            var sData = new Array();//班级平均率
+            var xsData = new Array();//学生得分率
+            var rData = new Array();//答对题数量
+            var fData = new Array();//总题量
+            var stData = new Array();//学生平均用时
+            var ctData = new Array();//班级平均用时
+            $.each(datas.Data, function (index, val) {
+                xData.push(val.Name);
+                sData.push(Math.floor(val.clsStudentScore/val.clsTotalScore).toFixed(2));
+                fData.push(val.TotalCount);
+                xsData.push(Math.floor(val.StudentScore/val.TotalScore).toFixed(2));//学生得分率
+                rData.push(val.RightCount);
+                stData.push(val.Time);
+                ctData.push(val.clsTime);
+                
+            });
+            var myChart = echarts.init(document.getElementById('main'));
+            option = {
+                color: ['#3398DB'],
+                title: {
+                    text: '文体统计',
+                    x: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    formatter: function (params, ticket, callback) {
+                        //x轴名称
+                        var name = "文体：" + params[0].name;
+                        name += "<br />总题量：" + fData[params[0].dataIndex];
+                        name += "<br />答对题量：" + rData[params[0].dataIndex];
+                        name += "<br />得分率：" + xsData[params[0].dataIndex] + ' %';
+                        name += "<br />班级得分率：" + sData[params[0].dataIndex] + ' %';
+                        name += "<br />个人平均用时：" + stData[params[0].dataIndex] + ' s';
+                        name += "<br />班级平均用时：" + ctData[params[0].dataIndex] + ' s';
+
+                        return name;
+                    }
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: xData,
+                        axisLabel: {
+                            interval: 0,
+                            rotate: 45
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        axisLabel: {
+                            formatter: '{value}% '
+                        }
+                    }
+                ],
+                series: [
+                   {
+                       name: '文体正确率统计',
+                       type: 'bar',
+                       barWidth: '60%',
+                       itemStyle: {
+                           normal: {
+                               color: function (params) {
+                                   var colorList = [
+                                      '#B5C334', '#FCCE10', '#E87C25', '#27727B',
+                                      '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
+                                      '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0',
+                                      '#FCCE10', '#E87C25', '#27727B',
+                                      '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
+                                      '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0',
+                                      '#FCCE10', '#E87C25', '#27727B',
+                                      '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
+                                      '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0'
+                                   ];
+                                   return colorList[params.dataIndex]
+                               }
+                           }
+                       },
+                       data: xsData
+                   }
+                ]
+            };
+            myChart.setOption(option, true);
+        }
+            //成绩和速度统计
+            $('.statistical').on('click',function(){
+                scoreAndSpeed();
+            });
+        function scoreAndSpeed() {
+            $("#tab").hide();
+            $("#main").show();
+            var options = {
+                Id: localStorage['userId'],
+                ClassId: $('#classNum').val()
+            }
+
+            var datas = C.POST(echeatData,httpUrl.SScoreAndSpeed,successScoreAndSpeed);
+           
+        } 
+        function successScoreAndSpeed(datas) {
+            var xData = new Array();
+            var tData = new Array();
+            var sData = new Array();
+            var aData = new Array();//学生得分率
+            var xsData = new Array();//学生用时
+            $.each(datas.Data, function (index, val) {
+                xData.push(val.Name);
+                tData.push((val.StudentTimeUse / 60).toFixed(2));
+                sData.push(Math.floor(val.studentScore/val.totalScore).toFixed(2));
+                xsData.push((val.Time / 60).toFixed(2));
+                aData.push((val.clsStudentScore * 100.0 / val.clsTotalScore).toFixed(2));
+            });
+            var myChart = echarts.init(document.getElementById('main'));
+             option = {
+                title: {
+                    text: '成绩和速度统计'
+                },
+                color: ['#EF6C35', '#3498DB', '#2C2C2C', '#00BBF0'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        crossStyle: {
+                            color: '#999'
+                        }
+                    }
+                },
+                legend: {
+                    data: ['学生用时', '班级平均用时', '学生得分率', '班级平均得分率']
+                },
+                xAxis: [
+                    {
+                        show: false,
+                        type: 'category',
+                        data: xData,
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        name: '得分率',
+                        axisLabel: {
+                            formatter: '{value}%'
+                        }
+                    },
+                    {
+                        type: 'value',
+                        name: '用时 (分)',
+                        min: 0,
+                        axisLabel: {
+                            formatter: '{value}分'
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        name: '学生得分率',
+                        type: 'bar',
+                        barMaxWidth: 100,
+                        data: aData
+                    },
+                    {
+                        name: '班级平均得分率',
+                        type: 'bar',
+                        barMaxWidth: 100,
+                        data: sData
+                    },
+                    {
+                        name: '学生用时',
+                        type: 'line',
+                        yAxisIndex: 1,
+                        data: xsData
+                    }
+                    ,
+                    {
+                        name: '班级平均用时',
+                        type: 'line',
+                        yAxisIndex: 1,
+                        data: tData
+                    }
+                ]
+            };
+        
+            myChart.setOption(option, true);
+        }
+         //大能力点统计
+         $('.big').on('click',function(){
+            bigKnowledge();
+         });
+        function bigKnowledge() {
+            $("#tab").hide();
+            $("#main").show();
+            var options = {
+                Id: localStorage['userId'],
+                ClassId: $('#classNum').val()
+            }
+
+            var datas = C.POST(echeatData,httpUrl.SBigKnowledgePoint,successBigKon);
+            
+        }
+        function successBigKon(datas) {
+            var xData = new Array();
+            var tData = new Array();
+            var rData = new Array();//错题统计
+            var fData = new Array();//总题量
+            var psData = new Array();//个人得分率
+            var csData = new Array();//班级平均得分率
+            $.each(datas.Data, function (index, val) {
+                var optionItem = {};
+                optionItem.value = Math.floor(val.StudentScore/val.TotalScore).toFixed(2);
+                optionItem.name = val.Name;
+                var optionError = {};
+                optionError.value = val.TotalCount-val.RightCount;
+                optionError.name = val.Name;
+                xData.push(val.Name);
+                tData.push(optionItem);
+                rData.push(optionError);
+                fData.push(val.TotalCount);
+                psData.push(Math.floor(val.StudentScore/val.TotalScore).toFixed(2));
+                csData.push(Math.floor(val.clsStudentScore/val.clsTotalScore).toFixed(2));
+            });
+
+            var myChart = echarts.init(document.getElementById('main'));
+            option = {
+                title: [{
+                    text: '大能力点平均正确率',
+                    subtext: '一次练习中各项大能力点的平均正确率，\r\n反映阅读能力的强弱。',
+                    x: '17%',
+                    top: '5%'
+                }, {
+                    text: '大能力点错误分布',
+                    subtext: '一次练习中各项大能力点的错误占比，\r\n反映阅读能力的短板。',
+                    x: '68%',
+                    top: '5%'
+                }
+                ],
+                tooltip: {
+                },
+                grid: [{
+                    top: 160,
+                    height: '50%',
+                    width: '50%',
+                    left: 10,
+                    containLabel: true
+                }],
+                xAxis: [{
+                    type: 'value',
+                    max: 100,
+                    axisLabel: {
+                        show: true,
+                        interval: 'auto',
+                        formatter: '{value} %'
+                    },
+                    splitLine: {
+                        show: false
+                    }
+                }],
+                yAxis: [{
+                    type: 'category',
+                    data: xData,
+                    axisLabel: {
+                        interval: 0,
+                        rotate: 30
+                    },
+                    splitLine: {
+                        show: false
+                    }
+                }],
+                series: [
+                    {
+                        name: '得分率:',
+                        type: 'bar',
+                        center: ['25%', '50%'],
+                        data: tData,
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            },
+                            normal: {
+                                color: function (params) {
+                                    var colorList = [
+                                       '#B5C334', '#FCCE10', '#E87C25', '#27727B',
+                                       '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
+                                       '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0',
+                                       '#FCCE10', '#E87C25', '#27727B',
+                                       '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
+                                       '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0',
+                                       '#FCCE10', '#E87C25', '#27727B',
+                                       '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
+                                       '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0'
+                                    ];
+                                    return colorList[params.dataIndex]
+                                }
+                            }
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: function (params, ticket, callback) {
+                                //x轴名称
+                                var name = "大能力：" + params.name;
+                                name += "<br />总题量：" + fData[params.dataIndex];
+                                name += "<br />得分率：" + psData[params.dataIndex] + ' %';
+                                name += "<br />班级得分率：" + csData[params.dataIndex] + ' %';
+                                return name;
+                            }
+                        }
+                    },
+                    {
+                        name: '错题统计',
+                        type: 'pie',
+                        radius: '50%',
+                        center: ['75%', '48%'],
+                        data: rData,
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: "{b}<br/>{a}  : {c} <br/>错题占比：{d}%"
+                        }
+                    }
+                ]
+            };
+            myChart.setOption(option, true);
+        }
+         //题型统计
+        $(".topicstas").on('click',function(){
+            questionType();
+        });
+        function questionType() {
+            $("#tab").hide();
+            $("#main").show();
+            
+
+            var datas = C.POST(echeatData,httpUrl.SQuestionType,successQues);
+            
+        }
+        function successQues(datas) {
+            var xData = new Array();
+            var sData = new Array();
+            var cData = new Array();
+            $.each(datas.Data, function (index, val) {
+                var option = {};
+                option.name = "题型：" + val.Name + "\n个人得分率" + Math.floor(val.StudentScore/val.TotalScore).toFixed(2) + "%" + "\n班级平均得分率：" + Math.floor(val.clsStudentScore/val.clsTotalScore).toFixed(2) + "%" + "\n总题量：" + val.TotalCount + "\n做对题量：" + val.RightCount;
+                option.name += '\n学生平均用时：' + val.Time.toFixed(2) + 's' + ' \n班级平均用时：' + val.clsTime.toFixed(2) + 's';
+                option.max = 100;
+                xData.push(option);
+                sData.push(Math.floor(val.StudentScore/val.TotalScore).toFixed(2));
+                cData.push(Math.floor(val.clsStudentScore/val.clsTotalScore).toFixed(2));
+            });
+            var myChart = echarts.init(document.getElementById('main'));
+            option = {
+                title: {
+                    text: '题型统计'
+                },
+                legend: {
+                    data: ['各题型得分率', '班级平均得分率'],
+                    top: 40,
+                    left: 3
+                },
+                radar: {
+                    name: {
+                        textStyle: {
+                            color: '#000000',
+                            borderRadius: 3,
+                            padding: [-25, 1],
+                            fontSize: 12
+                        }
+                    },
+                    indicator: xData
+                },
+                grid: {
+                    x: '15%',
+                    y: '15%',
+                    x2: '15%',
+                    y2: '15%'
+                },
+                series: [{
+                    name: '各题型得分率 vs 班级平均得分率',
+                    type: 'radar',
+                    data: [
+                        {
+                            value: sData,
+                            name: '各题型得分率'
+                        },
+                         {
+                             value: cData,
+                             name: '班级平均得分率'
+                         }
+                    ]
+                }]
+            };
+            myChart.setOption(option, true)
+        }
+        //小能力点统计
+        $('.small').on('click',function(){
+            smallKnowledge();
+        });
+        function smallKnowledge() {
+            $("#main").hide();
+             $("#tab").show();
+             $("#tab").empty();
+            // obj.show();
+            // obj.empty();
+          
+            var datas = C.POST(echeatData,httpUrl.SSmallKnowledgePoint,successSmall);
+           
+        }
+        function successSmall(datas) {
+             var i = 1;
+
+            var str = "<table>";
+            str += "<thead><th>序号</th><th>小能力点</th><th>总题数</th><th>答对题数</th><th>班级得分率</th></thead>"
+            $.each(datas.Data, function (index, val) {
+                val.Name = val.Name.indexOf('|') == -1 ? val.Name : val.Name.split('|')[0];
+                str += '<tr><td>' + i + '</td>';
+                str += '<td>' + val.Name + '</td>';
+                str += '<td>' + val.TotalCount + '</td>';
+                str += '<td>' + val.RightCount + '</td>';
+                str += '<td>' +Math.floor(val.StudentScore/val.TotalScore).toFixed(2) + '</td></tr>';
+                i++;
+            });
+            str += "</table>";
+            $('#tab').html(str);
+        }
+         //话题统计
+        $('.topicsta').on('click',function(){
+            topic();
+        })
+        function topic() {
+            $("#tab").hide();
+            $("#main").show();
+            
+
+            var datas = C.POSTS(JSON.stringify(echeatData),httpUrl.sTopic,successTopic);
+            
+        }
+
+        function successTopic(datas){
+            var xData = new Array();
+            var wData = new Array();
+            var rData = new Array();
+            var str = '';
+            $.each(datas.Data, function (index, val) {
+                xData.push(val.Name + ' <br />总题数：' + val.TotalCount + ' <br />个人得分率：' + Math.floor(val.StudentScore/val.TotalScore).toFixed(2) + '%' + '<br />班级平均得分率:' + Math.floor(val.clsStudentScore/val.clsTotalScore).toFixed(2) + '%' + ' <br />学生平均用时：' + val.Time.toFixed(2) + 's' + ' <br />班级平均用时：' + val.clsTime.toFixed(2) + 's');
+                wData.push(val.TotalCount - val.RightCount);
+                rData.push(val.RightCount);
+            });
+            var myChart = echarts.init(document.getElementById('main'));
+            option = {
+                color: ['#009378', '#CD3131'],
+                title: {
+                    text: '话题统计',
+                    subtext: '',
+                    subtextStyle: {
+                        fontSize: 16,
+                        color: '#F1684E'
+                    }
+                },
+                legend: {
+                    data: ['做对题目', '做错题目']
+                },
+
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    },
+                    formatter: function (params, ticket, callback) {
+                        //x轴名称
+                        var name = "话题：" + params[0].name;
+                        name += "<br />正确题目：" + rData[params[0].dataIndex];
+                        name += "<br />错误题目：" + wData[params[0].dataIndex];
+                        return name;
+                    }
+                },
+                grid: {
+                },
+                xAxis: {
+                    type: 'value',
+                    name: '题目数量'
+                },
+                yAxis: {
+                    show: false,
+                    type: 'category',
+                    data: xData
+                },
+                series: [
+                    {
+                        name: '做对题目',
+                        type: 'bar',
+                        stack: 'A',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'insideRight'
+                            }
+                        },
+                        data: rData
+                    },
+                    {
+                        name: '做错题目',
+                        type: 'bar',
+                        stack: 'A',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'insideRight'
+                            }
+                        },
+                        data: wData
+                    }
+                ]
+            };
+            myChart.setOption(option, true);
+        }
+       
+
+            //页面自适应
+            $(window).resize(function () {  
+                C.resezes();
+            });
+            C.resizes();
+            
+    		$(".ope_first").on({
+                mouseover:function (e) {
+                    e.stopPropagation();
+                    $(".message_list").show();
+                },
+                mouseout:function (e) {
+                    e.stopPropagation();
+                    $(".message_list").hide();
+                }
+            });
+    	});
+    </script>
+</body>
+</html>

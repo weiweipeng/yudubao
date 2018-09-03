@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>成绩统计</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <style type="text/css">
+
+        .decorate{
+            color: #008000;
+            background-color: #fff;
+            height: 24px;
+            line-height: 24px;
+            width: 90px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            margin-left: 4px;
+            display: inline-block;
+
+        }
+        .decorates{
+            color: #008000;
+            background-color: #fff;
+            line-height: 20px;
+            width: 90px;
+            text-align: center;
+            font-size: 14px;
+          
+            margin-bottom: 4px;
+            margin-left: 4px;
+            display: inline-block;
+        }
+        thead th{
+            color: #fff;
+            line-height: 26px;
+        }
+        table{
+            padding-left: 20px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            z-index: 20000;
+        }
+       
+        tbody{
+            text-align: center;
+        }
+        .trline{
+            line-height: 35px;
+            
+        }
+
+        tbody td{
+            border-collapse: inherit;
+        }
+        .serial{
+           width: 20px;
+           line-height: 20px;
+           background-image: url(../../img/homework/u1888.png);
+           background-repeat: no-repeat;
+           background-size: 100% 100%;
+           text-align: center;
+           margin: 0 auto;
+        }
+        .chapter{
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .dbtn{
+            width: 35px;
+            line-height: 22px;
+            text-align: center;
+            border:1px solid #999;
+            border-radius: 3px;
+            background-color: #f0f0f0;
+            color: red;
+            font-size: 12px;
+            cursor: pointer ;
+        }
+        .countcla{
+            width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .preview{
+            margin-left: 50px;
+        }
+        .view{
+            margin:0 auto;
+        }
+        .premasks{
+            position: absolute;
+            top: 100px;
+            left: 280px;
+            width: 860px;
+            height: 630px;
+            overflow-y: scroll;
+            background-image: url(../../img/homework/u3250.png);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            z-index: 2000;
+            padding-top: 30px;
+            box-sizing: border-box;
+            display: none;
+        }
+        .premasks{
+
+        }
+        .close{
+            background-image: url(../../img/homework/u3254.png);
+            width: 30px;
+            height: 30px;
+            position: fixed;
+            right: 320px;
+            top: 100px;
+            background-size: 100% 100%;
+            cursor: pointer ;
+        }
+        .maskline p{
+            width: 190px;
+            text-align: center;
+            line-height: 30px;
+            font-size: 18px;
+        }
+        .maskline p input{
+            width: 16px;
+            height: 16px;
+        }
+        .maskline span{
+            display: inline-block;
+            line-height: 30px;
+            font-size: 18px;
+            text-align: center;
+            width: 60px;
+        }
+        .masksection{
+            margin-top: 10px;
+        }
+        .masksection>p{
+            line-height: 26px;
+            margin-top: 5px;
+            padding-left: 26px;
+            box-sizing: border-box;
+            font-size: 18px;
+            width: 96%;
+        }
+       /* .parsing{
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+        }*/
+        .decorate_detail{
+           /* color: #008000;*/
+            /*background-color: #fff;*/
+            line-height: 20px;
+          
+            text-align: center;
+            font-size: 12px;
+            padding-left: 6px;
+            padding-right: 6px;
+            margin-bottom: 4px;
+            margin-left: 4px;
+            display: inline-block;
+        }
+        .de_detail{
+            /*width: 110px!important;*/
+        }
+        .practice{
+            margin-top: 68px;
+        }
+        .bg1{
+            background-color: rgba(0, 128, 0, 1)!important;
+        }
+        .bg2{
+            background-color: rgba(0, 102, 255, 1)!important;
+        }
+
+        .cen_contents{
+            padding-top: 30px;
+            padding-left: 3%;
+            padding-right: 3%;
+            box-sizing: border-box;
+            overflow-y: scroll;
+            position: relative;
+        }
+        .cen_contents>p{
+            line-height: 30px;
+            font-size: 18px;
+            font-weight: 500;
+            width: 90%;
+
+        }
+        .closes{
+            background-image: url(../../img/homework/u4342.png);
+            background-size: 100% 100%;
+            width: 30px!important;
+            height: 30px;
+            position: fixed;
+            top: 50px;
+            right: 240px;
+        }
+        .cen_en{
+            word-spacing: 5px;
+        }
+        .cen_contents>div{
+            font-size: 20px;
+            line-height: 30px;
+            margin-top: 20px;
+            width: 90%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <div class="logos lf">
+                <img src="../../img/120.png">
+                <span>启思教育</span>
+            </div>
+            <div class="con_title">英语阅读宝</div>
+            <div class="operation rf">
+                <div class="ope_first lf">
+                    <img src="../../img/120.png">
+                    <span>张三</span>
+                    <img src="../../img/homework/u2104.png" class="tags">
+                    <ul class="message_list">
+                        <li>
+                            <a href="#">基本资料</a>
+                        </li>
+                        <li>
+                            <a href="#">安全设置</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="exit lf">
+                    <a href="../../index.html">退出</a>
+                </div>
+            </div>
+            <div class="leafbg">
+                <img src="../../img/homework/u1884.gif">
+            </div>
+        </div>
+        <div class="mainContent">
+            <div class="main">
+                <div class="mainleft">
+                    <ul class="nav_list">
+                        <li>布置作业 </li>
+                        <li>个人作业</li>
+                        <li class="navactive">成绩统计</li>
+                        <li>阅卷</li>
+                        <li>错题库</li>
+                        <li>评估</li>
+                        <li>班级管理</li>
+                    </ul>
+                </div>
+                <div class="maincenter">
+                    
+                    <div class="cen_content">
+                        <div class="task_list">BACK</div>
+                        
+                        <div>
+                            <div class="decorate">成绩统计</div>
+                            <div class="decorates">班级平均情况</div>
+                            <div class="decorates">学生详细情况</div>
+                            <div class="decorate_detail">平均分：1.50</div>
+                            <div class="decorate_detail">平均用时：0.50</div>
+                            <div class="decorate_detail">得分率：18.75</div>
+                            <div class="decorate_detail de_detail">平均速度：1591.2</div>
+                            <div class="decorate_detail">完成率：100%</div>
+                        </div>
+                         <!-- 表格 -->
+                         <table  style="border-collapse: collapse">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px">编号</th>
+                                    <th style="width: 100px">学生姓名</th>
+                                    <th style="width: 100px">总分</th>
+                                    <th style="width: 100px;text-align: center;">得分</th>
+                                    <th style="width: 100px;text-align: center;">得分率</th>
+                                    <th style="width: 100px;text-align: center;">用时/分</th>
+                                    <th style="width: 100px;text-align: center;">速度（词/分）</th>
+                                    <th style="width: 200px;text-align: center;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="trline"  style="border-bottom:1px solid">
+                                    <td>
+                                        <div class="serial">1</div>
+                                    </td>
+                                    <td>
+                                        张三
+                                    </td>
+                                    <td>100</td>
+                                    <td>
+                                       100        
+                                    </td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        1450
+                                    </td>
+                                    <td>
+                                        <div class="view dbtn">查看</div>
+                                    </td>
+                                </tr>
+                                <tr class="trline"  style="border-bottom:1px solid">
+                                    <td>
+                                        <div class="serial">2</div>
+                                    </td>
+                                    <td>
+                                        张三
+                                    </td>
+                                    <td>100</td>
+                                    <td>
+                                       100        
+                                    </td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        1450
+                                    </td>
+                                    <td>
+                                        <div class="view dbtn">查看</div>
+                                    </td>
+                                </tr>
+                                <tr class="trline"  style="border-bottom:1px solid">
+                                    <td>
+                                        <div class="serial">3</div>
+                                    </td>
+                                    <td>
+                                        张三
+                                    </td>
+                                    <td>100</td>
+                                    <td>
+                                       100        
+                                    </td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        1450
+                                    </td>
+                                    <td>
+                                        <div class="view dbtn">查看</div>
+                                    </td>
+                                </tr>
+                                <tr class="trline"  style="border-bottom:1px solid">
+                                    <td>
+                                        <div class="serial">4</div>
+                                    </td>
+                                    <td>
+                                        张三
+                                    </td>
+                                    <td>100</td>
+                                    <td>
+                                       100        
+                                    </td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        1450
+                                    </td>
+                                    <td>
+                                        <div class="view dbtn">查看</div>
+                                    </td>
+                                </tr>
+                                <tr class="trline"  style="border-bottom:1px solid">
+                                    <td>
+                                        <div class="serial">5</div>
+                                    </td>
+                                    <td>
+                                        张三
+                                    </td>
+                                    <td>100</td>
+                                    <td>
+                                       100        
+                                    </td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        1450
+                                    </td>
+                                    <td>
+                                        <div class="view dbtn">查看</div>
+                                    </td>
+                                </tr>
+                                <tr class="trline"  style="border-bottom:1px solid">
+                                    <td>
+                                        <div class="serial">6</div>
+                                    </td>
+                                    <td>
+                                        张三
+                                    </td>
+                                    <td>100</td>
+                                    <td>
+                                       100        
+                                    </td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        1450
+                                    </td>
+                                    <td>
+                                        <div class="view dbtn">查看</div>
+                                    </td>
+                                </tr>
+                                <tr class="trline"  style="border-bottom:1px solid">
+                                    <td>
+                                        <div class="serial">7</div>
+                                    </td>
+                                    <td>
+                                        张三
+                                    </td>
+                                    <td>100</td>
+                                    <td>
+                                       100        
+                                    </td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        1450
+                                    </td>
+                                    <td>
+                                        <div class="view dbtn">查看</div>
+                                    </td>
+                                </tr>
+                                <tr class="trline"  style="border-bottom:1px solid">
+                                    <td>
+                                        <div class="serial">8</div>
+                                    </td>
+                                    <td>
+                                        张三
+                                    </td>
+                                    <td>100</td>
+                                    <td>
+                                       100        
+                                    </td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        1450
+                                    </td>
+                                    <td>
+                                        <div class="view dbtn">查看</div>
+                                    </td>
+                                </tr>
+                                <tr class="trline"  style="border-bottom:1px solid">
+                                    <td>
+                                        <div class="serial">9</div>
+                                    </td>
+                                    <td>
+                                        张三
+                                    </td>
+                                    <td>100</td>
+                                    <td>
+                                       100        
+                                    </td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        1450
+                                    </td>
+                                    <td>
+                                        <div class="view dbtn">查看</div>
+                                    </td>
+                                </tr>
+                                <tr class="trline"  style="border-bottom:1px solid">
+                                    <td>
+                                        <div class="serial">10</div>
+                                    </td>
+                                    <td>
+                                        张三
+                                    </td>
+                                    <td>100</td>
+                                    <td>
+                                       100        
+                                    </td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        1450
+                                    </td>
+                                    <td>
+                                        <div class="view dbtn">查看</div>
+                                    </td>
+                                </tr>
+                                <tr class="trline"  style="border-bottom:1px solid">
+                                    <td>
+                                        <div class="serial">11</div>
+                                    </td>
+                                    <td>
+                                        张三
+                                    </td>
+                                    <td>100</td>
+                                    <td>
+                                       100        
+                                    </td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        1450
+                                    </td>
+                                    <td>
+                                        <div class="view dbtn">查看</div>
+                                    </td>
+                                </tr>
+                                <tr class="trline"  style="border-bottom:1px solid">
+                                    <td>
+                                        <div class="serial">12</div>
+                                    </td>
+                                    <td>
+                                        张三
+                                    </td>
+                                    <td>100</td>
+                                    <td>
+                                       100        
+                                    </td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        1450
+                                    </td>
+                                    <td>
+                                        <div class="view dbtn">查看</div>
+                                    </td>
+                                </tr>
+                                <tr class="trline">
+                                    <td>
+                                        <div class="serial">13</div>
+                                    </td>
+                                    <td>
+                                        张三
+                                    </td>
+                                    <td>100</td>
+                                    <td>
+                                       100        
+                                    </td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        1450
+                                    </td>
+                                    <td>
+                                        <div class="view dbtn">查看</div>
+                                    </td>
+                                </tr>
+
+
+
+            
+                           
+                             
+                                
+
+                            </tbody>
+                            <tfoot>
+                                
+                            </tfoot>
+                         </table>
+                         <!-- 页码 -->
+                         <div class="count">1</div>
+                         <!-- 发布任务 -->
+                         <div class="release">
+                            发布任务
+                         </div>
+                        <!-- 左右翻页 -->
+                        <div class="left_btn">
+                            <img src="../../img/homework/u1878.gif">
+                        </div>
+                        <div class="right_btn">
+                            <img src="../../img/homework/u1879.gif">
+                        </div>
+                    </div>
+                </div>
+                <div class="mainright">
+                    <div class="classes">
+                        <div class="sec">
+                            <div class="lf bg1">班级一</div>
+                            <div class="lf bg2">班级二</div>
+                            <div class="lf">班级三</div>
+                        </div>
+                        <div class="sec">
+                            <div class="lf">班级一</div>
+                            <div class="lf">班级二</div>
+                            <div class="lf">班级三</div>
+                        </div>
+                        <div class="sec lastsec">
+                            <div class="lf"><</div>
+                            <div class="lf">1</div>
+                            <div class="lf">></div>
+                        </div>
+                    </div>
+                    <div class="classes practice">
+                        <div class="secs">
+                            <div class="lf bg1">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                            <div class="lf bg2">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                            <div class="lf">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                        </div>
+                        <div class="secs">
+                            <div class="lf">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                            <div class="lf">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                            <div class="lf">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                        </div>
+                        <div class="secs">
+                            <div class="lf">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                            <div class="lf">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                            <div class="lf">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                        </div>
+                        <div class="secs">
+                            <div class="lf">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                            <div class="lf">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                            <div class="lf">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                        </div>
+                        <div class="secs">
+                            <div class="lf">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                            <div class="lf">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                            <div class="lf">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                        </div>
+                        <div class="secs">
+                            <div class="lf">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                            <div class="lf">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                            <div class="lf">
+                                <p>班级练习</p>
+                                <p>2018010</p>
+                                <p>1</p>
+                            </div>
+                        </div>
+                        <div class="sec lastsec">
+                            <div class="lf"><</div>
+                            <div class="lf">1</div>
+                            <div class="lf">></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="premasks"> -->
+                <div class="cen_contents">
+                    <p>话题：<span>语言学习</span> | 文体：<span>说明/介绍</span> | 题型：<span>完形填空</span> | 难度：<span>A</span> | 词数：<span>198</span> | 分数：<span>8</span></p>
+                    <p class="cen_en">World of the year</p>
+                    <div>文章导读</div>
+                    <p>表情符号是表达感情或意见的简略方式。本文主要江苏的2015年的坚实的回复就开始你说的减肥年圣诞节你说的进口分年级开始的年圣诞节开房女生你说的房价款</p>
+                    <div>词语指津：</div>
+                    <p>electronic [ɪˌlekˈtrɒnɪk] adj.电子的</p>
+                    <p>electronic [ɪˌlekˈtrɒnɪk] adj.电子的</p>
+                    <p>electronic [ɪˌlekˈtrɒnɪk] adj.电子的</p>
+                    <p>electronic [ɪˌlekˈtrɒnɪk] adj.电子的</p>
+                    <p class="closes"></p>
+                </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".ope_first").on({
+                mouseover:function (e) {
+                    e.stopPropagation();
+                    $(".message_list").show();
+                },
+                mouseout:function (e) {
+                    e.stopPropagation();
+                    $(".message_list").hide();
+                }
+            });
+            $(".release").on("click",function () {
+                var arr=$('input[type=checkbox]:checked');
+                console.log(arr);
+                
+            });
+            $(".view").on("click",function(){
+               $(".cen_contents").show();
+            });
+            $(".closes").on("click",function () {
+                $(".cen_contents").hide();
+            });
+            //页面自适应
+            $(window).resize(function () {  
+                C.resezes();
+            });
+            C.resizes();
+        });
+    </script>
+</body>
+</html>

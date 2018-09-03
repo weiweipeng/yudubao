@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>老师注册</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <style type="text/css">
+    	#register{
+    		
+    		width: 600px;
+            /*margin: 0 auto;*/
+            height: 460px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -230px 0 0 -300px;
+    	}
+    	.logos{
+    		margin-left: 250px;
+    	    margin-bottom: 30px;
+    	}
+    	.logos p{
+            color: #fff;
+            font-size: 18px;
+           
+    	}
+        .stu{
+        	width: 200px;
+        }
+        .stu>div{
+        	width: 150px;
+        	height: 120px;
+        	text-align: center;
+        	background-color: #fff;
+        	border: 1px solid rgba(121, 121, 121, 1);
+        }
+
+        .stu img{
+        	margin-top: 20px;
+        	width:80px;
+        	height: 80px;
+        }
+        .active{
+        	background-color: rgb(0,153,255)!important;
+        	
+        }
+        .active a{
+            color: #fff;
+        }
+        .studentR{
+        	width: 400px;
+        	
+        }
+       
+   
+        .claCode{
+        	font-family: 'Arial Negreta', 'Arial Normal', 'Arial';
+		    font-weight: 700;
+		    font-style: normal;
+		    font-size: 18px;
+		    color: #FFFFFF;
+        	width: 100px;
+        	display: inline-block;
+        }
+        .Ssubmit{
+            width: 294px;
+            line-height: 36px;
+            border: 0px;
+            background-color: rgb(0, 153, 255);
+            color: #fff;
+            border-radius: 18px;
+            outline: none;
+            font-size: 16px;
+            font-weight: 600;
+        }
+       
+        .xieyi{
+        	line-height: 30px;
+        	color: #fff;
+        	font-size: 14px;
+        	display: inline-block;
+        	position: absolute;
+        	left: 40px;
+        }
+        .numbers,.message{
+            width: 160px!important;
+        }
+        .numcode,.sendMessage{
+            width: 80px;
+            margin-left: 10px;
+            display: inline-block;
+            line-height: 36px;
+            height: 36px;
+            border-radius: 18px;
+             font-size: 12px;
+            text-align: center;
+        }
+        .numcode{
+            background-color: rgb(204,204,204);
+            letter-spacing: 3px;
+            font-weight: bolder;
+           font-size: 14px;
+        }
+        .sendMessage{
+            background-color: rgb(80, 185, 71);
+            color: #fff;
+        }
+        .form-inline p{
+            display: inline-block;
+            width: 130px;
+            height: 20px;
+            /*margin-top: 10px;*/
+            font-weight: 800;
+            font-size: 16px;
+            position: absolute;
+            right: -30px;
+            top: 5px;
+           /* background-color: #fff;*/
+            text-align: center;
+            border-radius: 2px;
+            color: red;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="bg">
+    	<div id="register">
+    		<div class="logos">
+    			<img src="../../img/120.png">
+    			<p>注册老师账号</p>
+    		</div>
+    		<div class="lf stu">
+    			<div class="active">
+    				<a href="#">
+    					<img src="../../img/student/u1492.jpg">
+    				    <p>我是老师</p>
+    				</a>
+    			</div>
+    			<div>
+    				<a href="../student/register.html">
+    					<img src="../../img/student/u1486.jpg">
+    					<p>我是学生</p>
+    				</a>
+    			</div>
+    		</div>
+            <div class="studentR lf">
+            	<form>
+            		<div class="form-inline">
+            			<input type="text" name="iphone" class="iphone" placeholder="请输入手机号码">
+            			<div class="iphoneImg"></div>
+            			
+            		</div>
+                    <div class="form-inline">
+                        <input type="text" name="numbers" class="numbers lf" placeholder="请输入右边的数字">
+                        <div class="numberImg"></div>
+                        <span class="numcode lf"></span>
+                        <p>看不清？换一张</p>
+                    </div>
+                    <div class="form-inline">
+                        <input type="text" name="message" class="message lf" placeholder="请输入验证码">
+                        <div class="messageImg"></div>
+                        <span class="sendMessage fl" style="-moz-user-select:none;">获取验证码</span>
+                    </div>
+            		<div class="form-inline">
+            			<button type="button" class="Ssubmit">注册成为老师</button>
+            		</div>
+            		<div class="form-inline">
+            			<label class="my_protocol">
+						      <input class="input_agreement_protocol" type="checkbox" />
+						      <span></span>
+						</label>
+						<span class="xieyi">注册即代表同意《启思老师端用户服务协议》</span>
+            		</div>
+            	</form>
+            </div>
+    	</div>
+    </div>
+    <div class="layerMask"></div>
+    <div class="loading">
+        <div class="loadBox">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/request.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript">
+    	$(function() {
+    		var res={},code="",message=true,imformation='';
+            var testIphone={
+                identitys :3
+            };
+            var param={
+                  "codeType": 1
+                };
+            var timer=null;
+            var len=60;
+            $(".Ssubmit").on("click",function () {
+                
+                var r=$(".input_agreement_protocol[type='checkbox']").is(':checked');
+                console.log(r);
+                if(r){
+                    C.layer(2,"必须同意协议！");
+                    getCode();
+                    return false;
+                }else if(!(/^1[3|4|5|7|8][0-9]{9}$/.test($(".iphone").val()))){
+                    C.layer(2,"请输入正确的手机号码");
+                    getCode();
+                    return false;
+                }else if($(".numbers").val().toLowerCase()!=code.toLowerCase()){
+                    console.log($(".numbers").val());
+                    C.layer(2,"您输入的图片验证码不正确！");
+                    getCode();
+                    return false;
+                }else if(send()){
+                    C.layer(2,"您输入的的短信验证码不正确！");
+                    getCode();
+                     return false;
+                }else{
+                    var iphone=$(".iphone").val();
+                    testIphone.phoneNumber=$(".iphone").val();
+                    // testIphone.smsCode =imformation;
+                    testIphone.smsCode ='123456';
+                    localStorage.setItem('phoneNumber',iphone);
+                    testIphones();
+                    
+                }
+            });
+            function testIphones(){
+
+                testIphone.deviceID =localStorage.getItem('deviceID');
+                console.log(testIphone);
+                var testIphoneData=C.POSTS(JSON.stringify(testIphone),httpUrl.VerifyRegPhoneNumber,successTest);
+                
+
+            }
+            function successTest(testIphoneData){
+                if(testIphoneData.Result==1){
+                    window.location.href='password.html';
+                }else{
+                    getCode();
+                    C.layer(1,testIphoneData.Message); 
+                }
+            }
+            $(".sendMessage").on({
+               selectstart:function () {
+                    return false;
+                },
+                click:function () {
+                    if(!(/^1[3|4|5|7|8][0-9]{9}$/.test($(".iphone").val()))){
+                        C.layer(2,"请输入正确的手机号码");
+                        return false;
+                    }else if($(".numbers").val().toLowerCase()!=code.toLowerCase()){
+                          C.layer(2,'请输入正确的图片验证码！');
+                          return false;
+                    }else{
+                        if(message){
+                            len=60;
+                            getMessage();
+                            timer=setInterval(function () {
+                                var i = len-1;
+                                len=i;
+                                message=false;
+
+                                $(".sendMessage").text(i+'s');
+                                if(len==0){
+                                    clearInterval(timer);
+                                    message=true;
+                                    $(".sendMessage").text("重新发送信息");
+                                }
+                            },1000);
+                        }
+                    }
+                } 
+            });
+            function getMessage(){
+                
+
+                param.phoneNumber=$(".iphone").val();
+        
+                var messageCode=C.POSTS(JSON.stringify(param),httpUrl.GetSMSCode,successMessage)
+                
+
+            }
+            function successMessage(messageCode){
+                if(messageCode.Result==1){
+                    imformation=messageCode.Data;
+                }else{
+                    clearTimeout(timer);
+                    len=60;
+                    $(".sendMessage").text("重新发送信息");
+                    C.layer(1,messageCode.Message);
+                }
+            }
+            function send() {
+                var imfor=$('.message').val();
+                console.log(imformation);
+                console.log(imfor);
+                if(imfor==imformation){
+                    return false;
+                }else{
+                    return false;
+                }
+            }
+            //获取图片验证码
+            function getCode(){
+         
+                var Codes=C.GET(httpUrl.GetVerifyCode,successCode);
+                
+            }
+            function successCode(Codes){
+               // if(Codes.Result==1){
+                    console.log(Codes);
+                    param.imgCodeKey=Codes.CodeKey;
+                    param.imgCodeValue=Codes.CodeValue;
+                    code=Codes.CodeValue;
+                    $(".numcode").text(Codes.CodeValue);
+                // }else{
+                    // C.layer(1,Codes.Message);
+                // }
+            }
+            $(".numcode").on({
+                click:function () {
+                    getCode();
+                },
+                selectstart:function () {
+                    return false;
+                }
+            });
+            getCode();
+        });
+    </script>
+</body>
+</html>

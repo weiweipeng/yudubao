@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="{CHARSET}">
+		<title>悦读宝</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="css/common.css" />
+		<style>
+			body{
+				background-color: #f0f0f0;
+			}
+			#login{
+				width: 580px;
+				margin: 0 auto;
+				/*background-color: #fff;*/
+				text-align: center;
+				/*margin-top: 20vh;*/
+				height: 400px;
+				/*box-shadow: 2px 2px 2px #999999;*/
+				position: absolute;
+				left: 50%;
+			    top: 50%;
+			    margin: -200px 0 0 -290px;
+			}
+			.logoImg{
+				margin-bottom: 30px;
+			}
+			.logoImg img{
+				width: 120px;
+			}
+			.logoImg p{
+				font-size: 18px;
+				font-weight: 700;
+				margin-top: 5px;
+				/*color: #fff;*/
+			}
+			.logins{
+				width: 60%;
+				margin-left: 20%;
+			}
+			.login-inline{
+				margin: 12px auto;
+				position: relative;
+				margin-top: 20px;
+			}
+			.login-inline>input{
+				line-height: 38px;
+				height: 38px;
+				border-radius: 18px;
+				padding-left: 40px;
+				border: 1px solid #999;
+				width: 250px;
+				outline: none;
+			}
+			.login-label:after{
+				content: "";
+				display: block;
+				clear: both;
+			}
+			.login-label{
+				margin-bottom: 30px;
+				margin-top: 15px;
+			}
+            .login-label>p:first-child{
+            	line-height: 16px;
+            	margin-left: 10%;
+            	color: #999;
+            }
+            .login-label>p>input{
+            	vertical-align: middle;
+            }
+            .login-label>.rf{
+            	margin-right: 10%;
+            	color: #999;
+            }
+            .login-label a{
+            	color: #999;
+            }
+            #submit_login{
+            	width: 84%;
+            	/*margin-left: 10%;*/
+            	line-height: 32px;
+            	height: 32px;
+            	outline: none;
+            	background-color: rgb(80,185,70);
+            	border: 0px;
+            	border-radius: 15px;
+            	color: #fff;
+            	
+            }
+            .userImgs{
+            
+            	background-position:-148px -176px;
+            
+            }
+            .userPasss{
+            	
+            	background-position:-195px -176px;
+            }
+            .userPasss,.userImgs{
+            	position: absolute;
+            	top: 0px;
+            	left: 11%;
+            	background-image: url('img/img.png');
+            	height:40px;
+            	width:29px;
+            	
+            	transform: scale(0.6,0.6);
+            	-o-transform: scale(0.6,0.6);
+            	-ms-transform: scale(0.6,0.6);
+            	-webkit-transform: scale(0.6,0.6);
+            	-moz-transform: scale(0.6,0.6);
+            }
+		</style>
+		
+	</head>
+	<body>
+		<!-- <div class="bg"> -->
+			<div id="login">
+			<div class="logoImg">
+				<img src="img/120.png" />
+				<p>登录</p>
+			</div>
+			<form class="logins">
+				<div class="login-inline">
+					<input placeholder="用户名" type="text"  class="userName"/>
+					<div class="userImgs"></div>
+				</div>
+				<div class="login-inline">
+					<input placeholder="密码" type="passWord"  class="userPassword"/>
+					<div class="userPasss"></div>
+				</div>
+				<div class="login-label">
+					<p class="lf">
+						<input type="checkbox" name="remember" class="remember" />
+						<span>记住我</span>
+					</p>
+					<p class="rf">
+						<a href="page/teacher/forget.html">忘记密码</a>
+						|
+						<a href="register.html">立即注册</a>
+					</p>
+				</div>
+				<div class="login-inline">
+					<button id="submit_login" type="button">登录</button>
+				</div>
+			</form>
+		</div>
+		<div class="layerMask"></div>
+		<div class="loading">
+	        <div class="loadBox">
+	            <div class="spinner"></div>
+	        </div>
+	   </div>
+		<!-- </div> -->
+		<script src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/request.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript">
+			if( !('placeholder' in document.createElement('input')) ){
+
+		        $('input[placeholder],textarea[placeholder]').each(function(){
+		            var that = $(this),
+		                    text= that.attr('placeholder');
+		            if(that.val()===""){
+		                that.val(text).addClass('placeholder');
+		            }
+		            that.focus(function(){
+		                if(that.val()===text){
+		                    that.val("").removeClass('placeholder');
+		                }
+		            })
+		                    .blur(function(){
+		                        if(that.val()===""){
+		                            that.val(text).addClass('placeholder');
+		                        }
+		                    })
+		                    .closest('form').submit(function(){
+		                        if(that.val() === text){
+		                            that.val('');
+		                        }
+		                    });
+		        });
+		    }
+		</script>
+		<script>
+			$(function(){
+				
+                
+				var deviceId = "";
+                var login={};
+                var identitys=0;
+                localCheck();
+				if(localStorage.getItem('deviceID')){
+					deviceId = localStorage.getItem('deviceID');
+					console.log(deviceId);
+				}else{
+					var guid = new GUID();
+					deviceId = guid.newGUID();
+					localStorage.setItem('deviceID',deviceId);
+				}
+				$("#submit_login").on("click",function(){
+					
+					var username=$('.userName').val();
+					var pass=$('.userPassword').val();
+					if(checks(username,pass)){
+						remember(username,pass);
+						var param={
+                            "account": username,
+							"passWord": pass,
+							"deviceID": deviceId
+						};
+						ajax(param);
+						C.load(0);
+					}
+				});
+				//验证用户名和密码
+				function checks(username,pass){
+					
+					if(username!="" && pass!=""){
+						login.Name=username;
+						login.Password=pass;
+						return true;
+					}else if(username=="" || username=='用户名'){
+						alert("请输入用户名！");
+						return false;
+					}else if(pass=="" || pass=='密码'){
+						alert("请输入密码！");
+						return false;
+					}
+				}
+				//是否记住用户名和密码
+				function remember(name,pass) {
+					var r=$(".remember[type='checkbox']").is(':checked');
+                    if(r){
+                    	localStorage.setItem("localname",name);
+                    	localStorage.setItem("localPass",pass);
+                    	localStorage.setItem("localrem",true);
+                    }else{
+                    	localStorage.removeItem('localname');
+                    	localStorage.removeItem('localPass');
+                    	localStorage.removeItem('localrem');
+                    }
+				}
+				//本地是否储存用户名和密码
+				var localName='',localPass='',localrem='';
+			    function localCheck() {
+			    // 	if(localStorage.getItem("localname")!=null){
+		    	// 		localName=localStorage.getItem("localname");
+			    // 	}
+			    // 	if(localStorage.getItem("localPass")!=null){
+		    	// 		localPass=localStorage.getItem("localPass");
+			    // 	}
+			    // 	if(localStorage.getItem("localrem")!=null){
+ 						// localrem=localStorage.getItem("localrem");
+			    // 	}
+			    	
+			    	console.log(localName,localPass,localrem);
+			    	if(localName && localPass && localrem){
+			    		$(".userName").val(localName);
+			    		$(".userPassword").val(localPass);
+			    		$(".remember").attr("checked","checked");
+			    	}
+			    }
+			    function ajax(param) {
+			    	console.log(param);
+			    
+			    	var loginData=C.POSTS(JSON.stringify(param),httpUrl.Login,successAjax);
+			    	
+                }
+                function successAjax(loginData){
+                   if(loginData.Result==1){
+			    		console.log(22222);
+                        localStorage.setItem('Entoken',loginData.Data.UserToken);
+                		localStorage.setItem('sexidentitys',loginData.Data.Identitys);
+                	
+                	    var url='';
+                	    identitys=loginData.Data.Identitys;
+                	    if(identitys==3){
+                            urls=httpUrl.GetTeacherInfo;
+                	    }else if(identitys==4){
+                	    	urls=httpUrl.GetStudentInfo;
+                	    }
+                		
+                		var countData=C.POST('',httpUrl.GetLoginAccount,successGetCount);
+                	}else{
+                		C.load(1);
+                		C.layer(2,loginData.Message);
+                	}
+                }
+                function getCount(data,urls,identitys){
+                 
+                	
+                	
+                }
+                function successGetCount(countData){
+                    window.account=countData.Data;
+        			localStorage.setItem('publisherId',countData.Data.AccountId);
+        			localStorage.setItem('publisherName',countData.Data.AccountName);
+        			console.log(localStorage.getItem('publisherId'));
+                    if(countData.Result==1){
+                    	if(identitys==3){
+                        	window.location.href="page/homework/homework.html";
+                        }else if(identitys==4){
+                        	window.location.href="page/Shomework/practice.html";
+                        }
+                    }else{
+                    	C.load(1);
+                    	C.layer(2,countData.Message);
+                    }
+                }
+			    function GUID() {
+				    this.date = new Date();   /* 判断是否初始化过，如果初始化过以下代码，则以下代码将不再执行，实际中只执行一次 */
+				    if (typeof this.newGUID != 'function') {   /* 生成GUID码 */
+				        GUID.prototype.newGUID = function () {
+				            this.date = new Date(); var guidStr = '';
+				            sexadecimalDate = this.hexadecimal(this.getGUIDDate(), 16);
+				            sexadecimalTime = this.hexadecimal(this.getGUIDTime(), 16);
+				            for (var i = 0; i < 9; i++) {
+				                guidStr += Math.floor(Math.random() * 16).toString(16);
+				            }
+				            guidStr += sexadecimalDate;
+				            guidStr += sexadecimalTime;
+				            while (guidStr.length < 32) {
+				                guidStr += Math.floor(Math.random() * 16).toString(16);
+				            }
+				            return this.formatGUID(guidStr);
+				        }
+				        /* * 功能：获取当前日期的GUID格式，即8位数的日期：19700101 * 返回值：返回GUID日期格式的字条串 */
+				        GUID.prototype.getGUIDDate = function () {
+				            return this.date.getFullYear() + this.addZero(this.date.getMonth() + 1) + this.addZero(this.date.getDay());
+				        }
+				        /* * 功能：获取当前时间的GUID格式，即8位数的时间，包括毫秒，毫秒为2位数：12300933 * 返回值：返回GUID日期格式的字条串 */
+				        GUID.prototype.getGUIDTime = function () {
+				            return this.addZero(this.date.getHours()) + this.addZero(this.date.getMinutes()) + this.addZero(this.date.getSeconds()) + this.addZero(parseInt(this.date.getMilliseconds() / 10));
+				        }
+				        /* * 功能: 为一位数的正整数前面添加0，如果是可以转成非NaN数字的字符串也可以实现 * 参数: 参数表示准备再前面添加0的数字或可以转换成数字的字符串 * 返回值: 如果符合条件，返回添加0后的字条串类型，否则返回自身的字符串 */
+				        GUID.prototype.addZero = function (num) {
+				            if (Number(num).toString() != 'NaN' && num >= 0 && num < 10) {
+				                return '0' + Math.floor(num);
+				            } else {
+				                return num.toString();
+				            }
+				        }
+				        /*  * 功能：将y进制的数值，转换为x进制的数值 * 参数：第1个参数表示欲转换的数值；第2个参数表示欲转换的进制；第3个参数可选，表示当前的进制数，如不写则为10 * 返回值：返回转换后的字符串 */GUID.prototype.hexadecimal = function (num, x, y) {
+				            if (y != undefined) { return parseInt(num.toString(), y).toString(x); }
+				            else { return parseInt(num.toString()).toString(x); }
+				        }
+				        /* * 功能：格式化32位的字符串为GUID模式的字符串 * 参数：第1个参数表示32位的字符串 * 返回值：标准GUID格式的字符串 */
+				        GUID.prototype.formatGUID = function (guidStr) {
+				            var str1 = guidStr.slice(0, 8) + '-', str2 = guidStr.slice(8, 12) + '-', str3 = guidStr.slice(12, 16) + '-', str4 = guidStr.slice(16, 20) + '-', str5 = guidStr.slice(20);
+				            return str1 + str2 + str3 + str4 + str5;
+				        }
+				    }
+				}
+				
+								
+			});
+		</script>
+	</body>
+</html>

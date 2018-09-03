@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>选择校区</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="../../css/common.css" />
+	<style type="text/css">
+		#sel{
+			width: 580px;
+			
+			text-align: center;
+			
+			height: 460px;
+			position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -230px 0 0 -290px;
+		}
+		.form-inline{
+			height: 38px;
+			margin-bottom: 20px;
+		}
+		.form-inline>select{
+			line-height: 32px;
+			height: 38px;
+			width: 300px;
+			outline: none;
+			border: 1px solid #f0f0f0;
+			border-radius: 2px;
+		}
+		 #submit_login{
+            	width: 320px;
+            	/*margin-left: 10%;*/
+            	line-height: 32px;
+            	height: 32px;
+            	outline: none;
+            	background-color: rgb(80,185,70);
+            	border: 0px;
+            	border-radius: 15px;
+            	color: #fff;
+            	
+            }
+	</style>
+</head>
+<body>
+	<div class="bg">
+		<div id="sel">
+			<div class="logoImg">
+				<img src="../../img/120.png">
+				<p>选择您的学校</p>
+			</div>
+			<form>
+				<div class="form-inline">
+					<select id="province">
+						<option>未选择</option>
+						
+					</select>
+				</div>
+				<div class="form-inline">
+					<select id="city">
+						<option>未选择</option>
+					</select>
+				</div>
+				<div class="form-inline">
+					<select id="area">
+						<option>未选择</option>
+					</select>
+				</div>
+				<div class="form-inline">
+					<select id="school">
+						<option>未选择</option>
+					</select>
+				</div>
+				<div class="login-inline">
+					<button id="submit_login" type="button">注册成为教师</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="layerMask"></div>
+    <div class="loading">
+        <div class="loadBox">
+            <div class="spinner"></div>
+        </div>
+    </div>
+     <script type="text/javascript" src="../../js/jquery.min.js"></script>
+     <script type="text/javascript" src="../../js/request.js"></script>
+     <script type="text/javascript" src="../../js/common.js"></script>
+     <script type="text/javascript">
+     	$(function () {
+     		var sel={
+			  "areaLevel": 1,
+			  "areaUpID": ""
+			};
+			C.load(0);
+			var submitdata={};
+			var school={},province="",city="",area="",fo=false;
+			var province={},city={};
+     		function ajaxs(){
+		
+		        var areaData=C.POSTS( JSON.stringify(sel),httpUrl.GetAreaList,successAjax);
+		        
+     		}
+     		function successAjax(areaData){
+                if(areaData.Result==1){
+		        	list(areaData.Data);
+		        	C.load(1);
+		        }else{
+		        	C.load(1);
+		        	C.layer(1,areaData.Message);
+		        }
+     		}
+     		ajaxs();
+     		function list(data){
+     			var options='<option>未选择</option>';
+                if(fo){
+                	for(var i=0;i<data.length;i++){
+	     				options+='<option data-id='+data[i].Id+'>'+data[i].Name+'</option>';
+
+	     			}
+                	$("#school").html(options);
+                	fo=false;
+                }else{
+                	for(var i=0;i<data.length;i++){
+	     				options+='<option data-id='+data[i].AreaId+'>'+data[i].AreaName+'</option>';
+	     			}
+                   if(sel.areaLevel==1){
+	     				$("#province").html(options);
+	                }else if(sel.areaLevel==2){
+	                	$("#city").html(options);
+	                }else if(sel.areaLevel==3){
+	                	$("#area").html(options);
+	                }
+                }
+     		}
+     		function ajaxSchool(){
+     // 			$.ajax({
+		   //          type: 'GET',
+		   //          url: httpUrl.GetSchoolListByArea,
+		   //          data: school,
+		   //          async: false,
+		   //          cache: false,
+		   //          dataType: 'json',
+					// contentType: 'application/json',
+					// beforeSend:function(XMLHttpRequest){
+		   //              XMLHttpRequest.setRequestHeader('token', localStorage.getItem('Entoken'));
+		   //              XMLHttpRequest.setRequestHeader('timestamp', Math.round(new Date() / 1000));
+		   //              XMLHttpRequest.setRequestHeader('deviceID', localStorage.getItem('deviceID'));
+		   //          },
+		   //          success: function (data) {
+		   //          	C.load(1);
+		   //              console.log(111,data)
+		   //              fo=true;
+		   //              list(data.data);
+		   //              // sel.schoolID=data.data.id;
+		   //              localStorage.setItem('schoolID',data.data.id);
+		   //          },
+		   //          error: function (error) {
+		   //          	C.load(1);
+		   //              C.layer(1,error.message);
+		   //          }
+		   //      });
+		    var data=C.GETS(school,httpUrl.GetSchoolListByArea,successSchool);
+		        // var schoolData=C.GET(httpUrl.GetSchoolListByArea);
+		        // if(schoolData==1){
+		        // 	 fo=true;
+	         //        list(schoolData.data);
+	         //        // sel.schoolID=data.data.id;
+	         //        localStorage.setItem('schoolID',schoolData.data.id);
+		        // }else{
+		        // 	alert(schoolData.message);
+		        // }
+     		}
+     		function successSchool(data){
+                console.log(22222);
+                if(data.Result==1){
+                    C.load(1);
+                    console.log(111,data)
+                    fo=true;
+                    list(data.Data);
+                    // sel.schoolID=data.data.id;
+                    localStorage.setItem('schoolID',data.Data.Id);
+                }else{
+                    C.load(1);
+                    C.layer(1,error.Message);
+                }
+            }
+     		$("#province").on("change",function(e){
+     			var selected=$(this).children('option:selected').val();
+     			province=$(this).children('option:selected').attr("data-id");
+     			sel.areaUpID=province;
+     			sel.areaLevel=2
+     			C.load(0);
+     			ajaxs();
+     		});
+     		$("#city").on("change",function(){
+     			console.log(11111);
+                var selected=$(this).children('option:selected').val();
+     			city=$(this).children('option:selected').attr("data-id");
+     			sel.areaUpID=city;
+     			sel.areaLevel=3
+     			C.load(0);
+     			ajaxs();
+     		});
+     		$("#area").on("change",function(){
+     			var selected=$(this).children('option:selected').val();
+     			area=$(this).children('option:selected').attr("data-id");
+     			// sel.areaUpID=dataId;
+     			// sel.areaLevel=4
+                school.ProvinceId=province;
+                school.CityId=city;
+                school.DistrictId=area;
+                console.log(school);
+                C.load(0);
+     			ajaxSchool();
+     		});
+     		$("#school").on("change",function(){
+     			submitdata.schoolID=$(this).children('option:selected').attr("data-id");
+     		});
+     		$("#submit_login").on("click",function () {
+     			// window.location.href="success.html";
+     			C.load(0);
+                submitdata.phoneNumber=localStorage.getItem('phoneNumber');
+				submitdata.deviceID=localStorage.getItem('deviceID');
+ 				logins(submitdata);
+     		});
+     		function logins(submitdata){
+
+		        var useData=C.POSTS(JSON.stringify(submitdata),httpUrl.RegUserAccount,successLogins);
+		        
+     		}
+     		function successLogins(useData){
+     			if(useData.Result==1){
+                	window.location.href="success.html";
+                }else{
+                	C.load(1);
+                	C.layer(1,useData.Message);
+                }
+     		}
+     	});
+     </script>
+</body>
+</html>
