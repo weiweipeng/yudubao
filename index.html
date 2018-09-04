@@ -154,7 +154,10 @@
 	        </div>
 	   </div>
 		<!-- </div> -->
-		<script src="js/jquery.min.js"></script>
+		<!-- <script src="js/jquery.min.js"></script> -->
+		<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+
+		<script type="text/javascript" src="js/XDomainRequest.js"></script>
 		<script type="text/javascript" src="js/request.js"></script>
 		<script type="text/javascript" src="js/common.js"></script>
 		<script type="text/javascript">
@@ -201,23 +204,25 @@
 					localStorage.setItem('deviceID',deviceId);
 				}
 				$("#submit_login").on("click",function(){
-					
+					console.log(111);
 					var username=$('.userName').val();
 					var pass=$('.userPassword').val();
 					if(checks(username,pass)){
+						console.log(333);
 						remember(username,pass);
 						var param={
                             "account": username,
 							"passWord": pass,
 							"deviceID": deviceId
 						};
+						console.log(444);
 						ajax(param);
 						C.load(0);
 					}
 				});
 				//验证用户名和密码
 				function checks(username,pass){
-					
+					console.log(222);
 					if(username!="" && pass!=""){
 						login.Name=username;
 						login.Password=pass;
@@ -246,15 +251,15 @@
 				//本地是否储存用户名和密码
 				var localName='',localPass='',localrem='';
 			    function localCheck() {
-			    // 	if(localStorage.getItem("localname")!=null){
-		    	// 		localName=localStorage.getItem("localname");
-			    // 	}
-			    // 	if(localStorage.getItem("localPass")!=null){
-		    	// 		localPass=localStorage.getItem("localPass");
-			    // 	}
-			    // 	if(localStorage.getItem("localrem")!=null){
- 						// localrem=localStorage.getItem("localrem");
-			    // 	}
+			    	if(localStorage.getItem("localname")!=null){
+		    			localName=localStorage.getItem("localname");
+			    	}
+			    	if(localStorage.getItem("localPass")!=null){
+		    			localPass=localStorage.getItem("localPass");
+			    	}
+			    	if(localStorage.getItem("localrem")!=null){
+ 						localrem=localStorage.getItem("localrem");
+			    	}
 			    	
 			    	console.log(localName,localPass,localrem);
 			    	if(localName && localPass && localrem){
@@ -265,11 +270,12 @@
 			    }
 			    function ajax(param) {
 			    	console.log(param);
-			    
+			        console.log(555);
 			    	var loginData=C.POSTS(JSON.stringify(param),httpUrl.Login,successAjax);
 			    	
                 }
                 function successAjax(loginData){
+                	console.log(888);
                    if(loginData.Result==1){
 			    		console.log(22222);
                         localStorage.setItem('Entoken',loginData.Data.UserToken);
@@ -285,6 +291,7 @@
                 		
                 		var countData=C.POST('',httpUrl.GetLoginAccount,successGetCount);
                 	}else{
+                		console.log(JSON.stringify(loginData));
                 		C.load(1);
                 		C.layer(2,loginData.Message);
                 	}

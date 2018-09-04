@@ -1,6 +1,7 @@
 var C={
 	POST:function (datas,url,func) {
 		var classData={};
+        // $.support.cros=true;
         $.ajax({
             type:'POST',
             url: url,
@@ -8,6 +9,7 @@ var C={
             async: true,
             cache: false,
             dataType: 'json',
+            // crossDomain:true,
             beforeSend:function(XMLHttpRequest){
                 XMLHttpRequest.setRequestHeader('token', localStorage.getItem('Entoken'));
                 XMLHttpRequest.setRequestHeader('timestamp', Math.round(new Date() / 1000));
@@ -31,8 +33,10 @@ var C={
         return classData;
 	},
 	POSTS:function (datas,url,func) {
-       
-
+    
+         console.log(datas);
+         console.log(url);
+         console.log(func);
 		var classData={};
         $.ajax({
             type: 'POST',
@@ -42,13 +46,14 @@ var C={
             cache: false,
             dataType: 'json',
             contentType: 'application/json',
+            // crossDomain:true,
             beforeSend:function(XMLHttpRequest){
                 XMLHttpRequest.setRequestHeader('token', localStorage.getItem('Entoken'));
                 XMLHttpRequest.setRequestHeader('timestamp', Math.round(new Date() / 1000));
                 XMLHttpRequest.setRequestHeader('deviceID', localStorage.getItem('deviceID'));
             },
             success: function (data) {
-         
+                console.log(666);
                
                 
                     classData = data;
@@ -59,7 +64,12 @@ var C={
        
             },
             error: function (data) {
-                datas = data;
+                console.log(777);
+                console.log(JSON.stringify(data));
+                if(func){
+                    func(data);
+                }
+                classData = data;
             }
 
         })

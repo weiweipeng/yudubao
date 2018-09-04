@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/shijian.css">
 	<style type="text/css">
 
         .decorate,.decorates{
@@ -178,6 +179,35 @@
         #mains{
             margin-top: 40px;
         }
+        .box>input{
+            background-color: rgba(0, 204, 153, 1);
+            width: 100%;
+            border: 0px;
+            text-align: center;
+        }
+        .box>input::-webkit-input-placeholder { /* WebKit browsers */
+
+    　　      color:#fff;
+
+    　　 }
+
+    　　.box>input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+
+    　　     color:#fff;
+
+    　　}
+
+    　　.box>input::-moz-placeholder { /* Mozilla Firefox 19+ */
+
+    　　    color:#fff;
+
+    　　}
+
+    　　.box>input:-ms-input-placeholder { /* Internet Explorer 10+ */
+
+    　　    color:#fff;
+
+    　　}
 	</style>
 
 </head>
@@ -252,12 +282,20 @@
                         <div class="chosec">
                             <div class="lf starttime">
                                 <p>开始时间</p>
-                                <P>2018-01-01</P>
+                                <p class="box">
+                                <input type="text"  id="selectStartTime" value="未选择"/>
+                                    <!-- <div class="jsbox">
+                                    </div> -->
+                                </p>
                                 
                             </div>
                             <div class="lf endtime">
                                 <p>结束时间</p>
-                                <p>未选择</p>
+                                <p class="box">
+                                    <input type="text"  id="selectEndTime" value="未选择"/>
+                                    <!-- <div class="jsbox">
+                                    </div> -->
+                                </p>
                             </div>
                         </div>
                         <!-- <div class="join">加入班级</div> -->
@@ -309,6 +347,7 @@
         </div>
     </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/jquer_shijian.js"></script>
     <script type="text/javascript" src="../../js/common.js"></script>
     <script type="text/javascript" src="../../js/request.js"></script>
     <script type="text/javascript" src="../../js/echarts.min.js"></script>
@@ -333,6 +372,20 @@
              if(localStorage.getItem('studentName')){
                 $('.names').text(localStorage.getItem('studentName'));
             }
+             //选择需要显示的
+            $("#selectStartTime").shijian({
+                // y:-20,//当前年份+10
+                Hour:false,//是否显示小时
+                Minute:false,//是否显分钟
+                // success:function(){}
+            })
+             //选择需要显示的
+            $("#selectEndTime").shijian({
+                // y:-20,//当前年份+10
+                Hour:false,//是否显示小时
+                Minute:false,//是否显分钟
+                // success:function(){}
+            })
              //获取班级列表
 
             getClassData();
@@ -998,6 +1051,12 @@
                     $(".message_list").hide();
                 }
             });
+            $("#selectTime").shijian({
+                // y:-20,//当前年份+10
+                Hour:false,//是否显示小时
+                Minute:false,//是否显分钟
+                // success:function(){}
+            })
     	});
     </script>
 </body>
