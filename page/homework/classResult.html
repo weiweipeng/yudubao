@@ -461,7 +461,7 @@
                 var spanId=$(this).attr('id');
                 var grades=$(this).attr('gradeid');  
             
-                if(spanBool=='block'){
+                if(spanBool=='block' || spanBool=='inline'){
                     if(gradeid==''){
                         gradeid = grades;
                          param.ClassId=spanId;
@@ -477,7 +477,7 @@
                     gradeid='';
                 }
    
-                if(spanBool=='block'){
+                if(spanBool=='block' || spanBool=='inline'){
                     classListId.push(spanId);
                 }else{
                     var j=classListId.indexOf(spanId);

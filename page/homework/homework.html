@@ -265,12 +265,7 @@
                     <li><input type="radio" name="time" value="60">60分钟</li>
                 </ul>
                 <ul class="semester">
-                    <li><input type="radio" name="semester" value="七年级上">七年级上</li>
-                    <li><input type="radio" name="semester" value="七年级下">七年级下</li>
-                    <li><input type="radio" name="semester" value="八年级上">八年级上</li>
-                    <li><input type="radio" name="semester" value="八年级下">八年级下</li>
-                    <li><input type="radio" name="semester" value="九年级下">九年级下</li>
-                    <li><input type="radio" name="semester" value="九年级下">九年级下</li>
+                    
                 </ul>
                 <ul class="unit"></ul>
             </div>
@@ -433,22 +428,23 @@
                 var spanBool=$(this).find('span').css("display");
                 var spanId=$(this).attr('id');
                 var grades=$(this).attr('gradeid');  
-                console.log(spanbox);
                 for(var k=0;k<spanbox.length;k++){
                     var boxshow=$(spanbox).eq(k).css('display');
-                    if(boxshow=='block'){
+                    if(boxshow=='block' || boxshow=='inline'){
                         boxBool=false;
-                        console.log(3333,boxshow);
+                        
                     }
                 }
+                console.log(JSON.stringify(boxBool));
                 if(boxBool){
+                    console.log(1111);
                     gradeid='';
                 }else{
-
+                    console.log(2222);
                     if(gradeid==''){
+                        console.log(3333);
                         gradeid = grades; 
                         gradeName = $(this).attr('gradeName'); 
-                        
                         Semester(gradeid);//学期列表
                     }else if(gradeid!='' && gradeid!=grades){
                         // spanBool='none';
@@ -459,18 +455,16 @@
                     }
                 }
                 // console.log(spanBool,spanId);
-                if(spanBool=='block'){
+                if(spanBool=='block' || spanBool=='inline'){
                     classListId.push(spanId);
                 }else{
                     var j=classListId.indexOf(spanId);
-                    // console.log(classListId);
                     classListId.splice(j,1);
                     // console.log(classListId);
                 }
             });
             //翻页后班级是否选中
             function setClassCheck(){
-                console.log(classListId);
                 if(classListId.length!=0){
                     var spanRember=$(".classtable");
                     for(var i=0;i<spanRember.length;i++){
@@ -486,7 +480,7 @@
             }
             //学期列表
             function Semester(id){
-                console.log('id',id);
+                console.log( id);
                 var htmls='';
                 switch(id)
                 {
@@ -510,7 +504,7 @@
                     htmls='<li><input type="radio" name="semester" value="高二上" data-id="0">高二上</li>';
                     htmls+='<li><input type="radio" name="semester" value="高二下" data-id="1">高二下</li>';
                     break;
-                case '10':
+                case '12':
                     htmls='<li><input type="radio" name="semester" value="高三上" data-id="0">高三上</li>';
                     htmls+='<li><input type="radio" name="semester" value="高三下" data-id="1">高三下</li>';
                     break;
@@ -518,15 +512,16 @@
                     htmls='没有这个年级';
                     break;
                 }
+                $(".semester").empty();
                 $(".semester").html(htmls);
             }
             var checkedIds= [];//保存选中的id，亦适用于分页
             var questionList =[];//保存篇章列表信息
             //点击input选中篇章列表
             $(".tablelist").on("click",'input',function(){
-                console.log(2222222);
+             
                 if(classListId.length!=0 && $('.selSemester ').text()!='未选择'){
-                    console.log(classListId);
+                  
                     if($(this).is(":checked")){
                    
                         if(questionList.length>=5){
@@ -545,14 +540,14 @@
                         }
                          
 
-                          console.log(questionList);
+                         
                          // console.log(checkedIds.length);
                      }else{
                          for(var i=0; i<checkedIds.length; i++){
                              if($(this).attr("id") == checkedIds[i]){
                              checkedIds.splice(i, 1);
                              questionList.splice(i,1);
-                             console.log(questionList);
+                          
                              break;
                              }
                          }
@@ -655,7 +650,7 @@
                 }
             }
             function createList(data){
-                var list='<li><p class="cell1">编号</p><p class="cell2">选中</p><p class="cell3">篇章名称</p><p class="cell4">话题</p><p class="cell5">题型</p><p class="cell6">文体</p><p class="cell7">难度</p><p class="cell8">阅读策略</p><p class="cell9">写作技巧</p><p class="cell10">词数</p><p class="cell11">分数</p><p class="cell12">教学建议</p><p class="cell13">操作</p></li>';
+                var list='<li><p class="cell1">编号</p><p class="cell2">选中</p><p class="cell3">篇章名称</p><p class="cell4">话题</p><p class="cell5">题型</p><p class="cell6">文体</p><p class="cell7">难度</p><p class="cell8">阅读策略</p><p class="cell9">写作技巧</p><p class="cell10">词数</p><p class="cell11">分数</p><p class="cell12">操作</p><p class="cell13">教学建议</p></li>';
                 for(var i=0;i<data.length;i++){
                     var index=1;
                     if(tablenum==0){
@@ -682,8 +677,9 @@
                     list+='<p class="cell9">'+data[i].WritingSkillId+'</p>';
                     list+='<p class="cell10">'+data[i].Words+'</p>';
                     list+='<p class="cell11">'+data[i].Score+'</p>';
-                    list+='<p class="cell12"><span class="preview dbtn">预览</span></p>';
-                    list+='<p class="cell13"><span class="view dbtn" data-id="' + data[i].Id + '" >查看</span></p>';
+                    list+='<p class="cell12"><span class="view dbtn">预览</span></p>';
+                    list+='<p class="cell13"><span class="preview dbtn" data-id="' + data[i].Id + '" >查看</span></p>';
+                    
                     list+='</li>';
                 }
                 $(".tablelist").html(list);
@@ -809,7 +805,6 @@
                 if(ajaxViewData.Result==1){
                     PreviewSubject(ajaxViewData.Data);
                 }else{
-                    
                     C.layer(1,ajaxViewData.Message);
                 }
             } 

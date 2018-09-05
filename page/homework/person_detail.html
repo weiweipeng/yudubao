@@ -234,14 +234,14 @@
                 'IndexPage':1,
                 'IndexSize':1
             };
-           
+            
             var classListId=[],gradeid='',gradeName='';//班级id列表
             paramClass.TeacherId=localStorage.getItem('TeacherIds');
             param.publisherId=localStorage.getItem('publisherId');
             var count='',classCount='';
             if(localStorage.getItem('teacherNames')){
                 $(".ope_first").find('span').text(localStorage.getItem('teacherNames'));
-             }
+            }
             // param.Id=sessionStorage.getItem('lessionId');
             // ajaxs(param);
             console.log(param);
@@ -398,7 +398,7 @@
                 var spanId=$(this).attr('id');
                 var grades=$(this).attr('gradeid');  
             
-                if(spanBool=='block'){
+                if(spanBool=='block' || spanBool=='inline'){
                     if(gradeid==''){
                         gradeid = grades;
                          paramClass.Id=gradeid;
@@ -416,7 +416,7 @@
                     gradeid='';
                 }
    
-                if(spanBool=='block'){
+                if(spanBool=='block' || spanBool=='inline'){
                     classListId.push(spanId);
                 }else{
                     var j=classListId.indexOf(spanId);
@@ -466,9 +466,10 @@
 
                 }
             }
-            $('.close_list').on('click',function(){
+            
+           $(".mask,.close_list").on("click",function(){
                 $('.mask').hide();
-                $('.unit').hide();
+                $('.mask').find("ul").hide();
             });
             // 查看
             $(".tablelist").on("click",".preview",function(){

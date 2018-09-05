@@ -9,11 +9,12 @@ var C={
             async: true,
             cache: false,
             dataType: 'json',
-            // crossDomain:true,
+            crossDomain:true == !(document.all),
             beforeSend:function(XMLHttpRequest){
                 XMLHttpRequest.setRequestHeader('token', localStorage.getItem('Entoken'));
                 XMLHttpRequest.setRequestHeader('timestamp', Math.round(new Date() / 1000));
                 XMLHttpRequest.setRequestHeader('deviceID', localStorage.getItem('deviceID'));
+                // console.log(localStorage.getItem('Entoken'));
             },
             success: function (data) {
                     classData = data;
@@ -34,9 +35,7 @@ var C={
 	},
 	POSTS:function (datas,url,func) {
     
-         console.log(datas);
-         console.log(url);
-         console.log(func);
+         
 		var classData={};
         $.ajax({
             type: 'POST',
@@ -46,15 +45,13 @@ var C={
             cache: false,
             dataType: 'json',
             contentType: 'application/json',
-            // crossDomain:true,
-            beforeSend:function(XMLHttpRequest){
-                XMLHttpRequest.setRequestHeader('token', localStorage.getItem('Entoken'));
-                XMLHttpRequest.setRequestHeader('timestamp', Math.round(new Date() / 1000));
-                XMLHttpRequest.setRequestHeader('deviceID', localStorage.getItem('deviceID'));
+            crossDomain:true == !(document.all),
+            beforeSend:function(request){
+                request.setRequestHeader('token', localStorage.getItem('Entoken'));
+                request.setRequestHeader('timestamp', Math.round(new Date() / 1000));
+                request.setRequestHeader('deviceID', localStorage.getItem('deviceID'));
             },
-            success: function (data) {
-                console.log(666);
-               
+            success: function (data) {               
                 
                     classData = data;
                 
@@ -64,8 +61,6 @@ var C={
        
             },
             error: function (data) {
-                console.log(777);
-                console.log(JSON.stringify(data));
                 if(func){
                     func(data);
                 }
@@ -86,18 +81,14 @@ var C={
             cache: false,
             dataType: 'json',
             contentType: 'application/json',
+            crossDomain:true == !(document.all),
             beforeSend:function(XMLHttpRequest){
                 XMLHttpRequest.setRequestHeader('token', localStorage.getItem('Entoken'));
                 XMLHttpRequest.setRequestHeader('timestamp', Math.round(new Date() / 1000));
                 XMLHttpRequest.setRequestHeader('deviceID', localStorage.getItem('deviceID'));
             },
             success: function (data) {
-                // C.load(1);
-                // console.log(111,data)
-                // fo=true;
-                // list(data.data);
-                // // sel.schoolID=data.data.id;
-                // localStorage.setItem('schoolID',data.data.id);
+      
                 if(func){
                     func(data);
                 }
@@ -119,6 +110,7 @@ var C={
              async: false,
             cache: true,
             contentType: 'application/json',
+            crossDomain:true == !(document.all),
             beforeSend:function(XMLHttpRequest){
                 XMLHttpRequest.setRequestHeader('token', localStorage.getItem('Entoken'));
                 XMLHttpRequest.setRequestHeader('timestamp', Math.round(new Date() / 1000));
@@ -161,8 +153,7 @@ var C={
         if(mainW*sizes.zoom>sizes.OW){
             sizes.zoom=sizes.OW/mainW;
         }
- 
-         $(".main").css({ 'transform': 'scale(' + sizes.zoom + ','+sizes.zoom +')', '-ms-transform': 'scale(' + sizes.zoom + ','+sizes.zoom +')', '-webkit-transform': 'scale(' + sizes.zoom + ','+sizes.zoom +')' });
+        $(".main").css({ 'transform': 'scale(' + sizes.zoom + ','+sizes.zoom +')', '-ms-transform': 'scale(' + sizes.zoom + ','+sizes.zoom +')', '-webkit-transform': 'scale(' + sizes.zoom + ','+sizes.zoom +')' });
     },
     layer:function(num,content){
         var str='';

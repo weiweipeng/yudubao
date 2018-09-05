@@ -180,6 +180,9 @@
             display: block;
             clear: both;
         }
+        .prac{
+            position: relative;
+        }
 	</style>
 </head>
 <body>
@@ -303,6 +306,12 @@
             <div class="bg-line"></div>
         </div>
     </div>
+    <div class="layerMask"></div>
+    <div class="loading">
+        <div class="loadBox">
+            <div class="spinner"></div>
+        </div>
+    </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../js/request.js"></script>
     <script type="text/javascript" src="../../js/common.js"></script>
@@ -410,7 +419,7 @@
                 var spanId=$(this).attr('id');
                 var grades=$(this).attr('gradeid');  
             
-                if(spanBool=='block'){
+                if(spanBool=='block' || spanBool=='inline'){
                     if(gradeid==''){
                         gradeid = grades;
                         param.ClassId=spanId;
@@ -428,7 +437,7 @@
                     gradeid='';
                 }
    
-                if(spanBool=='block'){
+                if(spanBool=='block' || spanBool=='inline'){
                     classListId.push(spanId);
                 }else{
                     var j=classListId.indexOf(spanId);
@@ -492,6 +501,8 @@
             }
             $(".practiceList").on('click','.prac',function(){
                 // srtudent.ClassTaskId=$(this).attr('id');ea266f2a-94f0-41f5-b108-cdaf5ba6eee5
+                $('.practiceList').find('span').hide();
+                $(this).find('span').show();
                 submitRead.EnglishHistoryBaseID='ea266f2a-94f0-41f5-b108-cdaf5ba6eee5';
                 srtudent.ClassTaskId='ea266f2a-94f0-41f5-b108-cdaf5ba6eee5';
                 getStudent();
@@ -505,7 +516,7 @@
                     getClassData();
                 }else{
                     param.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
+                    C.layer(2,"已经是第一页啦！");            
                 }
             });
             

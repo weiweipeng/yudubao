@@ -428,11 +428,12 @@
                 var spanId=$(this).attr('id');
                 var grades=$(this).attr('gradeid');  
             
-                if(spanBool=='block'){
+                if(spanBool=='block' || spanBool=='inline'){
                     if(gradeid==''){
                         gradeid = grades;
                          // param.ClassId=spanId;
                         // getdata();
+
                         gradeName = $(this).attr('gradeName');
                         srtudent.ClassId='aaa';
                         echeatDatas.ClassId='aaa';
@@ -451,7 +452,7 @@
                     gradeid='';
                 }
    
-                if(spanBool=='block'){
+                if(spanBool=='block' || spanBool=='inline'){
                     classListId.push(spanId);
                 }else{
                     var j=classListId.indexOf(spanId);
@@ -508,6 +509,7 @@
                 for(var i=0;i<data.length;i++){
                     htmls+='<div class="stusection lf bg2" id="'+data[i].Id+'">'+data[i].StudentName+'</div>'
                 }
+                $('.stusline').empty();
                 $('.stusline').html(htmls);
             }
             

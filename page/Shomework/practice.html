@@ -471,7 +471,7 @@
                 console.log(spanbox);
                 for(var k=0;k<spanbox.length;k++){
                     var boxshow=$(spanbox).eq(k).css('display');
-                    if(boxshow=='block'){
+                    if(boxshow=='block' || boxshow=='inline'){
                         boxBool=false;
                         console.log(3333,boxshow);
                     }
@@ -495,7 +495,7 @@
                     }
                 }
                 // console.log(spanBool,spanId);
-                if(spanBool=='block'){
+                if(spanBool=='block' || spanBool=='inline'){
                     classListId.push(spanId);
                 }else{
                     var j=classListId.indexOf(spanId);

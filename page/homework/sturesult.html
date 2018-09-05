@@ -133,6 +133,9 @@
             display: block;
             clear: both;
         }
+        .prac{
+            position: relative;
+        }
     </style>
 </head>
 <body>
@@ -166,8 +169,6 @@
             </div>
         </div>
         <div class="mainContent">
-
-            
             <div class="cenContent">
                 <div class="main">
                 <div class="mainleft">
@@ -325,7 +326,7 @@
                         list+='<p class="cell2">'+data[i].StudentName+'</p>';
                         list+='<p class="cell10">未完成</p></li>'
                     }else{
-                        list+='<p class="cell1"> <span class="serial">'+index+'</span> </p>';
+                        list+='<p class="cell1"> <span class="serial">'+index+'</span></p>';
                         list+='<p class="cell2">'+data[i].StudentName+'</p>';
                         list+='<p class="cell3">'+data[i].TotalScore+'</p>';
                         list+='<p class="cell4">'+data[i].StudentScore+'</p>';
@@ -369,8 +370,6 @@
             function getClassData(){
                 console.log(paramClass);
                 var classData=C.POST(paramClass,httpUrl.GetClassListByTeacherID,successGetclass);
-                
-                
             }
             function successGetclass(classData) {
                 if(classData.Result==1){
@@ -402,7 +401,6 @@
                     list+='<div id='+data[i].Id+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].Name+'<span>选中</span></div>'
                 }
                 $(".sec").html(list);
-
             }
             
             $(".classLf").on("click",function(){
@@ -421,9 +419,7 @@
                 if(paramClass.IndexPage<classCount){
                     classNum=1;
                     paramClass.IndexPage+=classNum;
-                    
                     getClassData();
-
                 }else{
                     paramClass.IndexPage=classCount;
                     C.layer(2,"已经是最后一页啦！");
@@ -438,7 +434,7 @@
                 var spanId=$(this).attr('id');
                 var grades=$(this).attr('gradeid');  
             
-                if(spanBool=='block'){
+                if(spanBool=='block' || spanBool=='inline'){
                     if(gradeid==''){
                         gradeid = grades;
                          param.ClassId=spanId;
@@ -455,7 +451,7 @@
                     gradeid='';
                 }
    
-                if(spanBool=='block'){
+                if(spanBool=='block' || spanBool=='inline'){
                     classListId.push(spanId);
                 }else{
                     var j=classListId.indexOf(spanId);
@@ -481,9 +477,7 @@
             }
             //获取任务列表
            function getdata(){
-                
                 var resultData=C.POST(param,httpUrl.TeacherTaskPersonalListAll,successGetdata);
-                
             }
             function successGetdata(resultData) {
                 if(resultData.Result==1){
@@ -510,6 +504,8 @@
             }
             $('.practiceList').on('click','.prac',function(){
                 // paramList.classTaskId=$(this).attr('id');
+                $('.practiceList').find('span').hide();
+                $(this).find('span').show();
                 paramList.classTaskId='ea266f2a-94f0-41f5-b108-cdaf5ba6eee5';
                 getlistdata();
             });
@@ -592,9 +588,9 @@
             $(".tablelist").on('click','.preview',function(){
                 window.location.href='classResult.html'
             });
-            $(".tablelist").on('click','.view',function(){
-                // window.location.href='';
-            });
+            // $(".tablelist").on('click','.view',function(){
+            //     // window.location.href='';
+            // });
         });
     </script>
 </body>

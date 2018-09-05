@@ -470,10 +470,11 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 /*居中部分*/
 .dbtn{
     width: 50px;
-    line-height: 26px;
+    line-height: 22px;
     text-align: center;
     border:1px solid #999;
     border-radius: 1px;
+    filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#f0f0f0',endColorStr='#ADADAD',gradientType='0'); 
     background: -webkit-linear-gradient(left,#f0f0f0 ,  #ADADAD); /* Safari 5.1 - 6.0 */
     background: -o-linear-gradient(left,#f0f0f0 ,  #ADADAD); /* Opera 11.1 - 12.0 */
     background: -moz-linear-gradient(left,#f0f0f0 ,  #ADADAD); /* Firefox 3.6 - 15 */
@@ -482,7 +483,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
     font-size: 14px;
     margin: 0 auto;
     display: inline-block;
-    transform: scale(0.8);
+    /*transform: scale(0.8);*/
     cursor: pointer;
     margin-top: 5px;
 }
@@ -857,7 +858,7 @@ cursor: pointer;
     right: 0px; */
     width: 100%;
     height: 100%;
-    display: flex;
+    display: -ms-flexbox;
     background-color: rgba(0,0,0,0.2);
     justify-content: center;
     align-items: center;

@@ -345,7 +345,7 @@
             pertarsk.TeacherId=TeacherId;
             var classListId=[],gradeid='',gradeName='';//班级id列表
            $(".release").on("click",function () {
-                console.log(window.doQuestions);
+                // console.log(window.doQuestions);
                 pertarsk.doQuestions  = $("#selectTime").val();
                 pertarsk.classIdList   = studentArr;
                 pertarsk.gradeId = gradeid;
@@ -389,8 +389,8 @@
                  }
             }
             function studentList(data){
-                console.log(4444444444444);
-                console.log(data);
+                // console.log(4444444444444);
+                // console.log(data);
                 var htmls='';
                 for(var i=0;i<data.length;i++){
                     htmls+='<div class="stusection lf bg2" id="'+data[i].Id+'">'+data[i].SchoolName+'</div>'
@@ -434,7 +434,7 @@
 
                 }else{
                     srtudent.IndexPage=studentCount;
-                   
+                    
                     C.layer(2,"已经是最后一页啦！");
                 }
             });
@@ -506,9 +506,9 @@
                 var spanBool=$(this).find('span').css("display");
                 var spanId=$(this).attr('id');
                 var grades=$(this).attr('gradeid');  
-                console.log(spanbox);
+                // console.log(spanbox);
                 
-                if(spanBool=='block'){
+                if(spanBool=='block' || spanBool=='inline'){
                     if(gradeid==''){
                         gradeid = grades;
                          paramClass.Id=gradeid;
@@ -531,7 +531,7 @@
                     gradeid='';
                 }
    
-                if(spanBool=='block'){
+                if(spanBool=='block' || spanBool=='inline'){
                     classListId.push(spanId);
                 }else{
                     var j=classListId.indexOf(spanId);
@@ -580,7 +580,7 @@
                     htmls='<li><input type="radio" name="semester" value="高二上" data-id="0">高二上</li>';
                     htmls+='<li><input type="radio" name="semester" value="高二下" data-id="1">高二下</li>';
                     break;
-                case '10':
+                case '12':
                     htmls='<li><input type="radio" name="semester" value="高三上" data-id="0">高三上</li>';
                     htmls+='<li><input type="radio" name="semester" value="高三下" data-id="1">高三下</li>';
                     break;
@@ -673,7 +673,7 @@
                 }
             }
             function createList(data){
-                var list='<li><p class="cell1">编号</p><p class="cell2">选中</p><p class="cell3">篇章名称</p><p class="cell4">话题</p><p class="cell5">题型</p><p class="cell6">文体</p><p class="cell7">难度</p><p class="cell8">阅读策略</p><p class="cell9">写作技巧</p><p class="cell10">词数</p><p class="cell11">分数</p><p class="cell12">教学建议</p><p class="cell13">操作</p></li>';
+                var list='<li><p class="cell1">编号</p><p class="cell2">选中</p><p class="cell3">篇章名称</p><p class="cell4">话题</p><p class="cell5">题型</p><p class="cell6">文体</p><p class="cell7">难度</p><p class="cell8">阅读策略</p><p class="cell9">写作技巧</p><p class="cell10">词数</p><p class="cell11">分数</p><p class="cell12">操作</p><p class="cell13">教学建议</p></li>';
                 for(var i=0;i<data.length;i++){
                     var index=1;
                     if(tablenum==0){
@@ -697,8 +697,9 @@
                         list+='<p class="cell9">'+data[i].WritingSkillId+'</p>';
                         list+='<p class="cell10">'+data[i].Words+'</p>';
                         list+='<p class="cell11">'+data[i].Score+'</p>';
-                        list+='<p class="cell12"><span class="preview dbtn">查看</span></p>';
-                        list+='<p class="cell13"><span class="view dbtn" data-id="' + data[i].Id + '" >预览</span></p>';
+                       
+                        list+='<p class="cell12"><span class="view dbtn" data-id="' + data[i].Id + '" >预览</span></p>';
+                         list+='<p class="cell13"><span class="preview dbtn">查看</span></p>';
                         list+='</li>';
                 }
                 $(".tablelist").html(list);
@@ -725,8 +726,6 @@
                             questionList[quesLen].Term=terms;
                             questionList[quesLen].Unit=units;
                         }
-                         
-
                         console.log(questionList);
                          
                      }else{
