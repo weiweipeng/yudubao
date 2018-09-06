@@ -776,9 +776,6 @@
             }
             function unitlist(unitDatas){
                 if(unitDatas.Result==0){
-                    
-                
-                    
                     var data=unitDatas.Data;
                     var htmls='';
                     for(var i=0;i<data.length;i++){
@@ -818,11 +815,11 @@
             function PreviewSubject(data) {
                 var options = {};
      
-                console.log(data);
+                // console.log(data);
 
                 var str = TeacherSubjectString(data);
-                console.log(str);
-             
+                // console.log(str);
+            
                 openPopWin('checkDetail', str);
             }
             //弹出层预览

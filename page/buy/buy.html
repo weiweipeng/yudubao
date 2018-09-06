@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>购买</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+	<style type="text/css">
+		.buy_mainContent{
+		    width: 100%;
+		    position: absolute;
+		    top: 84px;
+		    bottom: 0px;
+		    overflow: hidden;
+		}
+		.buy_content{
+			width: 900px;
+			height: 400px;
+			position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-top: -200px;
+            margin-left: -450px;
+		}
+		.buy_header{
+			font-size: 18px;
+			font-weight: 600;
+		}
+		.buy_line{
+			line-height: 60px;
+            font-size: 16px;
+            margin-top: 20px;
+		}
+		.buy_name{
+			width: 80px;
+			text-align: center;
+			line-height: 28px;
+			display: inline-block;
+			float: left;
+			font-weight: 600;
+		}
+		.buy{
+			width: 100px;
+			text-align: center;
+			line-height: 36px;
+			background-color: #ff0036;
+			border-radius: 5px;
+			color: #fff;
+			float: right;
+		}
+		.buy_con{
+			margin-left: 80px;
+		}
+		.buy_con>li{
+			width: 100px;
+		    float: left;
+		    display: inline-block;
+		    line-height: 26px;
+		    border: 1px solid #999;
+		    text-align: center;
+		    box-sizing: border-box;
+		    margin-right: 10px;
+		    border-radius: 10px;
+		    margin-bottom: 10px;
+		}
+		.buy_con:after{
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.active{
+			color: #fff!important;
+			background-color: #ff0036!important;
+			border:1px solid #ff0036!important;
+		}
+	</style>
+</head>
+<body>
+    <div class="container">
+    	<div class="nav">
+    		<div class="logos lf">
+    			<img src="../../img/120.png">
+    			<span>启思教育</span>
+    		</div>
+    		<div class="con_title">英语阅读宝</div>
+    		<div class="operation rf">
+    			<div class="ope_first lf">
+    				<img src="../../img/120.png">
+    				<span>张三</span>
+    				<!-- <img src="../../img/homework/u2104.png" class="tags"> -->
+                    <p class="tags"></p>
+    				<ul class="message_list">
+    					<li>
+    						<a href="#">基本资料</a>
+    					</li>
+    					<li>
+    						<a href="#">安全设置</a>
+    					</li>
+    				</ul>
+    			</div>
+    			<!-- <div class="exit lf">
+    				<a href="../../index.html">退出</a>
+    			</div> -->
+    		</div>
+    		<div class="leafbg">
+    			<img src="../../img/homework/u1884.gif">
+    		</div>
+    	</div>
+        <div class="buy_mainContent">
+        	<div class="buy_content">
+        		<div class="buy_header">启思产品购买平台</div>
+        		<div class="buy_line">
+        			<p class="buy_name">学科</p>
+        			<ul class="buy_con buycourse">
+        				
+        			</ul>
+        		</div>
+        		<div class="buy_line">
+        			<p class="buy_name">版本</p>
+        			<ul class="buy_con buyedits">
+        				<li class="active">人教版</li>
+        				<li>外研版</li>
+        				<li>北师大版</li>
+        				<li>译林版</li>
+        				<li>上教版</li>
+        				
+        			</ul>
+        		</div>
+        		<div class="buy_line">
+        			<p class="buy_name">年级</p>
+        			<ul class="buy_con buygrade">
+        				<li class="active">一年级</li>
+        				<li>二年级</li>
+        				<li>三年级</li>
+        				<li>四年级</li>
+        				<li>五年级</li>
+        				<li>六年级</li>
+        				<li>初一</li>
+        				<li>初二</li>
+        				<li>初三</li>
+        				<li>高一</li>
+        				<li>高二</li>
+        				<li>高三</li>
+        			</ul>
+        		</div>
+        		<!-- <div class="buy_line">
+        			<p class="buy_name">年级</p>
+        			<ul class="buy_con">
+        				<li>一年级</li>
+        				<li>二年级</li>
+        				<li>三年级</li>
+        				<li>四年级</li>
+        				<li>五年级</li>
+        				<li>六年级</li>
+        			</ul>
+        		</div> -->
+        		<div class="buy_line">
+        			<p class="buy_name">学期</p>
+        			<ul class="buy_con ">
+        				<li class="active">上</li>
+        				<li>下</li>
+        			</ul>
+        		</div>
+        		<div class="buy_line">
+        			<p class="buy">购买</p>
+        			
+        		</div>
+        	</div>
+        </div>
+    </div>
+    <div class="layerMask"></div>
+    <div class="loading">
+        <div class="loadBox">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript">
+    	$('.buy_con li').on("click",function () {
+    		$(this).siblings('li').removeClass('active');
+    		$(this).addClass('active');
+    	});
+    	var param={
+            "PageIndex": 1,
+            "PageSize": 100
+        }
+        var Coursedata=C.POST(JSON.stringify(param),'http://192.168.16.99:3246/api/Course/GetCourseList',successCourse);
+        var Editdata=C.POST(JSON.stringify(param),'http://192.168.16.99:3246/api/Edition/GetEditionList',successEdit);
+        function successCourse(data){
+            if(data.Result==1){
+                var datas=data.Data;
+                var str='';
+                $.each(datas,function(index,val){
+                	if(index==2){
+                		str+='<li class="active" id='+val.Id+'>'+val.Name+'</li>';
+                	}else{
+                		str+='<li id='+val.Id+'>'+val.Name+'</li>';
+                	}
+                	
+                });
+                $('.buycourse').html(str);
+            }else{
+
+            }
+        }
+        function successEdit(data){
+        	if(data.Result==1){
+
+            }else{
+
+            }
+        }
+    </script>
+</body>
+</html>

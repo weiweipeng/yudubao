@@ -233,7 +233,7 @@
     <div class="container">
     	<div class="nav">
     		<div class="logos lf">
-    			<img src="../../img/120.png">
+    			<img src="../../img/120.gif">
     			<span>启思教育</span>
     		</div>
     		<div class="con_title">英语阅读宝</div>
@@ -370,12 +370,16 @@
             var answer={
                 'taskType':1
             }
-             var classListId=[],gradeid='',gradeName='';//班级id列表
-             var count="",classNum=0,praNum=0;
-             var nums=1;
-             var pracCount=0;
-             var tarskData={};
-             var realTimeNew = 0,tempTime = 0;//篇章计时
+            var classListId=[],gradeid='',gradeName='';//班级id列表
+            var count="",classNum=0,praNum=0;
+            var nums=1;
+            var pracCount=0;
+            var tarskData={};
+            var pracBool=true;//判断是否在做题状态
+            var realTimeNew = 0,tempTime = 0;//篇章计时
+            var maxtime = 0; //一个小时，按秒计算，自己调整!  
+            var timer=null;
+            var timers=null;
             var stuData=C.POSTS('',httpUrl.GetStudentInfo,successGetstu);
             //学生答案
             var stuSubQueList = {};
@@ -416,8 +420,6 @@
                     setClassCheck();
                     paramList.ClassId=classData.Data[0].ClassId;
                     answer.classesId=classData.Data[0].ClassId;
-                    // console.log(classData.Data[0].ClassId);
-                    // console.log(paramList);
                     getpracData();
                 }else{
                     paramClass.IndexPage-=classNum;
@@ -438,8 +440,6 @@
                 if(paramClass.IndexPage>1){
                     classNum=-1;
                     paramClass.IndexPage+=classNum;
-                    // $(".classcount").text(paramClass.IndexPage);
-                    
                     getClassData();
                 }else{
                     paramClass.IndexPage=1;
@@ -450,9 +450,7 @@
                 if(paramClass.IndexPage<classCount){
                     classNum=-1;
                     paramClass.IndexPage+=classNum;
-                    // $(".classcount").text(paramClass.IndexPage);
                     getClassData();
-
                 }else{
                     paramClass.IndexPage=count;
                     C.layer(2,"已经是最后一页啦！");
@@ -461,47 +459,59 @@
              //选中班级id
            
              $(".classes").on("click",'.classtable',function(){
-                $(this).find('span').toggle();
-                //判断是否所有的班级选中全部清除
-                var spanbox=$('.classes').find('span');
-                var boxBool=true;
-                var spanBool=$(this).find('span').css("display");
-                var spanId=$(this).attr('id');
-                var grades=$(this).attr('gradeid');  
-                console.log(spanbox);
-                for(var k=0;k<spanbox.length;k++){
-                    var boxshow=$(spanbox).eq(k).css('display');
-                    if(boxshow=='block' || boxshow=='inline'){
-                        boxBool=false;
-                        console.log(3333,boxshow);
+                if(pracBool){
+                    $(this).find('span').toggle();
+                    //判断是否所有的班级选中全部清除
+                    var spanbox=$('.classes').find('span');
+                    var boxBool=true;
+                    var spanBool=$(this).find('span').css("display");
+                    var spanId=$(this).attr('id');
+                    var grades=$(this).attr('gradeid');  
+                    console.log(spanbox);
+                    for(var k=0;k<spanbox.length;k++){
+                        var boxshow=$(spanbox).eq(k).css('display');
+                        if(boxshow=='block' || boxshow=='inline'){
+                            boxBool=false;
+                            console.log(3333,boxshow);
+                        }
                     }
-                }
-                if(boxBool){
-                    gradeid='';
-                }else{
+                    if(boxBool){
+                        gradeid='';
+                    }else{
 
-                    if(gradeid==''){
-                        gradeid = grades; 
-                        paramList.ClassId=spanId;
-                        answer.classesId=spanId;
-                        getpracData();
-                        C.load(0);
-                        gradeName = $(this).attr('gradeName'); 
-                    }else if(gradeid!='' && gradeid!=grades){
-                        // spanBool='none';
-                        $(this).find('span').hide();
-                        C.layer(2,'不能选择不同的班级！');
-                        return false;
+                        if(gradeid==''){
+                            pracId='';
+                            gradeid = grades; 
+                            paramList.ClassId=spanId;
+                            answer.classesId=spanId;
+                            // pracBool=true;
+                            // $('.mainContainer').empty();
+                            // if(timer!=null){
+                            //     clearInterval(timer);
+                                
+                            // }else if(timers!=null){
+                            //    clearInterval(timers);
+                            // }
+                            // $('.time').text('00:00:00');
+                            getpracData();
+                            // C.load(0);
+                            gradeName = $(this).attr('gradeName'); 
+                        }else if(gradeid!='' && gradeid!=grades){
+                            // spanBool='none';
+                            $(this).find('span').hide();
+                            C.layer(2,'不能选择不同的班级！');
+                            return false;
+                        }
                     }
-                }
-                // console.log(spanBool,spanId);
-                if(spanBool=='block' || spanBool=='inline'){
-                    classListId.push(spanId);
-                }else{
-                    var j=classListId.indexOf(spanId);
-                    // console.log(classListId);
-                    classListId.splice(j,1);
-                    // console.log(classListId);
+                    // console.log(spanBool,spanId);
+                    if(spanBool=='block' || spanBool=='inline'){
+                        classListId.push(spanId);
+                    }else{
+                        var j=classListId.indexOf(spanId);
+                        // console.log(classListId);
+                        classListId.splice(j,1);
+                        // console.log(classListId);
+                    }
                 }
             });
             //翻页后班级是否选中
@@ -551,8 +561,11 @@
                     }else{
                         pracCount=parseInt(pracListData.Count/paramList.IndexSize);
                     }
-                    $(".classcount").text(paramList.IndexPage);
+                    
+                    $(".pracCen").text(paramList.IndexPage);
+                    
                       createPracList(pracListData.Data);
+                      setPracCheck();
                       // pracCount=pracListData.data.length;
                       pracId=pracListData.Data[0].Id;
                       Tarsk.Id=pracListData.Data[0].Id;
@@ -576,32 +589,35 @@
                  }
                 $('.practiceList').html(htmls);
             }
-             var maxtime = 0; //一个小时，按秒计算，自己调整!  
-             var timer=null;
+            
             $('.practiceList').on('click','.prac',function(){
-                $('.practiceList').find('span').hide();
-                var limeTime=$(this).attr('times');
-                // console.log(limeTime=='null');
+                if(pracBool){
 
-                C.load(0);
-              
-                pracId=$(this).attr('id');
-                Tarsk.Id=pracId;
-                nums=1;
-                answer.id=pracId;
-                answer.taskName=$(this).attr('names');
-                
-                gettarskData();
+                    $('.practiceList').find('span').hide();
+                    var limeTime=$(this).attr('times');
+                    // console.log(limeTime=='null');
 
-                $(this).find('span').show();
-                if(limeTime!='null'){
-                    // maxtime=limeTime*60;
-                    maxtime=60*60;
-                   timer=setInterval(CountDown,1000);
-                }else{
-                    addTime();
-                    timers=setInterval(addTime,1000);
+                    C.load(0);
+                  
+                    pracId=$(this).attr('id');
+                    Tarsk.Id=pracId;
+                    nums=1;
+                    answer.id=pracId;
+                    answer.taskName=$(this).attr('names');
+                    
+                    gettarskData();
+
+                    $(this).find('span').show();
+                    if(limeTime!='null'){
+                        // maxtime=limeTime*60;
+                        maxtime=60*60;
+                       timer=setInterval(CountDown,1000);
+                    }else{
+                        addTime();
+                        timers=setInterval(addTime,1000);
+                    }
                 }
+                
                 
             });
 
@@ -670,14 +686,16 @@
                 }
             }     
             //翻页后练习任务是否选中
-            function setClassCheck(){
+            function setPracCheck(){
                 console.log(pracIdList);
                
                     var idRember=$(".prac");
                     for(var i=0;i<idRember.length;i++){
-                     
-                        if($(idRember).attr('id')==pracId){
-                            $(".prac").find('span').show();
+                        var id=$(idRember).eq(i).attr('id')
+                        if(id==pracId){
+                            console.log($(idRember).attr('id'));
+                            console.log(pracId);
+                            $(idRember).eq(i).find('span').show();
                         }
 
                     }
@@ -689,7 +707,7 @@
                     praNum=-1;
                     paramList.IndexPage+=praNum;
                 
-                    getClassData();
+                    getpracData();
                 }else{
                     paramList.IndexPage=1;
                     C.layer(2,"已经是第一页啦！");
@@ -700,8 +718,8 @@
                 if(paramList.IndexPage<pracCount){
                     praNum=1;
                     paramList.IndexPage+=praNum;
-                    
-                    getClassData();
+                    console.log(pracCount);
+                    getpracData();
 
                 }else{
                     paramList.IndexPage=pracCount;
@@ -718,7 +736,7 @@
             function successGettarsk(tarskDatas) {
                 subjectArray=tarskData=tarskDatas;
                 if(tarskData.Result==1){
-
+                    pracBool=false;
                     realTimeNew=0;
                     tempTime = 0;
                     getresult();
@@ -879,6 +897,7 @@
     		});
             
             submits=function(){
+                pracBool=true;
                 C.load(0);
                 titleTime();
                 getresult();
