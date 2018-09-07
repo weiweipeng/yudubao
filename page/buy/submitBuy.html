@@ -8,20 +8,20 @@
 	<style type="text/css">
 		.buy_mainContent{
 		    width: 100%;
-		    position: absolute;
-		    top: 84px;
-		    bottom: 0px;
-		    overflow: hidden;
+		    /*position: absolute;*/
+		    /*top: 84px;*/
+		    /*bottom: 0px;*/
+		    /*overflow: hidden;*/
 		}
-		.buy_content{
-			width: 900px;
-			height: 400px;
-			position: absolute;
-            left: 50%;
-            top: 50%;
-            margin-top: -200px;
-            margin-left: -450px;
-		}
+		.buy_content {
+    width: 900px;
+    /* height: 400px; */
+    position: absolute;
+    left: 50%;
+    /* top: 50%; */
+    /* margin-top: -200px; */
+    margin-left: -450px;
+}
 		
         .triangle{
             position: absolute;
@@ -111,8 +111,21 @@
         .subactive{
             color: rgb(108,153,209)!important;
         }
-        .goodList{
+        .goodList,.goodtitle{
             width: 100%;
+        }
+        .over:after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+        .goodtitle>p{
+            height: 60px;
+            padding-top: 15px;
+            box-sizing: border-box;
+            float: left;
+            text-align: center;
+            font-size: 16px;
         }
         .goodList li{
             /*border: 1px solid #999;*/
@@ -137,7 +150,13 @@
             margin-bottom: 20px;
         }
         .cell1{
-            width: 20%
+            padding-left: 4%;
+            box-sizing: border-box;
+            padding-right: 4%
+            padding-top:6px;
+        }
+        .cell1{
+            width: 16%
         }
         .cell2{
             width: 15%
@@ -146,13 +165,16 @@
             width: 15%
         }
         .cell4{
-            width: 20%
+            width: 10%
         }
         .cell5{
             width: 15%
         }
         .cell6{
             width: 15%
+        }
+        .cell7{
+            width: 14%;
         }
         .boder_line{
             border:1px solid #999;
@@ -192,6 +214,37 @@
         }
         .redcolor{
             color: #ff0036;
+        }
+        .che .input_che:checked+span:after{
+            top: -2px;
+        }
+        .che .input_che+span{
+            background-color: #fff;
+        }
+        .submune{
+            width: 120px;
+            display: inline-block;
+            background-color:#ff0036;
+            text-align: center;
+            line-height: 32px;
+            color: #fff;
+        }
+        .layerImg{
+            position: fixed;
+            width: 400px;
+            height: 500px;
+            top: 50%;
+            left: 50%;
+            margin-left: -200px;
+            margin-top: -250px;
+            background-color: #fff;
+            display: none;
+        }
+        .layerImg img{
+            width: 200px;
+            height: 200px;
+            margin-top: 20px;
+            margin-left: 100px;
         }
 	</style>
 </head>
@@ -250,57 +303,162 @@
                 </div>
         		<div class="submitlines">
                     <div class="firName">课程信息</div>
+                    <div class="goodtitle over">
+                            <p class="cell1"><label class="che"><input  type="checkbox" class="input_che" checked><span class="inpu"></span></label></p>
+                            <p class="cell2">名称</p>
+                            <p class="cell3">种类</p>
+                            <p class="cell4">价格</p>
+                            <p class="cell5">数量</p>
+                            <p class="cell6">折扣</p>
+                            <p class="cell7">合计</p>
+                        </div>
                     <ul class="goodList">
-                        <li>
-                            <p class="cell1">名称</p>
-                            <p class="cell2">种类</p>
-                            <p class="cell3">价格</p>
-                            <p class="cell4">数量</p>
-                            <p class="cell5">折扣</p>
-                            <p class="cell6">合计</p>
-                        </li>
-                        <li class="boder_line">
-                            <p class="cell1">英语 人教版 初一</p>
-                            <p class="cell2">上学期</p>
-                            <p class="cell3">￥299.00</p>
-                            <p class="cell4">
+                       
+                        <!-- <li class="boder_line">
+                             <p class="cell1"><label class="che"><input id='+data[i].Id+' type="checkbox" class="input_che" ><span class="inpu"></span></label></p>
+                            <p class="cell2">英语 人教版 初一</p>
+                            <p class="cell3">上学期</p>
+                            <p class="cell4">￥299.00</p>
+                            <p class="cell5">
                                 <span class="fircount">
                                     <span class="left_arrow">-</span>
-                                    <!-- <span class="cen_cout">1</span> -->
+                                 
                                     <input type="text" name="count" value='1' class="cen_cout">
                                     <span class="right_add">+</span>
                                 </span>
                             </p>
-                            <p class="cell5">无</p>
-                            <p class="cell6 redcolor">￥299.00</p>
-                        </li>
+                            <p class="cell6">无</p>
+                            <p class="cell7 redcolor">￥299.00</p>
+                        </li> -->
                     </ul>     
+                </div>
+                <div class="sublines">
+                    <p class="submune">提交订单</p>
                 </div>
         	</div>
         </div>
     </div>
-
+    <div class="layerImg">
+        <img src="">
+        <p>请付款</p>
+    </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
     <script type="text/javascript">
+        var menu={
+          "AccountID": "",
+          "UserName": "",
+          "MoteMessage": ""
+          
+        }
+        var erweima={
+          "AccountID": "",
+          // "OrederID": "af2c8376-7e5f-4571-a764-486908a850a8",
+          "PayType": 1
+        }
+        var getmessage={
+            "AccountID": ""
+        };
+               
+        var goodList=[];
     	$('.buy_con li').on("click",function () {
     		$(this).siblings('li').removeClass('active');
     		$(this).addClass('active');
     	});
         $('.goodList').on('click','.right_add',function(){
+
             var val=$(this).siblings('input').val();
             val++;
             $(this).siblings('input').val(val);
+            var addGood={
+                "IsArticle": true
+            }
+            addGood.GoodsID=$(this).attr('id');
+            addGood.GoodsNumber=val;
+            var data=C.POSTS(JSON.stringify(addGood),'http://192.168.16.99:3246/api/ShoppingCart/AddGoods',successAddalone);
         });
+        function successAddalone(data){
+            if(data.Result==1){
+
+            }
+        }
         $('.goodList').on('click','.left_arrow',function(){
             var val=$(this).siblings('input').val();
             
             if(val>1){
                 val--;
+                 var addGood={
+                    "IsArticle": true
+                }
+                addGood.GoodsID=$(this).attr('id');
+                addGood.GoodsNumber=val;
+                var data=C.POST((addGood),'http://192.168.16.99:3246/api/ShoppingCart/SubtractGoods',successAddalone);
             }else{
                 val=1;
             }
             $(this).siblings('input').val(val);
         });
+        var gooddata=C.POSTS({},'http://192.168.16.99:3246/api/ShoppingCart/GetShoppingCartList',successGetgood);
+        function successGetgood(data){
+            if(data.Result==1){
+                var str='';
+                $.each(data.Data,function(i,val){
+                    str+='<p class="cell1"><label class="che"><input id='+val.Id+' type="checkbox" class="input_che" checked><span class="inpu"></span></label></p>'
+                    str+='<li class="boder_line"><p class="cell2">英语 人教版 初一</p>';
+                    str+='<p class="cell3">上学期</p>';
+                    str+='<p class="cell4">￥299.00</p>';
+                    str+='<p class="cell5"><span class="fircount"><span class="left_arrow"  id='+val.Id+'>-</span><input type="text" name="count" value="1" class="cen_cout"><span class="right_add" id='+val.Id+'>+</span></span></p>';
+                    str+='<p class="cell6">无</p>';
+                    str+='<p class="cell7 redcolor">￥299.00</p></li>';
+                });
+                $('.goodList').html(str);
+            }
+        }
+        function remenber(){
+            var arr=$('.goodList input[type=checkbox]:checked');
+          
+            $.each(arr,function(i,val){
+                goodList.push(val.id);
+                
+            });
+            menu.GoodsIdList=goodList;
+            console.log(goodList);
+        }
+        $('.submune').on('click',function(){
+            remenber();
+
+            var data=C.POSTS(JSON.stringify(menu),'http://192.168.16.99:3246/api/Orders/SaveOrders',successSave)
+        });
+        function successSave(data){
+            if(data.Result==1){
+                erweima.OrederID=data.Data;
+                getmessage.OrderID=data.Data;
+                var data=C.POSTS(JSON.stringify(erweima),'http://180.168.86.30:3246/api/Orders/GetPayQRCode',successCode);
+            }
+        }
+        var timer=null;
+        function successCode(data){
+            if(data.Result==1){
+                console.log(data.Data);
+                var url='http://192.168.16.99:3246/api/Verification/MakeQRCode?data='+data.Data;
+                $('.layerImg').find('img').attr("src",url);
+                $('.layerImg').show();
+                console.log(url);
+
+                timer=setInterval(function(){
+                    var data=C.POSTS(JSON.stringify(getmessage),'http://192.168.16.99:3246/api/Orders/QueryyQrCodeState',successGetMessage);
+                },1000);
+            }
+        }
+        function successGetMessage(data){
+            if(data.Result==1){
+                $('.layerImg').hide();
+                clearInterval(timer);
+                C.layer(4,"支付成功！");
+            }else{
+                C.layer(1,data.Message);
+            }
+        }
     </script>
 </body>
 </html>
