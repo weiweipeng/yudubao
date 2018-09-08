@@ -270,12 +270,12 @@
         		</div>
         		<div class="submitlines">
 	                <div class="firName">课程信息</div>
-	                    <div class="goodtitle over">
-	                    	<p class="cell1"><label class="che"><input id='+data[i].Id+' type="checkbox" class="input_che" ><span class="inpu"></span></label></p>
+	                    <!-- <div class="goodtitle over">
+	                    	<p class="cell1"><label class="che"><input id="1" type="checkbox" class="input_che" ><span class="inpu"></span></label></p>
                             <p class="cell2">名称</p>
                             <p class="cell3">是否收费</p>
                             <p class="cell4">价格</p>
-	                    </div>
+	                    </div> -->
 	                    <ul class="goodList"></ul>
 	                    <div class="buybtn over">
 	                    	<div class="previousPage">上一页</div>
@@ -396,20 +396,7 @@
         	goods.Term=v;
         	goodsList();
         });
-        $('.inpu').on('click',function(){
-        	// var arr=$('input[type=checkbox]:checked');
-        	if (isCheckAll) {
-				$(".goodList input[type='checkbox']").each(function() {
-					this.checked = true;
-				});
-				isCheckAll = false;
-			} else {
-				$(".goodList input[type='checkbox']").each(function() {
-					this.checked = false;
-				});
-				isCheckAll = true;
-			}
-        });
+        
         //获取产品列表
         var listCount=0,num=0;
         function goodsList(){
@@ -417,7 +404,7 @@
         }
         function successGood(data){
             if(data.Result==1){
-            	var str="";
+            	var str='<li><p class="cell1"><label class="che"><input id="1" type="checkbox" class="input_che" ><span class="inpu"></span></label></p><p class="cell2">名称</p><p class="cell3">是否收费</p><p class="cell4">价格</p></li>';
             	var datas=data.Data;
             	if(data.Count%goods.IndexSize>0){
             		listCount=data.Count/goods.IndexSize+1;
@@ -434,6 +421,10 @@
             	});
             	C.load(1);
             	$('.goodList').html(str);
+            	if(goodList.length>0){
+            		setStatus();
+            	}
+            	
             }else{
             	goods.IndexPage-=num;
             	C.load(1);
@@ -447,7 +438,7 @@
         		goods.IndexPage+=num;
         		C.load(0);
         		goodsList();
-        		setStatus();
+        		
         	}else{
         		C.layer(2,'已经是第一页啦!');
         	}
@@ -459,46 +450,134 @@
         		C.load(0);
         		remeber();
         		goodsList();
-        		setStatus();
+        		
         	}else{
         		C.layer(2,'已经是最后一页啦!');
         	}
         });
         //录入商品数据
         function remeber(){
-    		var arr=$('.goodList input[type=checkbox]:checked');
-            $.each(arr,function(i,val){
-            	var id=val.id;
-            	var good={
-            		'GoodsNumber':1,
-            		'IsArticle':true
-            	};
+    		// var arr=$('.goodList input[type=checkbox]:checked');
+      //       $.each(arr,function(i,val){
+      //       	var id=val.id;
+      //       	var good={
+      //       		'GoodsNumber':1,
+      //       		'IsArticle':true
+      //       	};
 
-            	good.GoodsID = id;
-                goodList.push(good);
+      //       	good.GoodsID = id;
+      //           goodList.push(good);
             	
-            });
-            console.log(goodList);
+      //       });
+      //       console.log(goodList);
         }
         //保存状态
         function setStatus(){
             var inputDom=$('.goodList input[type=checkbox]');
+            var i=0;
             $.each(inputDom,function(i,val){
             	for(var j=0;j<goodList.length;j++){
-            		if(val.id==goodList[i].GoodsID){
-            			val.checked=true;
+            		console.log(val.id);
+            		console.log(goodList[j].GoodsID);
+            		if(val.id==goodList[j].GoodsID){
+            			// console.log(1111);
+            			i++;
+            			console.log(i);
+            			if(i>5){
+			            	// console.log(1111111);
+			            	$(inputDom).eq(0).attr("checked", "checked");
+			            }
+            			val.checked = true;
             		}
             	}
             });
+
+
         }
+   //      $('.inpu').on('click',function(){
+   //      	// var arr=$('input[type=checkbox]:checked');
+   //      	if (isCheckAll) {
+			// 	$(".goodList input[type='checkbox']").each(function() {
+			// 		this.checked = true;
+			// 	});
+			// 	isCheckAll = false;
+			// } else {
+			// 	$(".goodList input[type='checkbox']").each(function() {
+			// 		this.checked = false;
+			// 	});
+			// 	isCheckAll = true;
+			// }
+   //      });
+	    Array.prototype.indexOf = function(val) {
+			for (var i = 0; i < this.length; i++) {
+				if (this[i] == val) return i;
+			}
+			return -1;
+		};
+        Array.prototype.remove = function(val) {
+			var index = this.indexOf(val);
+			if (index > -1) {
+				this.splice(index, 1);
+			}
+		};
+        $('.submitlines').on('change','input',function(){
+        	console.log(111);
+        	var checkeds=$(this).is(':checked');
+        	var ids=$(this).attr('id');
+        	var arr=$("input[type=checkbox]:not(:checked)");
+        	var inputDom=$('.goodList input[type=checkbox]:checked');
+        	var listArr=goodList;
+        	if(!checkeds){
+        		if(ids==1){
+	                for(var j=0;j<listArr.length;j++){
+	                	$.each(inputDom,function(i,val){
+	                    	if(listArr[j].GoodsID=val.id){
+	                    		val.checked=false;
+	                    		goodList.remove(listArr[j]);
+	                    	}
+	                	});
+	                }
+        		}else{
+        			$.each(inputDom,function(i,val){
+        				if(val.id==ids){
+        					val.checked=false;
+        				}
+        			})
+        			for(var j=0;j<goodList.length;j++){
+        				if(goodList[j].GoodsID==ids){
+        					goodList.splice(j,1);
+        				}
+        			}
+        		}
+        	}else{
+	            if(ids==1){
+            		$.each(arr,function(i,val){
+            			var goods={
+		            		'GoodsNumber':1,
+		            		'IsArticle':true
+		            	};
+    					var id=val.id;
+		            	goods.GoodsID = val.id;
+		            	val.checked=true;
+		                goodList.push(goods);
+		            });
+	            }else{
+	            	var good={
+	            		'GoodsNumber':1,
+	            		'IsArticle':true
+	            	};
+	            	$(this).checked=true;
+ 					good.GoodsID = ids;
+ 					goodList.push(good);
+	            }
+        	}
+        });
         $('.buy').on('click',function(){
             remeber();
             goodadd.Goods=goodList;
             var data=C.POSTS(JSON.stringify(goodadd),'http://192.168.16.99:3246/api/ShoppingCart/AddGoodsList',successAdd);
         });
-        // $('.buy').on('click',function(){
-        // 	window.location.href='submitBuy.html';
-        // });
+
         function successAdd(data){
         	if(data.Result==1){
         		window.location.href='submitBuy.html';

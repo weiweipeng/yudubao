@@ -185,12 +185,14 @@
         .fircount{
             width: 80px;
             /*display: inline-block;*/
-            margin: 0 auto;
-            border:1px solid #999;
+            /*margin: 0 auto;*/
+            /*margin-left: 20%;*/
+            /*border:1px solid #999;*/
         }
         .fircount span{
             float: left;
-            width: 32%;
+            width: 28%;
+            border:1px solid #999;
         }
         .left_arrow{
             width: 20px;
@@ -206,11 +208,13 @@
             background-color: #f0f0f0;
         }
         .cen_cout{
-            width: 32%;
+            width: 28%;
             float: left;
             border: 0px;
              text-align: center; 
             line-height: 21px;
+            border-bottom: 1px solid #999;
+            border-top: 1px solid #999;
         }
         .redcolor{
             color: #ff0036;
@@ -245,6 +249,15 @@
             height: 200px;
             margin-top: 20px;
             margin-left: 100px;
+        }
+        /*.fircount:after{
+            content: '';
+            display: block;
+            clear: both;
+        }*/
+        .countnum{
+            padding-left: 30px;
+            box-sizing: border-box;
         }
 	</style>
 </head>
@@ -303,33 +316,10 @@
                 </div>
         		<div class="submitlines">
                     <div class="firName">课程信息</div>
-                    <div class="goodtitle over">
-                            <p class="cell1"><label class="che"><input  type="checkbox" class="input_che" checked><span class="inpu"></span></label></p>
-                            <p class="cell2">名称</p>
-                            <p class="cell3">种类</p>
-                            <p class="cell4">价格</p>
-                            <p class="cell5">数量</p>
-                            <p class="cell6">折扣</p>
-                            <p class="cell7">合计</p>
-                        </div>
+                   
                     <ul class="goodList">
                        
-                        <!-- <li class="boder_line">
-                             <p class="cell1"><label class="che"><input id='+data[i].Id+' type="checkbox" class="input_che" ><span class="inpu"></span></label></p>
-                            <p class="cell2">英语 人教版 初一</p>
-                            <p class="cell3">上学期</p>
-                            <p class="cell4">￥299.00</p>
-                            <p class="cell5">
-                                <span class="fircount">
-                                    <span class="left_arrow">-</span>
-                                 
-                                    <input type="text" name="count" value='1' class="cen_cout">
-                                    <span class="right_add">+</span>
-                                </span>
-                            </p>
-                            <p class="cell6">无</p>
-                            <p class="cell7 redcolor">￥299.00</p>
-                        </li> -->
+                        
                     </ul>     
                 </div>
                 <div class="sublines">
@@ -407,31 +397,82 @@
         var gooddata=C.POSTS({},'http://192.168.16.99:3246/api/ShoppingCart/GetShoppingCartList',successGetgood);
         function successGetgood(data){
             if(data.Result==1){
-                var str='';
+                var str='<li><p class="cell1"><label class="che"><input  type="checkbox" class="input_che" id="1" checked><span class="inpu"></span></label></p><p class="cell2">名称</p><p class="cell3">种类</p><p class="cell4">价格</p><p class="cell5">数量</p><p class="cell6">折扣</p><p class="cell7">合计</p></li>';
                 $.each(data.Data,function(i,val){
-                    str+='<p class="cell1"><label class="che"><input id='+val.Id+' type="checkbox" class="input_che" checked><span class="inpu"></span></label></p>'
-                    str+='<li class="boder_line"><p class="cell2">英语 人教版 初一</p>';
+                    str+='<li class="boder_line"><p class="cell1"><label class="che"><input id='+val.Id+' type="checkbox" class="input_che" checked><span class="inpu"></span></label></p>'
+                    str+='<p class="cell2">'+val.GradeId+'</p>';
                     str+='<p class="cell3">上学期</p>';
-                    str+='<p class="cell4">￥299.00</p>';
-                    str+='<p class="cell5"><span class="fircount"><span class="left_arrow"  id='+val.ProductId+'>-</span><input type="text" name="count" value='+val.Number+' class="cen_cout"><span class="right_add" id='+val.ProductId+'>+</span></span></p>';
+                    str+='<p class="cell4">￥'+val.Price+'.00</p>';
+                    str+='<p class="cell5 countnum"><span class="fircount"><span class="left_arrow"  id='+val.ProductId+'>-</span><input type="text" name="count" value='+val.Number+' class="cen_cout"><span class="right_add" id='+val.ProductId+'>+</span></span></p>';
                     str+='<p class="cell6">无</p>';
-                    str+='<p class="cell7 redcolor">￥299.00</p></li>';
+                    str+='<p class="cell7 redcolor">￥'+val.Price+'.00</p></li>';
                 });
                 $('.goodList').html(str);
+                remenber();
             }
         }
+        Array.prototype.indexOf = function(val) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i] == val) return i;
+            }
+            return -1;
+        };
+        Array.prototype.remove = function(val) {
+            var index = this.indexOf(val);
+            if (index > -1) {
+                this.splice(index, 1);
+            }
+        };
+
+        $('.goodList').on('change','input',function(){
+            var checkeds=$(this).is(':checked');
+            var ids=$(this).attr('id');
+            var arr=$('.goodList input[type=checkbox]:checked');
+            var inputdom=$('.goodList input[type=checkbox]');
+            var notArr=$("input[type=checkbox]:not(:checked)");
+            var listArr=goodList;
+            if(ids==1){
+                if(checkeds){
+                    $.each(notArr,function(i,val){
+                        goodList.push(val.id);
+                        val.checked=true;
+                    });
+                }else{
+                    // for(var j=0;j<listArr.length;j++){
+                        $.each(arr,function(i,val){
+                            if(listArr.indexOf(val.id)!=-1){
+                                val.checked=false;
+                                var h=listArr.indexOf(val.id);
+                                goodList.remove(listArr[h]);
+                            }
+                        });
+                    // }
+                }
+            }else{
+                if(checkeds){
+                    // goodList.indexOf();
+                    goodList.push(ids);
+                }else{
+                    var j=goodList.indexOf(ids);
+                    goodList.splice(j,1);
+                }
+            }
+            console.log(goodList);
+        });
         function remenber(){
             var arr=$('.goodList input[type=checkbox]:checked');
           
             $.each(arr,function(i,val){
-                goodList.push(val.id);
+                if(i>0){
+                    goodList.push(val.id);
+                }
                 
             });
             menu.GoodsIdList=goodList;
             console.log(goodList);
         }
         $('.submune').on('click',function(){
-            remenber();
+            
 
             var data=C.POSTS(JSON.stringify(menu),'http://192.168.16.99:3246/api/Orders/SaveOrders',successSave)
         });
