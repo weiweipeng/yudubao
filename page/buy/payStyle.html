@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>支付方式</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <style type="text/css">
+		.buy_mainContent{
+		    width: 100%;
+
+		}
+		.nav{
+			margin-bottom: 100px;
+		}
+		.buy_content {
+		    width: 70%;
+		    
+		    left: 50%;
+		   
+		    margin: 0 auto;
+		}
+		
+        .triangle{
+            position: absolute;
+            right: -5px;
+            top: 0px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-left: 5px solid rgb(215,215,215);
+            border-bottom: 5px solid transparent;
+        }
+        .blue_triangle{
+            border-left: 5px solid rgb(108,153,209);
+        }
+        .write_triangle{
+            position: absolute;
+            /*right: -5px;*/
+            top: 0px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-left: 5px solid #fff;
+            border-bottom: 5px solid transparent;
+        }
+        .sublines{
+            width: 100%;
+            margin-left: 5%;
+            height: 40px;
+
+        }
+        .submitlines{
+            margin-bottom: 30px;
+        }
+        .sublines>div{
+            width: 30%;
+            float: left;
+            background-color: rgb(215,215,215);
+            height: 10px;
+            margin-right: 1%;
+            position: relative;
+        }
+        .active{
+            background-color: rgb(108,153,209)!important;
+        }
+        .sublines_first{
+            
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+           
+        }
+        .sort_num{
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            background-color: rgb(108,153,209);
+            border: 3px solid #fff;
+            text-align: center;
+            line-height: 25px;
+            margin: 0 auto;
+            position: absolute;
+            left: 50%;
+            margin-left: -15px;
+            top: 50%;
+            margin-top: -16px;
+            color: #fff;
+            background-color: rgb(215,215,215);
+        }
+        /*.gray_triangle{
+            position: absolute;
+            right: -5px;
+            top: 0px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-left: 5px solid rgb(215,215,215)!important;
+            border-bottom: 5px solid transparent;
+        }*/
+        .subName{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -80px;
+            margin-top: 10px;
+            width: 160px;
+            text-align: center;
+            line-height: 30px;
+            /*color: rgb(108,153,209);*/
+            font-weight: 600;
+            color: rgb(215,215,215);
+        }
+        .subactive{
+            color: rgb(108,153,209)!important;
+        }
+        .paycontent{
+        	width: 70%;
+		    margin: 0 auto;
+		    margin-top: 100px;
+		    border:1px solid #999;
+		    padding-bottom: 60px;
+        }
+        .payheader{
+        	line-height: 40px;
+        	padding-left: 20px;
+        	background-color: #e0e0e0;
+        	font-size: 16px;
+        }
+        .payLine{
+        	width: 100%;
+        	margin-left: 20px;
+        	box-sizing: border-box;
+        	padding-left: 30px;
+        	margin-top: 50px;
+        }
+        .payLine>input{
+        	float: left;
+        	margin: 0 auto;
+        	margin-right: 30px;
+        	margin-top: 24px;
+        }
+        .payLine>div{
+        	float: left;
+        }
+        .payimg{
+        	height: 60px;
+        }
+        .payimg>img{
+        	height: 60px;
+        }
+        .payname{
+        	margin-left: 30px;
+        }
+        .payname>p{
+    		line-height: 30px;
+        }
+        .payname>p:first-child{
+        	color: rgb(108,153,209);
+        	font-size: 18px;
+        	font-weight: 500;
+        }
+        .payname>p:last-child{
+        	font-size: 14px;
+        }
+        input[type="radio"] + label::before {
+		    content: "\a0"; /*不换行空格*/
+		    display: inline-block;
+		    vertical-align: middle;
+		    font-size: 18px;
+		    width: 1em;
+		    height: 1em;
+		    margin-right: .4em;
+		    border-radius: 50%;
+		    border: 1px solid #01cd78;
+		    text-indent: .15em;
+		    line-height: 1; 
+		}
+		input[type="radio"]:checked + label::before {
+		    background-color: #01cd78;
+		    background-clip: content-box;
+		    padding: .2em;
+		}
+		input[type="radio"] {
+		    position: absolute;
+		    clip: rect(0, 0, 0, 0);
+		}
+		.inputradio{
+			margin-top: 20px;
+			margin-right: 30px;
+			width: 60px;
+		}
+		.paysubmit{
+			width: 80px;
+			background-color: rgb(108,153,209);
+			text-align: center;
+			line-height: 36px;
+			color: #fff;
+			float: right;
+		    margin-right: 300px;
+    		margin-top: 30px;
+		}
+		.layerImg{
+            position: fixed;
+            width: 400px;
+            height: 290px;
+            top: 50%;
+            left: 50%;
+            margin-left: -200px;
+            margin-top: -145px;
+            background-color: #fff;
+            display: none;
+        }
+        .layerImg img{
+            width: 200px;
+            height: 200px;
+            margin-top: 20px;
+            margin-left: 100px;
+        }
+        .layerImg p{
+        	text-align: center;
+		    font-size: 18px;
+		    margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+	<div class="container">
+    	<div class="nav">
+    		<div class="logos lf">
+    			<img src="../../img/120.png">
+    			<span>启思教育</span>
+    		</div>
+    		<div class="con_title">英语阅读宝</div>
+    		<div class="operation rf">
+    			<div class="ope_first lf">
+    				<img src="../../img/120.png">
+    				<span>张三</span>
+    				<!-- <img src="../../img/homework/u2104.png" class="tags"> -->
+                    <p class="tags"></p>
+    				<ul class="message_list">
+    					<li>
+    						<a href="#">基本资料</a>
+    					</li>
+    					<li>
+    						<a href="#">安全设置</a>
+    					</li>
+    				</ul>
+    			</div>
+    			<!-- <div class="exit lf">
+    				<a href="../../index.html">退出</a>
+    			</div> -->
+    		</div>
+    		<div class="leafbg">
+    			<img src="../../img/homework/u1884.gif">
+    		</div>
+    	</div>
+        <div class="buy_mainContent">
+        	<div class="buy_content">
+                
+        		<div class="sublines">
+                    <div class="sublines_first ">
+                        <div class="triangle "></div>
+                        <div class="sort_num ">1</div>
+                        <p class="subName ">提交订单</p>
+                    </div>    
+                    <div class="sublines_second active">
+                        <div class="write_triangle"></div>
+                        <div class="sort_num active">2</div>
+                        <div class="triangle  blue_triangle"></div>
+                        <p class="subName subactive">进行付款</p>
+                    </div>    
+                    <div class="sublines_three">
+                        <div class="write_triangle"></div>
+                        <div class="sort_num">3</div>
+                        <div class="triangle"></div>
+                        <p class="subName">完成支付</p>
+                    </div>    
+                </div>
+        		
+        	</div>
+        </div>
+        <div class="paycontent">
+        	<div class="payheader">支付方式</div>
+        	<form class="payform">
+        		<div class="payLine over">
+        			<!-- <label></label> -->
+        			
+					<div class="female inputradio">
+					    <input type="radio" id="female" name="sex" value="1" checked />
+					    <label for="female"></label>
+					</div>
+									
+        			<div class="payimg">
+        				<img src="../../img/ali.png">
+        			</div>
+        			<div class="payname">
+        				<p>没有支付宝账户也可以使用支付宝进行支付</p>
+        				<p>支付宝快捷支付最低可支付5000元</p>
+        			</div>
+        		</div>
+        		<div class="payLine over">
+        			<!-- <label></label> -->
+        			
+					<div class="male inputradio">
+					    <input type="radio" id="male" name="sex" value="2" />
+					    <label for="male"></label>
+					</div>
+			
+        			<div class="payimg">
+        				<img src="../../img/weixin.png">
+        			</div>
+        			<div class="payname">
+        				<p>使用微信支付扫一扫即可付款</p>
+        				<p>微信支付方便快捷</p>
+        			</div>
+        		</div>
+        		
+        	</form>
+        	
+        </div>
+        <!-- <div class="payLine"> -->
+			<div class="paysubmit">立即支付》</div>
+		<!-- </div> -->
+    </div>
+    
+    <div class="layerMask"></div>
+    <div class="loading">
+        <div class="loadBox">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    <div class="layerImg">
+        <img src="">
+        <p>请付款</p>
+    </div>
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript">
+    	var menu={
+          "AccountID": "",
+          "UserName": "",
+          "MoteMessage": ""
+          
+        }
+        var erweima={
+          "AccountID": "",
+          // "OrederID": "af2c8376-7e5f-4571-a764-486908a850a8",
+          "PayType": 1
+        }
+        var getmessage={
+            "AccountID": ""
+        };
+        var gooddata=C.POSTS({},'http://192.168.16.99:3246/api/ShoppingCart/GetShoppingCartList',successGetgood);
+        var goodlist=[];
+        function successGetgood(data){
+        	var datas=data.Data;
+        	if(data.Result==1){
+        		for(var i=0;i<datas.length;i++){
+        			goodlist.push(datas[i].Id);
+        		}
+        		menu.GoodsIdList=goodlist;
+        		console.log(goodlist);
+        	}
+        }
+        $('input').on('change',function(){
+        	var typeid=$(this).val();
+        	erweima.PayType=typeid;
+        	console.log(typeid);
+        });
+    	$('.paysubmit').on('click',function(){
+            
+
+            var data=C.POSTS(JSON.stringify(menu),'http://192.168.16.99:3246/api/Orders/SaveOrders',successSave)
+        });
+        function successSave(data){
+            if(data.Result==1){
+                erweima.OrederID=data.Data;
+                getmessage.OrderID=data.Data;
+                var data=C.POSTS(JSON.stringify(erweima),'http://180.168.86.30:3246/api/Orders/GetPayQRCode',successCode);
+            }
+        }
+        var timer=null;
+        function successCode(data){
+            if(data.Result==1){
+                console.log(data.Data);
+                var url='http://192.168.16.99:3246/api/Verification/MakeQRCode?data='+data.Data;
+                $('.layerImg').find('img').attr("src",url);
+                $('.layerImg').show();
+                console.log(url);
+
+                timer=setInterval(function(){
+                    var data=C.POSTS(JSON.stringify(getmessage),'http://192.168.16.99:3246/api/Orders/QueryyQrCodeState',successGetMessage);
+                },1000);
+            }
+        }
+        function successGetMessage(data){
+            if(data.Result==1){
+                $('.layerImg').hide();
+                clearInterval(timer);
+                // C.layer(4,"支付成功！");
+                window.location.href='paysuccess.html';
+            }else{
+                C.layer(1,data.Message);
+            }
+        }
+    </script>
+</body>
+</html>

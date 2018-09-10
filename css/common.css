@@ -851,7 +851,7 @@ cursor: pointer;
     
 }
 .maskflex{
-    /*position: absolute;*/
+    position: fixed;
     /*top: 0px;
     bottom: 0px;
     left: 0px;
@@ -860,8 +860,8 @@ cursor: pointer;
     height: 100%;
     display: -ms-flexbox;
     background-color: rgba(0,0,0,0.2);
-    justify-content: center;
-    align-items: center;
+    /*justify-content: center;*/
+    /*align-items: center;*/
 
 }
 .close_list{
@@ -879,6 +879,10 @@ cursor: pointer;
 }
 .lists{
      position: relative;
+     width: 160px;
+     left: 50%;
+    margin-left: -80px;
+    margin-top: 150px;
 }
 .lists>ul{
    
@@ -1074,7 +1078,11 @@ cursor: pointer;
   -webkit-animation: rotateplane 1.2s infinite ease-in-out;
   animation: rotateplane 1.2s infinite ease-in-out;
 }
- 
+.over:after{
+    content: '';
+    display: block;
+    clear: both;
+}
 @-webkit-keyframes rotateplane {
   0% { -webkit-transform: perspective(120px) }
   50% { -webkit-transform: perspective(120px) rotateY(180deg) }

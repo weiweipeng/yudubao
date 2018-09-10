@@ -63,6 +63,10 @@ $(function () {
         'GetStudentTaskHistoryBaseStatistics':_host+'/api/EnglishArticleTaskHistoryBase/GetStudentTaskHistoryBaseStatistics',//学生成绩统计
         'TeacherTaskPersonalStudentList':_host+'/api/TeacherTask/TeacherTaskPersonalStudentList',//获取
         'GetStudentsListByClassIDNoApproved':_host+'/api/ClassManager/GetStudentsListByClassIDNoApproved',//获取申请加入班级的学生列表
+
+        'GetCourseList':_host+'/api/Course/GetCourseList',//购买页面获取课程列表
+        'GetEditionList':_host+'/api/Edition/GetEditionList',//购买页面获取版本列表
+        'GetGradeList':_host+'/api/Grade/GetGradeList',//购买页面获取年级列表
 	} 
 	
 	window.account={};

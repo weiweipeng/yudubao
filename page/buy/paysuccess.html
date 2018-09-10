@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>支付方式</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <style type="text/css">
+		.buy_mainContent{
+		    width: 100%;
+
+		}
+		.nav{
+			margin-bottom: 100px;
+		}
+		.buy_content {
+		    width: 70%;
+		    
+		    left: 50%;
+		   
+		    margin: 0 auto;
+		}
+		
+        .triangle{
+            position: absolute;
+            right: -5px;
+            top: 0px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-left: 5px solid rgb(215,215,215);
+            border-bottom: 5px solid transparent;
+        }
+        .blue_triangle{
+            border-left: 5px solid rgb(108,153,209);
+        }
+        .write_triangle{
+            position: absolute;
+            /*right: -5px;*/
+            top: 0px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-left: 5px solid #fff;
+            border-bottom: 5px solid transparent;
+        }
+        .sublines{
+            width: 100%;
+            margin-left: 5%;
+            height: 40px;
+
+        }
+        .submitlines{
+            margin-bottom: 30px;
+        }
+        .sublines>div{
+            width: 30%;
+            float: left;
+            background-color: rgb(215,215,215);
+            height: 10px;
+            margin-right: 1%;
+            position: relative;
+        }
+        .active{
+            background-color: rgb(108,153,209)!important;
+        }
+        .sublines_first{
+            
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+           
+        }
+        .sort_num{
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            background-color: rgb(108,153,209);
+            border: 3px solid #fff;
+            text-align: center;
+            line-height: 25px;
+            margin: 0 auto;
+            position: absolute;
+            left: 50%;
+            margin-left: -15px;
+            top: 50%;
+            margin-top: -16px;
+            color: #fff;
+            background-color: rgb(215,215,215);
+        }
+        /*.gray_triangle{
+            position: absolute;
+            right: -5px;
+            top: 0px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-left: 5px solid rgb(215,215,215)!important;
+            border-bottom: 5px solid transparent;
+        }*/
+        .subName{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -80px;
+            margin-top: 10px;
+            width: 160px;
+            text-align: center;
+            line-height: 30px;
+            /*color: rgb(108,153,209);*/
+            font-weight: 600;
+            color: rgb(215,215,215);
+        }
+        .subactive{
+            color: rgb(108,153,209)!important;
+        }
+  
+
+
+		.paysubmit{
+			width: 80px;
+			background-color: rgb(108,153,209);
+			text-align: center;
+			line-height: 36px;
+			color: #fff;
+			float: right;
+		    margin-right: 300px;
+    		margin-top: 30px;
+		}
+
+        .successpay{
+            margin-top: 40px;
+
+        }
+        .successHeader{
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+        }
+        .successMoney{
+            text-align: center;
+            font-size: 16px;
+            margin-top: 50px;
+        }
+        .successMoney>span{
+            color: #ff0036;
+        }
+        .successbtn{
+            margin-top: 30px;
+            /*text-align: center;*/
+            display: flex;
+            justify-content: center;
+        }
+        .successbtn>p{
+            float: left;
+
+        }
+        .successbtn>span{
+            float: left;
+            margin-right: 10px;
+            margin-left: 10px;
+            display: inline-block;
+            line-height: 36px;
+
+        }
+        .sucBtn {
+            width: 100px;
+            line-height: 36px;
+            border-radius: 2px;
+            text-align: center;
+            color: #fff;
+        }
+        .myMenu{
+            background-color: rgb(108,153,209);
+        }
+        .backreload{
+            background-color: rgb(235,116,98);
+        }
+        .successHeader>span{
+            background-color: rgb(65,185,169);
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            border-radius: 50%;
+            margin-left: 14px;
+        }
+        .successHeader>span:after{
+            content: '\2714';
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+	<div class="container">
+    	<div class="nav">
+    		<div class="logos lf">
+    			<img src="../../img/120.png">
+    			<span>启思教育</span>
+    		</div>
+    		<div class="con_title">英语阅读宝</div>
+    		<div class="operation rf">
+    			<div class="ope_first lf">
+    				<img src="../../img/120.png">
+    				<span>张三</span>
+    				<!-- <img src="../../img/homework/u2104.png" class="tags"> -->
+                    <p class="tags"></p>
+    				<ul class="message_list">
+    					<li>
+    						<a href="#">基本资料</a>
+    					</li>
+    					<li>
+    						<a href="#">安全设置</a>
+    					</li>
+    				</ul>
+    			</div>
+    			<!-- <div class="exit lf">
+    				<a href="../../index.html">退出</a>
+    			</div> -->
+    		</div>
+    		<div class="leafbg">
+    			<img src="../../img/homework/u1884.gif">
+    		</div>
+    	</div>
+        <div class="buy_mainContent">
+        	<div class="buy_content">
+                
+        		<div class="sublines">
+                    <div class="sublines_first ">
+                        <div class="triangle "></div>
+                        <div class="sort_num ">1</div>
+                        <p class="subName ">提交订单</p>
+                    </div>    
+                    <div class="sublines_second ">
+                        <div class="write_triangle"></div>
+                        <div class="sort_num">2</div>
+                        <div class="triangle"></div>
+                        <p class="subName ">进行付款</p>
+                    </div>    
+                    <div class="sublines_three active">
+                        <div class="write_triangle"></div>
+                        <div class="sort_num active">3</div>
+                        <div class="triangle blue_triangle"></div>
+                        <p class="subName subactive">完成支付</p>
+                    </div>    
+                </div>
+        		
+        	</div>
+        </div>
+        <div class="successpay">
+            <p class="successHeader">支付成功<span></span></p>
+            <div class="successMoney">您已成功支付金额：<span>￥</span><span class="money">299.00</span><span>.00</span></div>
+            <div class="successbtn over">
+                <p class="sucBtn myMenu">我的订单</p>
+                <span>或</span>
+                <p class="sucBtn backreload">回首页</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="layerMask"></div>
+    <div class="loading">
+        <div class="loadBox">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript">
+
+        var gooddata=C.POSTS({},'http://192.168.16.99:3246/api/ShoppingCart/GetShoppingCartList',successGetgood);
+        var goodprice=0;
+        function successGetgood(data){
+        	var datas=data.Data;
+        	if(data.Result==1){
+        		for(var i=0;i<datas.length;i++){
+        			// goodlist.push(datas[i].Id);
+                    var price=parseInt(datas[i].Number)*parseInt(datas[i].Price);
+                    goodprice+=parseInt(price);
+        		}
+                $('.money').text(goodprice);
+        		console.log(goodprice);
+        	}
+        }
+       
+    </script>
+</body>
+</html>
