@@ -154,9 +154,7 @@
 	        </div>
 	   </div>
 		<!-- </div> -->
-		<!-- <script src="js/jquery.min.js"></script> -->
-		<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js"></script> -->
+		<script src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/XDomainRequest.js"></script>
 		<script type="text/javascript" src="js/request.js"></script>
 		<script type="text/javascript" src="js/common.js"></script>
@@ -189,7 +187,7 @@
 		</script>
 		<script>
 			$(function(){
-				
+				console.log(httpUrl);
                 
 				var deviceId = "";
                 var login={};
@@ -289,7 +287,7 @@
                 	    	urls=httpUrl.GetStudentInfo;
                 	    }
                 		
-                		var countData=C.POST('',httpUrl.GetLoginAccount,successGetCount);
+                		var countData=C.POST({},httpUrl.GetLoginAccount,successGetCount);
                 	}else{
                 		console.log(JSON.stringify(loginData));
                 		C.load(1);
@@ -302,11 +300,12 @@
                 	
                 }
                 function successGetCount(countData){
-                    window.account=countData.Data;
-        			localStorage.setItem('publisherId',countData.Data.AccountId);
-        			localStorage.setItem('publisherName',countData.Data.AccountName);
-        			console.log(localStorage.getItem('publisherId'));
+                   
                     if(countData.Result==1){
+                    	window.account=countData.Data;
+	        			localStorage.setItem('publisherId',countData.Data.AccountId);
+	        			localStorage.setItem('publisherName',countData.Data.AccountName);
+	        			console.log(localStorage.getItem('publisherId'));
                     	if(identitys==3){
                         	window.location.href="page/homework/homework.html";
                         }else if(identitys==4){

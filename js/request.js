@@ -63,17 +63,20 @@ $(function () {
         'GetStudentTaskHistoryBaseStatistics':_host+'/api/EnglishArticleTaskHistoryBase/GetStudentTaskHistoryBaseStatistics',//学生成绩统计
         'TeacherTaskPersonalStudentList':_host+'/api/TeacherTask/TeacherTaskPersonalStudentList',//获取
         'GetStudentsListByClassIDNoApproved':_host+'/api/ClassManager/GetStudentsListByClassIDNoApproved',//获取申请加入班级的学生列表
-
+        
         'GetCourseList':_host+'/api/Course/GetCourseList',//购买页面获取课程列表
         'GetEditionList':_host+'/api/Edition/GetEditionList',//购买页面获取版本列表
         'GetGradeList':_host+'/api/Grade/GetGradeList',//购买页面获取年级列表
+        'AddGoodsList':_host+'/api/ShoppingCart/AddGoodsList',//添加到购物车
+        'AddGoods':_host+'/api/ShoppingCart/AddGoods',//添加单个商品
+        'SubtractGoods':_host+'/api/ShoppingCart/SubtractGoods',//移除单个商品
+        'GetShoppingCartList':_host+'/api/ShoppingCart/GetShoppingCartList',//获取商品信息
+        'RemoGoods':_host+'/api/ShoppingCart/RemoGoods',//移除多个商品
+        'SaveOrders':_host+'/api/Orders/SaveOrders',//保存订单
+        'GetPayQRCode':_host+'/api/Orders/GetPayQRCode',//获取订单返回码
+        'MakeQRCode':_host+'/api/Verification/MakeQRCode',//生成二维码
+        'QueryyQrCodeState':_host+'/api/Orders/QueryyQrCodeState',//查询是否支付成功
 	} 
-	
-	window.account={};
-	console.log(account);
-	window.teacherImfor={};
-	window.studentImfor={};
-	
     return httpUrl;
 	
 });

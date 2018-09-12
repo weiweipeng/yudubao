@@ -334,75 +334,78 @@
         <p>请付款</p>
     </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/request.js"></script>
     <script type="text/javascript" src="../../js/common.js"></script>
     <script type="text/javascript">
-    	var menu={
-          "AccountID": "",
-          "UserName": "",
-          "MoteMessage": ""
-          
-        }
-        var erweima={
-          "AccountID": "",
-          // "OrederID": "af2c8376-7e5f-4571-a764-486908a850a8",
-          "PayType": 1
-        }
-        var getmessage={
-            "AccountID": ""
-        };
-        var gooddata=C.POSTS({},'http://192.168.16.99:3246/api/ShoppingCart/GetShoppingCartList',successGetgood);
-        var goodlist=[];
-        function successGetgood(data){
-        	var datas=data.Data;
-        	if(data.Result==1){
-        		for(var i=0;i<datas.length;i++){
-        			goodlist.push(datas[i].Id);
-        		}
-        		menu.GoodsIdList=goodlist;
-        		console.log(goodlist);
-        	}
-        }
-        $('input').on('change',function(){
-        	var typeid=$(this).val();
-        	erweima.PayType=typeid;
-        	console.log(typeid);
-        });
-    	$('.paysubmit').on('click',function(){
-            
+    	$(function () {
+    		var menu={
+	          "AccountID": "",
+	          "UserName": "",
+	          "MoteMessage": ""
+	          
+	        }
+	        var erweima={
+	          "AccountID": "",
+	          // "OrederID": "af2c8376-7e5f-4571-a764-486908a850a8",
+	          "PayType": 1
+	        }
+	        var getmessage={
+	            "AccountID": ""
+	        };
+	        var gooddata=C.POSTS({},httpUrl.GetShoppingCartList,successGetgood);
+	        var goodlist=[];
+	        function successGetgood(data){
+	        	var datas=data.Data;
+	        	if(data.Result==1){
+	        		for(var i=0;i<datas.length;i++){
+	        			goodlist.push(datas[i].Id);
+	        		}
+	        		menu.GoodsIdList=goodlist;
+	        		console.log(goodlist);
+	        	}
+	        }
+	        $('input').on('change',function(){
+	        	var typeid=$(this).val();
+	        	erweima.PayType=typeid;
+	        	console.log(typeid);
+	        });
+	    	$('.paysubmit').on('click',function(){
+	            
 
-            var data=C.POSTS(JSON.stringify(menu),'http://192.168.16.99:3246/api/Orders/SaveOrders',successSave)
-        });
-        function successSave(data){
-            if(data.Result==1){
-                erweima.OrederID=data.Data;
-                getmessage.OrderID=data.Data;
-                var data=C.POSTS(JSON.stringify(erweima),'http://180.168.86.30:3246/api/Orders/GetPayQRCode',successCode);
-            }
-        }
-        var timer=null;
-        function successCode(data){
-            if(data.Result==1){
-                console.log(data.Data);
-                var url='http://192.168.16.99:3246/api/Verification/MakeQRCode?data='+data.Data;
-                $('.layerImg').find('img').attr("src",url);
-                $('.layerImg').show();
-                console.log(url);
+	            var data=C.POSTS(JSON.stringify(menu),httpUrl.SaveOrders,successSave)
+	        });
+	        function successSave(data){
+	            if(data.Result==1){
+	                erweima.OrederID=data.Data;
+	                getmessage.OrderID=data.Data;
+	                var data=C.POSTS(JSON.stringify(erweima),httpUrl.GetPayQRCode,successCode);
+	            }
+	        }
+	        var timer=null;
+	        function successCode(data){
+	            if(data.Result==1){
+	                console.log(data.Data);
+	                var url=httpUrl.MakeQRCode+'?data='+data.Data;
+	                $('.layerImg').find('img').attr("src",url);
+	                $('.layerImg').show();
+	                console.log(url);
 
-                timer=setInterval(function(){
-                    var data=C.POSTS(JSON.stringify(getmessage),'http://192.168.16.99:3246/api/Orders/QueryyQrCodeState',successGetMessage);
-                },1000);
-            }
-        }
-        function successGetMessage(data){
-            if(data.Result==1){
-                $('.layerImg').hide();
-                clearInterval(timer);
-                // C.layer(4,"支付成功！");
-                window.location.href='paysuccess.html';
-            }else{
-                C.layer(1,data.Message);
-            }
-        }
+	                timer=setInterval(function(){
+	                    var data=C.POSTS(JSON.stringify(getmessage),httpUrl.QueryyQrCodeState,successGetMessage);
+	                },1000);
+	            }
+	        }
+	        function successGetMessage(data){
+	            if(data.Result==1){
+	                $('.layerImg').hide();
+	                clearInterval(timer);
+	                // C.layer(4,"支付成功！");
+	                window.location.href='paysuccess.html';
+	            }else{
+	                C.layer(1,data.Message);
+	            }
+	        }
+    	});
     </script>
 </body>
 </html>

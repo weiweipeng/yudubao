@@ -147,10 +147,15 @@
             color: #ff0036;
         }
         .successbtn{
-            margin-top: 30px;
+            /*margin-top: 30px;*/
+            position: absolute;
+            top: 400px;
+            width: 250px;
+            left: 50%;
+            margin-left: -110px;
             /*text-align: center;*/
-            display: flex;
-            justify-content: center;
+            /*display: flex;*/
+            /*justify-content: center;*/
         }
         .successbtn>p{
             float: left;
@@ -158,10 +163,12 @@
         }
         .successbtn>span{
             float: left;
+            width: 20px;
             margin-right: 10px;
             margin-left: 10px;
             display: inline-block;
             line-height: 36px;
+            float: left;
 
         }
         .sucBtn {
@@ -169,6 +176,11 @@
             line-height: 36px;
             border-radius: 2px;
             text-align: center;
+            /*color: #fff;*/
+            display: inline-block;
+            float: left;
+        }
+        .sucBtn>a{
             color: #fff;
         }
         .myMenu{
@@ -251,9 +263,9 @@
             <p class="successHeader">支付成功<span></span></p>
             <div class="successMoney">您已成功支付金额：<span>￥</span><span class="money">299.00</span><span>.00</span></div>
             <div class="successbtn over">
-                <p class="sucBtn myMenu">我的订单</p>
+                <p class="sucBtn myMenu"><a href="#">我的订单</a></p>
                 <span>或</span>
-                <p class="sucBtn backreload">回首页</p>
+                <p class="sucBtn backreload"><a href="../../index.html">回首页</a></p>
             </div>
         </div>
     </div>
@@ -269,21 +281,22 @@
     <script type="text/javascript" src="../../js/common.js"></script>
     <script type="text/javascript">
 
-        var gooddata=C.POSTS({},'http://192.168.16.99:3246/api/ShoppingCart/GetShoppingCartList',successGetgood);
-        var goodprice=0;
-        function successGetgood(data){
-        	var datas=data.Data;
-        	if(data.Result==1){
-        		for(var i=0;i<datas.length;i++){
-        			// goodlist.push(datas[i].Id);
-                    var price=parseInt(datas[i].Number)*parseInt(datas[i].Price);
-                    goodprice+=parseInt(price);
-        		}
-                $('.money').text(goodprice);
-        		console.log(goodprice);
-        	}
-        }
-       
+        // var gooddata=C.POSTS({},'http://192.168.16.99:3246/api/ShoppingCart/GetShoppingCartList',successGetgood);
+        // var goodprice=0;
+        // function successGetgood(data){
+        // 	var datas=data.Data;
+        // 	if(data.Result==1){
+        // 		for(var i=0;i<datas.length;i++){
+        // 			// goodlist.push(datas[i].Id);
+        //             var price=parseInt(datas[i].Number)*parseInt(datas[i].Price);
+        //             goodprice+=parseInt(price);
+        // 		}
+        //         $('.money').text(goodprice);
+        // 		console.log(goodprice);
+        // 	}
+        // }
+        var allprice=localStorage.getItem('allprice');
+        $('.money').text(allprice);
     </script>
 </body>
 </html>

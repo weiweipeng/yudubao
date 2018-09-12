@@ -342,9 +342,11 @@
     </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript" src="../../js/request.js"></script>
     <script type="text/javascript">
         
-        var erweima={
+        $(function () {
+            var erweima={
           "AccountID": "",
           // "OrederID": "af2c8376-7e5f-4571-a764-486908a850a8",
           "PayType": 1
@@ -354,10 +356,10 @@
         var goodList=[];
         var allValue=0;//总价格
         var valueList=[];//商品价格列表
-    	$('.buy_con li').on("click",function () {
-    		$(this).siblings('li').removeClass('active');
-    		$(this).addClass('active');
-    	});
+        $('.buy_con li').on("click",function () {
+            $(this).siblings('li').removeClass('active');
+            $(this).addClass('active');
+        });
         $('.goodList').on('click','.right_add',function(){
 
             var val=$(this).siblings('input').val();
@@ -371,7 +373,7 @@
             }
             addGood.GoodsID=$(this).attr('id');
             addGood.GoodsNumber=1;
-            var data=C.POSTS(JSON.stringify(addGood),'http://192.168.16.99:3246/api/ShoppingCart/AddGoods',successAddalone);
+            var data=C.POSTS(JSON.stringify(addGood),httpUrl.AddGoods,successAddalone);
             allValuePrice();
         });
         function successAddalone(data){
@@ -396,7 +398,7 @@
                 }
                 addGood.GoodsID=$(this).attr('id');
                 addGood.GoodsNumber=1;
-                var data=C.POST((addGood),'http://192.168.16.99:3246/api/ShoppingCart/SubtractGoods',successRemovealone);
+                var data=C.POST((addGood),httpUrl.SubtractGoods,successRemovealone);
             }else{
                 val=1;
             }
@@ -410,7 +412,7 @@
                 C.layer(1,data.Message);
             }
         }
-        var gooddata=C.POSTS({},'http://192.168.16.99:3246/api/ShoppingCart/GetShoppingCartList',successGetgood);
+        var gooddata=C.POSTS({},httpUrl.GetShoppingCartList,successGetgood);
         function successGetgood(data){
 
             if(data.Result==1){
@@ -470,7 +472,7 @@
                         val.checked=true;
                     });
                     addGoodlist.Goods=goodListAdd;
-                    var addListData=C.POSTS(JSON.stringify(addGoodlist),'http://192.168.16.99:3246/api/ShoppingCart/AddGoodsList',successAddlist);
+                    var addListData=C.POSTS(JSON.stringify(addGoodlist),httpUrl.AddGoodsList,successAddlist);
                 }else{
                     $.each(arr,function(i,val){
                         
@@ -482,7 +484,7 @@
                         }
                     });
                     removeGood.GoodsIds=removeList;
-                    var product=C.POSTS(JSON.stringify(removeGood),'http://192.168.16.99:3246/api/ShoppingCart/RemoGoods',successRemove);
+                    var product=C.POSTS(JSON.stringify(removeGood),httpUrl.RemoGoods,successRemove);
                 }
             }else{
                 if(checkeds){
@@ -493,7 +495,7 @@
                         addgood.GoodsID=$(this).attr('ProductId');
                         goodListAdd.push(addgood);
                         addGoodlist.Goods=goodListAdd;
-                    var addProdata=C.POSTS(JSON.stringify(addGoodlist),'http://192.168.16.99:3246/api/ShoppingCart/AddGoodsList',successAddlist);
+                    var addProdata=C.POSTS(JSON.stringify(addGoodlist),httpUrl.AddGoodsList,successAddlist);
                     goodList.push(ids);
                 }else{
                     var proid=$(this).attr('ProductId');
@@ -501,7 +503,7 @@
                     
                     thisInput=$(this).parents('li');
                     removeGood.GoodsIds=removeList;
-                    var removeData=C.POSTS(JSON.stringify(removeGood),'http://192.168.16.99:3246/api/ShoppingCart/RemoGoods',successRemove);
+                    var removeData=C.POSTS(JSON.stringify(removeGood),httpUrl.RemoGoods,successRemove);
                   
                     var j=goodList.indexOf(ids);
                     goodList.splice(j,1);
@@ -546,6 +548,7 @@
                 allValue+=parseInt(valueList[j]);
             }
             $('.allvalue').text('合计：￥'+allValue+'.00');
+            localStorage.setItem('allprice',allValue);
         }
         function remenber(){
             var arr=$('.goodList input[type=checkbox]:checked');
@@ -594,6 +597,7 @@
         //         C.layer(1,data.Message);
         //     }
         // }
+        })
     </script>
 </body>
 </html>

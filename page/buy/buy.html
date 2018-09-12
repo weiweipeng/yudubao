@@ -16,7 +16,7 @@
 			/*height: 400px;*/
 			position: absolute;
             left: 50%;
-            /*top: 50%;*/
+           
             margin-top: 30px;
             margin-left: -450px;
             margin-bottom: 100px;
@@ -213,6 +213,7 @@
     					<li>
     						<a href="#">安全设置</a>
     					</li>
+    					
     				</ul>
     			</div>
     			<!-- <div class="exit lf">
@@ -279,8 +280,10 @@
     </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript" src="../../js/request.js"></script>
     <script type="text/javascript">
-    	$('.buy_con').on("click",'li',function () {
+    	$(function () {
+    		$('.buy_con').on("click",'li',function () {
     		$(this).siblings('li').removeClass('active');
     		$(this).addClass('active');
     	});
@@ -296,12 +299,13 @@
         var goodadd={
         	'AccountID ':"",
         }
+        console.log(httpUrl);
         C.load(0);
         var isCheckAll=true;//是否全选
         var goodList=[];//商品列表
-        var Coursedata=C.POSTS(JSON.stringify(param),'http://192.168.16.99:3246/api/Course/GetCourseList',successCourse);
-        var Editdata=C.POSTS(JSON.stringify(param),'http://192.168.16.99:3246/api/Edition/GetEditionList',successEdit);
-        var Gradedata=C.POSTS(JSON.stringify({}),'http://192.168.16.99:3246/api/Grade/GetGradeList',successGrade);
+        var Coursedata=C.POSTS(JSON.stringify(param),httpUrl.GetCourseList,successCourse);
+        var Editdata=C.POSTS(JSON.stringify(param),httpUrl.GetEditionList,successEdit);
+        var Gradedata=C.POSTS(JSON.stringify({}),httpUrl.GetGradeList,successGrade);
         function successCourse(data){
             if(data.Result==1){
                 var datas=data.Data;
@@ -380,7 +384,7 @@
         //获取产品列表
         var listCount=0,num=0;
         function goodsList(){
-        	var data=C.POSTS(JSON.stringify(goods),'http://192.168.16.99:3246/api/EnglishArticleQuestion/GetArticleList',successGood);
+        	var data=C.POSTS(JSON.stringify(goods),httpUrl.GetArticleList,successGood);
         }
         function successGood(data){
             if(data.Result==1){
@@ -474,20 +478,7 @@
 
 
         }
-   //      $('.inpu').on('click',function(){
-   //      	// var arr=$('input[type=checkbox]:checked');
-   //      	if (isCheckAll) {
-			// 	$(".goodList input[type='checkbox']").each(function() {
-			// 		this.checked = true;
-			// 	});
-			// 	isCheckAll = false;
-			// } else {
-			// 	$(".goodList input[type='checkbox']").each(function() {
-			// 		this.checked = false;
-			// 	});
-			// 	isCheckAll = true;
-			// }
-   //      });
+
 	    Array.prototype.indexOf = function(val) {
 			for (var i = 0; i < this.length; i++) {
 				if (this[i] == val) return i;
@@ -555,7 +546,7 @@
         $('.buy').on('click',function(){
             remeber();
             goodadd.Goods=goodList;
-            var data=C.POSTS(JSON.stringify(goodadd),'http://192.168.16.99:3246/api/ShoppingCart/AddGoodsList',successAdd);
+            var data=C.POSTS(JSON.stringify(goodadd),httpUrl.AddGoodsList,successAdd);
         });
 
         function successAdd(data){
@@ -563,6 +554,7 @@
         		window.location.href='submitBuy.html';
         	}
         }
+    	})
     </script>
 </body>
 </html>
