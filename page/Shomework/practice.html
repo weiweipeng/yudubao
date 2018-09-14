@@ -136,7 +136,7 @@
             font-size: 16px;
         }*/
         .secs>.sbg{
-            width: 50%;
+            width: 50%!important;
             color: #fff;
             line-height: 57px;
         }
@@ -226,6 +226,20 @@
         }
         .bg-line{
             bottom: 0px;
+        }
+        .secs>div{
+            width: 100%!important;
+        }
+        .reloads{
+            color: #fff;
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            width: 30px;
+            font-size: 12px;
+            border-radius: 3px;
+            line-height: 16px;
+            background-color: red;
         }
 	</style>
 </head>
@@ -357,7 +371,7 @@
             }
             var paramList={
                 "IndexPage": 1,
-                "IndexSize":9
+                "IndexSize":6
             }
             var Tarsk={
                 "IndexPage": 1,
@@ -390,6 +404,7 @@
                     // paramClass.TeacherId=localStorage.getItem('TeacherIds');
                     // paramClass.studentId =stuData.data.id;
                     localStorage.setItem('studentId','s004');
+                    paramList.studentId='s004';
                     localStorage.setItem('studentName',stuData.Data.Name);
                     $('.names').text(stuData.Data.name);
                     paramClass.studentId ='s004';
@@ -579,13 +594,23 @@
                  var htmls='',nameArr=[];
                  for(var i=0;i<data.length;i++){
                     var times=String(data[i].CreateDate).slice(0,10);
-                    if(data[i].Name.length>7){
-                        nameArr=data[i].Name.split('-');
-                    }else{
-                        nameArr=[data[i].Name,data[i].Name];
-                    }
+                    // if(data[i].Name.length>7){
+                    //     nameArr=data[i].Name.split('-');
+                    // }else{
+                    //     nameArr=[data[i].Name,data[i].Name];
+                    // }
                   
-                    htmls+='<div class="lf bg1 prac" times="'+data[i].LimitedTime+'" names="'+data[i].Name+'"" id="'+data[i].Id+'"><p>'+nameArr[1]+'</p><p>'+nameArr[0]+'</p><p>'+i+'</p><span>选中</span></div>';
+                    htmls+='<div class="lf bg1 prac" times="'+data[i].LimitedTime+'" names="'+data[i].Name+'"" id="'+data[i].Id+'">';
+                    htmls+='<p>'+data[i].Name+'</p>';
+                    
+                    if(data[i].CreateDate!=null){
+                        htmls+='<p>'+data[i].CreateTime+'</p>'
+                    }
+                    htmls+='<p>'+i+'</p><span>选中</span>';
+                    if(data[i].EnglishArticleTaskHistoryBaseId!=null){
+                        htmls+='<div class="reloads">已做</div>'
+                    }
+                    htmls+='</div>';
                  }
                 $('.practiceList').html(htmls);
             }

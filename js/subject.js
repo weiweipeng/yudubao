@@ -1445,7 +1445,7 @@ function SubjectStringCorrect(subject) {
         case '完形填空':
             str += subject.Title + '<hr/>';
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
-                if (val.IsError == 0) {
+                // if (val.IsError == 0) {
                     var queArray = val.Title.split('@');
                     str += '<div id="' + val.Id + '" class="wanxingtiankognQue">' + val.Sort + '.&nbsp';
                     for (var i = 0; i < queArray.length; i++) {
@@ -1453,17 +1453,17 @@ function SubjectStringCorrect(subject) {
                         str += queArray[i] + '</div>';
                     }
                     str += '</div>';
-                }
+                // }
             });
             break;
         case '语法词汇填空':
             var content = subject.Title;
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
-                if (val.IsError == 0) {
+                // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
-                } else {
-                    content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
-                }
+                // } else {
+                    // content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
+                // }
             });
             str += content + '<hr/>';
             break;
@@ -1482,18 +1482,18 @@ function SubjectStringCorrect(subject) {
             str += ' </table>';
             var content = subject.Title;
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
-                if (val.IsError == 0) {
+                // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
-                } else {
-                    content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
-                }
+                // } else {
+                    // content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
+                // }
             });
             str += content;
             break;
         case '表格填空':
             str += subject.Title + '<hr/>';
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
-                if (val.IsError == 0) {
+                // if (val.IsError == 0) {
                     var queArray = val.Title.split('@');
                     str += '<div id="' + val.Id + '" class="wanxingtiankognQue">' + val.Sort + '.&nbsp';
                     for (var i = 0; i < queArray.length; i++) {
@@ -1501,7 +1501,7 @@ function SubjectStringCorrect(subject) {
                         str += queArray[i] + '</div>';
                     }
                     str += '</div>';
-                }
+                // }
             });
             break;
         case '选句填空':
@@ -1513,11 +1513,11 @@ function SubjectStringCorrect(subject) {
             str += ' </table>';
             var content = subject.Title;
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
-                if (val.IsError == 0) {
+                // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
-                } else {
-                    content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
-                }
+                // } else {
+                    // content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
+                // }
             });
             str += content;
             break;
@@ -1530,11 +1530,11 @@ function SubjectStringCorrect(subject) {
             str += ' </table>';
             var content = subject.Title;
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
-                if (val.IsError == 0) {
+                // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
-                } else {
-                    content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
-                }
+                // } else {
+                    // content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
+                // }
             });
             str += content;
             break;
@@ -1549,11 +1549,11 @@ function SubjectStringCorrect(subject) {
                 content = content.replace('</div>', '');
                 for (var i = 0; i < answerArray.length; i++) {
                     var relIndex = i + 1;
-                    if (val.IsError == 0) {
+                    // if (val.IsError == 0) {
                         content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
-                    } else {
-                        content = content.replace('{' + relIndex + '}', '<u>' + answerArray[i] + '</u>');
-                    }
+                    // } else {
+                    //     content = content.replace('{' + relIndex + '}', '<u>' + answerArray[i] + '</u>');
+                    // }
                 }
                 str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
             });
@@ -1569,11 +1569,11 @@ function SubjectStringCorrect(subject) {
                 content = content.replace('</div>', '');
                 for (var i = 0; i < answerArray.length; i++) {
                     var relIndex = i + 1;
-                    if (val.IsError == 0) {
+                    // if (val.IsError == 0) {
                         content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
-                    } else {
-                        content = content.replace('{' + relIndex + '}', '<u>' + answerArray[i] + '</u>');
-                    }
+                    // } else {
+                    //     content = content.replace('{' + relIndex + '}', '<u>' + answerArray[i] + '</u>');
+                    // }
                 }
                 str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
             });
@@ -1588,11 +1588,11 @@ function SubjectStringCorrect(subject) {
                 content = content.replace('</div>', '');
                 for (var i = 0; i < answerArray.length; i++) {
                     var relIndex = i + 1;
-                    if (val.IsError == 0) {
+                    // if (val.IsError == 0) {
                         content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
-                    } else {
-                        content = content.replace('{' + relIndex + '}', '<u>' + answerArray[i] + '</u>');
-                    }
+                    // } else {
+                        // content = content.replace('{' + relIndex + '}', '<u>' + answerArray[i] + '</u>');
+                    // }
                 }
                 str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
             });
@@ -1601,33 +1601,33 @@ function SubjectStringCorrect(subject) {
             str += '<p style="text-align:center" ><span style="border:1px solid;padding:5px">' + subject.WordSentence + '</span></p>';
             var content = subject.Title;
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
-                if (val.IsError == 0) {
+                // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
-                } else {
-                    content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
-                }
+                // } else {
+                //     content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
+                // }
             });
             str += content + '<hr/>';
             break;
         case '给首字母完形填空':
             var content = subject.Title;
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
-                if (val.IsError == 0) {
+                // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
-                } else {
-                    content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
-                }
+                // } else {
+                //     content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
+                // }
             });
             str += content + '<hr/>';
             break;
         case '信息匹配':
             var content = subject.Title;
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
-                if (val.IsError == 0) {
+                // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
-                } else {
-                    content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
-                }
+                // } else {
+                //     content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
+                // }
             });
             str += content + '<hr/>';
             break;
