@@ -294,11 +294,7 @@
                 		C.layer(2,loginData.Message);
                 	}
                 }
-                function getCount(data,urls,identitys){
-                 
-                	
-                	
-                }
+             
                 function successGetCount(countData){
                    
                     if(countData.Result==1){
@@ -307,14 +303,34 @@
 	        			localStorage.setItem('publisherName',countData.Data.AccountName);
 	        			console.log(localStorage.getItem('publisherId'));
                     	if(identitys==3){
-                        	window.location.href="page/homework/homework.html";
+                    		var getTeacherInfor=C.POST(null,httpUrl.GetTeacherInfo,successGetIdenty); 
+                        	
                         }else if(identitys==4){
-                        	window.location.href="page/Shomework/practice.html";
+                        	var stuData=C.POSTS('',httpUrl.GetStudentInfo,successGetstu);
+                        	
                         }
                     }else{
                     	C.load(1);
                     	C.layer(2,countData.Message);
                     }
+                }
+                //获取老师信息成功
+                function successGetIdenty(data){
+                	if(data.Result==1){
+                		window.location.href="page/homework/homework.html";
+                	}else{
+                		C.load(1);
+                		C.layer(2,data.Message);
+                	}
+                }
+                //获取学生信息成功
+                function successGetstu(data){
+                	if(data.Result==1){
+                		window.location.href="page/Shomework/practice.html";
+                	}else{
+                		C.load(1);
+                		C.layer(2,data.Message);
+                	}
                 }
 			    function GUID() {
 				    this.date = new Date();   /* 判断是否初始化过，如果初始化过以下代码，则以下代码将不再执行，实际中只执行一次 */

@@ -507,28 +507,51 @@
         </div>
         <div class="createClass">
             <form id="createform">
-                <div class="inlines">
-                    <label>班级名称：</label>
-                    <input type="text" name="Name" id="className" maxlength="3">
-                </div>
-                <div class="inlines">
+
+               <!--  <div class="inlines">
                     <p>*命名规则：长度为三个字符,例如“八年级六班”为“八六班”,“高一二班”为“高一二”</p>
-                </div>
+                </div> -->
                 <div class="inlines">
                     <label>年级编号：</label>
                     <select name="GradeId" id="GradeId">
-                        <option value="1">一年级</option>
-                        <option value="2">二年级</option>
-                        <option value="3">三年级</option>
-                        <option value="4">四年级</option>
-                        <option value="5">五年级</option>
-                        <option value="6">六年级</option>
-                        <option value="7">七年级</option>
-                        <option value="8">八年级</option>
-                        <option value="9">九年级</option>
-                        <option value="10">高一</option>
-                        <option value="11">高二</option>
-                        <option value="12">高三</option>
+                        <option value="一">一年级</option>
+                        <option value="二">二年级</option>
+                        <option value="三">三年级</option>
+                        <option value="四">四年级</option>
+                        <option value="五">五年级</option>
+                        <option value="六">六年级</option>
+                        <option value="七">七年级</option>
+                        <option value="八">八年级</option>
+                        <option value="九">九年级</option>
+                        <option value="高一">高一</option>
+                        <option value="高二">高二</option>
+                        <option value="高三">高三</option>
+                    </select>
+                </div>
+                <div class="inlines">
+                    <label>班级名称：</label>
+                    <!-- <input type="text" name="Name" id="className" maxlength="3"> -->
+                    <select id="createClassId" name='className'>
+                        <option value="一">一班</option>
+                        <option value="二">二班</option>
+                        <option value="三">三班</option>
+                        <option value="四">四班</option>
+                        <option value="五">五班</option>
+                        <option value="六">六班</option>
+                        <option value="七">七班</option>
+                        <option value="八">八班</option>
+                        <option value="九">九班</option>
+                        <option value="十">十班</option>
+                        <option value="十一">十一班</option>
+                        <option value="十二">十二班</option>
+                        <option value="十三">十三班</option>
+                        <option value="十四">十四班</option>
+                        <option value="十五">十五班</option>
+                        <option value="十六">十六班</option>
+                        <option value="十七">十七班</option>
+                        <option value="十八">十八班</option>
+                        <option value="十九">十九班</option>
+                        <option value="二十">二十班</option>
                     </select>
                 </div>
                 <div class="inlines inlines_bool">
@@ -909,16 +932,71 @@
                 $('.createClass').show();
                 
             });
-             $('body').on('click','.inline_create',function(){
+            
+            $('body').on('click','.inline_create',function(){
                 C.load(0);
                 var stuSubQueListTemp={};
+                var ClassObjs={};
+                var classname='';//班级名称
                 $.each($("#createform").serializeArray(), function (i, v) {
-                    if (stuSubQueListTemp[v.name] != undefined) {
-                        stuSubQueListTemp[v.name] += '|' + v.value.trim();
+                    if (ClassObjs[v.name] != undefined) {
+                        ClassObjs[v.name] += '|' + v.value.trim();
                     } else {
-                        stuSubQueListTemp[v.name] = v.value.trim();
+                        ClassObjs[v.name] = v.value.trim();
                     }
                 });
+                switch(ClassObjs.GradeId){
+                    case '一':
+                        stuSubQueListTemp.GradeId='1'
+                        break;
+                    case '二':
+                        stuSubQueListTemp.GradeId='2'
+                        break;
+                    case '三':
+                        stuSubQueListTemp.GradeId='3'
+                        break;
+                    case '四':
+                        stuSubQueListTemp.GradeId='4'
+                        break;
+                    case '五':
+                        stuSubQueListTemp.GradeId='5'
+                        break;
+                    case '六':
+                        stuSubQueListTemp.GradeId='6'
+                        break;
+                    case '七':
+                        stuSubQueListTemp.GradeId='7'
+                        break;
+                    case '八':
+                        stuSubQueListTemp.GradeId='8'
+                        break;
+                    case '九':
+                        stuSubQueListTemp.GradeId='9'
+                        break;
+                    case '高一':
+                        stuSubQueListTemp.GradeId='10'
+                        break;
+                    case '高二':
+                        stuSubQueListTemp.GradeId='11'
+                        break;
+                    case '高三':
+                        stuSubQueListTemp.GradeId='12'
+                        break;
+                }
+                console.log(ClassObjs);
+                classname=ClassObjs.GradeId;
+                if(classname.length==1){
+                    if(ClassObjs.className.length==1){
+                        classname+=ClassObjs.className+'班';
+                    }else{
+                        classname+=ClassObjs.className;
+                    }
+                }else{
+                    classname+=ClassObjs.className;
+                }
+                console.log(classname);
+                stuSubQueListTemp.Name=classname;
+                stuSubQueListTemp.AfterSchool=ClassObjs.AfterSchool;
                 stuSubQueListTemp.schoolId=localStorage.getItem('schoolId');
                 stuSubQueListTemp.CreateId=localStorage.getItem('TeacherIds');
                 console.log(stuSubQueListTemp);
