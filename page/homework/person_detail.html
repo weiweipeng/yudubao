@@ -265,6 +265,7 @@
                 
             }
             function successGetdata(tableData) {
+                $(".tablelist").empty();
                 if(tableData.Result==1){
                     
                     $(".count").text(param.IndexPage);
@@ -325,6 +326,7 @@
             $(".right_btn").on("click",function(){
                 if(param.IndexPage<count){
                     tableNum=1;
+                    param.IndexPage+=tableNum;
                     getdata();
 
                 }else{
@@ -390,53 +392,69 @@
                 }
             });
             $(".classes").on("click",'.classtable',function(){
-                $(this).find('span').toggle();
-                //判断是否所有的班级选中全部清除
-                var spanbox=$('.classes').find('span');
-                // var boxBool=true;
-                var spanBool=$(this).find('span').css("display");
+                // $(this).find('span').toggle();
+                // //判断是否所有的班级选中全部清除
+                // var spanbox=$('.classes').find('span');
+                // // var boxBool=true;
+                // var spanBool=$(this).find('span').css("display");
+                // var spanId=$(this).attr('id');
+                // var grades=$(this).attr('gradeid');  
+                
                 var spanId=$(this).attr('id');
-                var grades=$(this).attr('gradeid');  
-            
-                if(spanBool=='block' || spanBool=='inline'){
-                    if(gradeid==''){
-                        gradeid = grades;
-                         paramClass.Id=gradeid;
-                         param.ClassId=spanId;
-                        getdata();
-                        C.load(0);
-                        gradeName = $(this).attr('gradeName');
-                        // return false; 
-                    }else{
-                        C.layer(2,"不能同时选择两个班级！");
-                        $(this).find('span').hide();
-                        return false;
-                    }
-                }else{
-                    gradeid='';
-                }
+                $('.classes').find('span').hide();
+                gradeid=spanId;
+                paramClass.Id=gradeid;
+                param.IndexPage=1;
+                param.ClassId=spanId;
+                $(this).find('span').show();
+                getdata();
+                C.load(0);
+                // if(spanBool=='block' || spanBool=='inline'){
+                //     if(gradeid==''){
+                //         gradeid = grades;
+                //          paramClass.Id=gradeid;
+                //          param.ClassId=spanId;
+                //         getdata();
+                //         C.load(0);
+                //         gradeName = $(this).attr('gradeName');
+                //         // return false; 
+                //     }else{
+                //         C.layer(2,"不能同时选择两个班级！");
+                //         $(this).find('span').hide();
+                //         return false;
+                //     }
+                // }else{
+                //     gradeid='';
+                // }
    
-                if(spanBool=='block' || spanBool=='inline'){
-                    classListId.push(spanId);
-                }else{
-                    var j=classListId.indexOf(spanId);
-                    classListId.splice(j,1);
-                }
+                // if(spanBool=='block' || spanBool=='inline'){
+                //     classListId.push(spanId);
+                // }else{
+                //     var j=classListId.indexOf(spanId);
+                //     classListId.splice(j,1);
+                // }
                  // getdata();
             });
             //翻页后班级是否选中
             function setClassCheck(){
-                console.log(classListId);
-                if(classListId.length!=0){
-                    var spanRember=$(".classtable");
-                    for(var i=0;i<spanRember.length;i++){
-                        var ids=spanRember[i].id;
-                        if(classListId.indexOf(ids,0)!=-1){
-                            $(spanRember).eq(i).find('span').show();
-                        }else{
-                            $(spanRember).eq(i).find('span').hide();//可以不要
-                        }
+                // console.log(classListId);
+                // if(classListId.length!=0){
+                //     var spanRember=$(".classtable");
+                //     for(var i=0;i<spanRember.length;i++){
+                //         var ids=spanRember[i].id;
+                //         if(classListId.indexOf(ids,0)!=-1){
+                //             $(spanRember).eq(i).find('span').show();
+                //         }else{
+                //             $(spanRember).eq(i).find('span').hide();//可以不要
+                //         }
 
+                //     }
+                // }
+                var ids=$(".classes").find('.classtable');
+                for(var i=0;i<ids.length;i++){
+                    var ID=$(ids).eq(i).attr('id');
+                    if(gradeid==ID){
+                        $(".classes").find('.classtable').eq(i).find('span').show();
                     }
                 }
             }

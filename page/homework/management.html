@@ -665,10 +665,7 @@
                 console.log(data);
                 var list='';
                 for(var i=0;i<data.length;i++){
-                    // if(param.ClassId==''){
-                    //     // param.ClassId=data[i].id;
-                    //     // getdata();
-                    // }
+                   
                     list+='<div id='+data[i].Id+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].Name+'<span>选中</span></div>'
                 }
                 $(".sec").html(list);
@@ -709,6 +706,8 @@
                 deleteArr.ClassId=spanId;
                 gradeid = spanId;
                 applystu.ClassId=spanId;
+                stu.ClassId=spanId;
+                getstu();
                 gradeName = $(this).attr('gradeName');
 
        
@@ -733,6 +732,12 @@
                 var data=C.POST(stu,httpUrl.GetStudentsListByClassID,successGetstu);
             }
             function successGetstu(datas){
+                $(".tablelist1").empty();
+                $(".tablelist2").empty();
+                if(datas.Data==null){
+                    C.layer(1,"没有更多数据！");
+                    return false;
+                }
                 if(datas.Result==1){
                     stu.IndexPage+=tablenum;
                     var data=datas.Data;

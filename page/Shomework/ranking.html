@@ -404,6 +404,7 @@
                 var data=C.POSTS(JSON.stringify(paramrank),httpUrl.GetStuRankingTaskHistoryBase,successGetrankdata);
             }
             function successGetrankdata(data) {
+                $(".tablelist").empty();
                 if(data.Result==1){
                     C.load(1);
                     var list='<li><p class="cell1">排名</p><p class="cell2">姓名</p><p class="cell3">等级</p><p class="cell4">积分</p><p class="cell5">在线时间</p><p class="cell6">速度</p><p class="cell7">正确率</p><p class="cell8">完成率</p><p class="cell9">得分</p></li>';

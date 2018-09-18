@@ -334,6 +334,14 @@
                 'type':1,
                 'courseId':0
             }
+            var param={
+                "IndexPage":1,
+                "IndexSize":10
+            };
+             var Vparams={
+                'IndexPage':1,
+                'IndexSize':1
+            };
             if(localStorage.getItem('teacherNames')){
                 $(".ope_first").find('span').text(localStorage.getItem('teacherNames'));
              }
@@ -448,6 +456,7 @@
                 
             }
             function successGetClass(classData){
+                $(".sec").empty();
                 if(classData.Result==1){
                      
                     $(".classcount").text(paramClass.IndexPage);
@@ -514,10 +523,11 @@
                          paramClass.Id=gradeid;
                         getdata();
                         Semester(gradeid);
-                        // srtudent.ClassId=spanId;
-                        // pertarsk.ClassId=spanId;
-                        srtudent.ClassId='aaa';
-                        pertarsk.ClassId='aaa';
+                        param.IndexPage=1;
+                        srtudent.ClassId=spanId;
+                        pertarsk.ClassId=spanId;
+                        // srtudent.ClassId='aaa';
+                        // pertarsk.ClassId='aaa';
                         getStudent();//获取学生列表
                         gradeName = $(this).attr('gradeName');
                         // return false; 
@@ -598,14 +608,7 @@
             C.resizes();
            
             console.log(httpUrl);
-            var param={
-                "IndexPage":1,
-                "IndexSize":10
-            };
-             var Vparams={
-                'IndexPage':1,
-                'IndexSize':1
-            };
+            
             var count=1;
             $(".ope_first").on({
                 mouseover:function (e) {

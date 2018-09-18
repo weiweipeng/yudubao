@@ -251,6 +251,7 @@
                 
             }
             function successGetData(tableData){
+                $(".tablelist").empty();
                 if(tableData.Result==1){
                     console.log(tableData);
                     // count=tableData.count;
@@ -270,26 +271,7 @@
                     C.layer(1,tableData.Message);
                 }
             }
-            // function getdetailData(){
-            //     var tableData=C.POST(paramClass,httpUrl.TeacherTaskListClassAll,successDetail);
-                
-            // }
-            // function successDetail(tableData){
-            //     if(tableData.result==1){
-            //         $(".classcount").text(paramClass.IndexPage);
-            //         count=tableData.count;
-            //         console.log(count);
-            //         createList(tableData.data);
-            //         var countStr='共'+count+'页';
-            //         $(".allCount").html(countStr);
-            //         // setChecked();
-            //     }else{
-            //         param.IndexPage-=tablenum;
-            //         C.layer(1,tableData.message);
-
-                 
-            //     }
-            // }
+           
             function createList(data){
                 var list='<li><p class="cell1">发布日期</p><p class="cell2">任务名称</p><p class="cell3">做题时间</p><p class="cell4">班级</p><p class="cell5">限时</p><p class="cell6">学期</p><p class="cell7">单元</p><p class="cell8">详情</p><p class="cell9">操作</p></li>';
                 for(var i=0;i<data.length;i++){
@@ -397,52 +379,32 @@
                 }
             });
             $(".classes").on("click",'.classtable',function(){
-                $(this).find('span').toggle();
+                // $(this).find('span').toggle();
                 //判断是否所有的班级选中全部清除
-                var spanbox=$('.classes').find('span');
+                // var spanbox=$('.classes').find('span');
                 // var boxBool=true;
-                var spanBool=$(this).find('span').css("display");
+                // var spanBool=$(this).find('span').css("display");
+                // var spanId=$(this).attr('id');
+                // var grades=$(this).attr('gradeid');  
+                
                 var spanId=$(this).attr('id');
-                var grades=$(this).attr('gradeid');  
-            
-                if(spanBool=='block' || spanBool=='inline'){
-                    if(gradeid==''){
-                        gradeid = grades;
-                         paramClass.Id=gradeid;
-                         param.ClassId=spanId;
-                        getdetailData();
-                        // gradeName = $(this).attr('gradeName');
-                        // return false; 
-                    }else{
-                        C.layer(2,"不能同时选择两个班级！");
-                        $(this).find('span').hide();
-                        return false;
-                    }
-                }else{
-                    gradeid='';
-                }
-   
-                if(spanBool=='block' || spanBool=='inline'){
-                    classListId.push(spanId);
-                }else{
-                    var j=classListId.indexOf(spanId);
-                    classListId.splice(j,1);
-                }
-                 // getdata();
+                $('.classes').find('span').hide();
+                gradeid=spanId;
+                paramClass.Id=gradeid;
+                param.ClassId=spanId;
+                param.IndexPage=1;
+                $(this).find('span').show();
+                getdata();
+                
             });
             //翻页后班级是否选中
             function setClassCheck(){
-                console.log(classListId);
-                if(classListId.length!=0){
-                    var spanRember=$(".classtable");
-                    for(var i=0;i<spanRember.length;i++){
-                        var ids=spanRember[i].id;
-                        if(classListId.indexOf(ids,0)!=-1){
-                            $(spanRember).eq(i).find('span').show();
-                        }else{
-                            $(spanRember).eq(i).find('span').hide();//可以不要
-                        }
-
+                
+                var ids=$(".classes").find('.classtable');
+                for(var i=0;i<ids.length;i++){
+                    var ID=$(ids).eq(i).attr('id');
+                    if(gradeid==ID){
+                        $(".classes").find('.classtable').eq(i).find('span').show();
                     }
                 }
             }
@@ -455,8 +417,8 @@
             
             // 查看
             $(".tablelist").on("click",".preview",function(){
-                // Vparams.Id=$(this).attr('data-id');
-                Vparams.Id='rj_5_1_5_A_100_0062';
+                Vparams.Id=$(this).attr('data-id');
+                // Vparams.Id='rj_5_1_5_A_100_0062';
                 console.log(1111);
                 ajaxView();
             });
@@ -467,8 +429,13 @@
             }
             function ajaxViewDatas(ajaxViewData){
                 if(ajaxViewData.Result==1){
-                    console.log(222222);
-                    PreviewSubject(ajaxViewData.Data);
+                    // console.log(222222);
+                    // PreviewSubject(ajaxViewData.Data);
+                    if(ajaxViewData.Data!=null){
+                        PreviewSubject(ajaxViewData.Data);
+                    }else{
+                        C.layer(2,'没有更多数据');
+                    }
                 }else{
                     
                     C.layer(1,ajaxViewData.Message);

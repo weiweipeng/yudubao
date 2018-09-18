@@ -278,6 +278,7 @@
                 
             }
             function successGetclass(classData) {
+                // $(".classSec").empty();
                 if(classData.Result==1){
                     $(".classcount").text(paramClass.IndexPage);
                     createClassList(classData.Data);
@@ -301,11 +302,11 @@
                 console.log(data);
                 var list='';
                 for(var i=0;i<data.length;i++){
-                    if(param.ClassId==''){
-                        // param.ClassId=data[i].Id;
-                        param.ClassId='aaa';
-                        getdata();
-                    }
+                    // if(param.ClassId==''){
+                    //     // param.ClassId=data[i].Id;
+                    //     param.ClassId='aaa';
+                    //     getdata();
+                    // }
                     list+='<div id='+data[i].Id+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].Name+'<span>选中</span></div>'
                 }
                 $(".classSec").html(list);
@@ -335,64 +336,39 @@
                 }
             });
             $(".classes").on("click",'.classtable',function(){
-                $(this).find('span').toggle();
+           
                 //判断是否所有的班级选中全部清除
-                var spanbox=$('.classes').find('span');
-                // var boxBool=true;
-                var spanBool=$(this).find('span').css("display");
+        
                 var spanId=$(this).attr('id');
-                var grades=$(this).attr('gradeid');  
-                
-                if(spanBool=='block' || spanBool=='inline'){
-                    if(gradeid==''){
-                        gradeid = grades;
-                        param.ClassId=spanId;
-                        paramList.ClassId='aaa';
-                        // getStudent();
-                        getdata();
-                        gradeName = $(this).attr('gradeName');
-                        // return false; 
-                    }else{
-                        C.layer(2,"不能同时选择两个班级！");
-                        $(this).find('span').hide();
-                        return false;
-                    }
-                }else{
-                    gradeid='';
-                }
-   
-                if(spanBool=='block' || spanBool=='inline'){
-                    classListId.push(spanId);
-                }else{
-                    var j=classListId.indexOf(spanId);
-                    classListId.splice(j,1);
-                }
-                 // getdata();
+                $('.classes').find('span').hide();
+                gradeid=spanId;
+                param.ClassId=spanId;
+                paramList.ClassId=spanId;
+                $(this).find('span').show();
+                getdata();
+              
             });
             //翻页后班级是否选中
             function setClassCheck(){
-                console.log(classListId);
-                if(classListId.length!=0){
-                    var spanRember=$(".classtable");
-                    for(var i=0;i<spanRember.length;i++){
-                        var ids=spanRember[i].id;
-                        if(classListId.indexOf(ids,0)!=-1){
-                            $(spanRember).eq(i).find('span').show();
-                        }else{
-                            $(spanRember).eq(i).find('span').hide();//可以不要
-                        }
-
+              
+                var ids=$(".classes").find('.classtable');
+                for(var i=0;i<ids.length;i++){
+                    var ID=$(ids).eq(i).attr('id');
+                    if(gradeid==ID){
+                        $(".classes").find('.classtable').eq(i).find('span').show();
                     }
                 }
             }
             //获取任务列表
             var pracount=0,praNum=0;
            function getdata(){
-                
+                console.log(param);
                 var resultData=C.POST(param,httpUrl.TeacherTaskPersonalListAll,successGetdata);
                 
             }
             function successGetdata(resultData) {
+                $('.practiceList').empty();
+                // console.log(222222222222222);
                 if(resultData.Result==1){
                     $('.pracCen').text(param.IndexPage);
                     if(resultData.Count%param.IndexSize>0){

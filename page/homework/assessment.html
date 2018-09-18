@@ -420,59 +420,30 @@
                 }
             });
             $(".classes").on("click",'.classtable',function(){
-                $(this).find('span').toggle();
+              
                 //判断是否所有的班级选中全部清除
-                var spanbox=$('.classes').find('span');
-                // var boxBool=true;
-                var spanBool=$(this).find('span').css("display");
+               
                 var spanId=$(this).attr('id');
-                var grades=$(this).attr('gradeid');  
-            
-                if(spanBool=='block' || spanBool=='inline'){
-                    if(gradeid==''){
-                        gradeid = grades;
-                         // param.ClassId=spanId;
-                        // getdata();
-
-                        gradeName = $(this).attr('gradeName');
-                        srtudent.ClassId='aaa';
-                        echeatDatas.ClassId='aaa';
-                        echeatData.ClassId='aaa';
-                        // echeatDatas.ClassId=spanId;
-                        // echeatData.ClassId=spanId;
-                        stuAndtea=true;
-                        getStudent();//获取学生列表
-                        // return false; 
-                    }else{
-                        C.layer(1,"不能同时选择两个班级！");
-                        $(this).find('span').hide();
-                        return false;
-                    }
-                }else{
-                    gradeid='';
-                }
-   
-                if(spanBool=='block' || spanBool=='inline'){
-                    classListId.push(spanId);
-                }else{
-                    var j=classListId.indexOf(spanId);
-                    classListId.splice(j,1);
-                }
-                 // getdata();
+                $('.classes').find('span').hide();
+                studentId='';
+                gradeid = spanId; 
+                srtudent.ClassId=spanId;
+                
+                echeatDatas.ClassId=spanId;
+                echeatData.ClassId=spanId;
+                stuAndtea=true;
+                 $(this).find('span').show();
+                getStudent();//获取学生列表
+                
             });
             //翻页后班级是否选中
             function setClassCheck(){
-                console.log(classListId);
-                if(classListId.length!=0){
-                    var spanRember=$(".classtable");
-                    for(var i=0;i<spanRember.length;i++){
-                        var ids=spanRember[i].id;
-                        if(classListId.indexOf(ids,0)!=-1){
-                            $(spanRember).eq(i).find('span').show();
-                        }else{
-                            $(spanRember).eq(i).find('span').hide();//可以不要
-                        }
-
+         
+                var ids=$(".classes").find('.classtable');
+                for(var i=0;i<ids.length;i++){
+                    var ID=$(ids).eq(i).attr('id');
+                    if(gradeid==ID){
+                        $(".classes").find('.classtable').eq(i).find('span').show();
                     }
                 }
             }
@@ -480,14 +451,20 @@
              var studentCount='';
              function getStudent(){
                  var studentData=C.POST(srtudent,httpUrl.GetStudentsListByClassID,successGetStu);
-                 // console.log(studentData,'2222222222222')
+                
                  
              }
              function successGetStu(studentData) {
-                 if(studentData.Result==1){
-                    console.log(studentData);
-                    studentList(studentData.Data);
-                    stucheck(studentData.Data);
+                $('.stusline').empty();
+                if(studentData.Result==1){
+                    
+                    if(studentData.Data!=null){
+                        studentList(studentData.Data);
+                        stucheck(studentData.Data);
+                    }else{
+                        C.layer(1,'没有更多数据！');
+                    }
+                    
                     $(".stucenter ").text(srtudent.IndexPage);
                     // studentCount=studentData.count;
                     if(studentData.Count%srtudent.IndexSize>0){
@@ -509,7 +486,7 @@
                 for(var i=0;i<data.length;i++){
                     htmls+='<div class="stusection lf bg2" id="'+data[i].Id+'">'+data[i].StudentName+'</div>'
                 }
-                $('.stusline').empty();
+                
                 $('.stusline').html(htmls);
             }
             

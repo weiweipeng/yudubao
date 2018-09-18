@@ -353,6 +353,7 @@
                 
             }
             function successGetclass(classData){
+                $(".classSec").empty();
                 if(classData.Result==1){
                     $(".classcount").text(paramClass.IndexPage);
                     createClassList(classData.Data);
@@ -360,8 +361,8 @@
                     srtudent.ClassId='aaa';
                     // param.ClassId=classData.data[1].id;
                     // srtudent.ClassId=classData.data[1].id;
-                    param.ClassId='aaa';
-                    getdata();
+                    // param.ClassId='aaa';
+                    // getdata();
                     // classCount=classData.count;
                     if(classData.Count%paramClass.IndexSize>0){
                         classCount=parseInt(classData.Count/paramClass.IndexSize)+1;
@@ -377,10 +378,10 @@
                 console.log(data);
                 var list='';
                 for(var i=0;i<data.length;i++){
-                    if(param.ClassId==''){
-                        param.ClassId=data[i].Id;
-                        getdata();
-                    }
+                    // if(param.ClassId==''){
+                    //     param.ClassId=data[i].Id;
+                    //     getdata();
+                    // }
                     list+='<div id='+data[i].Id+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].Name+'<span>选中</span></div>'
                 }
                 $(".classSec").html(list);
@@ -411,53 +412,26 @@
                 }
             });
             $(".classes").on("click",'.classtable',function(){
-                $(this).find('span').toggle();
+                
                 //判断是否所有的班级选中全部清除
-                var spanbox=$('.classes').find('span');
-                // var boxBool=true;
-                var spanBool=$(this).find('span').css("display");
+        
                 var spanId=$(this).attr('id');
-                var grades=$(this).attr('gradeid');  
-            
-                if(spanBool=='block' || spanBool=='inline'){
-                    if(gradeid==''){
-                        gradeid = grades;
-                        param.ClassId=spanId;
-                        srtudent.ClassId='aaa';
-                        
-                        getdata();
-                        gradeName = $(this).attr('gradeName');
-                        // return false; 
-                    }else{
-                        C.layer(2,"不能同时选择两个班级！");
-                        $(this).find('span').hide();
-                        return false;
-                    }
-                }else{
-                    gradeid='';
-                }
-   
-                if(spanBool=='block' || spanBool=='inline'){
-                    classListId.push(spanId);
-                }else{
-                    var j=classListId.indexOf(spanId);
-                    classListId.splice(j,1);
-                }
-                 // getdata();
+                $('.classes').find('span').hide();
+                gradeid=spanId;
+                param.ClassId=spanId;
+                srtudent.ClassId='aaa';
+                 $('.stusline').empty();
+                $(this).find('span').show();
+                getdata();
+        
             });
             //翻页后班级是否选中
             function setClassCheck(){
-                console.log(classListId);
-                if(classListId.length!=0){
-                    var spanRember=$(".classtable");
-                    for(var i=0;i<spanRember.length;i++){
-                        var ids=spanRember[i].id;
-                        if(classListId.indexOf(ids,0)!=-1){
-                            $(spanRember).eq(i).find('span').show();
-                        }else{
-                            $(spanRember).eq(i).find('span').hide();//可以不要
-                        }
-
+                var ids=$(".classes").find('.classtable');
+                for(var i=0;i<ids.length;i++){
+                    var ID=$(ids).eq(i).attr('id');
+                    if(gradeid==ID){
+                        $(".classes").find('.classtable').eq(i).find('span').show();
                     }
                 }
             }
@@ -468,7 +442,7 @@
                 
             }
             function successGetdata(resultData){
-          
+                $('.practiceList').empty();
                 if(resultData.Result==1){
                     console.log(333);
                     pracCount=resultData.count/6;
@@ -480,8 +454,8 @@
                     $('.pracCen').text(param.IndexPage);
                     createPracList(resultData.Data);
                 }else{
-                    paramList.IndexPage-=praNum;
-                    C.layer(2,resultData.Message);
+                    param.IndexPage-=praNum;
+                    C.layer(1,resultData.Message);
                 }
             }
             function createPracList(data){
@@ -541,7 +515,7 @@
              }
              function successGetstu(studentData){
    
-
+                $('.stusline').empty();
                 if(studentData.Result==1){
               
 
@@ -631,7 +605,7 @@
                     }else{
                         strRight+='<div class="textline"> <p class="subject"> <span>'+index+'.'+dataSkill[i].WritingSkillItemTitle+'</span><span class="sub_score">(满分'+dataSkill[i].WritingSkillItemScore+'分)</span></p>';
                     }
-                    strRight+='<P class="subject_en"><span>'+dataSkill[i].WritingSkillItemAnswer+'</span><input id='+dataSkill[i].Id+' type="number" name='+dataSkill[i].Id+'></P></div>'
+                    strRight+='<P class="subject_en"><span>'+dataSkill[i].WritingSkillItemAnswer+'</span><input id='+dataSkill[i].Id+' type="number" min="0" name='+dataSkill[i].Id+'></P></div>'
                 }
                 console.log(readdata[n].Id);
                 strRight+='</form><div class="textline"><p class="textTitle">评语</p><p><textarea class="textComment" id='+readdata[n].Id+' name='+readdata[n].Id+'></textarea></p></div>'

@@ -332,6 +332,7 @@
                 var classData=C.POSTS(JSON.stringify(paramClass),httpUrl.GetPageClassStudent,successGetclass);
             }
             function successGetclass(classData){
+
                 if(classData.Result==1){
                     $(".classcount").text(paramClass.IndexPage);
                     createClassList(classData.Data);
@@ -394,8 +395,9 @@
                 gradeid = spanId; 
                 paramList.ClassId=spanId;
                 // answer.classesId=spanId;
+                paramList.IndexPage=1;
                 getpracData();
-                gradeName = $(this).attr('gradeName'); 
+                // gradeName = $(this).attr('gradeName'); 
                  $(this).find('span').show();
             });
             //翻页后班级是否选中
@@ -435,7 +437,7 @@
                 
             }
             function successGetpra(pracListData){
-
+                $('.practiceList').empty();
                 if(pracListData.Result==1){
                     $(".pracCen").text(paramList.IndexPage);
                       createPracList(pracListData.Data);

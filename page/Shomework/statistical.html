@@ -238,19 +238,24 @@
                 var classData=C.POSTS(JSON.stringify(paramClass),httpUrl.GetPageClassStudent,successGetclass);
             }
             function successGetclass(classData){
+                $(".classSec").empty();
                 if(classData.Result==1){
                     $(".classcount").text(paramClass.IndexPage);
-                    createClassList(classData.Data);
-                   // count=classData.data.length;
+                    if(classData.Data!=null){
+                        createClassList(classData.Data);
+                    }else{
+                        C.layer(1,"没有更多数据");
+                    }
+                   
                     if(classData.Count%paramClass.IndexSize>0){
                         count=parseInt(classData.Count/paramClass.IndexSize)+1;
                     }else{
                         count=parseInt(classData.Count/paramClass.IndexSize);
                     }
                     setClassCheck();
-                    paramList.ClassId=classData.Data[0].ClassId;
+                    // paramList.ClassId=classData.Data[0].ClassId;
                     // history.ClassId=classData.Data[0].ClassId;
-                    getHistory();
+                    // getHistory();
                     // answer.classesId=classData.data[0].classId;
                     // console.log(classData.data[0].classId);
                     // console.log(paramList);
@@ -363,9 +368,11 @@
             var personClassBool=true;
             $(".personprac").on('click',function(){
                 personClassBool=true;
+                getpracData();
             });
             $(".classPrac").on("click",function(){
                 personClassBool=false;
+                getpracData();
             });
             function getpracData(){
                  var pracListData={};
@@ -380,6 +387,7 @@
                 
             }
             function successGetpra(pracListData){
+                $('.practiceList').empty();
                 if(pracListData.Result==1){
                         $(".classcount").text(paramList.IndexPage);
                         createPracList(pracListData.Data);
@@ -479,6 +487,7 @@
                 
             }
             function successGethis(historyData){
+                $(".tablelist").empty();
                 if(historyData.Result==1){
                     setHistoryList(historyData.Data);
                     if(historyData.Data.length==0){
