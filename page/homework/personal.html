@@ -35,11 +35,13 @@
                 margin: 0 auto;
             }
             #selectTime{
-                    background-color: rgba(136,200,155,1);
-            border: 0px;
-            text-align: center;
-            color: #333;
-            width: 100%;
+                background-color: #1E9FFF;
+                border: 0px;
+                text-align: center;
+                color: #fff;
+                width: 100%;
+                line-height: 30px;
+                margin-top: 4px;
             }
            .cell1{
             width: 4%;
@@ -63,17 +65,17 @@
             width: 4%;
            }
            .cell8{
-            width: 7%;
+            width: 8%;
            }
 
            .cell9{
-            width: 7%;
+            width: 8%;
            }
            .cell10{
             width: 6%;
            }
            .cell11{
-            width: 6%;
+            width: 4%;
            }
 
            .cell12{
@@ -605,7 +607,7 @@
             $(window).resize(function () {  
                 C.resezes();
             });
-            C.resizes();
+            C.resezes(1);
            
             console.log(httpUrl);
             
@@ -682,7 +684,7 @@
                     if(tablenum==0){
                         index=i+1;
                     }else{
-                        index=param.IndexPage*param.IndexSize+i+1;
+                        index=(param.IndexPage-1)*param.IndexSize+i+1;
                     }
                     if(i<data.length-1){
                         list+='<li class="trline"  style="border-bottom:1px solid #999">';
@@ -691,7 +693,7 @@
                     }
                     list+='<p class="cell1"> <span class="serial">'+index+'</span> </p>';
                         list+='<p class="cell2"><label class="che"><input id='+data[i].Id+' type="checkbox" class="input_che" ><span></span></label></p>';
-                        list+='<p class="chapter cell3">'+data[i].Name+'</p>';
+                        list+='<p class="chapter cell3" style="text-align:left">'+data[i].Name+'</p>';
                         list+='<p class="cell4">'+data[i].Topic+'</p>';
                         list+='<p class="cell5">'+data[i].QuestionsType+'</p>';
                         list+='<p class="cell6">'+data[i].LiteraryForm+'</p>';

@@ -169,7 +169,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 .main{
 	height: 620px;
 	/*width: 1280px;*/
-    width: 1400px;
+    width: 1400px!important;
 }
 .mainleft{
         /*width: 180px;*/
@@ -548,15 +548,15 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 .secs>div{
 	width: 33.3%;
 	height: 57px;
-	background-color: rgba(99, 200, 210, 1);
+	background-color: #48D1CC;
 	border-bottom: 1px solid #999;
 	border-top: 1px solid #999;
 	border-right: 1px solid #999;
 	box-sizing: border-box;
 	
 	text-align: center;
-	color: #333;
-	font-weight: 600;
+	color: #fff;
+	/*font-weight: 600;*/
 }
 .sec>div{
 	line-height: 57px;
@@ -600,15 +600,15 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 	margin-top: 5px;
 }
 .chosec>p{
-	color: #333;
-	font-weight: 600;
-	font-size: 16px;
+	color: #fff;
+	/*font-weight: 600;*/
+	font-size: 15px;
 }
 .chofir,.cholast{
 	height: 57px;
 	width: 50%;
-	color: #333;
-	font-weight: 600;
+	color: #fff;
+	/*font-weight: 600;*/
 }
 .cholast{
 	background-color: rgba(0, 160, 135, 1);
@@ -626,6 +626,9 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 }
 .chosec>div>p:first-child{
 	margin-top: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .chosec2{
 	background-color: rgba(242, 139, 39, 1);
@@ -954,14 +957,14 @@ cursor: pointer;
     height: 57px;
     line-height: 57px;
     cursor: pointer;
-    background-color: rgba(99, 200, 210, 1);
+    background-color: #48D1CC;
     border-bottom: 1px solid #999;
     border-top: 1px solid #999;
     border-right: 1px solid #999;
     box-sizing: border-box;
     text-align: center;
-    color: #333;
-    font-weight: 600;
+    color: #fff;
+    /*font-weight: 600;*/
     overflow: hidden;
     position: relative;
 }
@@ -991,13 +994,13 @@ cursor: pointer;
     width: 33.3%;
     height: 57px;
     line-height: 57px;
-    background-color: rgba(99, 200, 210, 1);
+    background-color: #48D1CC;
     border-bottom: 1px solid #999;
     border-top: 1px solid #999;
     border-right: 1px solid #999;
     box-sizing: border-box;
     text-align: center;
-    color: #333;
+    color: #fff;
     font-weight: 600;
     position: relative;
 }
@@ -1006,7 +1009,9 @@ cursor: pointer;
 	display: block;
 	clear: both;
 }
-
+.tablelist>li:first-child{
+    color: #fff;
+}
 
 
 

@@ -39,11 +39,13 @@
                 margin: 0 auto;
             }
             #selectTime{
-                background-color: rgba(136,200,155,1);
+                background-color: #1E9FFF;
                 border: 0px;
                 text-align: center;
-                color: #333;
+                color: #fff;
                 width: 100%;
+                line-height: 30px;
+                margin-top: 4px;
             }
 
 
@@ -81,24 +83,24 @@
             width: 6%;
            }
            .cell8{
-            width: 6%;
+            width: 8%;
            }
 
            .cell9{
-            width: 6%;
+            width: 8%;
            }
            .cell10{
             width: 6%;
            }
            .cell11{
-            width: 6%;
+            width: 4%;
            }
 
            .cell12{
-            width: 10%;
+            width: 9%;
            }
            .cell13{
-            width: 10%;
+            width: 9%;
            }
            .serial{
             display: inline-block;
@@ -307,7 +309,7 @@
              $(window).resize(function () {  
                 C.resezes();
             });
-            C.resizes();
+            C.resezes(1);
         
             //获取老师信息
             function getIdentity(){
@@ -378,6 +380,7 @@
                     
                    classnum=-1;
                    paramClass.IndexPage+=classnum;
+                   console.log(paramClass.IndexPage);
                     getClassData();
                 }else{
                     paramClass.IndexPage=1;
@@ -391,7 +394,7 @@
                     getClassData();
 
                 }else{
-                    paramClass.IndexPage=count;
+                    paramClass.IndexPage=classCount;
                     C.layer(2,'已经是最后一页啦！');
                 }
             });
@@ -661,7 +664,7 @@
                     if(tablenum==0){
                         index=i+1;
                     }else{
-                        index=param.IndexPage*param.IndexSize+i+1;
+                        index=(param.IndexPage-1)*param.IndexSize+i+1;
                     }
                     if(i<data.length-1){
                         list+='<li class="trline"  style="border-bottom:1px solid #999">';
@@ -673,7 +676,7 @@
                     
                     list+='<p class="cell1"> <span class="serial">'+index+'</span> </p>';
                     list+='<p class="cell2"><label class="che"><input id='+data[i].Id+' type="checkbox" class="input_che" ><span></span></label></p>';
-                    list+='<p class="chapter cell3">'+data[i].Name+'</p>';
+                    list+='<p class="chapter cell3" style="text-align:left">'+data[i].Name+'</p>';
                     list+='<p class="cell4">'+data[i].Topic+'</p>';
                     list+='<p class="cell5">'+data[i].QuestionsType+'</p>';
                     list+='<p class="cell6">'+data[i].LiteraryForm+'</p>';
@@ -682,8 +685,8 @@
                     list+='<p class="cell9">'+data[i].WritingSkillId+'</p>';
                     list+='<p class="cell10">'+data[i].Words+'</p>';
                     list+='<p class="cell11">'+data[i].Score+'</p>';
-                    list+='<p class="cell12"><span class="view dbtn">预览</span></p>';
-                    list+='<p class="cell13"><span class="preview dbtn" data-id="' + data[i].Id + '" >查看</span></p>';
+                    list+='<p class="cell12"><span class="view dbtn" data-id="' + data[i].Id + '" >预览</span></p>';
+                    list+='<p class="cell13"><span class="preview dbtn" >查看</span></p>';
                     
                     list+='</li>';
                 }

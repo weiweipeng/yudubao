@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/shijian.css">
 	<style type="text/css">
 
         .decorate,.decorates{
@@ -181,6 +182,13 @@
         .bg1{
             background-color: rgba(111, 176, 81, 1)!important;
         }
+        #selectStartTime,#selectEndTime{
+            background-color: rgba(0, 204, 153, 1);
+            border:0px;
+            text-align: center;
+            width: 100%;
+            color: #fff;
+        }
 	</style>
 
 </head>
@@ -256,12 +264,18 @@
                             <div class="chosec">
                                 <div class="lf starttime">
                                     <p>开始时间</p>
-                                    <P>2018-01-01</P>
+                                    <p class="box">
+                                        <input type="text"  id="selectStartTime" value="未选择"/>
+                                           
+                                    </p>
                                     
                                 </div>
                                 <div class="lf endtime">
                                     <p>结束时间</p>
-                                    <p>未选择</p>
+                                    <p class="box">
+                                        <input type="text"  id="selectEndTime" value="未选择"/>
+                                        
+                                    </p>
                                 </div>
                             </div>
                             <!-- <div class="join">加入班级</div> -->
@@ -325,6 +339,7 @@
         </div>
     </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/jquer_shijian.js"></script>
     <script type="text/javascript" src="../../js/common.js"></script>
     <script type="text/javascript" src="../../js/request.js"></script>
     <script type="text/javascript" src="../../js/echarts.min.js"></script>
@@ -346,6 +361,19 @@
                 'TaskType':'0',
                 'AfterSchool':true
             }
+            $("#selectStartTime").shijian({
+                // y:-20,//当前年份+10
+                Hour:false,//是否显示小时
+                Minute:false,//是否显分钟
+                // success:function(){}
+            })
+             //选择需要显示的
+            $("#selectEndTime").shijian({
+                // y:-20,//当前年份+10
+                Hour:false,//是否显示小时
+                Minute:false,//是否显分钟
+                // success:function(){}
+            })
             var stuAndtea=true;
             var classListId=[],gradeid='',gradeName='';//班级id列表
             var classnum=0,stuNum=0;
@@ -1521,7 +1549,7 @@
             $(window).resize(function () {  
                 C.resezes();
             });
-            C.resizes();
+            C.resezes(1);
             $(".ope_first").on({
                 mouseover:function (e) {
                     e.stopPropagation();

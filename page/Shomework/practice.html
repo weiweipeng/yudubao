@@ -175,7 +175,10 @@
             box-sizing: border-box;
             overflow-y: scroll;
             height: 78%;
-            font-size: 14px;
+            font-size: 18px;
+        }
+        .mainContainer input{
+            line-height: 28px;
         }
         .mainTitle{
             font-size: 16px;
@@ -241,6 +244,15 @@
             line-height: 16px;
             background-color: red;
         }
+        .homes{
+            float: left;
+            line-height: 80px;
+            margin-left: 20px;
+        }
+        .homes>img{
+            margin-top: 24px;
+            width: 30px;
+        }
 	</style>
 </head>
 <body>
@@ -250,6 +262,9 @@
     			<img src="../../img/120.gif">
     			<span>启思教育</span>
     		</div>
+            <div class="homes">
+                <img src="../../img/home.png">
+            </div>
     		<div class="con_title">英语阅读宝</div>
     		<div class="operation rf">
     			<div class="ope_first lf">
@@ -394,6 +409,35 @@
             var maxtime = 0; //一个小时，按秒计算，自己调整!  
             var timer=null;
             var timers=null;
+            //左右收缩
+            $('.homes').on('click',function(){
+                var boolshow=$('.mainleft').css('display');
+                console.log(boolshow);
+                if(boolshow=='block' || boolshow=='inline'){
+                    $('.mainleft').hide();
+                    $(".mainright").hide();
+                    $('.maincenter').width('100%');
+                }else{
+                    $('.mainleft').show();
+                    $(".mainright").show();
+                    $('.maincenter').width('80%');
+                }
+                
+            });
+            function leftrightScale(){
+                // var boolshow=$('.mainleft').css('display');
+                // console.log(boolshow);
+                // if(boolshow=='block' || boolshow=='inline'){
+                    $('.mainleft').hide();
+                    $(".mainright").hide();
+                    $('.maincenter').width('100%');
+                // }
+                // else{
+                //     $('.mainleft').show();
+                //     $(".mainright").show();
+                //     $('.maincenter').width('80%');
+                // }
+            }
             var stuData=C.POSTS('',httpUrl.GetStudentInfo,successGetstu);
             //学生答案
             var stuSubQueList = {};
@@ -406,7 +450,7 @@
                     localStorage.setItem('studentId','s004');
                     paramList.studentId='s004';
                     localStorage.setItem('studentName',stuData.Data.Name);
-                    $('.names').text(stuData.Data.name);
+                    $('.names').text(stuData.Data.Name);
                     paramClass.studentId ='s004';
                     paramList.schoolId=stuData.Data.schoolId;
                     localStorage.setItem('schoolId',stuData.Data.SchoolId);
@@ -527,6 +571,8 @@
                         classListId.splice(j,1);
                         // console.log(classListId);
                     }
+                }else{
+                    C.layer(2,'请先做完练习！');
                 }
             });
             //翻页后班级是否选中
@@ -550,12 +596,21 @@
             var pracIdList=[],pracCount='',pracId='';
             var personClassBool=true;
             $(".personprac").on('click',function(){
-                personClassBool=true;
-                getpracData();
+                if(pracBool){
+                    personClassBool=true;
+                    // pracId='';
+                    getpracData();
+                }else{
+                    C.layer(2,"请先做完练习");
+                }
             });
             $(".classprac").on("click",function(){
-                personClassBool=false;
-                getpracData();
+                if(pracBool){
+                    personClassBool=false;
+                    getpracData();
+                }else{
+                    C.layer(2,"请先做完练习！");
+                }
             });
             function getpracData(){
                  var pracListData={};
@@ -582,8 +637,8 @@
                       createPracList(pracListData.Data);
                       setPracCheck();
                       // pracCount=pracListData.data.length;
-                      pracId=pracListData.Data[0].Id;
-                      Tarsk.Id=pracListData.Data[0].Id;
+                      // pracId=pracListData.Data[0].Id;
+                      // Tarsk.Id=pracListData.Data[0].Id;
                       
                 }else{
                     paramList.IndexPage-=praNum;
@@ -641,6 +696,8 @@
                         addTime();
                         timers=setInterval(addTime,1000);
                     }
+                }else{
+                    C.layer(2,'请先做完练习！');
                 }
                 
                 
@@ -843,6 +900,7 @@
                 var subStr = SubjectString(tarskData.Data[pagenum]);
                
                 $(".mainContainer").html(subStr);
+                leftrightScale();
                 var questions = subjectArray[subjectIndex].QuestionItem;
                 console.log(subjectArray[subjectIndex]);
                 $.each(questions, function (index, value) {
@@ -983,7 +1041,7 @@
                 
                 C.resezes();
             });
-            C.resezes();
+            C.resezes(1);
     	});
     </script>
 </body>

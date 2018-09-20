@@ -252,7 +252,7 @@
            $(window).resize(function () {  
                 C.resezes();
             });
-            C.resizes();
+            C.resezes(1);
             
              var paramClass={
                 "IndexPage": 1,
@@ -436,6 +436,7 @@
             });
             function getTabledata() {
                 console.log(paramList);
+                C.load(0);
                  var data=C.POST(paramList,'http://192.168.16.99:3246/api/TeacherTask/TeacherTaskErrorDetailList',successGetTable);
             }
             function successGetTable(data) {
@@ -466,6 +467,10 @@
                     }
                     console.log(str);
                     $('.errorContents').html(str);
+                    C.load(1);
+                }else{
+                    C.load(1);
+                    C.layer(1,data.Message);
                 }
             }
             $(".ope_first").on({

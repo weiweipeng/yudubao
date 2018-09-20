@@ -126,11 +126,14 @@
                 margin: 0 auto;
             }*/
             #startTime,#endTime{
-                background-color: rgba(136,200,155,1);
+                background-color: rgba(0, 204, 153, 1);
                 border: 0px;
                 text-align: center;
-                color: #333;
+                color: #fff;
                 width: 100%;
+            }
+            .chosec p{
+                color: #fff;
             }
 	</style>
 </head>
@@ -157,8 +160,8 @@
     				</ul>
     			</div>
     			<div class="exit lf">
-    				退出
-    			</div>
+                    <a href="../../index.html">退出</a>
+                </div>
     		</div>
     		<div class="leafbg">
     			<img src="../../img/homework/u1884.gif">
@@ -438,7 +441,7 @@
                 
                 C.resezes();
             });
-            C.resezes();
+            C.resezes(1);
             $(".ope_first").on({
                 mouseover:function (e) {
                     e.stopPropagation();

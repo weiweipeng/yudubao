@@ -283,9 +283,8 @@
                             <div class="lf starttime">
                                 <p>开始时间</p>
                                 <p class="box">
-                                <input type="text"  id="selectStartTime" value="未选择"/>
-                                    <!-- <div class="jsbox">
-                                    </div> -->
+                                    <input type="text"  id="selectStartTime" value="未选择"/>
+                                       
                                 </p>
                                 
                             </div>
@@ -293,8 +292,7 @@
                                 <p>结束时间</p>
                                 <p class="box">
                                     <input type="text"  id="selectEndTime" value="未选择"/>
-                                    <!-- <div class="jsbox">
-                                    </div> -->
+                                    
                                 </p>
                             </div>
                         </div>
@@ -1039,7 +1037,7 @@
             $(window).resize(function () {  
                 C.resezes();
             });
-            C.resizes();
+            C.resezes(1);
             
     		$(".ope_first").on({
                 mouseover:function (e) {
