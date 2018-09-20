@@ -308,11 +308,12 @@
             getIdentity();
             //页面自适应
             
-             $(window).resize(function () {  
+             $(window).resize(function () { 
+             console.log(2222222222); 
                 C.resezes();
             });
             C.resezes(1);
-        
+            // location.reload();
             //获取老师信息
             function getIdentity(){
                 C.load(0);
