@@ -553,7 +553,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 	border-top: 1px solid #999;
 	border-right: 1px solid #999;
 	box-sizing: border-box;
-	
+	cursor: pointer;
 	text-align: center;
 	color: #fff;
 	/*font-weight: 600;*/
@@ -576,6 +576,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 .lastsec>div{
 	height: 30px!important;
 	line-height: 30px!important;
+    cursor: pointer;
 }
 .choose{
 	margin-top: 17px;
@@ -1105,4 +1106,29 @@ cursor: pointer;
     transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
     -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
   }
+}
+.homes{
+    float: left;
+    line-height: 80px;
+    margin-left: 20px;
+}
+.homes>img{
+    margin-top: 24px;
+    width: 30px;
+}
+.praCrotate{
+    transform:rotate(90deg);
+    -ms-transform:rotate(90deg);     /* IE 9 */
+    -moz-transform:rotate(90deg);    /* Firefox */
+    -webkit-transform:rotate(90deg); /* Safari 和 Chrome */
+    -o-transform:rotate(90deg); 
+}
+.prac{
+    cursor: pointer;
+}
+.box>input{
+    cursor: pointer;
+}
+.gestures{
+    cursor: pointer;
 }
