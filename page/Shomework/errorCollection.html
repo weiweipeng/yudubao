@@ -164,6 +164,16 @@
         .mainContainer{
             font-size: 18px;
         }
+
+        .xuanzhong{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            height: 16px;
+        }
+        .pracBg1{
+            background-color: rgba(0, 128, 0, 1)!important;
+        }
     </style>
 </head>
 <body>
@@ -172,6 +182,9 @@
             <div class="logos lf">
                 <img src="../../img/120.gif">
                 <span>启思教育</span>
+            </div>
+            <div class="homes" onclick="C.rotateImg()">
+                <img class="" src="../../img/home.png">
             </div>
             <div class="con_title">英语阅读宝</div>
             <div class="operation rf">
@@ -417,11 +430,12 @@
             var personClassBool=true;
             $(".personprac").on('click',function(){
                 personClassBool=true;
+                paramList.IndexPage=1;
                 getpracData();
             });
             $(".classprac").on("click",function(){
                 personClassBool=false;
-                alert(111);
+                paramList.IndexPage=1;
                 getpracData();
             });
             function getpracData(){
@@ -441,13 +455,15 @@
                 if(pracListData.Result==1){
                     $(".pracCen").text(paramList.IndexPage);
                       createPracList(pracListData.Data);
-                    if(pracListData.Count%paramList.IndexSize>0){
-                        pracCount=parseInt(pracListData.Count/paramList.IndexSize)+1;
+                      setPracCheck();
+                      var allpracCount=pracListData.Data[0].COUNTS;
+                    if(allpracCount%paramList.IndexSize>0){
+                        pracCount=parseInt(allpracCount/paramList.IndexSize)+1;
                     }else{
-                        pracCount=parseInt(pracListData.Count/paramList.IndexSize);
+                        pracCount=parseInt(allpracCount/paramList.IndexSize);
                     }
                     console.log(pracListData.Data);
-                    pracId=pracListData.Data[0].Id;
+                   
                     
                 }else{
                     paramList.IndexPage-=praNum;
@@ -464,7 +480,7 @@
                         nameArr=[data[i].Name,data[i].Name];
                     }
                   
-                    htmls+='<div class="lf bg1 prac" times="'+data[i].LimitedTime+'" names="'+data[i].Name+'"" id="'+data[i].Id+'"><p>'+nameArr[1]+'</p><p>'+nameArr[0]+'</p><p>'+i+'</p>';
+                    htmls+='<div class="lf  prac" times="'+data[i].LimitedTime+'" names="'+data[i].Name+'"" id="'+data[i].Id+'"><p>'+nameArr[1]+'</p><p>'+nameArr[0]+'</p><p>'+i+'</p>';
                     console.log();
                     htmls+=data[i].IsCorrection==1?'<span class="isReset">已订正</span></div>':'</div>';
                  }
@@ -472,29 +488,25 @@
             }
            
             $('.practiceList').on('click','.prac',function(){
-                // $('.practiceList').find('span').hide();
+           
                  C.load(0);
+                $('.practiceList').find('.prac').removeClass('pracBg1');
                 pracId=$(this).attr('id');
                 Tarsk.EnglishArticleTaskWrongBaseId=pracId;
                 nums=1;
-
-                // answer.id=pracId;
-                // answer.taskName=$(this).attr('names');
+                $(this).addClass('pracBg1');
                 getWrongData();
-                
-                 
-                // $(this).find('span').show();
-                // getData();
+
             });
             
             //翻页后练习任务是否选中
-            function setClassCheck(){
+            function setPracCheck(){
                 console.log(pracIdList);
                 var idRember=$(".prac");
                 for(var i=0;i<idRember.length;i++){
             
-                    if($(idRember).attr('id')==pracId){
-                        $(".prac").find('span').show();
+                    if($(idRember).eq(i).attr('id')==pracId){
+                        $(".prac").eq(i).addClass('pracBg1');
                     }
 
                 }
@@ -505,7 +517,7 @@
                     praNum=-1;
                     paramList.IndexPage+=praNum;
                     // $(".classcount").text(paramList.IndexPage);
-                    getClassData();
+                    getpracData();
                 }else{
                     paramList.IndexPage=1;
                     C.layer(2,"已经是第一页啦！");
@@ -517,7 +529,7 @@
                     praNum=1;
                     paramList.IndexPage+=praNum;
                     
-                    getClassData();
+                    getpracData();
 
                 }else{
                     paramList.IndexPage=pracCount;

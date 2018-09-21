@@ -11,7 +11,7 @@ var C={
             dataType: 'json',
             crossDomain:true == !(document.all),
             beforeSend:function(XMLHttpRequest){
-                XMLHttpRequest.setRequestHeader('token', localStorage.getItem('Entoken'));
+                XMLHttpRequest.setRequestHeader('token', sessionStorage.getItem('Entoken'));
                 XMLHttpRequest.setRequestHeader('timestamp', Math.round(new Date() / 1000));
                 XMLHttpRequest.setRequestHeader('deviceID', localStorage.getItem('deviceID'));
                 // console.log(localStorage.getItem('Entoken'));
@@ -22,6 +22,9 @@ var C={
                 if(func){
                    
                     func(data);
+                }
+                if(data.Result==401 || data.Result==417){
+                    window.location.href="../../index.html";
                 }
     
             },
@@ -47,7 +50,7 @@ var C={
             contentType: 'application/json',
             crossDomain:true == !(document.all),
             beforeSend:function(request){
-                request.setRequestHeader('token', localStorage.getItem('Entoken'));
+                request.setRequestHeader('token', sessionStorage.getItem('Entoken'));
                 request.setRequestHeader('timestamp', Math.round(new Date() / 1000));
                 request.setRequestHeader('deviceID', localStorage.getItem('deviceID'));
             },
@@ -57,6 +60,9 @@ var C={
                 
                 if(func){
                     func(data);
+                }
+                if(data.Result==401 || data.Result==417){
+                    window.location.href="../../index.html";
                 }
        
             },
@@ -83,7 +89,7 @@ var C={
             contentType: 'application/json',
             crossDomain:true == !(document.all),
             beforeSend:function(XMLHttpRequest){
-                XMLHttpRequest.setRequestHeader('token', localStorage.getItem('Entoken'));
+                XMLHttpRequest.setRequestHeader('token', sessionStorage.getItem('Entoken'));
                 XMLHttpRequest.setRequestHeader('timestamp', Math.round(new Date() / 1000));
                 XMLHttpRequest.setRequestHeader('deviceID', localStorage.getItem('deviceID'));
             },
@@ -91,6 +97,9 @@ var C={
       
                 if(func){
                     func(data);
+                }
+                if(data.Result==401 || data.Result==417){
+                    window.location.href="../../index.html";
                 }
             },
             error: function (error) {
@@ -112,7 +121,7 @@ var C={
             contentType: 'application/json',
             crossDomain:true == !(document.all),
             beforeSend:function(XMLHttpRequest){
-                XMLHttpRequest.setRequestHeader('token', localStorage.getItem('Entoken'));
+                XMLHttpRequest.setRequestHeader('token', sessionStorage.getItem('Entoken'));
                 XMLHttpRequest.setRequestHeader('timestamp', Math.round(new Date() / 1000));
                 XMLHttpRequest.setRequestHeader('deviceID', localStorage.getItem('deviceID'));
             },
@@ -120,6 +129,9 @@ var C={
                 classData= data;
                 if(func){
                     func(data);
+                }
+                if(data.Result==401 || data.Result==417){
+                    window.location.href="../../index.html";
                 }
 
             },
@@ -153,12 +165,15 @@ var C={
         //     console.log(sizes.CW);
         //     sizes.zoom=(sizes.W-sizes.PW*2*sizes.W)/1400;
         // }
-        if(!ipad){
-            sizes.zoom=(sizes.W-sizes.PW*2*sizes.W)/sizes.CW;
+        var ipad = (navigator.userAgent.match(/iPad/i) != null)?true:false;
+        console.log(ipad,11111111111,sizes.W);
+        if(ipad==true && sizes.W==1024){
+            console.log(22222222222);
+            sizes.zoom=(sizes.W-sizes.PW*2*sizes.W)/sizes.W;
         }else{
             sizes.zoom=(sizes.W-sizes.PW*2*sizes.W)/1400;
         }    
-       var ipad = (navigator.userAgent.match(/iPad/i) != null)?true:false;
+       
        console.log(ipad);
         
         console.log(sizes.zoom,sizes.CW);
@@ -245,6 +260,22 @@ var C={
             $("body .loading").show();
         }else if(num==1){
             $("body .loading").hide();
+        }
+    },
+    rotateImg:function(){
+        var boolshow=$('.mainleft').css('display');
+        console.log(boolshow);
+        if(boolshow=='block' || boolshow=='inline'){
+            $('.mainleft').hide();
+            $(".mainright").hide();
+            $('.maincenter').width('100%');
+            $('.homes').find('img').addClass('praCrotate');
+            console.log($(this).find('img'));
+        }else{
+            $('.mainleft').show();
+            $(".mainright").show();
+            $('.maincenter').width('80%');
+            $('.homes').find('img').removeClass('praCrotate');
         }
     }
     

@@ -276,7 +276,7 @@
                 	console.log(888);
                    if(loginData.Result==1){
 			    		console.log(22222);
-                        localStorage.setItem('Entoken',loginData.Data.UserToken);
+                        sessionStorage.setItem('Entoken',loginData.Data.UserToken);
                 		localStorage.setItem('sexidentitys',loginData.Data.Identitys);
                 	
                 	    var url='';

@@ -77,6 +77,7 @@ $(function () {
         'MakeQRCode':_host+'/api/Verification/MakeQRCode',//生成二维码
         'QueryyQrCodeState':_host+'/api/Orders/QueryyQrCodeState',//查询是否支付成功
 	} 
+	
     return httpUrl;
 	
 });

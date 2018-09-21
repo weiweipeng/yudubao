@@ -61,82 +61,7 @@
             padding-right: 40px;
             box-sizing: border-box;
         }
-       /* .students{
-            margin-top: 26px;
-        }*/
-       /* .textTitle{
-            font-size: 20px;
-            font-weight: 600;
-            line-height: 36px;
-        }
-        .textsubTitle{
-            font-size: 16px;
-            font-weight: 600;
-            line-height: 36px;
-        }
-        .textContent{
-            font-size: 14px;
-            line-height: 30px;
-        }*/
-        /*.subject{
-            height: 30px;
-            line-height: 14px;
-            margin-bottom: 4px;
-        }
-        .subject>span{
-            display: inline-block;
-            height: 30px;
-            float: left;
-        }
-        
-        .subject>span:last-child{
-            width: 40px;
-            text-align: center;
-            font-size: 16px;
-            font-weight: 600;
-        }
-        .subject>span:first-child{
-            width: 260px;
-        }
-
-        .subject_en>span{
-            display: inline-block;
-            width: 328px;
-            line-height: 28px;
-            background-color: rgba(255, 255, 255, 0.4);
-            padding-left: 6px;
-            box-sizing: border-box;
-            border:1px solid rgba(121, 121, 121, 0.4);
-            border-radius: 3px;
-            font-size: 13px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            float: left;
-        }
    
-        .subject_en>input{
-            width: 26px;
-            float: left;
-            line-height: 26px;
-        }
-        .sub_score{
-            color: red;
-            width: 64px;
-            font-size: 14px;
-            
-        }*/
-       /* .textline{
-            margin-bottom: 50px;
-        }
-        .textline textarea{
-            width: 96%;
-            height: 100px;
-            outline: none;
-        }*/
-        /*.textTitle{
-            font-size: 16px;
-        }*/
         .secs>.sbg{
             width: 50%!important;
             color: #fff;
@@ -246,15 +171,7 @@
             line-height: 16px;
             background-color: red;
         }
-        .homes{
-            float: left;
-            line-height: 80px;
-            margin-left: 20px;
-        }
-        .homes>img{
-            margin-top: 24px;
-            width: 30px;
-        }
+        
 	</style>
 </head>
 <body>
@@ -264,9 +181,9 @@
     			<img src="../../img/120.gif">
     			<span>启思教育</span>
     		</div>
-            <div class="homes">
-                <img src="../../img/home.png">
-            </div>
+            <!-- <div class="homes" onclick="C.rotateImg()">
+                <img class="" src="../../img/home.png">
+            </div> -->
     		<div class="con_title">英语阅读宝</div>
     		<div class="operation rf">
     			<div class="ope_first lf">
@@ -412,33 +329,26 @@
             var timer=null;
             var timers=null;
             //左右收缩
-            $('.homes').on('click',function(){
-                var boolshow=$('.mainleft').css('display');
-                console.log(boolshow);
-                if(boolshow=='block' || boolshow=='inline'){
-                    $('.mainleft').hide();
-                    $(".mainright").hide();
-                    $('.maincenter').width('100%');
-                }else{
-                    $('.mainleft').show();
-                    $(".mainright").show();
-                    $('.maincenter').width('80%');
-                }
+            // $('.homes').on('click',function(){
+            //     var boolshow=$('.mainleft').css('display');
+            //     console.log(boolshow);
+            //     if(boolshow=='block' || boolshow=='inline'){
+            //         $('.mainleft').hide();
+            //         $(".mainright").hide();
+            //         $('.maincenter').width('100%');
+            //         $(this).find('img').addClass('praCrotate');
+            //     }else{
+            //         $('.mainleft').show();
+            //         $(".mainright").show();
+            //         $('.maincenter').width('80%');
+            //         $(this).find('img').removeClass('praCrotate');
+            //     }
                 
-            });
+            // });
             function leftrightScale(){
-                // var boolshow=$('.mainleft').css('display');
-                // console.log(boolshow);
-                // if(boolshow=='block' || boolshow=='inline'){
-                    $('.mainleft').hide();
-                    $(".mainright").hide();
-                    $('.maincenter').width('100%');
-                // }
-                // else{
-                //     $('.mainleft').show();
-                //     $(".mainright").show();
-                //     $('.maincenter').width('80%');
-                // }
+                $('.mainleft').hide();
+                $(".mainright").hide();
+                $('.maincenter').width('100%');
             }
             var stuData=C.POSTS('',httpUrl.GetStudentInfo,successGetstu);
             //学生答案
@@ -521,75 +431,89 @@
            
              $(".classes").on("click",'.classtable',function(){
                 if(pracBool){
-                    $(this).find('span').toggle();
-                    //判断是否所有的班级选中全部清除
-                    var spanbox=$('.classes').find('span');
-                    var boxBool=true;
-                    var spanBool=$(this).find('span').css("display");
-                    var spanId=$(this).attr('id');
-                    var grades=$(this).attr('gradeid');  
-                    console.log(spanbox);
-                    for(var k=0;k<spanbox.length;k++){
-                        var boxshow=$(spanbox).eq(k).css('display');
-                        if(boxshow=='block' || boxshow=='inline'){
-                            boxBool=false;
-                            console.log(3333,boxshow);
-                        }
-                    }
-                    if(boxBool){
-                        gradeid='';
-                    }else{
 
-                        if(gradeid==''){
-                            pracId='';
-                            gradeid = grades; 
-                            paramList.ClassId=spanId;
-                            answer.classesId=spanId;
-                            // pracBool=true;
-                            // $('.mainContainer').empty();
-                            // if(timer!=null){
-                            //     clearInterval(timer);
-                                
-                            // }else if(timers!=null){
-                            //    clearInterval(timers);
-                            // }
-                            // $('.time').text('00:00:00');
-                            getpracData();
-                            // C.load(0);
-                            gradeName = $(this).attr('gradeName'); 
-                        }else if(gradeid!='' && gradeid!=grades){
-                            // spanBool='none';
-                            $(this).find('span').hide();
-                            C.layer(2,'不能选择不同的班级！');
-                            return false;
-                        }
-                    }
-                    // console.log(spanBool,spanId);
-                    if(spanBool=='block' || spanBool=='inline'){
-                        classListId.push(spanId);
-                    }else{
-                        var j=classListId.indexOf(spanId);
-                        // console.log(classListId);
-                        classListId.splice(j,1);
-                        // console.log(classListId);
-                    }
+                    var spanId=$(this).attr('id');
+                    $('.classes').find('span').hide();
+                    gradeid=spanId;
+                    paramList.ClassId=spanId;
+                    answer.classesId=spanId;
+                    paramList.IndexPage=1;
+                    $(this).find('span').show();
+                    getpracData();
+
+                    // paramList.ClassId=spanId;
+                    // answer.classesId=spanId;
+                    // getpracData();
+
+
+                    // $(this).find('span').toggle();
+                    // //判断是否所有的班级选中全部清除
+                    // var spanbox=$('.classes').find('span');
+                    // var boxBool=true;
+                    // var spanBool=$(this).find('span').css("display");
+                    // var spanId=$(this).attr('id');
+                    // var grades=$(this).attr('gradeid');  
+                    // console.log(spanbox);
+                    // for(var k=0;k<spanbox.length;k++){
+                    //     var boxshow=$(spanbox).eq(k).css('display');
+                    //     if(boxshow=='block' || boxshow=='inline'){
+                    //         boxBool=false;
+                    //         console.log(3333,boxshow);
+                    //     }
+                    // }
+                    // if(boxBool){
+                    //     gradeid='';
+                    // }else{
+
+                    //     if(gradeid==''){
+                    //         pracId='';
+                    //         gradeid = grades; 
+                    //         paramList.ClassId=spanId;
+                    //         answer.classesId=spanId;
+                          
+                    //         getpracData();
+                    //         // C.load(0);
+                    //         gradeName = $(this).attr('gradeName'); 
+                    //     }else if(gradeid!='' && gradeid!=grades){
+                    //         // spanBool='none';
+                    //         $(this).find('span').hide();
+                    //         C.layer(2,'不能选择不同的班级！');
+                    //         return false;
+                    //     }
+                    // }
+                    // // console.log(spanBool,spanId);
+                    // if(spanBool=='block' || spanBool=='inline'){
+                    //     classListId.push(spanId);
+                    // }else{
+                    //     var j=classListId.indexOf(spanId);
+                    //     // console.log(classListId);
+                    //     classListId.splice(j,1);
+                    //     // console.log(classListId);
+                    // }
                 }else{
                     C.layer(2,'请先做完练习！');
                 }
             });
             //翻页后班级是否选中
             function setClassCheck(){
-                console.log(classListId);
-                if(classListId.length!=0){
-                    var spanRember=$(".classtable");
-                    for(var i=0;i<spanRember.length;i++){
-                        var ids=spanRember[i].id;
-                        if(classListId.indexOf(ids,0)!=-1){
-                            $(spanRember).eq(i).find('span').show();
-                        }else{
-                            $(spanRember).eq(i).find('span').hide();//可以不要
-                        }
+                // console.log(classListId);
+                // if(classListId.length!=0){
+                //     var spanRember=$(".classtable");
+                //     for(var i=0;i<spanRember.length;i++){
+                //         var ids=spanRember[i].id;
+                //         if(classListId.indexOf(ids,0)!=-1){
+                //             $(spanRember).eq(i).find('span').show();
+                //         }else{
+                //             $(spanRember).eq(i).find('span').hide();//可以不要
+                //         }
 
+                //     }
+                // }
+                var ids=$(".classes").find('.classtable');
+                for(var i=0;i<ids.length;i++){
+                    var ID=$(ids).eq(i).attr('id');
+                    if(gradeid==ID){
+                        $(".classes").find('.classtable').eq(i).find('span').show();
                     }
                 }
             }
@@ -627,11 +551,12 @@
                 
             }
             function successGetpra(pracListData) {
+                var allpraCount=pracListData.Data[0].COUNTS;
                 if(pracListData.Result==1){
-                    if(pracListData.Count%paramList.IndexSize>0){
-                        pracCount=parseInt(pracListData.Count/paramList.IndexSize)+1;
+                    if(allpraCount%paramList.IndexSize>0){
+                        pracCount=parseInt(allpraCount/paramList.IndexSize)+1;
                     }else{
-                        pracCount=parseInt(pracListData.Count/paramList.IndexSize);
+                        pracCount=parseInt(allpraCount/paramList.IndexSize);
                     }
                     
                     $(".pracCen").text(paramList.IndexPage);
@@ -1044,7 +969,7 @@
                 C.resezes();
             });
             C.resezes(1);
-            location.reload();
+            // location.reload();
     	});
     </script>
 </body>
