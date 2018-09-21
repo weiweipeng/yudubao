@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>数学控件</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="lib/jquery-1.8.3-min.js"></script>
+    <style type="text/css">
+        .multiplyTree {
+            display: inline-grid;
+            position: relative;
+        }
+
+        .multiplyTree_Line {
+            top: 0px;
+            left: 0px;
+            z-index: -1;
+        }
+
+        .multiplyTree_Text {
+            position: absolute;
+            /*margin-left: -20px;*/
+            width: 40px;
+            height: 24px;
+            line-height: 24px;
+            border: 1px solid #999;
+            border-radius: 1px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="MultiplyTree">
+    </div>
+
+    <script type="text/javascript">
+
+        //MultiplyTree文本框对象
+        var MultiplyTreeText = function (tree, text) {
+            MultiplyTreeText.prototype.Tree = tree.Tree;
+            this.Level = tree.Level + 1;
+            this.Element = [];
+            this.HTML = this.CreatetxtDOM(this, text);
+            this.__defineGetter__("Value", function () { return this.HTML.value; });
+            this.__defineSetter__("Value", function (v) { this.HTML.value = v; });
+        };
+
+        //MultiplyTree创建文本框DOM
+        MultiplyTreeText.prototype.CreatetxtDOM = function (e, text = "") {
+            var txtDOM = document.createElement("input");
+            txtDOM.type = "text";
+            txtDOM.value = this.Level;
+            txtDOM.oldvalue = text;
+            txtDOM.onchange = function (e) {
+                //验证输入不正确还原oldvalue
+                if (!/^\d+$/.test(e.target.value)) {
+                    this.value = this.oldvalue;
+                    this.focus();
+                }
+                this.Oldvalue = txtDOM.value;
+            }
+            txtDOM.className = "multiplyTree_Text";
+            txtDOM.onkeydown = function (key) {
+                //Enter新增下级对象
+                if (key.keyCode == 13) {
+                    e.addText(text);
+                }
+
+            };
+            return txtDOM;
+        }
+
+        //MultiplyTree树状乘法控件
+        var MultiplyTree = function (e, text) {
+            e.className = "multiplyTree";
+            this.List = [];
+            //第一个文本框对象Level = 1
+            this.Level = 0;
+            this.Tree = this;
+            this.canvas = document.createElement("canvas");
+            this.canvas.className = "multiplyTree_Line";
+            e.appendChild(this.canvas);
+            this.canvas_ctx = this.canvas.getContext("2d");
+            this.Element = [];
+            this.HTML = e;
+            this.addText(text);
+
+        };
+
+        //MultiplyTree添加文本框方法
+        MultiplyTree.prototype.addText = MultiplyTreeText.prototype.addText = function (text) {
+            var _txt = new MultiplyTreeText(this, text);
+            this.Element.push(_txt);
+            this.Tree.List[_txt.Level - 1] == null ? this.Tree.List[_txt.Level - 1] = [_txt] : this.Tree.List[_txt.Level - 1].push(_txt);
+            this.Tree.HTML.appendChild(_txt.HTML);
+            this.Tree.layout();
+        };
+
+        //MultiplyTree布局
+        MultiplyTree.prototype.layout = function () {
+            //给每个文本模块(非input)默认长宽
+            var tree = this.Tree;
+            var txtElementWidth = 100;
+            var txtElementHeight = 60;
+
+            //动态设置canvas高宽
+            var height = tree.canvas.height = (tree.List.length) * txtElementHeight;
+            tree.canvas.style.height = height + "px";
+            //宽度用于Text计算
+            var width = tree.canvas.width = tree.List[tree.List.length - 1].length * txtElementWidth;
+            tree.canvas.style.width = width + "px";
+
+            //循环给每个文本框定位
+            tree.List.forEach(function (v1, i1) {
+                v1.forEach(function (v2, i2) {
+                    v2.HTML.style.top = i1 * txtElementHeight + "px";
+                    v2.HTML.style.left = width * i2 / v1.length + width / (2 * v1.length) + "px";
+                });
+            });
+
+
+            tree.canvas_ctx.beginPath();
+            function txtforEach(e) {
+                for (var i = 0; i < e.Element.length; i++) {
+                    tree.canvas_ctx.moveTo(pxToNum(e.HTML.style.left) + e.HTML.clientWidth
+                        / 2, pxToNum(e.HTML.style.top) + e.HTML.clientHeight
+                        / 2);
+                    tree.canvas_ctx.lineTo(pxToNum(e.Element[i].HTML.style.left) + e.Element[i].HTML.clientWidth
+                        / 2, pxToNum(e.Element[i].HTML.style.top) + e.Element[i].HTML.clientHeight
+                        / 2);
+                    if (e.Element[i].Element.length > 0) {
+                        txtforEach(e.Element[i]);
+                    };
+                };
+            }
+            txtforEach(tree.Element[0]);
+            tree.canvas_ctx.stroke();
+        }
+
+        function pxToNum(px) {
+            return parseInt(px.replace("px", ""));
+        }
+        MultiplyTree.prototype._Value = [[12], [3, 4], [3, , 2, 2]];
+        MultiplyTree.prototype.getValue = function (index) {
+            //var _Value = this._Value;
+            //if (typeof index == Number) {
+            //    return this._Value;
+            //}
+            //if (typeof index == Array) {
+            //    index.forEach(function (v1) {
+            //        if (typeof v1 == Array) {
+            //            v1.forEach(function (v2) {
+            //                _Value[v1][v2] = this._Value[v1][v2];
+            //            });
+            //        }
+            //        _Value[i] = this._Value[i];
+            //    });
+            //}
+            //else if (typeof index == Array) {
+            //    return this._Value.find(index);
+            //}
+        }
+
+        //判断是否为质数
+        function isPrime(num) {
+            // 不是数字或者数字小于2
+            if (typeof num !== "number" || !Number.isInteger(num)) {
+                // Number.isInterget 判断是否为整数
+                return false;
+            }
+            //2是质数
+            if (num == 2) {
+                return true;
+            } else if (num % 2 == 0) {  //排除偶数
+                return false;
+            }
+            //依次判断是否能被奇数整除，最大循环为数值的开方
+            var squareRoot = Math.sqrt(num);
+            //因为2已经验证过，所以从3开始；且已经排除偶数，所以每次加2
+            for (var i = 3; i <= squareRoot; i += 2) {
+                if (num % i === 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        var multiplyTree = new MultiplyTree(document.getElementById("MultiplyTree"), 8);
+        console.log(multiplyTree.getValue());
+
+
+    </script>
+</body>
+</html>
