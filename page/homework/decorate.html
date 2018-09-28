@@ -196,7 +196,9 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-line"></div>   
+            <div class="bg-line">
+                <a href="../buy/buy.html"><img src="../../img/buy.png"></a>
+            </div>   
         </div>
     </div>
     <div id="pop-box"></div>
@@ -346,7 +348,7 @@
                         classCount=parseInt(classData.Count/paramClass.IndexSize);
                     }
                 }else{
-                     paramClass.IndexPage-=classnum;
+                    paramClass.IndexPage-=classnum;
                     C.layer(1,classData.Message);
 
                 }
@@ -362,24 +364,12 @@
             }
             var classnum=0;
             $(".classLf").on("click",function(){
-                if(paramClass.IndexPage>1){
-                    classnum=-1;
-                    paramClass.IndexPage+=classnum;
-                    getClassData();
-                }else{
-                    paramClass.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
-                }
+               
+                C.leftPage(paramClass,classnum,getClassData);
             });
             $(".classRf").on("click",function(){
-                if(paramClass.IndexPage<classCount){
-                    classnum=1;
-                    paramClass.IndexPage+=classnum;
-                    getClassData();
-                }else{
-                    paramClass.IndexPage=classCount;
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                
+                C.rightPage(paramClass,classnum,classCount,getClassData);
             });
             $(".classes").on("click",'.classtable',function(){
                 // $(this).find('span').toggle();

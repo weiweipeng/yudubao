@@ -313,7 +313,7 @@
                             <div class="lastsec">
                                 <div class="lf classLf"><</div>
                                 <div class="lf classcount">1</div>
-                                <div class="lf classRf">></div>
+                                <div class="lf classRf" onclick="">></div>
                             </div>
                         </div>
                         <div class="students">
@@ -332,7 +332,9 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-line"></div>    
+            <div class="bg-line">
+                <a href="../buy/buy.html"><img src="../../img/buy.png"></a>
+            </div>    
         </div>
     </div>
     <div class="layerMask"></div>
@@ -426,29 +428,30 @@
             }
             
             $(".classLf").on("click",function(){
-                if(paramClass.IndexPage>1){
-                    classnum=-1;
-                    paramClass.IndexPage+=classnum;
-                    // $(".classcount").text(paramClass.IndexPage);
+                C.leftPage(paramClass,classnum,getClassData);
+                // if(paramClass.IndexPage>1){
+                //     classnum=-1;
+                //     paramClass.IndexPage+=classnum;
                     
-                    getClassData();
-                }else{
-                    paramClass.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
-                }
+                    
+                //     getClassData();
+                // }else{
+                //     paramClass.IndexPage=1;
+                //     C.layer(2,"已经是第一页啦！");
+                // }
             });
             $(".classRf").on("click",function(){
-                if(paramClass.IndexPage<classCount){
-                    // paramClass.IndexPage++;
-                    // $(".classcount").text(paramClass.IndexPage);
-                    classnum=1;
-                    paramClass.IndexPage+=classnum;
-                    getClassData();
+                // if(paramClass.IndexPage<classCount){
+                   
+                //     classnum=1;
+                //     paramClass.IndexPage+=classnum;
+                //     getClassData();
 
-                }else{
-                    paramClass.IndexPage=classCount;
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                // }else{
+                //     paramClass.IndexPage=classCount;
+                //     C.layer(2,"已经是最后一页啦！");
+                // }
+                C.rightPage(paramClass,classnum,classCount,getClassData);
             });
             $(".classes").on("click",'.classtable',function(){
               
@@ -479,7 +482,7 @@
                 }
             }
             //获取学生信息
-             var studentCount='';
+             var studentCount=0;
              function getStudent(){
                  var studentData=C.POST(srtudent,httpUrl.GetStudentsListByClassID,successGetStu);
                 
@@ -503,7 +506,7 @@
                     }else{
                         studentCount=parseInt(studentData.Count/srtudent.IndexSize);
                     }
-                    studentCount=2;
+                    // studentCount=2;
                     console.log(studentCount);
                  }else{
                     srtudent.IndexPage-=stuNum;
@@ -541,29 +544,32 @@
                 });
             }
             $(".stuleft").on("click",function(){
-                if(srtudent.IndexPage>1){
-                    stuNum=-1;
-                    srtudent.IndexPage+=stuNum;
-                    // $(".classcount").text(srtudent.IndexPage);
+                // if(srtudent.IndexPage>1){
+                //     stuNum=-1;
+                //     srtudent.IndexPage+=stuNum;
+                //     // $(".classcount").text(srtudent.IndexPage);
                     
-                    getStudent();
-                }else{
-                    srtudent.IndexPage=1;
+                //     getStudent();
+                // }else{
+                //     srtudent.IndexPage=1;
                     
-                    C.layer(2,"已经是第一页啦！");
-                }
+                //     C.layer(2,"已经是第一页啦！");
+                // }
+                C.leftPage(srtudent,stuNum,getStudent);
             });
             $(".sturight").on("click",function(){
-                if(srtudent.IndexPage<studentCount){
-                    stuNum=1;
-                    srtudent.IndexPage+=stuNum;
-                    getStudent();
+                // if(srtudent.IndexPage<studentCount){
+                //     stuNum=1;
+                //     srtudent.IndexPage+=stuNum;
+                //     getStudent();
 
-                }else{
-                    srtudent.IndexPage=studentCount;
+                // }else{
+                //     srtudent.IndexPage=studentCount;
                    
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                //     C.layer(2,"已经是最后一页啦！");
+                // }
+                
+                C.rightPage(srtudent,stuNum,studentCount,getStudent);
             });
             //获取评估信息
             // var title='图表',names=[],datas=[];

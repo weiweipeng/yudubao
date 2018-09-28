@@ -227,6 +227,7 @@
         <div class="buy_mainContent">
         	<div class="buy_content">
         		<div class="buy_header">启思产品购买平台</div>
+                
         		<div class="buy_line">
         			<p class="buy_name">学科</p>
         			<ul class="buy_con buycourse">
@@ -254,6 +255,15 @@
         				<li>下学期</li>
         			</ul>
         		</div>
+                <div class="buy_line">
+                    <p class="buy_name">购买方式</p>
+                    <ul class="buy_con buyStyle">
+                        <li class="active">按篇章购买</li>
+                        <li>按月购买</li>
+                        <li>按半年购买</li>
+                        <li>按一年购买</li>
+                    </ul>
+                </div>
         		<div class="submitlines">
 	                <div class="firName">课程信息</div>
 
@@ -284,277 +294,279 @@
     <script type="text/javascript">
     	$(function () {
     		$('.buy_con').on("click",'li',function () {
-    		$(this).siblings('li').removeClass('active');
-    		$(this).addClass('active');
-    	});
-    	var param={
-            "PageIndex": 1,
-            "PageSize": 100
-        }
-        var goods={
-        	"IndexPage": 1,
-  			"IndexSize": 5,
-        	"Term":"上学期"
-        };
-        var goodadd={
-        	'AccountID ':"",
-        }
-        console.log(httpUrl);
-        C.load(0);
-        var isCheckAll=true;//是否全选
-        var goodList=[];//商品列表
-        var Coursedata=C.POSTS(JSON.stringify(param),httpUrl.GetCourseList,successCourse);
-        var Editdata=C.POSTS(JSON.stringify(param),httpUrl.GetEditionList,successEdit);
-        var Gradedata=C.POSTS(JSON.stringify({}),httpUrl.GetGradeList,successGrade);
-        function successCourse(data){
-            if(data.Result==1){
-                var datas=data.Data;
-                var str='';
-                // goods.
+        		$(this).siblings('li').removeClass('active');
+        		$(this).addClass('active');
+            })
+            var AccountID=localStorage.getItem('publisherId');
+            // var UserName=localStorage.getItem('publisherName');
+        	var param={
+                "PageIndex": 1,
+                "PageSize": 100
+            }
+            var goods={
+            	"IndexPage": 1,
+      			"IndexSize": 5,
+            	"Term":"上学期"
+            };
+            var goodadd={
+            	'AccountID ':AccountID,
+            }
+            console.log(httpUrl);
+            C.load(0);
+            var isCheckAll=true;//是否全选
+            var goodList=[];//商品列表
+            var Coursedata=C.POSTS(JSON.stringify(param),httpUrl.GetCourseList,successCourse);
+            var Editdata=C.POSTS(JSON.stringify(param),httpUrl.GetEditionList,successEdit);
+            var Gradedata=C.POSTS(JSON.stringify({}),httpUrl.GetGradeList,successGrade);
+            function successCourse(data){
+                if(data.Result==1){
+                    var datas=data.Data;
+                    var str='';
+                    // goods.
+                    goodsList();
+                    $.each(datas,function(index,val){
+                    	if(index==2){
+                    		str+='<li class="active" id='+val.Id+'>'+val.Name+'</li>';
+                    	}else{
+                    		str+='<li id='+val.Id+'>'+val.Name+'</li>';
+                    	}
+                    	
+                    });
+                    $('.buycourse').html(str);
+                }else{
+                    C.layer(1,data.Message);
+                }
+            }
+            $('.buycourse').on('click','li',function(){
+            	var v=$(this).text();
+                // goods.Course 
                 goodsList();
-                $.each(datas,function(index,val){
-                	if(index==2){
-                		str+='<li class="active" id='+val.Id+'>'+val.Name+'</li>';
+            });
+            function successEdit(data){
+            	if(data.Result==1){
+                    var datas=data.Data;
+                    var str="";
+
+                    $.each(datas,function(i,val){
+                    	if(i==0){
+                    		
+                    		str+='<li class="active" id='+val.Id+'>'+val.Name+'</li>';
+                    	}else{
+                    		str+='<li id='+val.Id+'>'+val.Name+'</li>';
+                    	}
+                    });
+                    $('.buyedits').html(str);
+                }else{
+                	C.layer(1,data.Message);
+                }
+            }
+            $('.buyedits').on('click','li',function(){
+            	var v=$(this).text();
+            	// goods.
+            	goodsList();
+            });
+            function successGrade(data){
+            	if(data.Result==1){
+            		var datas=data.Data;
+            		var str="";
+            		$.each(datas,function(i,val){
+            			if(i==0){
+            				goods.Grade='七年级';
+            				str+='<li class="active" id='+val.Id+'>'+val.Name+'</li>';
+            			}else{
+            				str+='<li id='+val.Id+'>'+val.Name+'</li>';
+            			}
+            		});
+            		$('.buygrade').html(str);
+            	}else{
+            		C.layer(1,data.Message);
+            	}
+            }
+            $('.buygrade').on('click','li',function(){
+            	var v=$(this).text();
+            	goods.Grade = v;
+            	goodsList();
+            });
+            $('.buyTerm').on('click','li',function(){
+            	var v=$(this).text();
+            	goods.Term=v;
+            	goodsList();
+            });
+            
+            //获取产品列表
+            var listCount=0,num=0;
+            function goodsList(){
+            	var data=C.POSTS(JSON.stringify(goods),httpUrl.GetArticleList,successGood);
+            }
+            function successGood(data){
+                if(data.Result==1){
+                	var str='<li><p class="cell1"><label class="che"><input id="1" type="checkbox" class="input_che" ><span class="inpu"></span></label></p><p class="cell2">名称</p><p class="cell3">是否收费</p><p class="cell4">价格</p></li>';
+                	var datas=data.Data;
+                	if(data.Count%goods.IndexSize>0){
+                		listCount=data.Count/goods.IndexSize+1;
                 	}else{
-                		str+='<li id='+val.Id+'>'+val.Name+'</li>';
+                		listCount=data.Count/goods.IndexSize;
+                	}
+                	$.each(datas,function(i,val){
+                		var charge=val.IsCharge==0?'是':'否';
+                		str+='<li class="boder_line over">';
+    	                str+='<p class="cell1"><label class="che"><input id='+val.Id+' type="checkbox" class="input_che" ><span></span></label></p>';
+    	                str+='<p class="cell2">'+val.Name+'</p>';
+    	                str+='<p class="cell3">'+charge+'</p>';
+    	                str+='<p class="cell4">￥'+val.Price+'</p></li>';
+                	});
+                	C.load(1);
+                	$('.goodList').html(str);
+                	if(goodList.length>0){
+                		setStatus();
                 	}
                 	
-                });
-                $('.buycourse').html(str);
-            }else{
-                C.layer(1,data.Message);
+                }else{
+                	goods.IndexPage-=num;
+                	C.load(1);
+                	C.layer(1,data.Message);
+                }
             }
-        }
-        $('.buycourse').on('click','li',function(){
-        	var v=$(this).text();
-            // goods.Course 
-            goodsList();
-        });
-        function successEdit(data){
-        	if(data.Result==1){
-                var datas=data.Data;
-                var str="";
-
-                $.each(datas,function(i,val){
-                	if(i==0){
-                		
-                		str+='<li class="active" id='+val.Id+'>'+val.Name+'</li>';
-                	}else{
-                		str+='<li id='+val.Id+'>'+val.Name+'</li>';
-                	}
-                });
-                $('.buyedits').html(str);
-            }else{
-            	C.layer(1,data.Message);
-            }
-        }
-        $('.buyedits').on('click','li',function(){
-        	var v=$(this).text();
-        	// goods.
-        	goodsList();
-        });
-        function successGrade(data){
-        	if(data.Result==1){
-        		var datas=data.Data;
-        		var str="";
-        		$.each(datas,function(i,val){
-        			if(i==0){
-        				goods.Grade='七年级';
-        				str+='<li class="active" id='+val.Id+'>'+val.Name+'</li>';
-        			}else{
-        				str+='<li id='+val.Id+'>'+val.Name+'</li>';
-        			}
-        		});
-        		$('.buygrade').html(str);
-        	}else{
-        		C.layer(1,data.Message);
-        	}
-        }
-        $('.buygrade').on('click','li',function(){
-        	var v=$(this).text();
-        	goods.Grade = v;
-        	goodsList();
-        });
-        $('.buyTerm').on('click','li',function(){
-        	var v=$(this).text();
-        	goods.Term=v;
-        	goodsList();
-        });
-        
-        //获取产品列表
-        var listCount=0,num=0;
-        function goodsList(){
-        	var data=C.POSTS(JSON.stringify(goods),httpUrl.GetArticleList,successGood);
-        }
-        function successGood(data){
-            if(data.Result==1){
-            	var str='<li><p class="cell1"><label class="che"><input id="1" type="checkbox" class="input_che" ><span class="inpu"></span></label></p><p class="cell2">名称</p><p class="cell3">是否收费</p><p class="cell4">价格</p></li>';
-            	var datas=data.Data;
-            	if(data.Count%goods.IndexSize>0){
-            		listCount=data.Count/goods.IndexSize+1;
+            //翻页
+            $('.previousPage').on('click',function(){
+            	if(goods.IndexPage>1){
+        			num=-1;
+            		goods.IndexPage+=num;
+            		C.load(0);
+            		goodsList();
+            		
             	}else{
-            		listCount=data.Count/goods.IndexSize;
-            	}
-            	$.each(datas,function(i,val){
-            		var charge=val.IsCharge==0?'是':'否';
-            		str+='<li class="boder_line over">';
-	                str+='<p class="cell1"><label class="che"><input id='+val.Id+' type="checkbox" class="input_che" ><span></span></label></p>';
-	                str+='<p class="cell2">'+val.Name+'</p>';
-	                str+='<p class="cell3">'+charge+'</p>';
-	                str+='<p class="cell4">￥'+val.Price+'</p></li>';
-            	});
-            	C.load(1);
-            	$('.goodList').html(str);
-            	if(goodList.length>0){
-            		setStatus();
-            	}
-            	
-            }else{
-            	goods.IndexPage-=num;
-            	C.load(1);
-            	C.layer(1,data.Message);
-            }
-        }
-        //翻页
-        $('.previousPage').on('click',function(){
-        	if(goods.IndexPage>1){
-    			num=-1;
-        		goods.IndexPage+=num;
-        		C.load(0);
-        		goodsList();
-        		
-        	}else{
-        		C.layer(2,'已经是第一页啦!');
-        	}
-        });
-        $('.nextPage').on('click',function(){
-        	if(goods.IndexPage<listCount){
-        		num=1;
-        		goods.IndexPage+=num;
-        		C.load(0);
-        		remeber();
-        		goodsList();
-        		
-        	}else{
-        		C.layer(2,'已经是最后一页啦!');
-        	}
-        });
-        //录入商品数据
-        function remeber(){
-    		// var arr=$('.goodList input[type=checkbox]:checked');
-      //       $.each(arr,function(i,val){
-      //       	var id=val.id;
-      //       	var good={
-      //       		'GoodsNumber':1,
-      //       		'IsArticle':true
-      //       	};
-
-      //       	good.GoodsID = id;
-      //           goodList.push(good);
-            	
-      //       });
-      //       console.log(goodList);
-        }
-        //保存状态
-        function setStatus(){
-            var inputDom=$('.goodList input[type=checkbox]');
-            var i=0;
-            $.each(inputDom,function(i,val){
-            	for(var j=0;j<goodList.length;j++){
-            		console.log(val.id);
-            		console.log(goodList[j].GoodsID);
-            		if(val.id==goodList[j].GoodsID){
-            			// console.log(1111);
-            			i++;
-            			console.log(i);
-            			if(i>5){
-			            	// console.log(1111111);
-			            	$(inputDom).eq(0).attr("checked", "checked");
-			            }
-            			val.checked = true;
-            		}
+            		C.layer(2,'已经是第一页啦!');
             	}
             });
+            $('.nextPage').on('click',function(){
+            	if(goods.IndexPage<listCount){
+            		num=1;
+            		goods.IndexPage+=num;
+            		C.load(0);
+            		remeber();
+            		goodsList();
+            		
+            	}else{
+            		C.layer(2,'已经是最后一页啦!');
+            	}
+            });
+            //录入商品数据
+            function remeber(){
+        		// var arr=$('.goodList input[type=checkbox]:checked');
+          //       $.each(arr,function(i,val){
+          //       	var id=val.id;
+          //       	var good={
+          //       		'GoodsNumber':1,
+          //       		'IsArticle':true
+          //       	};
+
+          //       	good.GoodsID = id;
+          //           goodList.push(good);
+                	
+          //       });
+          //       console.log(goodList);
+            }
+            //保存状态
+            function setStatus(){
+                var inputDom=$('.goodList input[type=checkbox]');
+                var i=0;
+                $.each(inputDom,function(i,val){
+                	for(var j=0;j<goodList.length;j++){
+                		console.log(val.id);
+                		console.log(goodList[j].GoodsID);
+                		if(val.id==goodList[j].GoodsID){
+                			// console.log(1111);
+                			i++;
+                			console.log(i);
+                			if(i>5){
+    			            	// console.log(1111111);
+    			            	$(inputDom).eq(0).attr("checked", "checked");
+    			            }
+                			val.checked = true;
+                		}
+                	}
+                });
 
 
-        }
+            }
 
-	    Array.prototype.indexOf = function(val) {
-			for (var i = 0; i < this.length; i++) {
-				if (this[i] == val) return i;
-			}
-			return -1;
-		};
-        Array.prototype.remove = function(val) {
-			var index = this.indexOf(val);
-			if (index > -1) {
-				this.splice(index, 1);
-			}
-		};
-        $('.submitlines').on('change','input',function(){
-        	console.log(111);
-        	var checkeds=$(this).is(':checked');
-        	var ids=$(this).attr('id');
-        	var arr=$("input[type=checkbox]:not(:checked)");
-        	var inputDom=$('.goodList input[type=checkbox]:checked');
-        	var listArr=goodList;
-        	if(!checkeds){
-        		if(ids==1){
-	                for(var j=0;j<listArr.length;j++){
-	                	$.each(inputDom,function(i,val){
-	                    	if(listArr[j].GoodsID=val.id){
-	                    		val.checked=false;
-	                    		goodList.remove(listArr[j]);
-	                    	}
-	                	});
-	                }
-        		}else{
-        			$.each(inputDom,function(i,val){
-        				if(val.id==ids){
-        					val.checked=false;
-        				}
-        			})
-        			for(var j=0;j<goodList.length;j++){
-        				if(goodList[j].GoodsID==ids){
-        					goodList.splice(j,1);
-        				}
-        			}
-        		}
-        	}else{
-	            if(ids==1){
-            		$.each(arr,function(i,val){
-            			var goods={
-		            		'GoodsNumber':1,
-		            		'IsArticle':true
-		            	};
-    					var id=val.id;
-		            	goods.GoodsID = val.id;
-		            	val.checked=true;
-		                goodList.push(goods);
-		            });
-	            }else{
-	            	var good={
-	            		'GoodsNumber':1,
-	            		'IsArticle':true
-	            	};
-	            	$(this).checked=true;
- 					good.GoodsID = ids;
- 					goodList.push(good);
-	            }
-        	}
-        });
-        $('.buy').on('click',function(){
-            remeber();
-            goodadd.Goods=goodList;
-            var data=C.POSTS(JSON.stringify(goodadd),httpUrl.AddGoodsList,successAdd);
-        });
+    	    Array.prototype.indexOf = function(val) {
+    			for (var i = 0; i < this.length; i++) {
+    				if (this[i] == val) return i;
+    			}
+    			return -1;
+    		};
+            Array.prototype.remove = function(val) {
+    			var index = this.indexOf(val);
+    			if (index > -1) {
+    				this.splice(index, 1);
+    			}
+    		};
+            $('.submitlines').on('change','input',function(){
+            	console.log(111);
+            	var checkeds=$(this).is(':checked');
+            	var ids=$(this).attr('id');
+            	var arr=$("input[type=checkbox]:not(:checked)");
+            	var inputDom=$('.goodList input[type=checkbox]:checked');
+            	var listArr=goodList;
+            	if(!checkeds){
+            		if(ids==1){
+    	                for(var j=0;j<listArr.length;j++){
+    	                	$.each(inputDom,function(i,val){
+    	                    	if(listArr[j].GoodsID=val.id){
+    	                    		val.checked=false;
+    	                    		goodList.remove(listArr[j]);
+    	                    	}
+    	                	});
+    	                }
+            		}else{
+            			$.each(inputDom,function(i,val){
+            				if(val.id==ids){
+            					val.checked=false;
+            				}
+            			})
+            			for(var j=0;j<goodList.length;j++){
+            				if(goodList[j].GoodsID==ids){
+            					goodList.splice(j,1);
+            				}
+            			}
+            		}
+            	}else{
+    	            if(ids==1){
+                		$.each(arr,function(i,val){
+                			var goods={
+    		            		'GoodsNumber':1,
+    		            		'IsArticle':true
+    		            	};
+        					var id=val.id;
+    		            	goods.GoodsID = val.id;
+    		            	val.checked=true;
+    		                goodList.push(goods);
+    		            });
+    	            }else{
+    	            	var good={
+    	            		'GoodsNumber':1,
+    	            		'IsArticle':true
+    	            	};
+    	            	$(this).checked=true;
+     					good.GoodsID = ids;
+     					goodList.push(good);
+    	            }
+            	}
+            });
+            $('.buy').on('click',function(){
+                remeber();
+                goodadd.Goods=goodList;
+                var data=C.POSTS(JSON.stringify(goodadd),httpUrl.AddGoodsList,successAdd);
+            });
 
-        function successAdd(data){
-        	if(data.Result==1){
-        		window.location.href='submitBuy.html';
-        	}
-        }
-    	})
+            function successAdd(data){
+            	if(data.Result==1){
+            		window.location.href='submitBuy.html';
+            	}
+            }
+        })
     </script>
 </body>
 </html>

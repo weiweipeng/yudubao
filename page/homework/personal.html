@@ -275,7 +275,9 @@
                 </div>
             </div>
             </div>
-            <div class="bg-line"></div>    
+            <div class="bg-line">
+                <a href="../buy/buy.html"><img src="../../img/buy.png"></a>
+            </div>    
         </div>
     </div>
     <div class="mask">
@@ -428,28 +430,12 @@
                 console.log(studentArr);
             });
             $(".stuleft").on("click",function(){
-                if(srtudent.IndexPage>1){
-                   
-                    stuNum=-1;
-                    srtudent.IndexPage+=stuNum;
-                    getStudent();
-                }else{
-                    srtudent.IndexPage=1;
-                    
-                    C.layer(2,"已经是第一页啦！");
-                }
+                C.leftPage(srtudent,stuNum,getStudent);
+               
             });
             $(".sturight").on("click",function(){
-                if(srtudent.IndexPage<studentCount){
-                    stuNum=1;
-                    srtudent.IndexPage+=stuNum;
-                    getStudent();
-
-                }else{
-                    srtudent.IndexPage=studentCount;
-                    
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                C.rightPage(srtudent,stuNum,studentCount,getStudent);
+                
             });
              //获取班级数据
              paramClass.TeacherId=TeacherId;
@@ -488,27 +474,12 @@
             }
           
             $(".classLf").on("click",function(){
-                if(paramClass.IndexPage>1){
-                    classnum=-1;
-                    paramClass.IndexPage+=classnum;
-                    getClassData();
-                }else{
-                    paramClass.IndexPage=1;
-                    
-                    C.layer(2,"已经是第一页啦！");
-                }
+                C.leftPage(paramClass,classnum,getClassData);
+             
             });
             $(".classRf").on("click",function(){
-                if(paramClass.IndexPage<classCount){
-                    classnum=1;
-                    paramClass.IndexPage+=classnum;
-                    getClassData();
-
-                }else{
-                    paramClass.IndexPage=classCount;
-                   
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                C.rightPage(paramClass,classnum,classCount,getClassData);
+          
             });
               //选中班级id
            
@@ -628,33 +599,14 @@
             // 左翻页
             var tablenum=0;
             $(".left_btn").on("click",function(){
-                if(param.IndexPage>1){
-            
-                    tablenum=-1;
-                    param.IndexPage+=tablenum;
-                    getdata();
-                }else{
-                    param.IndexPage=1;
-                    
-                    C.layer(2,"已经是第一页啦！");
-                }
+                C.leftPage(param,tablenum,getdata);
+             
             });
             $(".right_btn").on("click",function(){
-                if(param.IndexPage<count){
+                C.rightPage(param,tablenum,count,getdata);
                 
-                    tablenum=1;
-                     param.IndexPage+=tablenum;
-                    getdata();
-                }else{
-                    param.IndexPage=count;
-                    
-                    C.layer(2,"已经是最后一页啦！");
-                }
             });
-            $(".release").on("click",function () {
-                var arr=$('input[type=checkbox]:checked');
-                console.log(arr);
-            });
+           
             
            
              //获取篇章列表数据
@@ -684,11 +636,9 @@
                 var list='<li><p class="cell1">编号</p><p class="cell2">选中</p><p class="cell3">篇章名称</p><p class="cell4">话题</p><p class="cell5">题型</p><p class="cell6">文体</p><p class="cell7">难度</p><p class="cell8">阅读策略</p><p class="cell9">写作技巧</p><p class="cell10">词数</p><p class="cell11">分数</p><p class="cell12">操作</p><p class="cell13">教学建议</p></li>';
                 for(var i=0;i<data.length;i++){
                     var index=1;
-                    if(tablenum==0){
-                        index=i+1;
-                    }else{
-                        index=(param.IndexPage-1)*param.IndexSize+i+1;
-                    }
+                    
+                    index=(param.IndexPage-1)*param.IndexSize+i+1;
+            
                     if(i<data.length-1){
                         list+='<li class="trline"  style="border-bottom:1px solid #999">';
                     }else{

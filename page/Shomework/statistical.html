@@ -95,6 +95,9 @@
            .prac {
                 position: relative;
             }
+            .bg-line{
+                bottom: 0px;
+            }
     </style>
 </head>
 <body>
@@ -140,7 +143,7 @@
                                 <a href="statistical.html">成绩统计</a>            
                             </li>
                             <li><a href="errorCollection.html">错题库</a></li>
-                           
+                            
                             <li><a href="assessment.html">评估</a></li>
                             <li><a href="ranking.html">排行榜</a></li>
                         </ul>
@@ -196,6 +199,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="bg-line">
+                <a href="../buy/buy.html"><img src="../../img/buy.png"></a>
             </div>
         </div>
     </div>
@@ -256,12 +262,7 @@
                         count=parseInt(classData.Count/paramClass.IndexSize);
                     }
                     setClassCheck();
-                    // paramList.ClassId=classData.Data[0].ClassId;
-                    // history.ClassId=classData.Data[0].ClassId;
-                    // getHistory();
-                    // answer.classesId=classData.data[0].classId;
-                    // console.log(classData.data[0].classId);
-                    // console.log(paramList);
+                   
                     getpracData();
                 }else{
                     paramClass.IndexPage-=classNum;
@@ -279,25 +280,12 @@
             }
           
             $(".classLf").on("click",function(){
-                if(paramClass.IndexPage>1){
-                    classNum=-1;
-                    paramClass.IndexPage+=classNum;    
-                    getClassData();
-                }else{
-                    paramClass.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
-                }
+                C.leftPage(paramClass,classNum,getClassData);
+                
             });
             $(".classRf").on("click",function(){
-                if(paramClass.IndexPage<count){
-                    classNum=1;
-                    paramClass.IndexPage+=classNum;
-                    getClassData();
-
-                }else{
-                    paramClass.IndexPage=count;
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                C.rightPage(paramClass,classNum,count,getClassData);
+            
             });
              //选中班级id
            
@@ -434,32 +422,16 @@
             }
             //翻页
             $(".pracLf").on("click",function(){
-                if(paramList.IndexPage>1){
-                    praNum=-1;
-                    paramList.IndexPage+=praNum;
-                    
-                    getpracData();
-
-                }else{
-                    paramList.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
-                }
+                C.leftPage(paramList,praNum,getpracData);
+               
             });
             
             $(".pracRf").on("click",function(){
-                if(paramList.IndexPage<pracCount){
-                    praNum=1;
-                     paramList.IndexPage+=praNum;
-                    // $(".classcount").text(paramList.IndexPage);
-                    getpracData();
-
-                }else{
-                    paramList.IndexPage=pracCount;
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                C.rightPage(paramList,praNum,pracCount,getpracData);
+                
             });
 
-
+            var tableNum=0,tableCount=0;
             function getHistory(){
                 console.log(history);
                 var historyData=C.POSTS(JSON.stringify(history),httpUrl.GetStudentTaskHistoryBaseStatistics,successGethis);
@@ -468,6 +440,12 @@
             function successGethis(historyData){
                 $(".tablelist").empty();
                 if(historyData.Result==1){
+                    if(historyData.Count%history.IndexSize>0){
+                        tableCount=parseInt(historyData.Count/history.IndexSize)+1;
+                    }else{
+                        tableCount=parseInt(historyData.Count/history.IndexSize);
+                    }
+                    $(".count").text(history.IndexPage);
                     setHistoryList(historyData.Data);
                     if(historyData.Data.length==0){
                         C.layer(1,'数据被程序员吃掉啦！');
@@ -508,6 +486,12 @@
                 }
                 $(".tablelist").html(list);
             }
+            $(".right_btn").on("click",function(){
+                C.rightPage(history,tableNum,tableCount,getHistory);
+            });
+            $(".left_btn").on("click",function(){
+                C.leftPage(history,tableNum,getHistory);
+            });
             $(".tablelist").on("click",'.view',function(){
                 C.load(0);
                 resultDetail.EnglishArticleTaskHistoryBaseId=$(this).attr('data-id');

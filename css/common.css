@@ -151,7 +151,22 @@ input{
 	-webkit-transform: scale(0.6,0.6);
 	-moz-transform: scale(0.6,0.6);
 }
-
+.userNameImg{
+    position: absolute;
+    top: 0px;
+    left: 10%;
+    background-image: url('../img/img.png');
+    height:40px;
+    width:32px;
+    background-position:-144px -176px;
+    /*background-size: 50% 50%;*/
+    transform: scale(0.6,0.6);
+    -o-transform: scale(0.6,0.6);
+    -ms-transform: scale(0.6,0.6);
+    -webkit-transform: scale(0.6,0.6);
+    -moz-transform: scale(0.6,0.6);
+}
+-144px
 
 input::-webkit-input-placeholder{
     color:#999;
@@ -170,6 +185,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 	height: 620px;
 	/*width: 1280px;*/
     width: 1400px!important;
+    box-sizing: border-box;
 }
 .mainleft{
         /*width: 180px;*/
@@ -839,11 +855,19 @@ cursor: pointer;
 	bottom: 10px;
 	left: 5%;*/
 	height: 60px;
+    /*line-height: 60px;*/
 	background-color: rgba(0,0,0,0.6);
 	position: absolute;
 	bottom: -50px;
 }
 
+.bg-line img{
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    margin-top: 18px;
+    margin-left: 50%;
+}
   /*弹出层*/
 .mask{
    position: fixed;

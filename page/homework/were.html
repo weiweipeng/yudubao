@@ -236,7 +236,9 @@
                 </div>
             </div>
             </div>
-            <div class="bg-line"></div>   
+            <div class="bg-line">
+                <a href="../buy/buy.html"><img src="../../img/buy.png"></a>
+            </div>   
         </div>
     </div>
     <div class="layerMask"></div>
@@ -317,26 +319,12 @@
             }
             
             $(".classLf").on("click",function(){
-                if(paramClass.IndexPage>1){
-                    classNum=-1;
-                    paramClass.IndexPage+=classNum;
-                    
-                    getClassData();
-                }else{
-                    paramClass.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
-                }
+                C.leftPage(paramClass,classNum,getClassData);
+                
             });
             $(".classRf").on("click",function(){
-                if(paramClass.IndexPage<classCount){
-                    classNum=1;
-                    paramClass.IndexPage+=classNum;
-                    getClassData();
-
-                }else{
-                    paramClass.IndexPage=classCount;
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                C.rightPage(paramClass,classNum,classCount,getClassData);
+                
             });
             $(".classes").on("click",'.classtable',function(){
            
@@ -414,28 +402,12 @@
             });
             var praNum=0;
             $(".pracLf").on("click",function(){
-                if(param.IndexPage>1){
-                    praNum=-1;
-                    param.IndexPage+=praNum;
-                    
-                    getdata();
-                }else{
-                    param.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
-                    return false;
-                }
+                C.leftPage(param,praNum,getdata);
+               
             });
             $(".pracRf").on("click",function(){
-                if(param.IndexPage<pracount){
-                    praNum=1;
-                    param.IndexPage+=praNum;
-                    getdata();
-
-                }else{
-                    param.IndexPage=pracount;
-                    C.layer(2,"已经是最后一页啦！");
-                    return false;
-                }
+                C.rightPage(param,praNum,pracount,getdata);
+                
             });
             function getTabledata() {
                 console.log(paramList);

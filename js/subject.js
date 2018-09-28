@@ -1406,26 +1406,30 @@ function SubjectStringCorrect(subject) {
         case '阅读判断':
             str += subject.Title + '<hr>';
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
-                if (val.IsError == 0) {
+                // if (val.IsError == 0) {
                     str += '<div id="' + val.Id + '" class="Readingjudgment"> ';
                     str += '<p>' + val.Sort + ' . ' + val.Title + '</p>';
                     str += '<div class="fr"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="F" />×</div>';
                     str += '<div class="fr"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="T" />√</div></div>';
-                }
+                    str += val.Analysis + '<br/>';
+                // }
             });
             break;
         case '图片选择':
             str += subject.Title + '<hr/>';
+
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
-                if (val.IsError == 0) {
+                // if (val.IsError == 0) {
                     var queArray = val.Title.split('@');
                     str += val.Sort + '. ' + queArray[0] + '<br/>';
                     for (var i = 1; i < queArray.length; i++) {
+
                         str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i - 1] + '" /><span> ' + optionDic[i - 1] + '. </span>';
                         str += queArray[i] + '</div>';
                     }
+                    str += val.Analysis + '<br/>';
                     str += '<br/>';
-                }
+                // }
             });
             break;
         case '阅读选择':
@@ -1438,6 +1442,7 @@ function SubjectStringCorrect(subject) {
                         str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i - 1] + '" /><span> ' + optionDic[i - 1] + '. </span>';
                         str += queArray[i] + '</div><br/>';
                     }
+                    str += val.Analysis + '<br/>';
                     str += '<br/>';
                 // }
             });
@@ -1452,6 +1457,7 @@ function SubjectStringCorrect(subject) {
                         str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i] + '" /><span> ' + optionDic[i] + '. </span>';
                         str += queArray[i] + '</div>';
                     }
+                    str += val.Analysis + '<br/>';
                     str += '</div>';
                 // }
             });
@@ -1461,6 +1467,7 @@ function SubjectStringCorrect(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+                    content += val.Analysis + '<br/>';
                 // } else {
                     // content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
                 // }
@@ -1484,6 +1491,7 @@ function SubjectStringCorrect(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+                    content += val.Analysis + '<br/>';
                 // } else {
                     // content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
                 // }
@@ -1500,6 +1508,7 @@ function SubjectStringCorrect(subject) {
                         str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i] + '" /><span> ' + optionDic[i] + '. </span>';
                         str += queArray[i] + '</div>';
                     }
+                    str += val.Analysis + '<br/>';
                     str += '</div>';
                 // }
             });
@@ -1515,6 +1524,7 @@ function SubjectStringCorrect(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+                    content += val.Analysis + '<br/>';
                 // } else {
                     // content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
                 // }
@@ -1532,6 +1542,7 @@ function SubjectStringCorrect(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+                    content += val.Analysis + '<br/>';
                 // } else {
                     // content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
                 // }
@@ -1556,6 +1567,7 @@ function SubjectStringCorrect(subject) {
                     // }
                 }
                 str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
+                str += val.Analysis + '<br/>';
             });
             break;
         case '回答问题':
@@ -1576,6 +1588,7 @@ function SubjectStringCorrect(subject) {
                     // }
                 }
                 str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
+                str += val.Analysis + '<br/>';
             });
             break;
         case '综合阅读':
@@ -1595,6 +1608,7 @@ function SubjectStringCorrect(subject) {
                     // }
                 }
                 str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
+                str += val.Analysis + '<br/>';
             });
             break;
         case '选词填空-所给词的适当形式填空':
@@ -1603,6 +1617,7 @@ function SubjectStringCorrect(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+                    content += val.Analysis + '<br/>';
                 // } else {
                 //     content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
                 // }
@@ -1614,6 +1629,7 @@ function SubjectStringCorrect(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+                    content += val.Analysis + '<br/>';
                 // } else {
                 //     content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
                 // }
@@ -1625,6 +1641,7 @@ function SubjectStringCorrect(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+                    content += val.Analysis + '<br/>';
                 // } else {
                 //     content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
                 // }

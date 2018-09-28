@@ -338,20 +338,23 @@
     <script type="text/javascript" src="../../js/common.js"></script>
     <script type="text/javascript">
     	$(function () {
+            var AccountID=localStorage.getItem('publisherId');
+            var UserName=localStorage.getItem('publisherName');
     		var menu={
-	          "AccountID": "",
-	          "UserName": "",
+	          "AccountID": AccountID,
+	          "UserName": UserName,
 	          "MoteMessage": ""
 	          
 	        }
 	        var erweima={
-	          "AccountID": "",
+	          "AccountID": AccountID,
 	          // "OrederID": "af2c8376-7e5f-4571-a764-486908a850a8",
 	          "PayType": 1
 	        }
 	        var getmessage={
-	            "AccountID": ""
+	            "AccountID": AccountID
 	        };
+
 	        var gooddata=C.POSTS({},httpUrl.GetShoppingCartList,successGetgood);
 	        var goodlist=[];
 	        function successGetgood(data){

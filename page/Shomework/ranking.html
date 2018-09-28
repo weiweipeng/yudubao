@@ -60,9 +60,7 @@
         .topicsta{
             background-color: rgba(254, 105, 106, 1);
         }
-        .bg-line{
-            bottom: 0px;
-        }
+
         /*.choose>div{
             line-height: 57px;
             text-align: center;
@@ -265,7 +263,9 @@
         	    	</div>
             	</div>
             </div>
-            <div class="bg-line"></div>
+            <div class="bg-line">
+                <a href="../buy/buy.html"><img src="../../img/buy.png"></a>
+            </div>
         </div>
     </div>
     <div class="layerMask"></div>
@@ -348,25 +348,12 @@
             }
           
             $(".classLf").on("click",function(){
-                if(paramClass.IndexPage>1){
-                    classNum=-1;
-                    paramClass.IndexPage+=classNum;
-                    getClassData();
-                }else{
-                    paramClass.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
-                }
+                C.leftPage(paramClass,classNum,getClassData);
+                
             });
             $(".classRf").on("click",function(){
-                if(paramClass.IndexPage<classCount){
-                    classNum=1;
-                    paramClass.IndexPage+=classNum;
-                    getClassData();
-
-                }else{
-                    paramClass.IndexPage=classCount;
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                C.rightPage(paramClass,classNum,classCount,getClassData);
+                
             });
              //选中班级id
            

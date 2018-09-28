@@ -159,13 +159,13 @@
             padding-top:6px;
         }
         .cell1{
-            width: 16%
+            width: 10%
         }
         .cell2{
-            width: 15%
+            width: 25%
         }
         .cell3{
-            width: 15%
+            width: 11%
         }
         .cell4{
             width: 10%
@@ -261,6 +261,11 @@
             color: #ff0036;
             margin-bottom: 10px;
         }
+        .buy_mainContent:after{
+            content: "";
+            display: block;
+            clear: both;
+        }
 	</style>
 </head>
 <body>
@@ -346,8 +351,10 @@
     <script type="text/javascript">
         
         $(function () {
+            var AccountID=localStorage.getItem('publisherId');
+           
             var erweima={
-          "AccountID": "",
+          "AccountID": AccountID,
           // "OrederID": "af2c8376-7e5f-4571-a764-486908a850a8",
           "PayType": 1
         }
@@ -420,7 +427,7 @@
                 $.each(data.Data,function(i,val){
                     var goodAll=val.Number*val.Price;
                     str+='<li class="boder_line"><p class="cell1"><label class="che"><input id='+val.Id+' ProductId='+val.ProductId+' type="checkbox" class="input_che" checked><span class="inpu"></span></label></p>'
-                    str+='<p class="cell2">'+val.GradeId+'</p>';
+                    str+='<p class="cell2">'+val.Name+'</p>';
                     str+='<p class="cell3">上学期</p>';
                     str+='<p class="cell4">￥'+val.Price+'.00</p>';
                     str+='<p class="cell5 countnum"><span class="fircount"><span class="left_arrow"  id='+val.ProductId+' price='+val.Price+'>-</span><input type="text" name="count" value='+val.Number+' class="cen_cout"><span class="right_add" id='+val.ProductId+' price='+val.Price+'>+</span></span></p>';
@@ -450,7 +457,7 @@
         
         var goodListAdd=[];//添加多个商品列表
         var addGoodlist={
-            "AccountID": ""
+            "AccountID": AccountID
         };
         $('.goodList').on('change','input',function(){
             var checkeds=$(this).is(':checked');

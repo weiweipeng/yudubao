@@ -210,9 +210,7 @@
                          <!-- 页码 -->
                          <div class="count">1</div>
                          <!-- 发布任务 -->
-                         <div class="release">
-                            发布任务
-                         </div>
+                         
                         <!-- 左右翻页 -->
                         <div class="left_btn">
                             <img src="../../img/homework/u1878.gif">
@@ -249,7 +247,9 @@
             </div>
 
             </div>
-             <div class="bg-line"></div>   
+             <div class="bg-line">
+                 <a href="../buy/buy.html"><img src="../../img/buy.png"></a>
+             </div>   
             
         </div>
     </div>
@@ -269,7 +269,7 @@
             //获取列表数据
             var param={
                 'IndexPage':1,
-                'IndexSize':10
+                'IndexSize':9
                 
             }
             var paramClass={
@@ -380,8 +380,8 @@
                     $(".classcount").text(paramClass.IndexPage);
                     setClassCheck();
                     // param.ClassId=classData.data[1].id;
-                    param.ClassId='aaa';
-                    getdata();
+                    // param.ClassId='aaa';
+                    // getdata();
                     // classCount=classData.Count;
                     if(classData.Count%paramClass.IndexSize>0){
                         classCount=parseInt(classData.Count/paramClass.IndexSize)+1;
@@ -397,36 +397,22 @@
                 console.log(data);
                 var list='';
                 for(var i=0;i<data.length;i++){
-                    if(param.ClassId==''){
-                        param.ClassId=data[i].Id;
-                        getdata();
-                    }
+                    // if(param.ClassId==''){
+                    //     param.ClassId=data[i].Id;
+                    //     getdata();
+                    // }
                     list+='<div id='+data[i].Id+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].Name+'<span>选中</span></div>'
                 }
                 $(".sec").html(list);
             }
             
             $(".classLf").on("click",function(){
-                if(paramClass.IndexPage>1){
-                    classNum=-1;
-                    paramClass.IndexPage+=classNum;
-                    // $(".classcount").text(paramClass.IndexPage);
-                    
-                    getClassData();
-                }else{
-                    paramClass.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
-                }
+                C.leftPage(paramClass,classNum,getClassData);
+               
             });
             $(".classRf").on("click",function(){
-                if(paramClass.IndexPage<classCount){
-                    classNum=1;
-                    paramClass.IndexPage+=classNum;
-                    getClassData();
-                }else{
-                    paramClass.IndexPage=classCount;
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                C.rightPage(paramClass,classNum,classCount,getClassData);
+                
             });
             $(".classes").on("click",'.classtable',function(){
                 // $(this).find('span').toggle();
@@ -436,7 +422,6 @@
                 $('.classes').find('span').hide();
                 gradeid=spanId;
                 param.ClassId=spanId;
-                // srtudent.ClassId='aaa';
                 $(this).find('span').show();
                 C.load(0);
                 getdata();
@@ -453,16 +438,24 @@
                 }
             }
             //获取任务列表
-           function getdata(){
+            var praNum=0,pracCount=0;
+            function getdata(){
                 var resultData=C.POST(param,httpUrl.TeacherTaskPersonalListAll,successGetdata);
             }
             function successGetdata(resultData) {
                 $('.practiceList').empty();
                 if(resultData.Result==1){
+                    if(resultData.Count%param.IndexSize>0){
+                        pracCount=resultData.Count/param.IndexSize+1;
+                    }else{
+                        pracCount=resultData.Count/param.IndexSize;
+                    }
+                    $('.pracCen').text(param.IndexPage);
                     C.load(1);
                     createPracList(resultData.Data);
                 }else{
                     C.load(1);
+                    param.IndexPage-=praNum;
                     C.layer(2,resultData.Message);
                 }
             }
@@ -486,6 +479,16 @@
                 $(this).find('span').show();
                 paramList.classTaskId='ea266f2a-94f0-41f5-b108-cdaf5ba6eee5';
                 getlistdata();
+            });
+            //翻页
+            $(".pracLf").on("click",function(){
+                C.leftPage(param,praNum,getdata);
+              
+            });
+            
+            $(".pracRf").on("click",function(){
+                C.rightPage(param,praNum,pracCount,getdata);
+             
             });
             // 预览
             $(".tablelist").on("click",".view",function(){
@@ -563,9 +566,9 @@
             });
             C.resezes(1);
            
-            $(".tablelist").on('click','.preview',function(){
-                window.location.href='classResult.html'
-            });
+            // $(".tablelist").on('click','.preview',function(){
+            //     window.location.href='classResult.html'
+            // });
             // $(".tablelist").on('click','.view',function(){
             //     // window.location.href='';
             // });

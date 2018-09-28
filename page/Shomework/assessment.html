@@ -339,7 +339,9 @@
                 </div>
             </div>
             </div>
-            <div class="bg-line"></div>    
+            <div class="bg-line">
+                <a href="../buy/buy.html"><img src="../../img/buy.png"></a>
+            </div>    
         </div>
     </div>
       <div class="layerMask"></div>
@@ -419,10 +421,7 @@
                 console.log(data);
                 var list='';
                 for(var i=0;i<data.length;i++){
-                    // if(param.ClassId==''){
-                    //     // param.ClassId=data[i].id;
-                    //     // getdata();
-                    // }
+           
                     list+='<div id='+data[i].Id+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].StudentName+'<span>选中</span></div>'
                 }
                 $(".sec").html(list);
@@ -430,30 +429,12 @@
             }
             
             $(".classLf").on("click",function(){
-                if(paramClass.IndexPage>1){
-                    
-                    classNum=-1;
-                    paramClass.IndexPage+=classNum;
-                    
-                    
-                    getClassData();
-                }else{
-                    paramClass.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
-                }
+                C.leftPage(paramClass,classNum,getClassData);
+                
             });
             $(".classRf").on("click",function(){
-                if(paramClass.IndexPage<classCount){
-                    
-                    classNum=1;
-                    paramClass.IndexPage+=classNum;
-                    
-                    getClassData();
-
-                }else{
-                    paramClass.IndexPage=classCount;
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                C.rightPage(paramClass,classNum,classCount,getClassData);
+                
             });
             $(".classes").on("click",'.classtable',function(){
                 $('.classes').find('span').hide();

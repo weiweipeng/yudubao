@@ -98,7 +98,7 @@
             margin-top: 34px;
             padding: 10px 20px;
             box-sizing: border-box;
-            overflow-y: scroll;
+            overflow-y: auto;
             height: 78%;
         }
         .mainTitle{
@@ -279,7 +279,9 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-line"></div>
+            <div class="bg-line">
+                <a href="../buy/buy.html"><img src="../../img/buy.png"></a>
+            </div>
         </div>
     </div>
     <div class="layerMask"></div>
@@ -374,28 +376,12 @@
             }
           
             $(".classLf").on("click",function(){
-                if(paramClass.IndexPage>1){
-                    classNum=-1;
-                    paramClass.IndexPage+=classNum;
-                  
-                    
-                    getClassData();
-                }else{
-                    paramClass.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
-                }
+                C.leftPage(paramClass,classNum,getClassData);
+            
             });
             $(".classRf").on("click",function(){
-                if(paramClass.IndexPage<classCount){
-                    classNum=1;
-                    paramClass.IndexPage+=classNum;
-                    // $(".classcount").text(paramClass.IndexPage);
-                    getClassData();
-
-                }else{
-                    paramClass.IndexPage=classCount;
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                C.rightPage(paramClass,classNum,classCount,getClassData);
+          
             });
              //选中班级id
            
@@ -513,28 +499,13 @@
             }
             //翻页
             $(".pracLf").on("click",function(){
-                if(paramList.IndexPage>1){
-                    praNum=-1;
-                    paramList.IndexPage+=praNum;
-                    // $(".classcount").text(paramList.IndexPage);
-                    getpracData();
-                }else{
-                    paramList.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
-                }
+                C.leftPage(paramList,praNum,getpracData);
+           
             });
             
             $(".pracRf").on("click",function(){
-                if(paramList.IndexPage<pracCount){
-                    praNum=1;
-                    paramList.IndexPage+=praNum;
-                    
-                    getpracData();
-
-                }else{
-                    paramList.IndexPage=pracCount;
-                    C.layer(2,"已经是最后一页啦！");
-                } 
+                C.rightPage(paramList,praNum,pracCount,getpracData);
+          
             });
             //获取错题
             var wrongNum=0,subjectArray={};

@@ -437,7 +437,9 @@
                 </div>
             </div>
             </div>
-        	<div class="bg-line"></div>    
+        	<div class="bg-line">
+                <a href="../buy/buy.html"><img src="../../img/buy.png"></a>   
+            </div>    
         </div>
     </div>
     <div class="layerMask"></div>
@@ -598,14 +600,14 @@
                     $(".classcount").text(paramClass.IndexPage);
                     createClassList(classData.Data);
                     setClassCheck();
-                    stu.ClassId=classData.Data[1].Id;
-                    stu.ClassId='aaa';
-                    applystu.ClassId=classData.Data[1].Id;
-                    applystu.ClassId='aaa';
+                    // stu.ClassId=classData.Data[1].Id;
+                    // stu.ClassId='aaa';
+                    // applystu.ClassId=classData.Data[1].Id;
+                    // applystu.ClassId='aaa';
 
-                    getstu();
+                    // getstu();
                     
-                    if(classData.count%paramClass.IndexSize>0){
+                    if(classData.Count%paramClass.IndexSize>0){
                         classCount=parseInt(classData.Count/paramClass.IndexSize)+1;
                     }else{
                         classCount=parseInt(classData.Count/paramClass.IndexSize);
@@ -628,26 +630,28 @@
             }
             
             $(".classLf").on("click",function(){
-                if(paramClass.IndexPage>1){
+                C.leftPage(paramClass,classNum,getClassData);
+                // if(paramClass.IndexPage>1){
                     
-                    classNum=-1;
-                   paramClass.IndexPage+=classNum;
-                    getClassData();
-                }else{
-                    paramClass.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
-                }
+                //     classNum=-1;
+                //    paramClass.IndexPage+=classNum;
+                //     getClassData();
+                // }else{
+                //     paramClass.IndexPage=1;
+                //     C.layer(2,"已经是第一页啦！");
+                // }
             });
             $(".classRf").on("click",function(){
-                if(paramClass.IndexPage<classCount){
-                    classNum=1;
-                    paramClass.IndexPage+=classNum;
-                    getClassData();
+                C.rightPage(paramClass,classNum,classCount,getClassData);
+                // if(paramClass.IndexPage<classCount){
+                //     classNum=1;
+                //     paramClass.IndexPage+=classNum;
+                //     getClassData();
 
-                }else{
-                    paramClass.IndexPage=classCount;
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                // }else{
+                //     paramClass.IndexPage=classCount;
+                //     C.layer(2,"已经是最后一页啦！");
+                // }
             });
             $(".classes").on("click",'.classtable',function(){
                 $('.classes').find('span').hide();
@@ -682,7 +686,7 @@
          
             }
             //获取学生信息
-            var tablenum=0;
+            var tablenum=0,tableCount=0;
             function getstu(){
                 var data=C.POST(stu,httpUrl.GetStudentsListByClassID,successGetstu);
             }
@@ -694,10 +698,16 @@
                     return false;
                 }
                 if(datas.Result==1){
-                    stu.IndexPage+=tablenum;
+                    
+                    
                     var data=datas.Data;
                     var len=datas.Data.length;
                     var half=parseInt(len/2);
+                    if(datas.Count%stu.IndexSize>0){
+                        tableCount=parseInt(datas.Count/stu.IndexSize)+1;
+                    }else{
+                        tableCount=parseInt(datas.Count/stu.IndexSize);
+                    }
                     var lists='<li><p class="cell1">编号</p><p class="cell2">选中</p><p class="cell3">账号</p><p class="cell4">姓名</p><p class="cell5">操作</p></li>';
                     var list1='',list2='';
                     for(var i=0;i<half;i++){
@@ -756,27 +766,30 @@
             }
 
             $(".left_btn").on("click",function(){
-                if(stu.IndexPage>1){
+                C.leftPage(stu,tablenum,getstu);
+                // if(stu.IndexPage>1){
                    
-                    tablenum=-1;
-                    
-                    getstu();
-                }else{
-                    stu.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
-                }
+                //     tablenum=-1;
+                //     stu.IndexPage+=tablenum;
+                //     getstu();
+                // }else{
+                //     stu.IndexPage=1;
+                //     C.layer(2,"已经是第一页啦！");
+                // }
             });
             $(".right_btn").on("click",function(){
-                if(stu.IndexPage<count){
+                C.rightPage(stu,tablenum,tableCount,getstu);
+                // if(stu.IndexPage<count){
                    
-                    tablenum=1;
+                //     tablenum=1;
+                //     stu.IndexPage+=tablenum;
                     
-                    getstu();
+                //     getstu();
 
-                }else{
-                    stu.IndexPage=count;
-                     C.layer(2,"已经是最后一页啦！");
-                }
+                // }else{
+                //     stu.IndexPage=count;
+                //      C.layer(2,"已经是最后一页啦！");
+                // }
             });
             //查看密码
             $('.tablelist').on('click','.getimfor',function(){
@@ -1053,7 +1066,7 @@
                 var id=$(this).attr('id');
                 var param={};
                 param.StudentId=id;
-                var data=C.POSTS(JSON.stringify(param),'http://192.168.16.99:3246/api/ClassManager/ApprovedClassStudent',successSure)
+                var data=C.POSTS(JSON.stringify(param),httpUrl.ApprovedClassStudent,successSure)
             });
             function successSure(datas){
                 if(datas.Result==1){

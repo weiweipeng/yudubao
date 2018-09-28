@@ -282,7 +282,9 @@
         	    	</div>
             	</div>
             </div>
-            <div class="bg-line"></div>
+            <div class="bg-line">
+                <a href="../buy/buy.html"><img src="../../img/buy.png"></a>
+            </div>
         </div>
     </div>
     <div class="layerMask"></div>
@@ -346,6 +348,7 @@
                 
             // });
             function leftrightScale(){
+                C.resizes();
                 $('.mainleft').hide();
                 $(".mainright").hide();
                 $('.maincenter').width('100%');
@@ -353,7 +356,7 @@
             var stuData=C.POSTS('',httpUrl.GetStudentInfo,successGetstu);
             //学生答案
             var stuSubQueList = {};
-            console.log(stuData);
+            
             C.load(0);
             function successGetstu(stuData) {
                 if(stuData.Result==1){
@@ -398,7 +401,7 @@
                 }
             }
             function createClassList(data){
-                console.log(data);
+                
                 var list='';
                 for(var i=0;i<data.length;i++){
                     list+='<div id='+data[i].ClassId+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].ClassesName+'<span>选中</span></div>'
@@ -408,24 +411,12 @@
             }
            
             $(".classLf").on("click",function(){
-                if(paramClass.IndexPage>1){
-                    classNum=-1;
-                    paramClass.IndexPage+=classNum;
-                    getClassData();
-                }else{
-                    paramClass.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
-                }
+                C.leftPage(paramClass,classNum,getClassData);
+            
             });
             $(".classRf").on("click",function(){
-                if(paramClass.IndexPage<classCount){
-                    classNum=-1;
-                    paramClass.IndexPage+=classNum;
-                    getClassData();
-                }else{
-                    paramClass.IndexPage=count;
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                C.rightPage(paramClass,classNum,classCount,getClassData);
+                
             });
              //选中班级id
            
@@ -441,74 +432,14 @@
                     $(this).find('span').show();
                     getpracData();
 
-                    // paramList.ClassId=spanId;
-                    // answer.classesId=spanId;
-                    // getpracData();
-
-
-                    // $(this).find('span').toggle();
-                    // //判断是否所有的班级选中全部清除
-                    // var spanbox=$('.classes').find('span');
-                    // var boxBool=true;
-                    // var spanBool=$(this).find('span').css("display");
-                    // var spanId=$(this).attr('id');
-                    // var grades=$(this).attr('gradeid');  
-                    // console.log(spanbox);
-                    // for(var k=0;k<spanbox.length;k++){
-                    //     var boxshow=$(spanbox).eq(k).css('display');
-                    //     if(boxshow=='block' || boxshow=='inline'){
-                    //         boxBool=false;
-                    //         console.log(3333,boxshow);
-                    //     }
-                    // }
-                    // if(boxBool){
-                    //     gradeid='';
-                    // }else{
-
-                    //     if(gradeid==''){
-                    //         pracId='';
-                    //         gradeid = grades; 
-                    //         paramList.ClassId=spanId;
-                    //         answer.classesId=spanId;
-                          
-                    //         getpracData();
-                    //         // C.load(0);
-                    //         gradeName = $(this).attr('gradeName'); 
-                    //     }else if(gradeid!='' && gradeid!=grades){
-                    //         // spanBool='none';
-                    //         $(this).find('span').hide();
-                    //         C.layer(2,'不能选择不同的班级！');
-                    //         return false;
-                    //     }
-                    // }
-                    // // console.log(spanBool,spanId);
-                    // if(spanBool=='block' || spanBool=='inline'){
-                    //     classListId.push(spanId);
-                    // }else{
-                    //     var j=classListId.indexOf(spanId);
-                    //     // console.log(classListId);
-                    //     classListId.splice(j,1);
-                    //     // console.log(classListId);
-                    // }
+                    
                 }else{
                     C.layer(2,'请先做完练习！');
                 }
             });
             //翻页后班级是否选中
             function setClassCheck(){
-                // console.log(classListId);
-                // if(classListId.length!=0){
-                //     var spanRember=$(".classtable");
-                //     for(var i=0;i<spanRember.length;i++){
-                //         var ids=spanRember[i].id;
-                //         if(classListId.indexOf(ids,0)!=-1){
-                //             $(spanRember).eq(i).find('span').show();
-                //         }else{
-                //             $(spanRember).eq(i).find('span').hide();//可以不要
-                //         }
-
-                //     }
-                // }
+              
                 var ids=$(".classes").find('.classtable');
                 for(var i=0;i<ids.length;i++){
                     var ID=$(ids).eq(i).attr('id');
@@ -524,7 +455,7 @@
             $(".personprac").on('click',function(){
                 if(pracBool){
                     personClassBool=true;
-                    // pracId='';
+                    paramList.IndexPage=1;
                     getpracData();
                 }else{
                     C.layer(2,"请先做完练习");
@@ -533,6 +464,7 @@
             $(".classprac").on("click",function(){
                 if(pracBool){
                     personClassBool=false;
+                    paramList.IndexPage=1;
                     getpracData();
                 }else{
                     C.layer(2,"请先做完练习！");
@@ -540,8 +472,7 @@
             });
             function getpracData(){
                  var pracListData={};
-                 console.log(paramList);
-                 console.log(personClassBool);
+                
                 if(personClassBool){
                     paramList.tarskType=0;
                 }else{
@@ -581,7 +512,7 @@
                     // }else{
                     //     nameArr=[data[i].Name,data[i].Name];
                     // }
-                  
+                    
                     htmls+='<div class="lf bg1 prac" times="'+data[i].LimitedTime+'" names="'+data[i].Name+'"" id="'+data[i].Id+'">';
                     htmls+='<p>'+data[i].Name+'</p>';
                     
@@ -602,7 +533,7 @@
 
                     $('.practiceList').find('span').hide();
                     var limeTime=$(this).attr('times');
-                    // console.log(limeTime=='null');
+                    
 
                     C.load(0);
                   
@@ -658,9 +589,9 @@
                 }else{
                      sh=ah<10?"0"+ah:ah;
                 }
-                // console.log(ss,sm,sh);
+                
                 timestr=sh+':'+sm+":"+ss;
-                // console.log(timestr);
+                
                 $('.time').text(timestr);
 
             }
@@ -668,7 +599,7 @@
                 if (maxtime >= 0) {
                     minutes = Math.floor(maxtime / 60);
                     seconds = Math.floor(maxtime % 60);
-                    console.log(minutes,seconds);
+                    
                      // msg = "距离结束还有" + minutes + "分" + seconds + "秒";
                     if(seconds<10&&minutes>10){
                         msg =  minutes + ":" + "0"+seconds ;
@@ -679,7 +610,7 @@
                     }else{
                         msg = minutes + ":" + seconds;
                     }
-                     // console.log(msg);
+                    
                      alltime=minutes*60+seconds;
                      timestr=msg;
                      $(".time").text(timestr);
@@ -696,44 +627,26 @@
             }     
             //翻页后练习任务是否选中
             function setPracCheck(){
-                console.log(pracIdList);
                
-                    var idRember=$(".prac");
-                    for(var i=0;i<idRember.length;i++){
-                        var id=$(idRember).eq(i).attr('id')
-                        if(id==pracId){
-                            console.log($(idRember).attr('id'));
-                            console.log(pracId);
-                            $(idRember).eq(i).find('span').show();
-                        }
-
+                var idRember=$(".prac");
+                for(var i=0;i<idRember.length;i++){
+                    var id=$(idRember).eq(i).attr('id')
+                    if(id==pracId){
+                        $(idRember).eq(i).find('span').show();
                     }
+
+                }
 
             }
             //翻页
             $(".pracLf").on("click",function(){
-                if(paramList.IndexPage>1){
-                    praNum=-1;
-                    paramList.IndexPage+=praNum;
+                C.leftPage(paramList,praNum,getpracData);
                 
-                    getpracData();
-                }else{
-                    paramList.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
-                }
             });
             
             $(".pracRf").on("click",function(){
-                if(paramList.IndexPage<pracCount){
-                    praNum=1;
-                    paramList.IndexPage+=praNum;
-                    console.log(pracCount);
-                    getpracData();
-
-                }else{
-                    paramList.IndexPage=pracCount;
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                C.rightPage(paramList,praNum,pracCount,getpracData);
+                
             });
             //篇章练习
              var tarkCount=0;
@@ -752,14 +665,8 @@
                     // pracCount=tarskData.count;
                     C.load(1);
                     tarkCount=tarskData.Data.length;
-                    console.log('tarkCount',tarkCount);
-                    // if(tarskDatas.Count%Tarsk.IndexSize>0){
-                    //     tarkCount=parseInt(tarskDatas.Count/Tarsk.IndexSize)+1;
-                    // }else{
-                    //     tarkCount=parseInt(tarskDatas.Count/Tarsk.IndexSize);
-                    // }
+                
                     $('.allcount').text('共'+tarkCount+'页');
-                    // console.log(pracCount);
                 }else{
                     C.load(1);
                     C.layer(1,tarskData.Message);
@@ -781,7 +688,6 @@
                 }
             });
             $(".right_btn").on('click',function(){
-                console.log(nums,tarkCount);
                 if(nums>=tarkCount){
                     // getresult();
                     C.layer(2,"这是最后一页啦！")
@@ -829,10 +735,8 @@
                 $(".mainContainer").html(subStr);
                 leftrightScale();
                 var questions = subjectArray[subjectIndex].QuestionItem;
-                console.log(subjectArray[subjectIndex]);
                 $.each(questions, function (index, value) {
                     var inputDom = $(".mainContainer").find("."+value.Id);
-                    console.log(inputDom);
                     if (value.Answer.indexOf('|') != -1) {
                         if (stuSubQueList[value.Id] != undefined) {
                             var itemAnsweArry = stuSubQueList[value.Id].split('|');
@@ -841,7 +745,6 @@
                             });
                         }
                     } else {
-                        console.log(inputDom);
                         $.each(inputDom, function (ind, val) {
                             if (val.type == "text") {
                                 val.value = stuSubQueList[value.Id] == undefined ? "" : stuSubQueList[value.Id];
@@ -884,7 +787,6 @@
             // autoLength();
             $('.article2 .article-scroll').scrollTop('0');
             $('.slimScrollBar').css('top', "0");
-                console.log(stuSubQueList);
             }
             
             function IsNormal(str) {
@@ -912,7 +814,6 @@
                 titleTime();
                 getresult();
                var str=JSON.stringify(stuSubQueList);
-                console.log(str)
                 str=str.replace(/"/g,"'");
                 answer.studnetAnswer=str.slice(0,str.length);
                 if(timestr.length!=0){
@@ -920,19 +821,13 @@
                 }
                 alltime=0;
                 clearInterval(timers);
-                console.log(timestr);
-                
-                console.log(JSON.stringify(answer));
                 var returnAnswer=C.POSTS(JSON.stringify(answer),'http://192.168.16.99:10012/api/EnglishArticleTaskHistoryBase/AddEnglishArticleTaskHistoryBase',successRelease);
             }
             function successRelease(returnAnswer) {
-                if(returnAnswer.result==1){
-                    console.log(JSON.parse(returnAnswer.data.data));
+                
+                    
                     getsuccessBool();
-                }else{
-                    C.layer(1,returnAnswer.message);
-
-                }
+               
             }
             function getsuccessBool(){
                 var getBool={};
@@ -950,20 +845,7 @@
                     C.layer(2,data.Message);
                 }
             }
-            // function submit(){
-            //     var str=JSON.stringify(stuSubQueList);
-            //     str=str.replace(/"/g,"'");
-            //     answer.studnetAnswer=str.slice(0,str.length);
-
-               
-            //     //http://192.168.16.99:10012/swagger/api/EnglishArticleTaskHistoryBase/AddEnglishArticleTaskHistoryBase
-            //     console.log(answer.studnetAnswer);
-            //     var returnAnswer=C.POSTS(JSON.stringify(answer),'http://192.168.16.99:10012/api/EnglishArticleTaskHistoryBase/AddEnglishArticleTaskHistoryBase');
-            //     if(returnAnswer.result==1){
-            //         console.log(JSON.parse(returnAnswer.data.data));
-            //     }else{
-            //         C.layer(1,returnAnswer.me
-            // }
+       
             $(window).resize(function () {  
                 
                 C.resezes();

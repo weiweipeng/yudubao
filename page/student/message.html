@@ -222,24 +222,7 @@
                 logins(submitdata);
             });
             function logins(submitdata){
-                // console.log(submitdata);
-     //            $.ajax({
-           //          type: 'POST',
-           //          url: httpUrl.RegUserAccount,
-           //          data: JSON.stringify(submitdata),
-           //          dataType: 'json',
-                    // contentType: 'application/json',
-           //          success: function (data) {
-           //              if(data.result==1){
-           //               window.location.href="success.html";
-           //              }else{
-           //               alert(data.message);
-           //              }
-           //          },
-           //          error: function (error) {
-           //              console.log(333,error);
-           //          }
-           //      });
+     
                 var useData=C.POSTS(JSON.stringify(submitdata),httpUrl.RegUserAccount,successLodin);
                 
             }

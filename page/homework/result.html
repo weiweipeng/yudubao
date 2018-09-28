@@ -271,7 +271,9 @@
             </div>
 
             </div>
-             <div class="bg-line"></div>   
+             <div class="bg-line">
+                 <a href="../buy/buy.html"><img src="../../img/buy.png"></a>
+             </div>   
             
         </div>
     </div>
@@ -428,26 +430,12 @@
             }
             
             $(".classLf").on("click",function(){
-                if(paramClass.IndexPage>1){
-
-                    classNums = -1;
-                    paramClass.IndexPage+=classNums;
-                    getClassData();
-                }else{
-                    paramClass.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
-                }
+                C.leftPage(paramClass,classNums,getClassData);
+         
             });
             $(".classRf").on("click",function(){
-                if(paramClass.IndexPage<classCount){
-                    classNums = 1;  
-                    paramClass.IndexPage+=classNums;
-                    getClassData();
-
-                }else{
-                    paramClass.IndexPage=classCount;
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                C.rightPage(paramClass,classNums,classCount,getClassData);
+             
             });
             $(".classes").on("click",'.classtable',function(){
                 $('.classes').find('span').hide();

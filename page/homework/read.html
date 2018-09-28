@@ -308,7 +308,9 @@
                 </div>
             </div>
             </div>
-            <div class="bg-line"></div>
+            <div class="bg-line">
+                <a href="../buy/buy.html"><img src="../../img/buy.png"></a>
+            </div>
         </div>
     </div>
     <div class="layerMask"></div>
@@ -383,10 +385,7 @@
                 console.log(data);
                 var list='';
                 for(var i=0;i<data.length;i++){
-                    // if(param.ClassId==''){
-                    //     param.ClassId=data[i].Id;
-                    //     getdata();
-                    // }
+                   
                     list+='<div id='+data[i].Id+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].Name+'<span>选中</span></div>'
                 }
                 $(".classSec").html(list);
@@ -394,27 +393,12 @@
             }
             
             $(".classLf").on("click",function(){
-                if(paramClass.IndexPage>1){
-                    classNum=-1;
-                    paramClass.IndexPage+=classNum;
-                    // $(".classcount").text(paramClass.IndexPage);
-                    
-                    getClassData();
-                }else{
-                    paramClass.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");
-                }
+                C.leftPage(paramClass,classNum,getClassData);
+        
             });
             $(".classRf").on("click",function(){
-                if(paramClass.IndexPage<classCount){
-                    classNum=1;
-                    paramClass.IndexPage+=classNum;
-                    getClassData();
-
-                }else{
-                    paramClass.IndexPage=classCount;
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                C.rightPage(paramClass,classNum,classCount,getClassData);
+            
             });
             $(".classes").on("click",'.classtable',function(){
                 
@@ -443,18 +427,18 @@
             //获取任务列表
            function getdata(){
             
-                var resultData=C.POSTS(JSON.stringify(param),'http://192.168.16.99:3246/api/TeacherTask/TeacherTaskListClassAllMarking',successGetdata);
+                var resultData=C.POSTS(JSON.stringify(param),httpUrl.TeacherTaskListClassAllMarking,successGetdata);
                 
             }
             function successGetdata(resultData){
                 $('.practiceList').empty();
                 if(resultData.Result==1){
                     console.log(333);
-                    pracCount=resultData.count/6;
-                    if(resultData.count%6>0){
-                        pracCount=resultData.count/6+1;
+                    // pracCount=resultData.count/6;
+                    if(resultData.Count%param.IndexSize>0){
+                        pracCount=resultData.Count/param.IndexSize+1;
                     }else{
-                        pracCount=resultData.count/6;
+                        pracCount=resultData.Count/param.IndexSize;
                     }
                     $('.pracCen').text(param.IndexPage);
                     createPracList(resultData.Data);
@@ -488,33 +472,18 @@
             });
             //翻页
             $(".pracLf").on("click",function(){
-                if(param.IndexPage>1){
-                    praNum=-1;
-                    param.IndexPage+=praNum;
-                    // $(".classcount").text(paramList.IndexPage);
-                    getClassData();
-                }else{
-                    param.IndexPage=1;
-                    C.layer(2,"已经是第一页啦！");            
-                }
+                C.leftPage(param,praNum,getdata);
+              
             });
             
             $(".pracRf").on("click",function(){
-                if(param.IndexPage<pracCount){
-                    praNum=1;
-                    param.IndexPage+=praNum;
-                    
-                    getClassData();
-
-                }else{
-                    param.IndexPage=pracCount;
-                    C.layer(2,"已经是最后一页啦！");
-                } 
+                C.rightPage(param,praNum,pracCount,getdata);
+             
             });
              //获取学生信息
-             var studentCount='';
+             var studentCount=0,studentNum=0;
              function getStudent(){
-                var studentData=C.POST(srtudent,'http://192.168.16.99:3246/api/TeacherTask/TeacherTaskStudentList',successGetstu);
+                var studentData=C.POST(srtudent,httpUrl.TeacherTaskStudentList,successGetstu);
 
                  
              }
@@ -522,12 +491,18 @@
    
                 $('.stusline').empty();
                 if(studentData.Result==1){
-              
-
+                    $('.stucenter ').text(srtudent.IndexPage);
+                    if(studentData.Count%srtudent.IndexSize>0){
+                        studentCount=studentData.Count/srtudent.IndexSize+1;
+                    }else{
+                        studentCount=studentData.Count/srtudent.IndexSize;
+                    }
                     console.log(studentData);
                     studentList(studentData.Data);
                     studentCount=studentData.Count;
+
                  }else{
+                    srtudent.IndexPage-=studentNum;
                     C.layer(2,studentData.message);
                  }
              }
@@ -555,35 +530,19 @@
                 
             });
             $(".stuleft").on("click",function(){
-                if(srtudent.IndexPage>1){
-                    srtudent.IndexPage--;
-                    $(".classcount").text(srtudent.IndexPage);
-                    
-                    getStudent();
-                }else{
-                    srtudent.IndexPage=1;
-                    
-                    C.layer(2,"已经是第一页啦！");
-                }
+                C.leftPage(srtudent,studentNum,getStudent);
+              
             });
             $(".sturight").on("click",function(){
-                if(srtudent.IndexPage<studentCount){
-                    srtudent.IndexPage++;
-                    $(".classcount").text(srtudent.IndexPage);
-                    getStudent();
-
-                }else{
-                    srtudent.IndexPage=studentCount;
-                   
-                    C.layer(2,"已经是最后一页啦！");
-                }
+                C.rightPage(srtudent,studentNum,studentCount,getStudent);
+      
             });
             //获取阅卷的题目
             
             function getTable(){
-                var data=C.POSTS(JSON.stringify(paramlists),'http://192.168.16.99:3246/api/TeacherTask/StudentWriting',successGettab);
+                var data=C.POSTS(JSON.stringify(paramlists),httpUrl.StudentWriting,successGettab);
             }
-            var readdata={};
+            var readdata=[];
             function successGettab(datas){
                 readdata=datas.Data;
                 if(datas.Result==1){

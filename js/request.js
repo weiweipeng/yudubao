@@ -63,7 +63,11 @@ $(function () {
         'GetStudentTaskHistoryBaseStatistics':_host+'/api/EnglishArticleTaskHistoryBase/GetStudentTaskHistoryBaseStatistics',//学生成绩统计
         'TeacherTaskPersonalStudentList':_host+'/api/TeacherTask/TeacherTaskPersonalStudentList',//获取
         'GetStudentsListByClassIDNoApproved':_host+'/api/ClassManager/GetStudentsListByClassIDNoApproved',//获取申请加入班级的学生列表
-        
+        'ApprovedClassStudent':_host+'/api/ClassManager/ApprovedClassStudent',//学生申请加入班级信息
+        'TeacherTaskListClassAllMarking':_host+'/api/TeacherTask/TeacherTaskListClassAllMarking',//阅卷界面任务列表
+        'TeacherTaskStudentList':_host+'/api/TeacherTask/TeacherTaskStudentList',//阅卷获取学生信息
+        'StudentWriting':_host+'/api/TeacherTask/StudentWriting',//阅卷获取阅卷的信息
+
         'GetCourseList':_host+'/api/Course/GetCourseList',//购买页面获取课程列表
         'GetEditionList':_host+'/api/Edition/GetEditionList',//购买页面获取版本列表
         'GetGradeList':_host+'/api/Grade/GetGradeList',//购买页面获取年级列表
