@@ -131,7 +131,52 @@
                 display: none;
            }*/
 
-         
+         .lists li:after{
+            content: "";
+            display: block;
+            clear: both;
+         }
+        .listTimes input{
+            width: 90px;
+            line-height: 26px;
+            margin: 0px!important;
+            border-radius: 2px;
+            border: 1px solid #999;
+        }
+        .listTimes{
+            width: 160px;
+            background-color: #fff;
+            padding-top: 36px;
+            padding-bottom: 106px;
+            border-radius: 5px;
+            display: none;
+            height: 110px;
+            padding-left: 6px;
+            box-sizing: border-box;
+        }
+        .listTimes label{
+            line-height: 32px;
+            text-align: center;
+            float: left;
+        }
+        .mask_sure{
+            background-color: #5FB878;
+            line-height: 26px;
+            width: 50px;
+            border-radius: 4px;
+            text-align: center;
+            color: #fff;
+            position: absolute;
+            bottom: 4px;
+            right: 56px;
+            cursor: pointer;
+        }
+        .listTimes p{
+            color: red;
+            font-size: 12px;
+            margin-top: 36px;
+        }
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button{                -webkit-appearance: none !important;            }
     </style>
 
 </head>
@@ -262,24 +307,17 @@
        <div class="maskflex">
             <div class="lists">
                 <span class="close_list">×</span>
-                <ul class=" listTimes">
-                    <li><input type="radio" name="time" value="5">5分钟</li>
-                    <li><input type="radio" name="time" value="10">10分钟</li>
-                    <li><input type="radio" name="time" value="15">15分钟</li>
-                    <li><input type="radio" name="time" value="20">20分钟</li>
-                    <li><input type="radio" name="time" value="25">25分钟</li>
-                    <li><input type="radio" name="time" value="30">30分钟</li>
-                    <li><input type="radio" name="time" value="35">35分钟</li>
-                    <li><input type="radio" name="time" value="40">40分钟</li>
-                    <li><input type="radio" name="time" value="45">45分钟</li>
-                    <li><input type="radio" name="time" value="50">50分钟</li>
-                    <li><input type="radio" name="time" value="55">55分钟</li>
-                    <li><input type="radio" name="time" value="60">60分钟</li>
-                </ul>
+                <div class="listTimes">
+                    <label>时间：</label>
+                    <input type="number" name="time" maxlength="3">
+
+                    <p>*时间单位：分钟</p>
+                </div>
                 <ul class="semester">
                     
                 </ul>
                 <ul class="unit"></ul>
+                <p class="mask_sure">确定</p>
             </div>
        </div>
     </div>
@@ -671,6 +709,7 @@ console.log(httpUrl);
             $(".mask,.close_list").on("click",function(){
                 $('.mask').hide();
                 $('.mask').find("ul").hide();
+                $('.listTimes').hide();
             });
             //选择需要显示的
             $("#selectTime").shijian({
@@ -684,7 +723,8 @@ console.log(httpUrl);
             $(".listTimes,.semester,.unit").on("click",function(e){
                 e.stopPropagation();
             });
-            $(".listTimes input").on("click",function(){
+            $(".listTimes input").on("change",function(){
+                console.log($(this).val());
                 var v=$(this).val();
                 $(".chofirTime").text(v);
                 tarsks.limitedTime=parseInt(v);
