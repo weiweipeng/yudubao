@@ -2,7 +2,7 @@ $(function () {
 	var localhostDev=true;
     //如果是本地开发，就把localhostDev 设置成true，连接就是拼成‘http://localhost:8080/api/test’
 	//生产环境，就把localhostDev 设置成false，连接就是拼成‘http://60.205.139.23:10012’
-	var _host= localhostDev ? 'http://192.168.16.99:3246' : '';
+	var _host= localhostDev ? 'http://180.168.86.30:3246' : '';
 	window.httpUrl={
 		'Login':_host+'/api/Account/Login',//登陆
 		'TeacherTaskStatisticsDetailList':_host+'/api/TeacherTask/TeacherTaskStatisticsDetailList',//成绩统计班级信息
