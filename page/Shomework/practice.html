@@ -245,10 +245,12 @@
                              </div>
         	    			<!-- 左右翻页 -->
         	    			<div class="left_btn">
-        		    			<img src="../../img/homework/u1878.gif">
+                                上一页
+        		    			<!-- <img src="../../img/homework/u1878.gif"> -->
         		    		</div>
         		    		<div class="right_btn">
-        		    			<img src="../../img/homework/u1879.gif">
+                                下一页
+        		    			<!-- <img src="../../img/homework/u1879.gif"> -->
         		    		</div>
         	    		</div>
         	    	</div>
@@ -548,7 +550,7 @@
                     $(this).find('span').show();
                     if(limeTime!='null'){
                         // maxtime=limeTime*60;
-                        maxtime=60*60;
+                        maxtime=70*60;
                        timer=setInterval(CountDown,1000);
                     }else{
                         addTime();
@@ -596,34 +598,58 @@
 
             }
             function CountDown() {
+                realTimeNew+=1;
+                alltime+=1;
                 if (maxtime >= 0) {
-                    minutes = Math.floor(maxtime / 60);
-                    seconds = Math.floor(maxtime % 60);
                     
-                     // msg = "距离结束还有" + minutes + "分" + seconds + "秒";
-                    if(seconds<10&&minutes>10){
-                        msg =  minutes + ":" + "0"+seconds ;
-                    }else if(minutes<10&&seconds>10){
-                        msg = "0" + minutes + ":" +seconds ;
-                    }else if(minutes<10&&seconds<10){
-                        msg =  "0" + minutes + ":" + "0"+seconds ;
+                    if(maxtime>=3600){
+                        var minutes=Math.floor(maxtime/60)%60;
+                        var hours=Math.floor(maxtime/3600);
+                        var seconds = Math.floor(maxtime % 60);
                     }else{
-                        msg = minutes + ":" + seconds;
+                        var minutes = Math.floor(maxtime / 60);
+                        var seconds = Math.floor(maxtime % 60);
+                        var hours = 0;
+                    }
+                    console.log(minutes,hours);
+                     // msg = "距离结束还有" + minutes + "分" + seconds + "秒";
+                    if(hours<10){
+                        if(seconds<10&&minutes>10){
+                            msg = "0" + hours +":"+ minutes + ":" + "0"+seconds ;
+                        }else if(minutes<10&&seconds>10){
+                            msg = "0" + hours +":"+"0" + minutes + ":" +seconds ;
+                        }else if(minutes<10&&seconds<10){
+                            msg = "0" + hours +":"+"0" + minutes + ":" + "0"+seconds ;
+                        }else{
+                            msg = "0" + hours +":"+minutes + ":" + seconds;
+                        }
+                    }else{
+                        if(seconds<10&&minutes>10){
+                            msg =  hours +":"+ minutes + ":" + "0"+seconds ;
+                        }else if(minutes<10&&seconds>10){
+                            msg =  hours +":"+"0" + minutes + ":" +seconds ;
+                        }else if(minutes<10&&seconds<10){
+                            msg =  hours +":"+ "0" + minutes + ":" + "0"+seconds ;
+                        }else{
+                            msg =  hours +":"+minutes + ":" + seconds;
+                        }
                     }
                     
-                     alltime=minutes*60+seconds;
+                 
+                     // alltime=hours*60*60+minutes*60+seconds;
                      timestr=msg;
                      $(".time").text(timestr);
                      // if (maxtime == 5 * 60)alert("还剩5分钟");
                         --maxtime;
                         // clearInterval(timer)
-                } else{
+                } 
+                // else{
 
-                     clearInterval(timer);
-                     submits();
-                     layer(2,"时间到，结束!");
+                //      clearInterval(timer);
+                //      submits();
+                //      layer(2,"时间到，结束!");
                      
-                }
+                // }
             }     
             //翻页后练习任务是否选中
             function setPracCheck(){
@@ -679,9 +705,9 @@
                 if(nums==1){
                    C.layer(2,'这已经是第一页啦！');
                 }else if(nums>1){
-                    
+                     titleTime();
                     nums--;
-                    titleTime();
+                   
                     getresult();
                     
                  
@@ -692,9 +718,9 @@
                     // getresult();
                     C.layer(2,"这是最后一页啦！")
                 }else if(nums<tarkCount){
-                    
-                    nums++;
                     titleTime();
+                    nums++;
+                    
                     getresult();
                     
                 }
@@ -821,6 +847,7 @@
                 }
                 alltime=0;
                 clearInterval(timers);
+                clearInterval(timer);
                 var returnAnswer=C.POSTS(JSON.stringify(answer),'http://192.168.16.99:10012/api/EnglishArticleTaskHistoryBase/AddEnglishArticleTaskHistoryBase',successRelease);
             }
             function successRelease(returnAnswer) {

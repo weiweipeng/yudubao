@@ -239,13 +239,16 @@
                               
                             </div>
                            
-                            
+                            <!-- 页码 -->
+                             <div class="count">1</div>
                             <!-- 左右翻页 -->
                             <div class="left_btn">
-                                <img src="../../img/homework/u1878.gif">
+                                上一页
+                                <!-- <img src="../../img/homework/u1878.gif"> -->
                             </div>
                             <div class="right_btn">
-                                <img src="../../img/homework/u1879.gif">
+                                下一页
+                                <!-- <img src="../../img/homework/u1879.gif"> -->
                             </div>
                         </div>
                     </div>
@@ -280,7 +283,7 @@
                 </div>
             </div>
             <div class="bg-line">
-                <a href="../buy/buy.html"><img src="../../img/buy.png"></a>
+                <!-- <a href="../buy/buy.html"><img src="../../img/buy.png"></a> -->
             </div>
         </div>
     </div>
@@ -350,6 +353,7 @@
 
                 if(classData.Result==1){
                     $(".classcount").text(paramClass.IndexPage);
+
                     createClassList(classData.Data);
                     setClassCheck();
                     paramList.ClassId=classData.Data[0].ClassId;
@@ -699,6 +703,7 @@
                     stuSubQueList[index] = value;
                 });
                 console.log(stuSubQueList);
+                $('.count').text(nums);
                 var subStr = SubjectStringCorrect(subjectArray[subjectIndex]);
                 // console.log(subStr);
                 $('#ArticleContent').html(subStr);

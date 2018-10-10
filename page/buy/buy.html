@@ -205,7 +205,7 @@
     				<img src="../../img/120.png">
     				<span>张三</span>
     				<!-- <img src="../../img/homework/u2104.png" class="tags"> -->
-                    <p class="tags"></p>
+                    <!-- <p class="tags"></p> -->
     				<ul class="message_list">
     					<li>
     						<a href="#">基本资料</a>
@@ -227,27 +227,44 @@
         <div class="buy_mainContent">
         	<div class="buy_content">
         		<div class="buy_header">启思产品购买平台</div>
-                
-        		<div class="buy_line">
+                <div class="buy_line">
+                    <p class="buy_name">版本</p>
+                    <ul class="buy_con buyedits">
+                        
+                        
+                    </ul>
+                </div>
+        		<!-- <div class="buy_line">
         			<p class="buy_name">学科</p>
         			<ul class="buy_con buycourse">
         				
         			</ul>
-        		</div>
-        		<div class="buy_line">
-        			<p class="buy_name">版本</p>
-        			<ul class="buy_con buyedits">
-        				
-        				
-        			</ul>
-        		</div>
-        		<div class="buy_line">
-        			<p class="buy_name">年级</p>
-        			<ul class="buy_con buygrade">
-        				
-        			</ul>
-        		</div>
+        		</div> -->
         		
+        		<div class="buy_line">
+        			<p class="buy_name">初中</p>
+        			<ul class="buy_con buygrade">
+                        <li id="7" class="active">七年级</li>
+                        <li id="8">八年级</li>
+        				<li id="9">九年级</li>
+        			</ul>
+        		</div>
+        		<div class="buy_line">
+                    <p class="buy_name">高中</p>
+                    <ul class="buy_con buygrade">
+                        <li id="10">英语一</li>
+                        <li id="11">英语二</li>
+                        <li id="12">英语三</li>
+                        <li id="13">英语四</li>
+                        <li id="14">英语五</li>
+                        <li id="15">英语六</li>
+                        <li id="16">英语七</li>
+                        <li id="17">英语八</li>
+                        <li id="18">英语九</li>
+                        <li id="19">英语十</li>
+                        
+                    </ul>
+                </div>
         		<div class="buy_line">
         			<p class="buy_name">学期</p>
         			<ul class="buy_con buyTerm">
@@ -258,10 +275,10 @@
                 <div class="buy_line">
                     <p class="buy_name">购买方式</p>
                     <ul class="buy_con buyStyle">
-                        <li class="active">按篇章购买</li>
-                        <li>按月购买</li>
-                        <li>按半年购买</li>
-                        <li>按一年购买</li>
+                        <li id="style1" class="active">按篇章购买</li>
+                        <li id="style2">按月购买</li>
+                        <li id="style3">按半年购买</li>
+                        <li id="style4">按一年购买</li>
                     </ul>
                 </div>
         		<div class="submitlines">
@@ -306,7 +323,8 @@
             var goods={
             	"IndexPage": 1,
       			"IndexSize": 5,
-            	"Term":"上学期"
+            	"Term":"上学期",
+                'Grade':'七年级'
             };
             var goodadd={
             	'AccountID ':AccountID,
@@ -315,9 +333,10 @@
             C.load(0);
             var isCheckAll=true;//是否全选
             var goodList=[];//商品列表
+            var goodNum=1;//商品购买的时间
             var Coursedata=C.POSTS(JSON.stringify(param),httpUrl.GetCourseList,successCourse);
             var Editdata=C.POSTS(JSON.stringify(param),httpUrl.GetEditionList,successEdit);
-            var Gradedata=C.POSTS(JSON.stringify({}),httpUrl.GetGradeList,successGrade);
+            // var Gradedata=C.POSTS(JSON.stringify({}),httpUrl.GetGradeList,successGrade);
             function successCourse(data){
                 if(data.Result==1){
                     var datas=data.Data;
@@ -365,23 +384,23 @@
             	// goods.
             	goodsList();
             });
-            function successGrade(data){
-            	if(data.Result==1){
-            		var datas=data.Data;
-            		var str="";
-            		$.each(datas,function(i,val){
-            			if(i==0){
-            				goods.Grade='七年级';
-            				str+='<li class="active" id='+val.Id+'>'+val.Name+'</li>';
-            			}else{
-            				str+='<li id='+val.Id+'>'+val.Name+'</li>';
-            			}
-            		});
-            		$('.buygrade').html(str);
-            	}else{
-            		C.layer(1,data.Message);
-            	}
-            }
+            // function successGrade(data){
+            // 	if(data.Result==1){
+            // 		var datas=data.Data;
+            // 		var str="";
+            // 		$.each(datas,function(i,val){
+            // 			if(i==0){
+            // 				goods.Grade='七年级';
+            // 				str+='<li class="active" id='+val.Id+'>'+val.Name+'</li>';
+            // 			}else{
+            // 				str+='<li id='+val.Id+'>'+val.Name+'</li>';
+            // 			}
+            // 		});
+            // 		$('.buygrade').html(str);
+            // 	}else{
+            // 		C.layer(1,data.Message);
+            // 	}
+            // }
             $('.buygrade').on('click','li',function(){
             	var v=$(this).text();
             	goods.Grade = v;
@@ -392,7 +411,24 @@
             	goods.Term=v;
             	goodsList();
             });
-            
+            $('.buyStyle').on('click','li',function(){
+                var v=$(this).attr('id');
+                sessionStorage.setItem('buyStyle',v);
+                goods.IndexSize=v=='style1'?5:1000;
+                switch(v){
+                    
+                    case 'style3':
+                        goodNum=6
+                        break;
+                    case 'style4':
+                        goodNum=12
+                        break;
+                    default:
+                        goodNum=1
+                        break;
+                };
+                goodsList();
+            });
             //获取产品列表
             var listCount=0,num=0;
             function goodsList(){
@@ -400,26 +436,50 @@
             }
             function successGood(data){
                 if(data.Result==1){
-                	var str='<li><p class="cell1"><label class="che"><input id="1" type="checkbox" class="input_che" ><span class="inpu"></span></label></p><p class="cell2">名称</p><p class="cell3">是否收费</p><p class="cell4">价格</p></li>';
-                	var datas=data.Data;
-                	if(data.Count%goods.IndexSize>0){
-                		listCount=data.Count/goods.IndexSize+1;
-                	}else{
-                		listCount=data.Count/goods.IndexSize;
-                	}
-                	$.each(datas,function(i,val){
-                		var charge=val.IsCharge==0?'是':'否';
-                		str+='<li class="boder_line over">';
-    	                str+='<p class="cell1"><label class="che"><input id='+val.Id+' type="checkbox" class="input_che" ><span></span></label></p>';
-    	                str+='<p class="cell2">'+val.Name+'</p>';
-    	                str+='<p class="cell3">'+charge+'</p>';
-    	                str+='<p class="cell4">￥'+val.Price+'</p></li>';
-                	});
-                	C.load(1);
-                	$('.goodList').html(str);
-                	if(goodList.length>0){
-                		setStatus();
-                	}
+                    goodList=[];
+                    var str='<li><p class="cell1"><label class="che"><input id="1" type="checkbox" class="input_che" ><span class="inpu"></span></label></p><p class="cell2">名称</p><p class="cell3">是否收费</p><p class="cell4">价格</p></li>';
+                    var datas=data.Data;
+                	if(goods.IndexSize==5){
+                        
+                        
+                        if(data.Count%goods.IndexSize>0){
+                            listCount=data.Count/goods.IndexSize+1;
+                        }else{
+                            listCount=data.Count/goods.IndexSize;
+                        }
+                        $.each(datas,function(i,val){
+                            var charge=val.IsCharge==0?'是':'否';
+                            str+='<li class="boder_line over">';
+                            str+='<p class="cell1"><label class="che"><input id='+val.Id+' type="checkbox" class="input_che" ><span></span></label></p>';
+                            str+='<p class="cell2">'+val.Name+'</p>';
+                            str+='<p class="cell3">'+charge+'</p>';
+                            str+='<p class="cell4">￥'+val.Price+'</p></li>';
+                        });
+                        C.load(1);
+                        $('.goodList').html(str);
+                        if(goodList.length>0){
+                            setStatus();
+                        }
+                    }else{
+                        var allPrices=0;
+                        $.each(datas,function(i,val){
+                            var monthGood={};
+                            allPrices+=val.Price*goodNum;
+                            monthGood.GoodsID=val.Id;
+                            monthGood.IsArticle=true;
+                            monthGood.GoodsNumber=goodNum;
+                            goodList.push(monthGood);
+                        });
+                        sessionStorage.setItem('goodGrade',goods.Grade);
+                        sessionStorage.setItem('goodTerm',goods.Term);
+                        sessionStorage.setItem('allPrices',allPrices);
+                        str+='<li class="boder_line over">';
+                        str+='<p class="cell1"><label class="che"><input type="checkbox" class="input_che" checked><span></span></label></p>';
+                        str+='<p class="cell2">'+goods.Grade+goods.Term+'</p>';
+                        str+='<p class="cell3">'+'是'+'</p>';
+                        str+='<p class="cell4">￥'+allPrices+'</p></li>';
+                        $('.goodList').html(str);
+                    }
                 	
                 }else{
                 	goods.IndexPage-=num;
@@ -558,6 +618,7 @@
             $('.buy').on('click',function(){
                 remeber();
                 goodadd.Goods=goodList;
+                console.log(goodadd);
                 var data=C.POSTS(JSON.stringify(goodadd),httpUrl.AddGoodsList,successAdd);
             });
 

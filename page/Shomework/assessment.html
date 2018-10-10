@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 	<link rel="stylesheet" type="text/css" href="../../css/common.css">
-    <link rel="stylesheet" type="text/css" href="../../css/shijian.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../../css/shijian.css"> -->
 	<style type="text/css">
 
         .decorate,.decorates{
@@ -273,12 +273,12 @@
                             <div id="tab" style="width: 99%;height:95%; overflow-y:auto;display: none;"></div>
                         </div>
                         <!-- 左右翻页 -->
-                        <div class="left_btn">
-                            <img src="../../img/homework/u1878.gif">
+                        <!-- <div class="left_btn">
+                            上一页
                         </div>
                         <div class="right_btn">
-                            <img src="../../img/homework/u1879.gif">
-                        </div>
+                            下一页
+                        </div> -->
                     </div>
                 </div>
                 <div class="mainright">
@@ -287,7 +287,7 @@
                             <div class="lf starttime">
                                 <p>开始时间</p>
                                 <p class="box">
-                                    <input type="text"  id="selectStartTime" value="未选择"/>
+                                    <input type="text"  id="selectStartTime" placeholder="未选择"/>
                                        
                                 </p>
                                 
@@ -295,7 +295,7 @@
                             <div class="lf endtime">
                                 <p>结束时间</p>
                                 <p class="box">
-                                    <input type="text"  id="selectEndTime" value="未选择"/>
+                                    <input type="text"  id="selectEndTime" placeholder="未选择"/>
                                     
                                 </p>
                             </div>
@@ -340,7 +340,7 @@
             </div>
             </div>
             <div class="bg-line">
-                <a href="../buy/buy.html"><img src="../../img/buy.png"></a>
+                <!-- <a href="../buy/buy.html"><img src="../../img/buy.png"></a> -->
             </div>    
         </div>
     </div>
@@ -351,7 +351,8 @@
         </div>
     </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../../js/jquer_shijian.js"></script>
+    <!-- <script type="text/javascript" src="../../js/jquer_shijian.js"></script> -->
+    <script type="text/javascript" src="../../js/laydate.js"></script>
     <script type="text/javascript" src="../../js/common.js"></script>
     <script type="text/javascript" src="../../js/request.js"></script>
     <script type="text/javascript" src="../../js/echarts.min.js"></script>
@@ -377,19 +378,25 @@
                 $('.names').text(localStorage.getItem('studentName'));
             }
              //选择需要显示的
-            $("#selectStartTime").shijian({
-                // y:-20,//当前年份+10
-                Hour:false,//是否显示小时
-                Minute:false,//是否显分钟
-                // success:function(){}
-            })
-             //选择需要显示的
-            $("#selectEndTime").shijian({
-                // y:-20,//当前年份+10
-                Hour:false,//是否显示小时
-                Minute:false,//是否显分钟
-                // success:function(){}
-            })
+            // $("#selectStartTime").shijian({
+            //     // y:-20,//当前年份+10
+            //     Hour:false,//是否显示小时
+            //     Minute:false,//是否显分钟
+            //     // success:function(){}
+            // })
+            //  //选择需要显示的
+            // $("#selectEndTime").shijian({
+            //     // y:-20,//当前年份+10
+            //     Hour:false,//是否显示小时
+            //     Minute:false,//是否显分钟
+            //     // success:function(){}
+            // })
+            laydate.render({
+               elem: '#selectStartTime' //指定元素
+            });
+            laydate.render({
+               elem: '#selectEndTime' //指定元素
+            });
              //获取班级列表
 
             getClassData();

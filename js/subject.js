@@ -35,8 +35,8 @@ function SubjectString(subject) {
     str += '题型：' + subject.QuestionsType + '&nbsp|&nbsp难度：' + subject.Difficulty + '&nbsp|&nbsp;';
     str += '词数：' + subject.Words + '&nbsp|&nbsp分数：' + subject.Score + '</p>';
     str += '<h3 style="margin-top: 20px;">' + subject.Name + '</h3><br/>';
-    str += '<p class="specialFont" >文章导读：' + subject.WenZhangDaoDu + '</p><br/>';
-    str += '<p class="specialFont" >词语指津：' + subject.CiYuZhiJin + '</p><br/>';
+    // str += '<p class="specialFont" >文章导读：' + subject.WenZhangDaoDu + '</p><br/>';
+    // str += '<p class="specialFont" >词语指津：' + subject.CiYuZhiJin + '</p><br/>';
     switch (subject.QuestionsType) {
         case '阅读判断':
             str += subject.Title + '<hr>';
@@ -1759,15 +1759,21 @@ function TeacherSubjectStringWrongs(subject) {
                     str += '<div class="fr"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="T" />√</div></div>';
 
                     
-                    if(val.ErrorStudentName!=null){
-                       str += '答错学生：' + val.ErrorStudentName + '<br/>';
-                    }else{
-                        str += '答错学生：<br/>';
-                    }
+
                     str += '正确答案：' + val.Answer + '<br/>';
                     str += '大能力：' + val.BigKnowledge + '<br/>';
                     str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    if(val.ErrorStudentName!=null){
+                        var len=val.ErrorStudentName.split(',').length;
+                        str+='答错人数：'+len+'<br>';
+                        str += '答错学生：' + val.ErrorStudentName + '<br/>';
+                    }else{
+                        var len=0;
+                        str+='答错人数：'+len+'<br>';
+                        str += '答错学生：<br/>';
+                    }
                     str += '解析：' + val.Analysis + '<br/>';
+                    
                 // }
             });
             break;
@@ -1784,15 +1790,21 @@ function TeacherSubjectStringWrongs(subject) {
                     }
                     str += '<br/><br/>';
 
-                    if(val.ErrorStudentName!=null){
-                       str += '答错学生：' + val.ErrorStudentName + '<br/>';
-                    }else{
-                        str += '答错学生：<br/>';
-                    }
+                    
                     str += '正确答案：' + val.Answer + '<br/>';
                     str += '大能力：' + val.BigKnowledge + '<br/>';
                     str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    if(val.ErrorStudentName!=null){
+                        var len=val.ErrorStudentName.split(',').length;
+                        str+='答错人数：'+len+'<br>';
+                        str += '答错学生：' + val.ErrorStudentName + '<br/>';
+                    }else{
+                        var len=0;
+                        str+='答错人数：'+len+'<br>';
+                        str += '答错学生：<br/>';
+                    }
                     str += '解析：' + val.Analysis + '<br/>';
+                    
                 // }
             });
             break;
@@ -1809,15 +1821,21 @@ function TeacherSubjectStringWrongs(subject) {
                     }
                     str += '<br/>';
 
-                    if(val.ErrorStudentName!=null){
-                       str += '答错学生：' + val.ErrorStudentName + '<br/>';
-                    }else{
-                        str += '答错学生：<br/>';
-                    }
+                    
                     str += '正确答案：' + val.Answer + '<br/>';
                     str += '大能力：' + val.BigKnowledge + '<br/>';
                     str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    if(val.ErrorStudentName!=null){
+                        var len=val.ErrorStudentName.split(',').length;
+                        str+='答错人数：'+len+'<br>';
+                        str += '答错学生：' + val.ErrorStudentName + '<br/>';
+                    }else{
+                        var len=0;
+                        str+='答错人数：'+len+'<br>';
+                        str += '答错学生：<br/>';
+                    }
                     str += '解析：' + val.Analysis + '<br/>';
+
                 // }
             });
             break;
@@ -1834,14 +1852,19 @@ function TeacherSubjectStringWrongs(subject) {
                     }
                     str += '</div>';
 
-                    if(val.ErrorStudentName!=null){
-                       str += '答错学生：' + val.ErrorStudentName + '<br/>';
-                    }else{
-                        str += '答错学生：<br/>';
-                    }
+                    
                     str += '正确答案：' + val.Answer + '<br/>';
                     str += '大能力：' + val.BigKnowledge + '<br/>';
                     str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    if(val.ErrorStudentName!=null){
+                        var len=val.ErrorStudentName.split(',').length;
+                        str+='答错人数：'+len+'<br>';
+                        str += '答错学生：' + val.ErrorStudentName + '<br/>';
+                    }else{
+                        var len=0;
+                        str+='答错人数：'+len+'<br>';
+                        str += '答错学生：<br/>';
+                    }
                     str += '解析：' + val.Analysis + '<br/>';
                 // }
             });
@@ -1855,14 +1878,19 @@ function TeacherSubjectStringWrongs(subject) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
 
                     newStr += val.Sort + ' . ';
-                    if(val.ErrorStudentName!=null){
-                       str += '答错学生：' + val.ErrorStudentName + '<br/>';
-                    }else{
-                        str += '答错学生：<br/>';
-                    }
+                    
                     newStr += '正确答案：' + val.Answer + '<br/>';
                     newStr += '大能力：' + val.BigKnowledge + '<br/>';
                     newStr += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    if(val.ErrorStudentName!=null){
+                        var len=val.ErrorStudentName.split(',').length;
+                        newStr+='答错人数：'+len+'<br>';
+                        newStr += '答错学生：' + val.ErrorStudentName + '<br/>';
+                    }else{
+                        var len=0;
+                        newStr+='答错人数：'+len+'<br>';
+                        newStr += '答错学生：<br/>';
+                    }
                     newStr += '解析：' + val.Analysis + '<br/>';
                 // } else {
                 //     content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
@@ -1890,14 +1918,19 @@ function TeacherSubjectStringWrongs(subject) {
                     existError = true;
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
 
-                    if(val.ErrorStudentName!=null){
-                       str += '答错学生：' + val.ErrorStudentName + '<br/>';
-                    }else{
-                        str += '答错学生：<br/>';
-                    }
+                    
                     newStr += '正确答案：' + val.Answer + '<br/>';
                     newStr += '大能力：' + val.BigKnowledge + '<br/>';
                     newStr += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    if(val.ErrorStudentName!=null){
+                        var len=val.ErrorStudentName.split(',').length;
+                        newStr+='答错人数：'+len+'<br>';
+                        newStr += '答错学生：' + val.ErrorStudentName + '<br/>';
+                    }else{
+                        var len=0;
+                        newStr+='答错人数：'+len+'<br>';
+                        newStr += '答错学生：<br/>';
+                    }
                     newStr += '解析：' + val.Analysis + '<br/>';
                 // } else {
                 //     content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
@@ -1918,14 +1951,19 @@ function TeacherSubjectStringWrongs(subject) {
                     }
                     str += '</div>';
 
-                    if(val.ErrorStudentName!=null){
-                       str += '答错学生：' + val.ErrorStudentName + '<br/>';
-                    }else{
-                        str += '答错学生：<br/>';
-                    }
+                    
                     str += '正确答案：' + val.Answer + '<br/>';
                     str += '大能力：' + val.BigKnowledge + '<br/>';
                     str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    if(val.ErrorStudentName!=null){
+                        var len=val.ErrorStudentName.split(',').length;
+                        str+='答错人数：'+len+'<br>';
+                        str += '答错学生：' + val.ErrorStudentName + '<br/>';
+                    }else{
+                        var len=0;
+                        str+='答错人数：'+len+'<br>';
+                        str += '答错学生：<br/>';
+                    }
                     str += '解析：' + val.Analysis + '<br/>';
                 // }
             });
@@ -1944,14 +1982,19 @@ function TeacherSubjectStringWrongs(subject) {
                     existError = true;
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
 
-                    if(val.ErrorStudentName!=null){
-                       str += '答错学生：' + val.ErrorStudentName + '<br/>';
-                    }else{
-                        str += '答错学生：<br/>';
-                    }
+                    
                     newStr += '正确答案：' + val.Answer + '<br/>';
                     newStr += '大能力：' + val.BigKnowledge + '<br/>';
                     newStr += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    if(val.ErrorStudentName!=null){
+                        var len=val.ErrorStudentName.split(',').length;
+                        str+='答错人数：'+len+'<br>';
+                        str += '答错学生：' + val.ErrorStudentName + '<br/>';
+                    }else{
+                        var len=0;
+                        str+='答错人数：'+len+'<br>';
+                        str += '答错学生：<br/>';
+                    }
                     newStr += '解析：' + val.Analysis + '<br/>';
                 // } else {
                 //     content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
@@ -1973,14 +2016,19 @@ function TeacherSubjectStringWrongs(subject) {
                     existError = true;
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
 
-                    if(val.ErrorStudentName!=null){
-                       str += '答错学生：' + val.ErrorStudentName + '<br/>';
-                    }else{
-                        str += '答错学生：<br/>';
-                    }
+                    
                     newStr += '正确答案：' + val.Answer + '<br/>';
                     newStr += '大能力：' + val.BigKnowledge + '<br/>';
                     newStr += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    if(val.ErrorStudentName!=null){
+                        var len=val.ErrorStudentName.split(',').length;
+                        str+='答错人数：'+len+'<br>';
+                        str += '答错学生：' + val.ErrorStudentName + '<br/>';
+                    }else{
+                        var len=0;
+                        str+='答错人数：'+len+'<br>';
+                        str += '答错学生：<br/>';
+                    }
                     newStr += '解析：' + val.Analysis + '<br/>';
                 // } else {
                 //     content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
@@ -2008,14 +2056,19 @@ function TeacherSubjectStringWrongs(subject) {
                 }
                 str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
 
-                if(val.ErrorStudentName!=null){
-                       str += '答错学生：' + val.ErrorStudentName + '<br/>';
-                    }else{
-                        str += '答错学生：<br/>';
-                    }
+                
                 str += '正确答案：' + val.Answer + '<br/>';
                 str += '大能力：' + val.BigKnowledge + '<br/>';
                 str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                if(val.ErrorStudentName!=null){
+                    var len=val.ErrorStudentName.split(',').length;
+                    str+='答错人数：'+len+'<br>';
+                    str += '答错学生：' + val.ErrorStudentName + '<br/>';
+                }else{
+                    var len=0;
+                    str+='答错人数：'+len+'<br>';
+                    str += '答错学生：<br/>';
+                }
                 str += '解析：' + val.Analysis + '<br/>';
             });
             break;
@@ -2039,14 +2092,19 @@ function TeacherSubjectStringWrongs(subject) {
                 }
                 str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
 
-                if(val.ErrorStudentName!=null){
-                       str += '答错学生：' + val.ErrorStudentName + '<br/>';
-                    }else{
-                        str += '答错学生：<br/>';
-                    }
+                
                 str += '正确答案：' + val.Answer + '<br/>';
                 str += '大能力：' + val.BigKnowledge + '<br/>';
                 str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                if(val.ErrorStudentName!=null){
+                    var len=val.ErrorStudentName.split(',').length;
+                    str+='答错人数：'+len+'<br>';
+                    str += '答错学生：' + val.ErrorStudentName + '<br/>';
+                }else{
+                    var len=0;
+                    str+='答错人数：'+len+'<br>';
+                    str += '答错学生：<br/>';
+                }
                 str += '解析：' + val.Analysis + '<br/>';
             });
             break;
@@ -2069,14 +2127,19 @@ function TeacherSubjectStringWrongs(subject) {
                 }
                 str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
 
-                if(val.ErrorStudentName!=null){
-                       str += '答错学生：' + val.ErrorStudentName + '<br/>';
-                    }else{
-                        str += '答错学生：<br/>';
-                    }
+                
                 str += '正确答案：' + val.Answer + '<br/>';
                 str += '大能力：' + val.BigKnowledge + '<br/>';
                 str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                if(val.ErrorStudentName!=null){
+                    var len=val.ErrorStudentName.split(',').length;
+                    str+='答错人数：'+len+'<br>';
+                    str += '答错学生：' + val.ErrorStudentName + '<br/>';
+                }else{
+                    var len=0;
+                    str+='答错人数：'+len+'<br>';
+                    str += '答错学生：<br/>';
+                }
                 str += '解析：' + val.Analysis + '<br/>';
             });
             break;
@@ -2089,14 +2152,19 @@ function TeacherSubjectStringWrongs(subject) {
                     existError = true;
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
 
-                    if(val.ErrorStudentName!=null){
-                       str += '答错学生：' + val.ErrorStudentName + '<br/>';
-                    }else{
-                        str += '答错学生：<br/>';
-                    }
+                    
                     newStr += '正确答案：' + val.Answer + '<br/>';
                     newStr += '大能力：' + val.BigKnowledge + '<br/>';
                     newStr += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    if(val.ErrorStudentName!=null){
+                        var len=val.ErrorStudentName.split(',').length;
+                        newStr+='答错人数：'+len+'<br>';
+                        newStr += '答错学生：' + val.ErrorStudentName + '<br/>';
+                    }else{
+                        var len=0;
+                        newStr+='答错人数：'+len+'<br>';
+                        newStr += '答错学生：<br/>';
+                    }
                     newStr += '解析：' + val.Analysis + '<br/>';
                 // } else {
                     // content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
@@ -2112,14 +2180,19 @@ function TeacherSubjectStringWrongs(subject) {
                     existError = true;
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
 
-                    if(val.ErrorStudentName!=null){
-                       str += '答错学生：' + val.ErrorStudentName + '<br/>';
-                    }else{
-                        str += '答错学生：<br/>';
-                    }
+                    
                     newStr += '正确答案：' + val.Answer + '<br/>';
                     newStr += '大能力：' + val.BigKnowledge + '<br/>';
                     newStr += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    if(val.ErrorStudentName!=null){
+                        var len=val.ErrorStudentName.split(',').length;
+                        newStr+='答错人数：'+len+'<br>';
+                        newStr += '答错学生：' + val.ErrorStudentName + '<br/>';
+                    }else{
+                        var len=0;
+                        newStr+='答错人数：'+len+'<br>';
+                        newStr += '答错学生：<br/>';
+                    }
                     newStr += '解析：' + val.Analysis + '<br/>';
                 // } else {
                 //     content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
@@ -2135,14 +2208,19 @@ function TeacherSubjectStringWrongs(subject) {
                     existError = true;
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
 
-                    if(val.ErrorStudentName!=null){
-                       str += '答错学生：' + val.ErrorStudentName + '<br/>';
-                    }else{
-                        str += '答错学生：<br/>';
-                    }
+                    
                     newStr += '正确答案：' + val.Answer + '<br/>';
                     newStr += '大能力：' + val.BigKnowledge + '<br/>';
                     newStr += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    if(val.ErrorStudentName!=null){
+                        var len=val.ErrorStudentName.split(',').length;
+                        newStr+='答错人数：'+len+'<br>';
+                        newStr += '答错学生：' + val.ErrorStudentName + '<br/>';
+                    }else{
+                        var len=0;
+                        newStr+='答错人数：'+len+'<br>';
+                        newStr += '答错学生：<br/>';
+                    }
                     newStr += '解析：' + val.Analysis + '<br/>';
                 // } else {
                 //     content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');

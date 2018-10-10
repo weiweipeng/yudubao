@@ -382,7 +382,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 	margin-left: 10px;
 	margin-right: 10px;
 	float: left;
-	width: 40px;
+	width: 76px;
 
 	font-family: 'Arial Negreta', 'Arial Normal', 'Arial';
     font-weight: 700;
@@ -409,7 +409,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
     line-height: 36px;
     background-color: #fff;
 }
-.message_list>li:first-child{
+.message_list>li{
 	border-bottom: 1px solid #999;
 }
 .exit>a{
@@ -504,20 +504,41 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
     margin-top: 5px;
 }
 .left_btn{
-	position: absolute;
+	/*position: absolute;
 	top: 50%;
 	height: 150px;
 	width: 4%;
 	margin-top: -75px;
-	left: -4%;
+	left: -4%;*/
+    position: absolute;
+    bottom: -30px;
+    height: 30px;
+    width: 60px;
+    left: 4%;
+    line-height: 30px;
+    background: rgba(98, 201, 210, 1);
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
 }
 .right_btn{
-	position: absolute;
+	/*position: absolute;
 	top: 50%;
 	height: 150px;
 	width: 4%;
 	margin-top: -75px;
-	right: -3.9%;
+	right: -3.9%;*/
+    position: absolute;
+    bottom: -30px;
+    height: 30px;
+    width: 60px;
+    /*left: 54%;*/
+    right: 4%;
+    line-height: 30px;
+    background: rgba(98, 201, 210, 1);
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
 }
 .right_btn>img,.left_btn>img{
 	width: 100%;
@@ -526,7 +547,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
    background-image: url(../img/u1880.png);
     position: relative;
     height: 100%;
-    width: 90%;
+    width: 96%;
 }
 .cen_contents{
 	background-image: url(../img/homework/u4341.png);
@@ -654,7 +675,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 	position: absolute;
 	top: -30px;
 	left: 0px;
-	width: 60px;
+    padding: 0px 10px;
 	line-height: 30px;
 	background-color: rgba(100, 200, 211, 1);
 	color: #fff;

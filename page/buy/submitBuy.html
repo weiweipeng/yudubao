@@ -162,22 +162,22 @@
             width: 10%
         }
         .cell2{
-            width: 25%
+            width: 30%
         }
         .cell3{
             width: 11%
         }
         .cell4{
-            width: 10%
+            width: 20%
         }
         .cell5{
             width: 15%
         }
         .cell6{
-            width: 15%
+            width: 20%
         }
         .cell7{
-            width: 14%;
+            width: 20%;
         }
         .boder_line{
             border:1px solid #999;
@@ -281,7 +281,7 @@
     				<img src="../../img/120.png">
     				<span>张三</span>
     				<!-- <img src="../../img/homework/u2104.png" class="tags"> -->
-                    <p class="tags"></p>
+                    <!-- <p class="tags"></p> -->
     				<ul class="message_list">
     					<li>
     						<a href="#">基本资料</a>
@@ -358,8 +358,11 @@
           // "OrederID": "af2c8376-7e5f-4571-a764-486908a850a8",
           "PayType": 1
         }
-       
-               
+        var buyStyle=sessionStorage.getItem('buyStyle');
+        var names=sessionStorage.getItem('goodGrade');
+        var terms=sessionStorage.getItem('goodTerm');
+        var allFee=sessionStorage.getItem('allPrices');
+        console.log(buyStyle);     
         var goodList=[];
         var allValue=0;//总价格
         var valueList=[];//商品价格列表
@@ -423,18 +426,30 @@
         function successGetgood(data){
 
             if(data.Result==1){
-                var str='<li><p class="cell1"><label class="che"><input  type="checkbox" class="input_che" id="1" checked><span class="inpu"></span></label></p><p class="cell2">名称</p><p class="cell3">种类</p><p class="cell4">价格</p><p class="cell5">数量</p><p class="cell6">折扣</p><p class="cell7">合计</p></li>';
-                $.each(data.Data,function(i,val){
-                    var goodAll=val.Number*val.Price;
-                    str+='<li class="boder_line"><p class="cell1"><label class="che"><input id='+val.Id+' ProductId='+val.ProductId+' type="checkbox" class="input_che" checked><span class="inpu"></span></label></p>'
-                    str+='<p class="cell2">'+val.Name+'</p>';
-                    str+='<p class="cell3">上学期</p>';
-                    str+='<p class="cell4">￥'+val.Price+'.00</p>';
-                    str+='<p class="cell5 countnum"><span class="fircount"><span class="left_arrow"  id='+val.ProductId+' price='+val.Price+'>-</span><input type="text" name="count" value='+val.Number+' class="cen_cout"><span class="right_add" id='+val.ProductId+' price='+val.Price+'>+</span></span></p>';
-                    str+='<p class="cell6">无</p>';
-                    str+='<p class="cell7 redcolor" allprice='+goodAll+'>￥'+goodAll+'.00</p></li>';
-                    allValue+=goodAll;
-                });
+                var str='<li><p class="cell1"><label class="che"><input  type="checkbox" class="input_che" id="1" checked><span class="inpu"></span></label></p><p class="cell2">名称</p><p class="cell4">价格</p><p class="cell6">折扣</p><p class="cell7">合计</p></li>';
+                var Datas=data.Data;
+                // if(buyStyle=='style1'){
+                    $.each(Datas,function(i,val){
+                        var goodAll=val.Number*val.Price;
+                        str+='<li class="boder_line"><p class="cell1"><label class="che"><input id='+val.Id+' ProductId='+val.ProductId+' type="checkbox" class="input_che" checked><span class="inpu"></span></label></p>'
+                        str+='<p class="cell2">'+val.Name+'</p>';
+                        // str+='<p class="cell3">上学期</p>';
+                        str+='<p class="cell4">￥'+val.Price+'.00</p>';
+                        // str+='<p class="cell5 countnum"><span class="fircount"><span class="left_arrow"  id='+val.ProductId+' price='+val.Price+'>-</span><input type="text" name="count" value='+val.Number+' class="cen_cout"><span class="right_add" id='+val.ProductId+' price='+val.Price+'>+</span></span></p>';
+                        str+='<p class="cell6">无</p>';
+                        str+='<p class="cell7 redcolor" allprice='+goodAll+'>￥'+goodAll+'.00</p></li>';
+                        allValue+=goodAll;
+                    });
+                // }else{
+                //     str+='<li class="boder_line"><p class="cell1"><label class="che"><input  type="checkbox" class="input_che" checked><span class="inpu"></span></label></p>'
+                //         str+='<p class="cell2">'+names+terms+'</p>';
+                //         // str+='<p class="cell3">上学期</p>';
+                //         str+='<p class="cell4">￥'+allFee+'.00</p>';
+                //         // str+='<p class="cell5 countnum"><span class="fircount"><span class="left_arrow"  id='+val.ProductId+' price='+val.Price+'>-</span><input type="text" name="count" value='+val.Number+' class="cen_cout"><span class="right_add" id='+val.ProductId+' price='+val.Price+'>+</span></span></p>';
+                //         str+='<p class="cell6">无</p>';
+                //         str+='<p class="cell7 redcolor" allprice='+allFee+'>￥'+allFee+'.00</p></li>';
+                //         allValue+=allFee;
+                // }
                 $('.goodList').html(str);
                 $('.allvalue').text('合计：￥'+allValue+'.00');
                 remenber();

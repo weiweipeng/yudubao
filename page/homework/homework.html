@@ -195,7 +195,7 @@
                 <div class="ope_first lf">
                     <img src="../../img/120.png">
                     <span>张三</span>
-                    <img src="../../img/homework/u2104.png" class="tags">
+                    <!-- <img src="../../img/homework/u2104.png" class="tags"> -->
                     <ul class="message_list">
                         <li>
                             <a href="#">基本资料</a>
@@ -204,7 +204,7 @@
                             <a href="#">安全设置</a>
                         </li>
                         <li>
-                            <a href="../buy/buy.html">消息中心</a>
+                            <a href="#">消息中心</a>
                         </li>
                     </ul>
                 </div>
@@ -230,6 +230,7 @@
                             <li><a href="were.html">错题库</a></li>
                             <li><a href="assessment.html">评估</a></li>
                             <li><a href="management.html">班级管理</a></li>
+                            <li><a href="../buy/buy.html">更多篇章</a></li>
                         </ul>
                     </div>
                     <div class="maincenter">
@@ -249,10 +250,12 @@
                              </div>
                             <!-- 左右翻页 -->
                             <div class="left_btn">
-                                <img src="../../img/homework/u1878.gif">
+                                上一页
+                                <!-- <img src="../../img/homework/u1878.gif"> -->
                             </div>
                             <div class="right_btn">
-                                <img src="../../img/homework/u1879.gif">
+                                下一页
+                                <!-- <img src="../../img/homework/u1879.gif"> -->
                             </div>
                         </div>
 
@@ -270,12 +273,12 @@
                         
                         </div>
                         <div class="choose">
-                            <div class="chosec chosec1">
-                                <p>做题时间</p>
+                            <div class="chosec chosec1" >
+                                <p id="times-1">做题时间</p>
                                 <div class="box">
-                                    <input type="text"  id="selectTime" value="未选择"/>
-                                    <div class="jsbox">
-                                    </div>
+                                    <input type="text"  id="selectTime" placeholder="未选择" />
+                                    <!-- <div class="jsbox">
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="chosec">
@@ -298,7 +301,7 @@
                 </div>
             </div>
             <div class="bg-line">
-                <a href="../buy/buy.html"><img src="../../img/buy.png"></a>
+                <!-- <a href="../buy/buy.html"><img src="../../img/buy.png"></a> -->
             </div>    
         </div>
         </div>
@@ -329,7 +332,8 @@
         </div>
     </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../../js/jquer_shijian.js"></script>
+    <!-- <script type="text/javascript" src="../../js/jquer_shijian.js"></script> -->
+    <script type="text/javascript" src="../../js/laydate.js"></script>
     <script type="text/javascript" src="../../js/request.js"></script>
     <script type="text/javascript" src="../../js/subject.js"></script>
     <script type="text/javascript" src="../../js/common.js"></script>
@@ -712,23 +716,26 @@ console.log(httpUrl);
                 $('.listTimes').hide();
             });
             //选择需要显示的
-            $("#selectTime").shijian({
-                // y:-20,//当前年份+10
-                Hour:false,//是否显示小时
-                Minute:false,//是否显分钟
-                // success:function(){}
-            })
-      
+            // $("#selectTime").shijian({
+            //     // y:-20,//当前年份+10
+            //     Hour:false,//是否显示小时
+            //     Minute:false,//是否显分钟
+            //     // success:function(){}
+            // })
+            laydate.render({
+                elem: '#selectTime' //指定元素
+                ,eventElem: '#times-1'
+                ,type: 'datetime'
+                ,format: 'yyyy-dd-MM'
+            });
             //完成时间选择
             $(".listTimes,.semester,.unit").on("click",function(e){
                 e.stopPropagation();
             });
             $(".listTimes input").on("change",function(){
-                console.log($(this).val());
                 var v=$(this).val();
                 $(".chofirTime").text(v);
                 tarsks.limitedTime=parseInt(v);
-                console.log(v)
             });
             $(".chofir").on("click",function(){
                 $(".mask").show();
