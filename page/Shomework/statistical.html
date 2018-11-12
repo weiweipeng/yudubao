@@ -9,15 +9,10 @@
         
         .decorate{
             
-            color: #008000;
-            background-color: #fff;
             height: 24px;
             line-height: 24px;
             width: 110px;
-            text-align: center;
-            font-size: 16px;
-            font-weight: 600;
-            /*margin-top: 4px;*/
+        
             margin-bottom: 4px;
             margin-left: 4px;
         }
@@ -98,6 +93,49 @@
             .bg-line{
                 bottom: 0px;
             }
+            .chosec{
+            height: 57px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .chosec>div{
+            width: 50%;
+            text-align: center;
+            line-height: 57px;
+            height: 57px;
+        }
+        .starttime,.endtime{
+            background-color: rgba(0, 204, 153, 1);
+        }
+        .starttime{
+            border-right: 1px solid #999;
+            box-sizing: border-box;
+        }
+        .box>input{
+            background-color: rgba(0, 204, 153, 1);
+            width: 100%;
+            border: 0px;
+            text-align: center;
+            color: #fff;
+        }
+        .box>input::-webkit-input-placeholder { /* WebKit browsers */
+    　　      color:#fff;
+    　　 }
+
+    　　.box>input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    　　     color:#fff;
+    　　}
+
+    　　.box>input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    　　    color:#fff;
+    　　}
+
+    　　.box>input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    　　    color:#fff;
+    　　}
+        .classes{
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -115,7 +153,7 @@
                 <div class="ope_first lf">
                     <img src="../../img/120.png">
                     <span class="names"></span>
-                    <img src="../../img/homework/u2104.png" class="tags">
+                    <!-- <img src="../../img/homework/u2104.png" class="tags"> -->
                     <ul class="message_list">
                         <li>
                             <a href="#">基本资料</a>
@@ -146,13 +184,14 @@
                             
                             <li><a href="assessment.html">评估</a></li>
                             <li><a href="ranking.html">排行榜</a></li>
+                            <li><a href="../buy/buy.html">更多篇章</a></li>
                         </ul>
                     </div>
                     <div class="maincenter">
                         
                         <div class="cen_content">
                            
-                            <div class="decorate">布置班级作业</div>
+                            <div class="decorate"></div>
 
                              <!-- 表格 -->
                              <ul class="tablelist">
@@ -160,20 +199,35 @@
                             </ul>
                              <!-- 页码 -->
                              <div class="count">1</div>
-                            
+                            <div class="allcounts" style="font-size: 12px;">共3页</div>
                             <!-- 左右翻页 -->
                             <div class="left_btn">
                                 上一页
-                                <!-- <img src="../../img/homework/u1878.gif"> -->
                             </div>
                             <div class="right_btn">
                                 下一页
-                                <!-- <img src="../../img/homework/u1879.gif"> -->
                             </div>
                         </div>
                     </div>
                     <div class="mainright">
-                        <div class="classes">
+                        <div class="chosec">
+                            <div class="lf starttime">
+                                <p>开始时间</p>
+                                <p class="box">
+                                    <input type="text"  id="selectStartTime" placeholder="未选择"/>
+                                       
+                                </p>
+                                
+                            </div>
+                            <div class="lf endtime">
+                                <p>结束时间</p>
+                                <p class="box">
+                                    <input type="text"  id="selectEndTime" placeholder="未选择"/>
+                                    
+                                </p>
+                            </div>
+                        </div>
+                        <!-- <div class="classes">
                             <div class="sec classSec">
                                 
                              </div>
@@ -183,38 +237,40 @@
                                 <div class="lf classRf">></div>
                             </div>
                         
-                        </div>
-                         <div class="classes practice">
-                            <div class="secs">
-                                <div class="lf sbg personprac">班级练习</div>
-                                <div class="lf sbg classprac">个人练习</div>
-                            </div>
-                            <div class="secs practiceList">
-                                
-                            </div>
-                          
-                            <div class=" lastsec">
-                                <div class="lf pracLf"><</div>
-                                <div class="lf pracCen">1</div>
-                                <div class="lf pracRf">></div>
-                            </div>
+                        </div> -->
+                        <div class="seleclasses">
+                            <p>选择班级</p>
+                            <input type="text" class="selectNum" value="未选择">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="bg-line">
-                <a href="../buy/buy.html"><img src="../../img/buy.png"></a>
+               
             </div>
         </div>
+    </div>
+    <div class="mask">
+       <div class="maskflex">
+            <div class="lists">
+                <span class="close_list">×</span>
+                
+                <ul class="classSec"></ul>
+               
+                <p class="mask_sure">确定</p>
+            </div>
+       </div>
     </div>
     <div id="pop-box"></div>
     <div class="layerMask"></div>
     <div class="loading">
         <div class="loadBox">
             <div class="spinner"></div>
+            <p>加载中，请稍后。。。</p>
         </div>
     </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/laydate.js"></script>
     <script type="text/javascript" src="../../js/request.js"></script>
     <script type="text/javascript" src="../../js/common.js"></script>
     <script type="text/javascript" src="../../js/subject.js"></script>
@@ -227,47 +283,56 @@
             }
             var paramList={
                 "IndexPage": 1,
-                "IndexSize":9
+                "IndexSize":10
             }
             var resultDetail={};
              var history={
                 "IndexPage": 1,
-                "IndexSize":9
+                "IndexSize":10
              };
             var classNum=0,praNum=0,count=1;
-
+            history.StartTime=getNowFormatDate();
+            history.EndTime=getPassWeekDate();
+            var accountName=sessionStorage.getItem('accountName');
             var classListId=[],gradeid='',gradeName='';//班级id列表
             if(localStorage.getItem('studentId')){
-                paramClass.studentId=localStorage.getItem('studentId');
+                paramClass.studentId=accountName;
                 history.studentId=localStorage.getItem('studentId');
             }
             if(localStorage.getItem('studentName')){
                 $('.names').text(localStorage.getItem('studentName'));
             }
             getClassData();
+             $('.seleclasses').on('click',function(){
+                $(".mask").show();
+                $(".classSec").show();
+            });
+            $(".classSec").on("click",function(e){
+                e.stopPropagation();
+            });
+            $(".mask,.close_list,.mask_sure").on("click",function(){
+                $('.mask').hide();
+                $('.mask').find("ul").hide();
+
+            });
             function getClassData(){
                 var classData=C.POSTS(JSON.stringify(paramClass),httpUrl.GetPageClassStudent,successGetclass);
             }
             function successGetclass(classData){
                 $(".classSec").empty();
                 if(classData.Result==1){
-                    $(".classcount").text(paramClass.IndexPage);
+                    
                     if(classData.Data!=null){
                         createClassList(classData.Data);
                     }else{
                         C.layer(1,"没有更多数据");
                     }
+                    history.ClassId=classData.Data[0].ClassId;
+                   getHistory();
+                    $('.selectNum').val(classData.Data[0].ClassesName);
                    
-                    if(classData.Count%paramClass.IndexSize>0){
-                        count=parseInt(classData.Count/paramClass.IndexSize)+1;
-                    }else{
-                        count=parseInt(classData.Count/paramClass.IndexSize);
-                    }
-                    setClassCheck();
-                   
-                    getpracData();
                 }else{
-                    paramClass.IndexPage-=classNum;
+                    // paramClass.IndexPage-=classNum;
                     C.layer(1,classData.message);
                 }
             }
@@ -275,165 +340,49 @@
                 console.log(data);
                 var list='';
                 for(var i=0;i<data.length;i++){
-                    list+='<div id='+data[i].ClassId+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].ClassesName+'<span>选中</span></div>'
+                     if(data[i].AfterSchool){
+                        xiaowai="(校外)";
+                    }else{
+                        xiaowai="";
+                    }
+                    list+='<li><input type="radio" id='+data[i].ClassId+' name="seleclasses" gradeid='+data[i].GradeId+' dataName='+data[i].ClassesName+'><span>'+data[i].ClassesName+xiaowai+'</span></li>'
                 }
                 $(".classSec").html(list);
 
             }
           
-            $(".classLf").on("click",function(){
-                C.leftPage(paramClass,classNum,getClassData);
-                
-            });
-            $(".classRf").on("click",function(){
-                C.rightPage(paramClass,classNum,count,getClassData);
-            
-            });
+         
              //选中班级id
            
-             $(".classes").on("click",'.classtable',function(){
-                $('.classes').find('span').hide(); //判断是否所有的班级选中全部清除
-          
+            $(".classSec").on("click",'input',function(){
+               
+                var starttime=$('#selectStartTime').val();
+                var endtime=$('#selectEndTime').val();
+                history.StartTime=starttime!=''?starttime:history.StartTime;
+                history.EndTime=endtime!=''?endtime:history.EndTime;
                 var spanId=$(this).attr('id');
-                var grades=$(this).attr('gradeid');  
+           
                
                 history.ClassId=spanId;
-                gradeid = spanId; 
+            
                 paramList.ClassId=spanId;
-                // answer.classesId=spanId;
-                paramList.IndexPage=1;
-                $(this).find('span').show();
-                getClassData();
-                
-                 
-               
-            });
-            //翻页后班级是否选中
-            function setClassCheck(){
-                console.log(classListId);
-                var ids=$(".classes").find('.classtable');
-                for(var i=0;i<ids.length;i++){
-                    var ID=$(ids).eq(i).attr('id');
-                    if(gradeid==ID){
-                        $(".classes").find('.classtable').eq(i).find('span').show();
-                    }
-                }
-
-
-            }
-
-             //获取练习列表
-            var pracIdList=[],pracCount='',pracId='';
-            var personClassBool=true;
-            $(".personprac").on('click',function(){
-                personClassBool=true;
-                paramList.IndexPage=1;
-                getpracData();
-            });
-            $(".classprac").on("click",function(){
-                personClassBool=false;
-                paramList.IndexPage=1;
-                getpracData();
-            });
-            function getpracData(){
-                 var pracListData={};
-                 console.log(paramList);
-                 console.log(personClassBool);
-                 if(personClassBool){
-                    paramList.tarskType=0;
-                }else{
-                    paramList.tarskType=1;
-                }
-                
-                pracListData=C.POSTS(JSON.stringify(paramList),httpUrl.GetPageClassTaskList,successGetpra);
-               
-                
-                
-            }
-            function successGetpra(pracListData){
-                $('.practiceList').empty();
-                if(pracListData.Result==1){
-                        $(".pracCen").text(paramList.IndexPage);
-                        createPracList(pracListData.Data);
-                        setPracCheck();
-                        var allpracCount=pracListData.Data[0].COUNTS;
-                        if(allpracCount%paramList.IndexSize>0){
-                            pracCount=parseInt(allpracCount/paramList.IndexSize)+1;
-                        }else{
-                            pracCount=parseInt(allpracCount/paramList.IndexSize);
-                        }
-                      // pracId=pracListData.Data[0].Id;
-                      // Tarsk.Id=pracListData.data[0].id;
-                }else{
-                    paramList.IndexPage-=praNum;
-                    C.layer(1,pracListData.Message);
-                }
-            }
-            function createPracList(data){
-                 var htmls='',nameArr=[];
-                 for(var i=0;i<data.length;i++){
-                    var times=String(data[i].CreateDate).slice(0,10);
-                    if(data[i].Name.length>7){
-                        nameArr=data[i].Name.split('-');
-                    }else{
-                        nameArr=[data[i].Name,data[i].Name];
-                    }
-                  
-                    htmls+='<div class="lf bg1 prac" times="'+data[i].LimitedTime+'" names="'+data[i].Name+'"" id="'+data[i].Id+'"><p>'+nameArr[1]+'</p><p>'+nameArr[0]+'</p><p>'+i+'</p><span>选中</span></div>';
-                 }
-                $('.practiceList').html(htmls);
-                
-            }
-            
-            $('.practiceList').on('click','.prac',function(){
-                 $('.practiceList').find('span').hide();
-                
-               
-                pracId=$(this).attr('id');
-                // Tarsk.Id=pracId;
-                num=1;
-                // answer.id=pracId;
-                // answer.taskName=$(this).attr('names');
-                // history.ClassId=pracId;
+          
                 getHistory();
-
-                $(this).find('span').show();
-                // getData();
-            });
-             
-            //翻页后练习任务是否选中
-            function setPracCheck(){
-                console.log(pracIdList);
-                // if(pracIdList.length!=0){
-                    var idRember=$(".prac");
-                    console.log(idRember);
-                    for(var i=0;i<idRember.length;i++){
-                        // var ids=spanRember[i].id;
-                        // if(classListId.indexOf(ids,0)!=-1){
-                        //     $(spanRember).eq(i).find('span').show();
-                        // }else{
-                        //     $(spanRember).eq(i).find('span').hide();//可以不要
-                        // }
-                        if($(idRember).eq(i).attr('id')==pracId){
-                            console.log(222222222222222222);
-                            $(idRember).eq(i).find('span').show();
-                        }
-
-                    }
-                // }
-            }
-            //翻页
-            $(".pracLf").on("click",function(){
-                C.leftPage(paramList,praNum,getpracData);
+                var classname=$(this).attr('dataName');
+                $('.selectNum').val(classname);
+                
                
             });
-            
-            $(".pracRf").on("click",function(){
-                C.rightPage(paramList,praNum,pracCount,getpracData);
-                
-            });
+        
 
+            laydate.render({
+               elem: '#selectStartTime' //指定元素
+            });
+            laydate.render({
+               elem: '#selectEndTime' //指定元素
+            });
             var tableNum=0,tableCount=0;
+            
             function getHistory(){
                 console.log(history);
                 var historyData=C.POSTS(JSON.stringify(history),httpUrl.GetStudentTaskHistoryBaseStatistics,successGethis);
@@ -442,47 +391,54 @@
             function successGethis(historyData){
                 $(".tablelist").empty();
                 if(historyData.Result==1){
-                    if(historyData.Count%history.IndexSize>0){
-                        tableCount=parseInt(historyData.Count/history.IndexSize)+1;
+                    if(historyData.Data.length>0){
+                        var allcount=historyData.Data[0].COUNTS;
+                        if(allcount%history.IndexSize>0){
+                            tableCount=parseInt(allcount/history.IndexSize)+1;
+                        }else{
+                            tableCount=parseInt(allcount/history.IndexSize);
+                        }
+                        var str="共"+tableCount+"页";
+                        $('.allcounts').text(str);
+                        $(".count").text(history.IndexPage);
+                        setHistoryList(historyData.Data);
                     }else{
-                        tableCount=parseInt(historyData.Count/history.IndexSize);
+                        C.layer(2,$('.selectNum').val()+'没有数据！');
                     }
-                    $(".count").text(history.IndexPage);
-                    setHistoryList(historyData.Data);
-                    if(historyData.Data.length==0){
-                        C.layer(1,'数据被程序员吃掉啦！');
-                    }
+                    
                 }else{
                     C.layer(2,historyData.Message);
                 }
             }
             function setHistoryList(data){
-                var list='<li><p class="cell1">编号</p><p class="cell2">名称</p><p class="cell3">做题时间</p><p class="cell4">总分</p><p class="cell5">得分</p><p class="cell6">得分率</p><p class="cell7">用时(分钟)</p><p class="cell8">词/分钟</p><p class="cell9">操作</p>';
+                var list='<li><p class="cell1">编号</p><p class="cell2">任务名称</p><p class="cell3">做题时间</p><p class="cell4">总分</p><p class="cell5">得分</p><p class="cell6">得分率</p><p class="cell7">用时(分钟)</p><p class="cell8">词/分钟</p><p class="cell9">详情</p>';
                 for(var i=0;i<data.length;i++){
                     if(i<data.length-1){
                         var percent=(data[i].QuestionScore/data[i].TotalScore).toFixed(2);;
                         list+='<li class="trline"  style="border-bottom:1px solid #999">';
-                        
                     }else{
                         list+='<li class="trline">';
-                       
                     }
                     var index=i+1;
-                    var percent=0;
+                    var  percent=parseFloat(data[i].StudentScore/data[i].TotalScore*100).toFixed(2)+'%';
+                    var wordPace=0;
                     if(data[i].StudentTimeUse==null){
-                        percent=parseInt(data[i].Words/100);
+                        wordPace='';
                     }else{
-                        percent=parseInt(data[i].Words/data[i].StudentTimeUse);
+                        wordPace=parseInt(data[i].Words/data[i].StudentTimeUse);
                     }
+                    var StudentTimeUse=data[i].StudentTimeUse!=null?data[i].StudentTimeUse:'';
+                    StudentTimeUse=parseFloat(StudentTimeUse/60).toFixed(2);
+                    var DoQuestions=data[i].DoQuestions.split('T');
+                    DoQuestions[1]=DoQuestions[1].slice(0,5);
                     list+='<p class="cell1"> <span class="serial">'+index+'</span> </p>';
                         list+='<p class="chapter cell2">'+data[i].Name+'</p>';
-                        list+='<p class="cell3">'+data[i].DoQuestions+'</p>';
+                        list+='<p class="cell3">'+DoQuestions[0]+' '+DoQuestions[1]+'</p>';
                         list+='<p class="cell4">'+data[i].TotalScore+'</p>';
                         list+='<p class="cell5">'+data[i].StudentScore+'</p>';
                         list+='<p class="cell6">'+percent+'</p>';
-                        list+='<p class="cell7">'+data[i].StudentTimeUse+'</p>';
-                        list+='<p class="cell8">'+percent+'</p>';
-                      
+                        list+='<p class="cell7">'+StudentTimeUse+'</p>';
+                        list+='<p class="cell8">'+data[i].Words+'</p>';
                         list+='<p class="cell9"><span class="view dbtn" data-id="' + data[i].Id + '" >查看</span></p>';
                         list+='</li>';
                 }
@@ -497,10 +453,8 @@
             $(".tablelist").on("click",'.view',function(){
                 C.load(0);
                 resultDetail.EnglishArticleTaskHistoryBaseId=$(this).attr('data-id');
-                // resultDetail.EnglishArticleTaskHistoryBaseId="7f187c93-d75a-48d4-b70f-493d6a431e2d";
                 console.log(resultDetail);
                 var resultData=C.POSTS(JSON.stringify(resultDetail),httpUrl.GetEnglishArticleTaskHistoryBaseRepeatList,successAjax);
-                
             });
             function successAjax(resultData){
                 C.load(1);
@@ -598,7 +552,30 @@
             $('.article2 .article-scroll').scrollTop('0');
             $('.slimScrollBar').css('top', "0");
 
-            
+            function getNowFormatDate() {
+                var date = new Date();
+                var seperator1 = "-";
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var strDate = date.getDate();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                var currentdate = year + seperator1 + month + seperator1 + strDate;
+                return currentdate;
+            }
+            function getPassWeekDate(){
+                var now = new Date();
+                var date = new Date(now.getTime() - 7 * 24 * 3600 * 1000);
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var day = date.getDate();
+                var passWeekDate=year + '-' + month + '-' + day;
+                return passWeekDate;
+            }
             $(".ope_first").on({
                 mouseover:function (e) {
                     e.stopPropagation();

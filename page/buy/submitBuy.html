@@ -362,6 +362,8 @@
         var names=sessionStorage.getItem('goodGrade');
         var terms=sessionStorage.getItem('goodTerm');
         var allFee=sessionStorage.getItem('allPrices');
+        var names=localStorage.getItem('teacherNames');
+        $(".ope_first").find('span').text(names);
         console.log(buyStyle);     
         var goodList=[];
         var allValue=0;//总价格
@@ -431,6 +433,7 @@
                 // if(buyStyle=='style1'){
                     $.each(Datas,function(i,val){
                         var goodAll=val.Number*val.Price;
+                        console.log();
                         str+='<li class="boder_line"><p class="cell1"><label class="che"><input id='+val.Id+' ProductId='+val.ProductId+' type="checkbox" class="input_che" checked><span class="inpu"></span></label></p>'
                         str+='<p class="cell2">'+val.Name+'</p>';
                         // str+='<p class="cell3">上学期</p>';
@@ -619,6 +622,16 @@
         //         C.layer(1,data.Message);
         //     }
         // }
+         $(".ope_first").on({
+                mouseover:function (e) {
+                    e.stopPropagation();
+                    $(".message_list").show();
+                },
+                mouseout:function (e) {
+                    e.stopPropagation();
+                    $(".message_list").hide();
+                }
+            });
         })
     </script>
 </body>

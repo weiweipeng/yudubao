@@ -112,6 +112,22 @@
             	-webkit-transform: scale(0.6,0.6);
             	-moz-transform: scale(0.6,0.6);
             }
+            footer{
+            	position: fixed;
+            	bottom: 0px;
+            	width: 100%;
+            	text-align: center;
+            }
+            footer div{
+            	line-height: 20px;
+            }
+            .foot_line img{
+            	vertical-align: middle;
+            }
+            .foot_line span{
+            	margin-right: 20px;
+
+            }
 		</style>
 		
 	</head>
@@ -152,7 +168,11 @@
 	        <div class="loadBox">
 	            <div class="spinner"></div>
 	        </div>
-	   </div>
+	    </div>
+	    <footer>
+	   		<div class="foot_line">© 2016-2021 上海启思教育科技服务有限公司 版权所有</div>
+	   		<div class="foot_line"><img src="img/hugongan.png"><span>沪公网安备 31010602001082号</span><span>联系电话：021-52046595</span><span>地址：上海市-广中西路555号-宝华国际广场1008室</span>       </div>
+	    </footer>
 		<!-- </div> -->
 		<script src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/XDomainRequest.js"></script>
@@ -205,6 +225,7 @@
 				$("#submit_login").on("click",function(){
 					console.log(111);
 					var username=$('.userName').val();
+					sessionStorage.setItem('accountName',username);
 					var pass=$('.userPassword').val();
 					if(checks(username,pass)){
 						console.log(333);

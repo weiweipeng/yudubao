@@ -108,6 +108,39 @@
         .prac{
             position: relative;
         }
+        .subwere{
+            display: none;
+        }
+        .cell1{
+            width: 6%;
+           }
+           .cell2{
+            width: 18%;
+           }
+           .cell3{
+            width: 18%;
+           }
+           .cell4{
+            width: 10%;
+           }
+           .cell5{
+            width: 10%;
+           }
+           .cell6{
+            width: 10%;
+           }
+          /* .cell7{
+            width: 10%;
+           }*/
+           .cell8{
+            width: 12%;
+           }
+           .cell9{
+            width: 16%;
+           }
+           .task_list{
+            display: none;
+           }
     </style>
 </head>
 <body>
@@ -171,11 +204,12 @@
                     
                     <div class="cen_content">
                         
-                        
+                        <div class="task_list">返回列表</div>
                         <div>
                             <div class="decorate">错题库</div>
                             
                         </div>
+                        <div class="tablelist"></div>
                         <!-- 改错 -->
                         <div class=" subwere">
                             <p class="weretitle">
@@ -190,40 +224,23 @@
                             
                         </div>
                       
-                        
+                        <div class="count">1</div>
                         <!-- 左右翻页 -->
-                        <!-- <div class="left_btn">
+                        <div class="left_btn">
                             上一页
                         </div>
                         <div class="right_btn">
                             下一页
-                        </div> -->
+                        </div>
                     </div>
                 </div>
                 <!-- 右侧 -->
                 <div class="mainright">
-                    <div class="classes">
-                        <div class="sec classSec">
-                            
-                         </div>
-                        <div class="lastsec">
-                            <div class="lf classLf"><</div>
-                            <div class="lf classcount">1</div>
-                            <div class="lf classRf">></div>
-                        </div>
-                    
+                    <div class="seleclasses">
+                        <p>选择班级</p>
+                            <input type="text" class="selectNum" value="未选择">
                     </div>
-                    <div class="classes practice">
-                            
-                        <div class="secs practiceList">
-                            
-                        </div>
-                      
-                        <div class=" lastsec">
-                            <div class="lf pracLf"><</div>
-                            <div class="lf pracCen">1</div>
-                            <div class="lf pracRf">></div>
-                        </div>
+              
                     </div>
                     <!-- <div class="students">
                         
@@ -245,10 +262,22 @@
             </div>   
         </div>
     </div>
+    <div class="mask">
+       <div class="maskflex">
+            <div class="lists">
+                <span class="close_list">×</span>
+                
+                <ul class="classSec"></ul>
+               
+                <p class="mask_sure">确定</p>
+            </div>
+       </div>
+    </div>
     <div class="layerMask"></div>
     <div class="loading">
         <div class="loadBox">
             <div class="spinner"></div>
+            <p>加载中，请稍后。。。</p>
         </div>
     </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
@@ -265,11 +294,11 @@
             
              var paramClass={
                 "IndexPage": 1,
-                "IndexSize":6
+                "IndexSize":100
             }
              var param={
                 'IndexPage':1,
-                'IndexSize':9
+                'IndexSize':10
             }
            if(localStorage.getItem('teacherNames')){
                 $(".ope_first").find('span').text(localStorage.getItem('teacherNames'));
@@ -277,33 +306,22 @@
             var paramList={};//错题哭信息
             var classListId=[],gradeid='',gradeName='';//班级id列表
             var classNum=0;
-            paramClass.TeacherId=localStorage.getItem('TeacherIds');
+            var accountName=sessionStorage.getItem('accountName');
+            paramClass.TeacherId=accountName;
              //获取班级列表
             getClassData();
             function getClassData(){
-                console.log(paramClass);
                 var classData=C.POST(paramClass,httpUrl.GetClassListByTeacherID,successGetclass);
-                
                 
             }
             function successGetclass(classData) {
-                // $(".classSec").empty();
                 if(classData.Result==1){
-                    $(".classcount").text(paramClass.IndexPage);
                     createClassList(classData.Data);
-                    setClassCheck();
-                    // param.ClassId=classData.Data[1].Id;
-                    // param.ClassId='aaa';
-                    paramList.ClassId='aaa';
-                    // getdata();
-                    // classCount=classData.count;
-                    if(classData.Count%paramClass.IndexSize>0){
-                        classCount=parseInt(classData.Count/paramClass.IndexSize)+1;
-                    }else{
-                        classCount=parseInt(classData.Count/paramClass.IndexSize);
-                    }
+                    param.ClassId=classData.Data[0].Id;
+                    paramList.ClassId=classData.Data[0].Id;
+                    $('.selectNum').val(classData.Data[0].Name);
+                    getdata();
                 }else{
-                    paramClass.IndexPage-=classNum;
                     C.layer(1,classData.Message);
                 }
             }
@@ -311,61 +329,52 @@
                 console.log(data);
                 var list='';
                 for(var i=0;i<data.length;i++){
-                    // if(param.ClassId==''){
-                    //     // param.ClassId=data[i].Id;
-                    //     param.ClassId='aaa';
-                    //     getdata();
-                    // }
-                    list+='<div id='+data[i].Id+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].Name+'<span>选中</span></div>'
+                  
+                    if(data[i].IsAfterSchool){
+                        xiaowai="(校外)";
+                    }else{
+                        xiaowai="";
+                    }
+                    list+='<li><input type="radio" id='+data[i].Id+' name="seleclasses" gradeid='+data[i].GradeId+' dataName='+data[i].Name+'><span>'+data[i].Name+xiaowai+'</span></li>'
                 }
                 $(".classSec").html(list);
 
             }
-            
-            $(".classLf").on("click",function(){
-                C.leftPage(paramClass,classNum,getClassData);
-                
+            $('.seleclasses').on('click',function(){
+                $(".mask").show();
+                $(".classSec").show();
             });
-            $(".classRf").on("click",function(){
-                C.rightPage(paramClass,classNum,classCount,getClassData);
-                
+            $(".classSec").on("click",function(e){
+                e.stopPropagation();
             });
-            $(".classes").on("click",'.classtable',function(){
-           
-                //判断是否所有的班级选中全部清除
-        
+            $(".mask,.close_list,.mask_sure").on("click",function(){
+                $('.mask').hide();
+                $('.mask').find("ul").hide();
+
+            });
+            $('.classSec').on('click','input',function(){
+         
                 var spanId=$(this).attr('id');
-                $('.classes').find('span').hide();
-                gradeid=spanId;
+             
                 param.ClassId=spanId;
                 paramList.ClassId=spanId;
-                $(this).find('span').show();
+                var classname=$(this).attr('dataName');
+                $('.selectNum').val(classname);
                 getdata();
-              
+               
             });
-            //翻页后班级是否选中
-            function setClassCheck(){
-              
-                var ids=$(".classes").find('.classtable');
-                for(var i=0;i<ids.length;i++){
-                    var ID=$(ids).eq(i).attr('id');
-                    if(gradeid==ID){
-                        $(".classes").find('.classtable').eq(i).find('span').show();
-                    }
-                }
-            }
+            
             //获取任务列表
             var pracount=0,praNum=0;
-           function getdata(){
+            function getdata(){
                 console.log(param);
                 var resultData=C.POST(param,httpUrl.TeacherTaskPersonalListAll,successGetdata);
                 
             }
             function successGetdata(resultData) {
                 $('.practiceList').empty();
-                // console.log(222222222222222);
                 if(resultData.Result==1){
-                    $('.pracCen').text(param.IndexPage);
+                    $('.count').text(param.IndexPage);
                     if(resultData.Count%param.IndexSize>0){
                         pracount=parseInt(resultData.Count/param.IndexSize)+1;
                     }else{
@@ -379,50 +388,77 @@
                 }
             }
             function createPracList(data){
-                 var htmls='',nameArr=[];
-                 for(var i=0;i<data.length;i++){
-                    var times=String(data[i].createDate).slice(0,10);
-                    if(data[i].Name.length>7){
-                        nameArr=data[i].Name.split('-');
+                var list='<li><p class="cell1">编号</p><p class="cell2">名称</p><p class="cell3">做题时间</p><p class="cell4">总分</p><p class="cell5">得分</p><p class="cell6">得分率</p><p class="cell8">学期</p><p class="cell9">详情</p>';
+                for(var i=0;i<data.length;i++){
+                    if(i<data.length-1){
+                        var percent=(data[i].QuestionScore/data[i].TotalScore).toFixed(2);;
+                        list+='<li class="trline"  style="border-bottom:1px solid #999">';
+                        
                     }else{
-                        nameArr=[data[i].Name,data[i].Name];
+                        list+='<li class="trline">';
+                       
                     }
+                    var index=i+1+(param.IndexPage*9-9);
+                    var tableScore=parseFloat(data[i].WritingScore/data[i].TotalScore);
                   
-                    htmls+='<div class="lf bg1 prac" quesTime="'+data[i].DoQuestions+'" times="'+data[i].LimitedTime+'" names="'+data[i].Name+'"" id="'+data[i].Id+'"><p>'+nameArr[1]+'</p><p>'+nameArr[0]+'</p><p>'+i+'</p><span>选中</span></div>';
-                 }
-                $('.practiceList').html(htmls);
+                    var  percent=parseFloat(tableScore*100).toFixed(2)+'%';
+                    // var wordPace='';
+                    // if(data[i].IsCorrection==1){
+                    //     wordPace='是';
+                    // }else{
+                    //     wordPace='否';
+                    // }
+                    
+                    list+='<p class="cell1"> <span class="serial">'+index+'</span> </p>';
+                    list+='<p class="chapter cell2">'+data[i].Name+'</p>';
+                    list+='<p class="cell3">'+data[i].DoQuestions+'</p>';
+                    list+='<p class="cell4">'+data[i].TotalScore+'</p>';
+                    list+='<p class="cell5">'+data[i].WritingScore+'</p>';
+                    list+='<p class="cell6">'+percent+'</p>';
+                    // list+='<p class="cell7">'+StudentTimeUse+'</p>';
+                    list+='<p class="cell8">'+data[i].Term+'</p>';
+                  
+                    list+='<p class="cell9"><span class="view dbtn" quesTime="'+data[i].DoQuestions+'" times="'+data[i].LimitedTime+'" names="'+data[i].Name+'"" id="'+data[i].Id+'" >查看</span></p>';
+                    list+='</li>';
+                }
+                $(".tablelist").html(list);
+ 
             }
-       
-            $('.practiceList').on('click','.prac',function(){
-                $('.practiceList').find('span').hide();
-                // paramList.classTaskId=$(this).attr('id');
+            $('.task_list').on('click',function(){
+                $('.tablelist').show();
+                $('.subwere').hide();
+                $(this).hide();
+            });
+            $('.tablelist').on('click','.view',function(){
+                paramList.classTaskId=$(this).attr('id');
                 var name=$(this).attr('names');
                 var createDate=$(this).attr("quesTime");
                 $('.practices').text(name);
                 $(".date").text(createDate);
-                paramList.classTaskId='ea266f2a-94f0-41f5-b108-cdaf5ba6eee5';
                 getTabledata();
                  $(this).find('span').show();
             });
             var praNum=0;
-            $(".pracLf").on("click",function(){
+            $(".left_btn").on("click",function(){
                 C.leftPage(param,praNum,getdata);
                
             });
-            $(".pracRf").on("click",function(){
+            $(".right_btn").on("click",function(){
                 C.rightPage(param,praNum,pracount,getdata);
                 
             });
             function getTabledata() {
-                console.log(paramList);
                 C.load(0);
-                 var data=C.POST(paramList,'http://192.168.16.99:3246/api/TeacherTask/TeacherTaskErrorDetailList',successGetTable);
+                 var data=C.POST(paramList,httpUrl.TeacherTaskErrorDetailList,successGetTable);
             }
             function successGetTable(data) {
                 console.log(333333);
                 var str='';
                 var datas=data.Data;
                 if(data.Result==1){
+                    $('.subwere').show();
+                    $('.tablelist').hide();
+                    $('.task_list').show();
                     for(var i=0;i<datas.length;i++){
                         str+='<p class="weretitle"><span>章节名称：<span class="pianzhagn">'+datas[i].Name+'</span></span></p>';
                         var ques=datas[i].QuestionItem;

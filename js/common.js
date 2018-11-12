@@ -66,16 +66,17 @@ var C={
                 }
        
             },
-            error: function (data) {
-                if(func){
-                    func(data);
-                }
-                classData = data;
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                // if(func){
+                //     func(data);
+                // }
+                console.log(XMLHttpRequest, textStatus, errorThrown);
+                // classData = data;
             }
 
         })
         // console.log(classData);
-        return classData;
+        // return classData;
 	},
     GETS:function(datas,url,func){
      	var classData={};
@@ -164,18 +165,8 @@ var C={
                 sizes.zoomX=(sizes.W-sizes.PW*2*sizes.W)/sizes.W;
             }
         } 
-
         sizes.zoomY=(mainH-70)/620;
-        
         $(".main").css({ 'transform': 'scale(' + sizes.zoomX + ','+sizes.zoomY +')', '-ms-transform': 'scale(' + sizes.zoomX + ','+sizes.zoomY +')', '-webkit-transform': 'scale(' + sizes.zoomX + ','+sizes.zoomY +')' });
-        // sizes.CH=$(".main").height();
-        // sizes.H= document.body.clientHeight;
-        // var mainH=sizes.H-82;
-        // if(mainH<sizes.CH){
-        //     sizes.zoom=(mainH-100)/620;
-        //     $(".main").css({ 'transform': 'scale(' + sizes.zoom + ','+sizes.zoom +')', '-ms-transform': 'scale(' + sizes.zoom + ','+sizes.zoom +')', '-webkit-transform': 'scale(' + sizes.zoom + ','+sizes.zoom +')' });
-        // }
-
     },
     resizes:function (){
         var sizes={};
@@ -187,7 +178,7 @@ var C={
 
          sizes.CH=$(".main").height();
         sizes.H= document.body.clientHeight;
-        var mainH=sizes.H-82;
+        var mainH=sizes.H-22;
         var ipad = (navigator.userAgent.match(/iPad/i) != null)?true:false;
        
         if(ipad==true && sizes.W==1024){
@@ -228,16 +219,40 @@ var C={
             $(".layerMask").empty();
         },2000);
     },
-    comfig:function(content){
+    comfig:function(content,event){
         var str='';
         str='<div class="layer"><span style="background-position: -789px -55px"></span>';
         str+='<p class="imfor">'+content+'</p>';
-        str+=' <div class="rightSure">确定</div></div>';
+        str+=' <div class="comfigBtnline"><div class="rightSures comfigBtn">确定</div></div>';
         $(".layerMask").html(str);
         $(".layerMask").show(100);
-        $(".layerMask").on('click','.rightSure',function(){
-             $(".layerMask").hide(100);
+        $(".layerMask").on('click','.rightSures',function(){
+            $(".layerMask").hide(100);
             $(".layerMask").empty();
+            if(event=='reload'){
+                location.reload();
+            }else if(event == 'check'){
+                $('.tablelist').find('input').attr('checked',false);
+            }
+        })
+    },
+    comfigs:function(content,func){
+        var bool=false;
+        var str='';
+        str='<div class="layer"><span style="background-position: -789px -55px"></span>';
+        str+='<p class="imfor">'+content+'</p>';
+        str+=' <div class="comfigBtnline"><div class="rightSure comfigBtn">确定</div>';
+        str+=' <div class="cancleSure comfigBtn">取消</div></div></div>';
+        $(".layerMask").html(str);
+        $(".layerMask").show(100);
+        $('.cancleSure').on('click',function(){
+            $(".layerMask").hide(100);
+            $(".layerMask").empty();
+        });
+        $(".layerMask").on('click','.rightSure',function(){
+            $(".layerMask").hide(100);
+            $(".layerMask").empty();
+            func();
         })
     },
     load:function(num){
@@ -267,7 +282,8 @@ var C={
     leftPage:function(param,count,func){
         if(param.IndexPage>1){
             count=-1;
-            param.IndexPage+=count;
+            var leftnum=parseInt(param.IndexPage)+count;
+            param.IndexPage=leftnum;
             func();
         }else{
             param.IndexPage=1;
@@ -277,12 +293,39 @@ var C={
     rightPage:function(param,count,allCount,func){
         if(param.IndexPage<allCount){
             count=1;
-            param.IndexPage+=count;
+            var rightnum=parseInt(param.IndexPage)+count;
+            param.IndexPage=rightnum;
             func();
         }else{
             param.IndexPage=allCount;
             C.layer(2,"已经是最后一页啦！");
         }
+    },
+    toggleImg:function(_this){
+        var boolToggle=$(_this).next().css('display');
+        console.log(111111111111,$(_this).next());
+        if(boolToggle == "block" || boolToggle == "inline"){
+            $(_this).find('.addContentImg ').show();
+            $(_this).find('.reduceContentImg ').hide();
+            $(_this).next().hide('slow');
+        }else{
+            console.log($(_this).find('.addContentImg '));
+            $(_this).find('.addContentImg ').hide();
+            $(_this).find('.reduceContentImg ').show();
+            $(_this).next().show('slow');
+        }
+    },
+    top:function(){
+        console.log(2222222);
+        // $('#form1').scrollTop(0);
+        // document.getElementById('form1').scrollTop=0;
     }
     
+}
+function IsNormal(str) {
+    if (str == undefined || str == 'undefined' || str == '' || str == null || str == "null") {
+        return false;
+    } else {
+        return true;
+    }
 }

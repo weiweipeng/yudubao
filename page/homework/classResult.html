@@ -413,7 +413,6 @@
             //获取班级列表
             getClassData();
             function getClassData(){
-                console.log(paramClass);
                 var classData=C.POST(paramClass,httpUrl.GetClassListByTeacherID);
                 if(classData.result==1){
                     createClassList(classData.data);
@@ -428,7 +427,6 @@
                 
             }
             function createClassList(data){
-                console.log(data);
                 var list='';
                 for(var i=0;i<data.length;i++){
                     if(param.ClassId==''){
@@ -498,7 +496,6 @@
             });
             //翻页后班级是否选中
             function setClassCheck(){
-                console.log(classListId);
                 if(classListId.length!=0){
                     var spanRember=$(".classtable");
                     for(var i=0;i<spanRember.length;i++){

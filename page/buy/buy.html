@@ -331,6 +331,8 @@
             }
             console.log(httpUrl);
             C.load(0);
+            var names=localStorage.getItem('teacherNames');
+            $(".ope_first").find('span').text(names);
             var isCheckAll=true;//是否全选
             var goodList=[];//商品列表
             var goodNum=1;//商品购买的时间
@@ -384,24 +386,19 @@
             	// goods.
             	goodsList();
             });
-            // function successGrade(data){
-            // 	if(data.Result==1){
-            // 		var datas=data.Data;
-            // 		var str="";
-            // 		$.each(datas,function(i,val){
-            // 			if(i==0){
-            // 				goods.Grade='七年级';
-            // 				str+='<li class="active" id='+val.Id+'>'+val.Name+'</li>';
-            // 			}else{
-            // 				str+='<li id='+val.Id+'>'+val.Name+'</li>';
-            // 			}
-            // 		});
-            // 		$('.buygrade').html(str);
-            // 	}else{
-            // 		C.layer(1,data.Message);
-            // 	}
-            // }
+            $(".ope_first").on({
+                mouseover:function (e) {
+                    e.stopPropagation();
+                    $(".message_list").show();
+                },
+                mouseout:function (e) {
+                    e.stopPropagation();
+                    $(".message_list").hide();
+                }
+            });
             $('.buygrade').on('click','li',function(){
+                $('.buygrade').find('li').removeClass('active');
+                $(this).addClass('active');
             	var v=$(this).text();
             	goods.Grade = v;
             	goodsList();
@@ -483,6 +480,7 @@
                 	
                 }else{
                 	goods.IndexPage-=num;
+                    $('.goodList').empty();
                 	C.load(1);
                 	C.layer(1,data.Message);
                 }

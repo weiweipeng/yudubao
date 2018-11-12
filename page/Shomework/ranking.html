@@ -150,7 +150,7 @@
     			<div class="ope_first lf">
     				<img src="../../img/120.png">
     				<span class="names"></span>
-    				<img src="../../img/homework/u2104.png" class="tags">
+    				<!-- <img src="../../img/homework/u2104.png" class="tags"> -->
     				<ul class="message_list">
     					<li>
     						<a href="#">基本资料</a>
@@ -181,6 +181,7 @@
                            
                             <li><a href="assessment.html">评估</a></li>
                             <li class="navactive"><a href="ranking.html">排行榜</a></li>
+                            <li><a href="../buy/buy.html">更多篇章</a></li>
             			</ul>
             		</div>
         	    	<div class="maincenter">
@@ -189,7 +190,7 @@
         	    			
                             <div class="logoTitle">
                                 <div class="decorate lf">排行榜</div>
-                                <div class="decorate rf">默认统计一个学期</div>
+                                <div class="decorate rf">每周更新一次榜单</div>
                             </div>
                             
                              <!-- 表格 -->
@@ -229,7 +230,7 @@
                      
                            
                         </div>
-        	    		<div class="classes">
+        	    		<!-- <div class="classes">
                             <div class="sec classSec">
                                 
                              </div>
@@ -239,19 +240,34 @@
                                 <div class="lf classRf">></div>
                             </div>
                         
+                        </div> -->
+                        <div class="seleclasses">
+                            <p>选择班级</p>
+                            <input type="text" class="selectNum" value="未选择">
                         </div>
         	    	</div>
             	</div>
             </div>
             <div class="bg-line">
-                <a href="../buy/buy.html"><img src="../../img/buy.png"></a>
             </div>
         </div>
+    </div>
+    <div class="mask">
+       <div class="maskflex">
+            <div class="lists">
+                <span class="close_list">×</span>
+                
+                <ul class="classSec"></ul>
+               
+                <p class="mask_sure">确定</p>
+            </div>
+       </div>
     </div>
     <div class="layerMask"></div>
     <div class="loading">
         <div class="loadBox">
             <div class="spinner"></div>
+            <p>加载中，请稍后。。。</p>
         </div>
     </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
@@ -263,40 +279,30 @@
     	$(function () {
              var paramClass={
                 "IndexPage": 1,
-                "IndexSize":6
+                "IndexSize":100
             }
             var paramrank={};
+            var accountName=sessionStorage.getItem('accountName');
             //默认时间
             var myDate = new Date();
             var y= myDate.getFullYear(); 
             var m=myDate.getMonth();
             var d=myDate.getDate();
-            paramrank.startDate = y+'-'+(m-1)+'-'+d;
-            paramrank.endDate = y+'-'+m+'-'+d;
-            console.log(paramrank);
-
-            paramClass.studentId ='s004';
+            paramrank.startDate = getNowFormatDate();
+            paramrank.endDate = getPassWeekDate();
+            var stuId=localStorage.getItem('studentId');
+            paramClass.studentId =accountName;
             paramrank.schoolId=localStorage.getItem('schoolId');
              var classListId=[],gradeid='',gradeName='';//班级id列表
              var count="";
             laydate.render({
                elem: '#startTime' //指定元素
+               
             });
             laydate.render({
                elem: '#endTime' //指定元素
             });
-            //  $("#startTime").shijian({
-            //     // y:-20,//当前年份+10
-            //     Hour:false,//是否显示小时
-            //     Minute:false,//是否显分钟
-            //     // success:function(){}
-            // })
-            //  $("#endTime").shijian({
-            //     // y:-20,//当前年份+10
-            //     Hour:false,//是否显示小时
-            //     Minute:false,//是否显分钟
-            //     // success:function(){}
-            // })
+    
             if(localStorage.getItem('studentName')){
                 $('.names').text(localStorage.getItem('studentName'));
             }
@@ -308,16 +314,9 @@
             }
             function successGetclass(classData) {
                 if(classData.Result==1){
-                    $(".classcount").text(paramClass.IndexPage);
-                    paramrank.ClassId='aaa';
-                    getRank();
-                    if(classData.Count%paramClass.IndexSize>0){
-                        classCount=parseInt(classData.Count/paramClass.IndexSize)+1;
-                    }else{
-                        classCount=parseInt(classData.Count/paramClass.IndexSize);
-                    }
+          
                     createClassList(classData.Data);
-                    setClassCheck();
+
          
                 }else{
                     paramClass.IndexPage-=classNum;
@@ -328,57 +327,62 @@
                 console.log(data);
                 var list='';
                 for(var i=0;i<data.length;i++){
-                    list+='<div id='+data[i].ClassId+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].ClassesName+'<span>选中</span></div>'
+                    if(data[i].AfterSchool){
+                        xiaowai="(校外)";
+                    }else{
+                        xiaowai="";
+                    }
+                    list+='<li><input type="radio" id='+data[i].ClassId+' name="seleclasses" gradeid='+data[i].GradeId+' dataName='+data[i].ClassesName+'><span>'+data[i].ClassesName+xiaowai+'</span></li>'
                 }
                 $(".classSec").html(list);
 
             }
           
-            $(".classLf").on("click",function(){
-                C.leftPage(paramClass,classNum,getClassData);
-                
+       
+            $('.seleclasses').on('click',function(){
+                $(".mask").show();
+                $(".classSec").show();
             });
-            $(".classRf").on("click",function(){
-                C.rightPage(paramClass,classNum,classCount,getClassData);
-                
+            $(".classSec").on("click",function(e){
+                e.stopPropagation();
+            });
+            $(".mask,.close_list,.mask_sure").on("click",function(){
+                $('.mask').hide();
+                $('.mask').find("ul").hide();
+
             });
              //选中班级id
            
-             $(".classes").on("click",'.classtable',function(){
+             $(".classSec").on("click",'input',function(){
                 C.load(0);
-                $('.classes').find('span').hide();
+                var starttime=$('#startTime').val();
+                var endtime=$('#endTime').val();
+                paramrank.startDate=starttime!=''?starttime:paramrank.startDate;
+                paramrank.endDate=endtime!=''?endtime:paramrank.endDate;
+                // $('.classes').find('span').hide();
                 //判断是否所有的班级选中全部清除
-                console.log($('#startTime').val());
-                var endT=$('#endTime').val();
-                var starT=$('#startTime').val();
-                console.log($('#endTime').val());
-                
-                
+          
                 var spanId=$(this).attr('id');
-                var grades=$(this).attr('gradeid');  
+                // var grades=$(this).attr('gradeid');  
 
+                // gradeid = spanId; 
+                paramrank.ClassId=spanId;
               
-                gradeid = spanId; 
-                paramrank.ClassId='aaa';
-                if(starT!='未选择'){
-                    paramrank.startDate = starT;
-                }
-                if(endT!='未选择'){
-                    paramrank.endDate = endT;
-                }
                 getRank();
-                 $(this).find('span').show();
+                // $(this).find('span').show();
+                var classname=$(this).attr('dataName');
+                $('.selectNum').val(classname);
             });
             //翻页后班级是否选中
-            function setClassCheck(){
-                var ids=$(".classes").find('.classtable');
-                for(var i=0;i<ids.length;i++){
-                    var ID=$(ids).eq(i).attr('id');
-                    if(gradeid==ID){
-                        $(".classes").find('.classtable').eq(i).find('span').show();
-                    }
-                }
-            }
+            // function setClassCheck(){
+            //     var ids=$(".classes").find('.classtable');
+            //     for(var i=0;i<ids.length;i++){
+            //         var ID=$(ids).eq(i).attr('id');
+            //         if(gradeid==ID){
+            //             $(".classes").find('.classtable').eq(i).find('span').show();
+            //         }
+            //     }
+            // }
             //获取排行榜信息
             function getRank() {
                 var data=C.POSTS(JSON.stringify(paramrank),httpUrl.GetStuRankingTaskHistoryBase,successGetrankdata);
@@ -413,6 +417,30 @@
                    C.load(1);
                    C.layer(1,data.Message);
                 }
+            }
+            function getNowFormatDate() {
+                var date = new Date();
+                var seperator1 = "-";
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var strDate = date.getDate();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                var currentdate = year + seperator1 + month + seperator1 + strDate;
+                return currentdate;
+            }
+            function getPassWeekDate(){
+                var now = new Date();
+                var date = new Date(now.getTime() - 7 * 24 * 3600 * 1000);
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var day = date.getDate();
+                var passWeekDate=year + '-' + month + '-' + day;
+                return passWeekDate;
             }
            $(window).resize(function () {  
                 

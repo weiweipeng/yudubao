@@ -2,7 +2,10 @@ $(function () {
 	var localhostDev=true;
     //如果是本地开发，就把localhostDev 设置成true，连接就是拼成‘http://localhost:8080/api/test’
 	//生产环境，就把localhostDev 设置成false，连接就是拼成‘http://60.205.139.23:10012’
-	var _host= localhostDev ? '180.168.86.30:3246' : '';
+	var _host= localhostDev ? 'http://192.168.16.45:3246' : '';
+	var _host1= localhostDev ? 'http://192.168.16.45:10012' : '';
+	// var _host= localhostDev ? 'http://192.168.16.183:3246' : '';
+	// var _host= localhostDev ? 'http://192.168.16.99:3246' : '';
 	window.httpUrl={
 		'Login':_host+'/api/Account/Login',//登陆
 		'TeacherTaskStatisticsDetailList':_host+'/api/TeacherTask/TeacherTaskStatisticsDetailList',//成绩统计班级信息
@@ -38,7 +41,8 @@ $(function () {
 		'GetQuestionListByPersonalTaskId':_host+'/api/TeacherTask/GetQuestionListByPersonalTaskId',//任务列表查看题目
 		'TeacherTaskListClassAllWithoutFuture':_host+'/api/TeacherTask/TeacherTaskListClassAllWithoutFuture',//获取学生练习篇章列表
 		'GetQuestionListByClassTaskId':_host+'/api/TeacherTask/GetQuestionListByClassTaskId',//更具班级获取题目篇章
-		'AddEnglishArticleTaskHistoryBase':_host+'/api/EnglishArticleTaskHistoryBase/AddEnglishArticleTaskHistoryBase',//学生提交答案
+		'GetQuestionListByPersonalTaskId':_host+'/api/TeacherTask/GetQuestionListByPersonalTaskId',//更具班级获取题目篇章
+		'AddEnglishArticleTaskHistoryBase':_host1+'/api/EnglishArticleTaskHistoryBase/AddEnglishArticleTaskHistoryBase',//学生提交答案
 		'GetEnglishArticleTaskHistoryBaseRepeatList':_host+'/api/EnglishArticleTaskHistoryBase/GetEnglishArticleTaskHistoryBaseRepeatList',//学生成绩列表详情
 	    'GetPageEnglishArticleTaskWrongBase':_host+'/api/EnglishArticleTaskWrongBase/GetPageEnglishArticleTaskWrongBase',//学生错题库
 	    'GetEnglishArticleTaskWrongBaseList':_host+'/api/EnglishArticleTaskWrongBase/GetEnglishArticleTaskWrongBaseList',//学生错题详情
@@ -53,12 +57,13 @@ $(function () {
 	    'GetStuRankingTaskHistoryBase':_host+'/api/EnglishArticleTaskHistoryBase/GetStuRankingTaskHistoryBase',//学生排行榜
 	    'Topic':_host+'/api/TeacherStatistics/Topic',//老师话题统计
 	    'sTopic':_host+'/api/StudentStatistics/Topic',//学生话题统计
+	    'GetClassTaskQuestion':_host+'/api/TeacherTask/GetClassTaskQuestion',//教师端获取任务详情
 	    'SLiteraryStyle':_host+'/api/StudentStatistics/LiteraryStyle',//学生问题统计
 	    'SScoreAndSpeed':_host+'/api/StudentStatistics/ScoreAndSpeed',//学生成绩和速度统计
 	    'SBigKnowledgePoint':_host+'/api/StudentStatistics/BigKnowledgePoint',//学生大能力点统计
 	    'SQuestionType':_host+'/api/StudentStatistics/QuestionType',//学生题型统计
 	    'SSmallKnowledgePoint':_host+'/api/StudentStatistics/SmallKnowledgePoint',//学生小能力点统计
-	    'AddEnglishArticleTaskHistoryBase':_host+'/api/EnglishArticleTaskHistoryBase/AddEnglishArticleTaskHistoryBase',//提交学生练习
+	    // 'AddEnglishArticleTaskHistoryBase':_host1+'/api/EnglishArticleTaskHistoryBase/AddEnglishArticleTaskHistoryBase',//提交学生练习
 	    'ConfirmHistoryBaseStatus':_host+'/api/EnglishArticleTaskHistoryBase/ConfirmHistoryBaseStatus',//检测学生练习是否提交成功
         'GetStudentTaskHistoryBaseStatistics':_host+'/api/EnglishArticleTaskHistoryBase/GetStudentTaskHistoryBaseStatistics',//学生成绩统计
         'TeacherTaskPersonalStudentList':_host+'/api/TeacherTask/TeacherTaskPersonalStudentList',//获取
@@ -67,7 +72,21 @@ $(function () {
         'TeacherTaskListClassAllMarking':_host+'/api/TeacherTask/TeacherTaskListClassAllMarking',//阅卷界面任务列表
         'TeacherTaskStudentList':_host+'/api/TeacherTask/TeacherTaskStudentList',//阅卷获取学生信息
         'StudentWriting':_host+'/api/TeacherTask/StudentWriting',//阅卷获取阅卷的信息
-
+        'TeacherTaskErrorDetailList':_host+'/api/TeacherTask/TeacherTaskErrorDetailList',//教师端获取错误任务详情
+        'GetClasses':_host+'/api/ClassManager/GetClasses',//获取所有的班级
+        'JoinClass':_host+'/api/ClassManager/JoinClass',//老师加入班级
+        'ApprovedClassStudent':_host+'/api/ClassManager/ApprovedClassStudent',//是否有申请加入的学生
+        'GetStudentPwd':_host+'/api/ClassManager/GetStudentPwd',//查看学生密码
+        'DelClassStudent':_host+'/api/ClassManager/DelClassStudent',//删除学生
+        'AddStudentToClass':_host+'/api/ClassManager/AddStudentToClass',//添加学生
+        'CreatClass':_host+'/api/ClassManager/CreatClass',//创建班级
+        'EditEditEnglishArticleTaskHistoryBase':_host1+'/api/EnglishArticleTaskWrongBase/EditEditEnglishArticleTaskHistoryBase',//学生错题订正
+        'GetQuestionListByStuId':_host+'/api/TeacherTask/GetQuestionListByStuId',//获取学生个人任务
+        'DelClassTask':_host+'/api/TeacherTask/DelClassTask',//教师发布任务删除
+        'GetPersonalTaskQuestion':_host+'/api/TeacherTask/GetPersonalTaskQuestion',//获取学生
+        'SelectTaskItemCheck':_host+'/api/TeacherTask/SelectTaskItemCheck',//获取阅卷列表
+        'GetStudentsListByClassID':_host+'/api/ClassManager/GetStudentsListByClassID',//阅卷获取学生
+        'TeacherMarking':_host+'/api/TeacherTask/TeacherMarking',//老师阅卷提交评分
         'GetCourseList':_host+'/api/Course/GetCourseList',//购买页面获取课程列表
         'GetEditionList':_host+'/api/Edition/GetEditionList',//购买页面获取版本列表
         'GetGradeList':_host+'/api/Grade/GetGradeList',//购买页面获取年级列表

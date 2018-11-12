@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>老师注册</title>
+    <title>学生注册</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <link rel="stylesheet" type="text/css" href="../../css/common.css">
@@ -74,6 +74,7 @@
             outline: none;
             font-size: 16px;
             font-weight: 600;
+            cursor: pointer;
         }
        
         .xieyi{
@@ -96,6 +97,7 @@
             border-radius: 18px;
              font-size: 12px;
             text-align: center;
+            cursor: pointer;
         }
         .numcode{
             background-color: rgb(204,204,204);
@@ -123,6 +125,9 @@
             color: red;
 
         }
+        .getNumberCode{
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -130,7 +135,7 @@
         <div id="register">
             <div class="logoimg">
                 <img src="../../img/120.png">
-                <p>注册老师账号</p>
+                <p>注册学生账号</p>
             </div>
             <div class="lf stu">
                 <div>
@@ -157,7 +162,7 @@
                         <input type="text" name="numbers" class="numbers lf" placeholder="请输入右边的数字">
                         <div class="numberImg"></div>
                         <span class="numcode lf"></span>
-                        <p>看不清？换一张</p>
+                        <p class="getNumberCode">看不清？换一张</p>
                     </div>
                     <div class="form-inline">
                         <input type="text" name="message" class="message lf" placeholder="请输入验证码">
@@ -165,14 +170,14 @@
                         <span class="sendMessage fl" style="-moz-user-select:none;">获取验证码</span>
                     </div>
                     <div class="form-inline">
-                        <button type="button" class="Ssubmit">注册成为老师</button>
+                        <button type="button" class="Ssubmit">注册成为学生</button>
                     </div>
                     <div class="form-inline">
                         <label class="my_protocol">
                               <input class="input_agreement_protocol" type="checkbox" />
                               <span></span>
                         </label>
-                        <span class="xieyi">注册即代表同意《启思老师端用户服务协议》</span>
+                        <span class="xieyi">注册即代表同意《启思学生端用户服务协议》</span>
                     </div>
                 </form>
             </div>
@@ -322,7 +327,7 @@
                     // C.layer(1,Codes.Message);
                 // }
             }
-            $(".numcode").on({
+            $(".numcode , .getNumberCode").on({
                 click:function () {
                     getCode();
                 },

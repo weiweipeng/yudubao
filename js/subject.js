@@ -226,10 +226,8 @@ function SubjectString(subject) {
     return str;
 }
 
-
 //教师篇章拼接
-function TeacherSubjectString(subject) {
-    console.log(subject);
+function TeacherSubjectStrings(subject) {
     var str = '';
     str += '<form id = "form1" autocomplete="off" style=" overflow:auto;padding:0 10px;" ><div id="' + subject.Id + '">';
     str += '<p class="specialFontTitle" >话题：' + subject.Topic + '&nbsp|&nbsp文体：' + subject.LiteraryForm + '&nbsp|&nbsp';
@@ -431,7 +429,586 @@ function TeacherSubjectString(subject) {
     str == '</form>';
     return str;
 }
+//教师个人成绩篇章拼接
+function TeacherSubjectPersonStrings(subject) {
+    var str = '';
+    str += '<form id = "form1" autocomplete="off" style=" overflow:auto;padding:0 10px;" ><div id="' + subject.Id + '">';
+    str += '<p class="specialFontTitle" >话题：' + subject.Topic + '&nbsp|&nbsp文体：' + subject.LiteraryForm + '&nbsp|&nbsp';
+    str += '题型：' + subject.QuestionsType + '&nbsp|&nbsp难度：' + subject.Difficulty + '&nbsp|&nbsp;';
+    str += '词数：' + subject.Words + '&nbsp|&nbsp分数：' + subject.Score + '</p>';
+    str += '<h3 style="margin-top: 20px;">' + subject.Name + '</h3><br/>';
+    str += '<p class="specialFont" >文章导读：' + subject.WenZhangDaoDu + '</p><br/>';
+    str += '<p class="specialFont" >词语指津：' + subject.CiYuZhiJin + '</p><br/>';
+    str += audioLocation(subject.Audio);
+    switch (subject.QuestionsType) {
+        case '阅读判断':
+            str += subject.Title + '<hr>';
+            $.each(subject.QuestionItem, function (ind, val) {
+                str += '<div id="' + val.Id + '" class="Readingjudgment"> ';
+                str += '<p>' + val.Sort + ' . ' + val.Title + '</p>';
+                str += '<div class="fr"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="F" />×</div>';
+                str += '<div class="fr"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="T" />√</div></div>';
+            });
+            break;
+        case '图片选择':
+            str += subject.Title + '<hr/>';
+            $.each(subject.QuestionItem, function (ind, val) {
+                var queArray = val.Title.split('@');
+                str += val.Sort + '. ' + queArray[0] + '<br/>';
+                for (var i = 1; i < queArray.length; i++) {
+                    str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i - 1] + '" /><span> ' + optionDic[i - 1] + '. </span>';
+                    str += queArray[i] + '</div>';
+                }
+                str += '<br/>';
+            });
+            break;
+        case '阅读选择':
+            str += subject.Title + '<hr/>';
+            $.each(subject.QuestionItem, function (ind, val) {
+                var queArray = val.Title.split('@');
+                str += val.Sort + '. ' + queArray[0] + '<br/>';
+                for (var i = 1; i < queArray.length; i++) {
+                    str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i - 1] + '" /><span> ' + optionDic[i - 1] + '. </span>';
+                    str += queArray[i] + '</div><br/>';
+                }
+                str += '<br/>';
+            });
+            break;
+        case '完形填空':
+            str += subject.Title + '<hr/>';
+            $.each(subject.QuestionItem, function (ind, val) {
+                var queArray = val.Title.split('@');
+                str += '<div id="' + val.Id + '" class="wanxingtiankognQue">' + val.Sort + '.&nbsp';
+                for (var i = 0; i < queArray.length; i++) {
+                    str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i] + '" /><span> ' + optionDic[i] + '. </span>';
+                    str += queArray[i] + '</div>';
+                }
+                str += '</div>';
+            });
+            break;
+        case '语法词汇填空':
+            var content = subject.Title;
+            $.each(subject.QuestionItem, function (ind, val) {
+                content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+            });
+            str += content + '<hr/>';
+            break;
+        case '选词填空':
+            var xuanxiang = subject.WordSentence.split('|');
+            str += '<table class="import">';
+            str += '<tr>';
+            for (var i = 0; i < xuanxiang.length; i++) {
+                if ((i + 1) % 5 == 0 && i != 0) {
+                    str += '<td>' + xuanxiang[i] + '</td></tr><tr>';
+                } else {
+                    str += '<td>' + xuanxiang[i] + '</td>';
+                }
+            }
+            str += '</tr>';
+            str += ' </table>';
+            var content = subject.Title;
+            $.each(subject.QuestionItem, function (ind, val) {
+                content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText  ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+            });
+            str += content;
+            break;
+        case '表格填空':
+            str += subject.Title + '<hr/>';
+            $.each(subject.QuestionItem, function (ind, val) {
+                var queArray = val.Title.split('@');
+                str += '<div id="' + val.Id + '" class="wanxingtiankognQue">' + val.Sort + '.&nbsp';
+                for (var i = 0; i < queArray.length; i++) {
+                    str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i] + '" /><span> ' + optionDic[i] + '. </span>';
+                    str += queArray[i] + '</div>';
+                }
+                str += '</div>';
+            });
+            break;
+        case '选句填空':
+            var xuanxiang = subject.WordSentence.split('|');
+            str += '<table class="import">';
+            for (var i = 0; i < xuanxiang.length; i++) {
+                str += '<tr><td>' + xuanxiang[i] + '</td></tr>';
+            }
+            str += ' </table>';
+            var content = subject.Title;
+            $.each(subject.QuestionItem, function (ind, val) {
+                content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+            });
+            str += content;
+            break;
+        case '段落标题匹配':
+            var xuanxiang = subject.WordSentence.split('|');
+            str += '<table class="import">';
+            for (var i = 0; i < xuanxiang.length; i++) {
+                str += '<tr><td>' + xuanxiang[i] + '</td></tr>';
+            }
+            str += ' </table>';
+            var content = subject.Title;
+            $.each(subject.QuestionItem, function (ind, val) {
+                content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+            });
+            str += content;
+            break;
+        case '阅读填空':
+            str += subject.Title + '<hr/>';
+            $.each(subject.QuestionItem, function (ind, val) {
+                var answerStr = val.Answer;
+                answerStr = answerStr.indexOf('^') == -1 ? answerStr : answerStr.split('^')[0];
+                var answerArray = answerStr.indexOf('|') == -1 ? new Array(answerStr) : answerStr.split('|');
+                var content = val.Title;
+                content = content.replace('<div>', '');
+                content = content.replace('</div>', '');
+                for (var i = 0; i < answerArray.length; i++) {
+                    var relIndex = i + 1;
+                    content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+                }
+                str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
+            });
+            break;
+        case '回答问题':
+            str += subject.Title + '<hr/>';
+            $.each(subject.QuestionItem, function (ind, val) {
+                var answerStr = val.Answer;
+                answerStr = answerStr.indexOf('^') == -1 ? answerStr : answerStr.split('^')[0];
+                var answerArray = answerStr.indexOf('|') == -1 ? new Array(answerStr) : answerStr.split('|');
+                var content = val.Title;
+                content = content.replace('<div>', '');
+                content = content.replace('</div>', '');
+                for (var i = 0; i < answerArray.length; i++) {
+                    var relIndex = i + 1;
+                    content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+                }
+                str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
+            });
+            break;
+        case '综合阅读':
+            str += subject.Title + '<hr/>';
+            $.each(subject.QuestionItem, function (ind, val) {
+                var answerStr = val.Answer;
+                var answerArray = answerStr.indexOf('|') == -1 ? new Array(answerStr) : answerStr.split('|');
+                var content = val.Title;
+                content = content.replace('<div>', '');
+                content = content.replace('</div>', '');
+                for (var i = 0; i < answerArray.length; i++) {
+                    var relIndex = i + 1;
+                    content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+                }
+                str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
+            });
+            break;
+        case '选词填空-所给词的适当形式填空':
+            str += '<p style="text-align:center" ><span style="border:1px solid;padding:5px">' + subject.WordSentence + '</span></p>';
+            var content = subject.Title;
+            $.each(subject.QuestionItem, function (ind, val) {
+                content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+            });
+            str += content;
+            break;
+        case '给首字母完形填空':
+            var content = subject.Title;
+            $.each(subject.QuestionItem, function (ind, val) {
+                content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+            });
+            str += content + '<hr/>';
+            break;
+        case '信息匹配':
+            var content = subject.Title;
+            $.each(subject.QuestionItem, function (ind, val) {
+                content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+            });
+            str += content + '<hr/>';
+            break;
+        default:;
+    }
+    str += '</div>';
+    if (subject.WritingSkillId != "") {
+        str += WritingSkillString(subject.WritingSkill);
+    }
+    if (subject.ReadingStrategyId != "" && subject.ReadingStrategyContent != null) {
+        str += '<br/><p class="specialFont" >阅读策略：</p>'
+        str += '<div>' + subject.ReadingStrategyContent + '</div>';
+    }
+    str == '</form>';
+    return str;
+}
+//教师教参预览篇章拼接
+function TeacherSubjectString(subject) {
+    var str = '';
+    str += '<form id = "form1" autocomplete="off" style=" overflow:auto;padding:0 10px;" ><div id="' + subject.Id + '">';
+    str += '<p class="specialFontTitle" >主题语境：' + subject.Topic + '&nbsp|&nbsp文体：' + subject.LiteraryForm + '&nbsp|&nbsp';
+    str += '题型：' + subject.QuestionsType + '&nbsp|&nbsp难度：' + subject.Difficulty + '&nbsp|&nbsp;';
+    str += '词数：' + subject.Words + '&nbsp|&nbsp分数：' + subject.Score + '</p>';
+    str += '<h3 style="margin-top: 20px;">' + subject.Name + '</h3><br/>';
+    //教学概要&背景知识
+    if (IsNormal(subject.JiaoCanId)) {
+        str += " <div id='jxgyTitle' class='title'>一、教学概要（Overview）<img src='../../img/addContent.png' class='toggleImg addContentImg'><img src='../../img/reduceContent.png' class='toggleImg reduceContentImg'></div>";
+        if(subject.resp.jiaocanReferenceModel[0].JiaoXueGaiYao){
+            var subjectstr=subject.resp.jiaocanReferenceModel[0].JiaoXueGaiYao.replace("一、教学概要","");
+            console.log(subjectstr);
+        }
+        str += "<div id='jxgyContent' class='conttent'>" + subjectstr + "</div>";
+        str += " <div id='bjzsTitle' class='title'>二、背景知识（Background）<img src='../../img/addContent.png' class='toggleImg addContentImg'><img src='../../img/reduceContent.png' class='toggleImg reduceContentImg'></div>";
+        if(subject.resp.jiaocanReferenceModel[0].BeiJingZhiShi){
+            var BeiJingZhiShi=subject.resp.jiaocanReferenceModel[0].BeiJingZhiShi.replace("二、背景知识","");
+        }
+        str += "<div id='bjzsContent' class='conttent'>" + BeiJingZhiShi + "</div>";
+    }
+    str += '<p class="specialFont" >文章导读：' + subject.WenZhangDaoDu + '</p><br/>';
+    if (!IsNormal(subject.JiaoCanId)) {
+        str += '<p class="specialFont" >词语指津：' + subject.CiYuZhiJin + '</p><br/>';
+    }
+    str += audioLocation(subject.Audio);
+    switch (subject.QuestionsType) {
+        case '阅读判断':
+            str += subject.Title + '<hr>';
+            if (IsNormal(subject.JiaoCanId)) {
+                str += " <div id='jxjyTitle' class='title'>三、教学建议（Teaching tips）<img src='../../img/addContent.png' class='toggleImg addContentImg'><img src='../../img/reduceContent.png' class='toggleImg reduceContentImg'></div>";
+                if(subject.resp.jiaocanReferenceModel[0].JiaoXueJianYi){
+                    var JiaoXueJianYi=subject.resp.jiaocanReferenceModel[0].JiaoXueJianYi.replace("三、教学建议","");
+                }
+                str += "<div id='jxjyContent' class='conttent'>" + JiaoXueJianYi + "</div>";
+                str += "<div><hr/><span style=font-weight:bold;>Exercise</span></div>";
+            }
+            $.each(subject.SubjectItemList, function (ind, val) {
+                str += '<div id="' + val.Id + '" class="Readingjudgment"> ';
+                str += '<p>' + val.Sort + ' . ' + val.Title + '</p>';
+                str += '<div class="fr"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="F" />×</div>';
+                str += '<div class="fr"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="T" />√</div></div>';
+            });
+            break;
+        case '图片选择':
+            str += subject.Title + '<hr/>';
+            if (IsNormal(subject.JiaoCanId)) {
+                str += " <div id='jxjyTitle' class='title' >三、教学建议（Teaching tips）<img src='../../img/addContent.png' class='toggleImg addContentImg'><img src='../../img/reduceContent.png' class='toggleImg reduceContentImg'></div>";
+                if(subject.resp.jiaocanReferenceModel[0].JiaoXueJianYi){
+                    var JiaoXueJianYi=subject.resp.jiaocanReferenceModel[0].JiaoXueJianYi.replace("三、教学建议","");
+                }
+                str += "<div id='jxjyContent' class='conttent'>" + JiaoXueJianYi + "</div>";
+                str += "<div><hr/><span style=font-weight:bold;>Exercise</span></div>";
+            }
+            $.each(subject.SubjectItemList, function (ind, val) {
+                var queArray = val.Title.split('@');
+                str += val.Sort + '. ' + queArray[0] + '<br/>';
+                for (var i = 1; i < queArray.length; i++) {
+                    str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i - 1] + '" /><span> ' + optionDic[i - 1] + '. </span>';
+                    str += queArray[i] + '</div>';
+                }
+                str += '<br/>';
+            });
+            break;
+        case '阅读选择':
+            str += subject.Title + '<hr/>';
+            if (IsNormal(subject.JiaoCanId)) {
+                str += " <div id='jxjyTitle' class='title' >三、教学建议（Teaching tips）<img src='../../img/addContent.png' class='toggleImg addContentImg'><img src='../../img/reduceContent.png' class='toggleImg reduceContentImg'></div>";
+                if(subject.resp.jiaocanReferenceModel[0].JiaoXueJianYi){
+                    var JiaoXueJianYi=subject.resp.jiaocanReferenceModel[0].JiaoXueJianYi.replace("三、教学建议","");
+                }
+                str += "<div id='jxjyContent' class='conttent'>" + JiaoXueJianYi + "</div>";
+                str += "<div><hr/><span style=font-weight:bold;>Exercise</span></div>";
+            }
+            $.each(subject.SubjectItemList, function (ind, val) {
+                var queArray = val.Title.split('@');
+                str += val.Sort + '. ' + queArray[0] + '<br/>';
+                for (var i = 1; i < queArray.length; i++) {
+                    str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i - 1] + '" /><span> ' + optionDic[i - 1] + '. </span>';
+                    str += queArray[i] + '</div><br/>';
+                }
+                str += '<br/>';
+            });
+            break;
+        case '完形填空':
+            str += subject.Title + '<hr/>';
+            if (IsNormal(subject.JiaoCanId)) {
+                str += " <div id='jxjyTitle' class='title' >三、教学建议（Teaching tips）<img src='../../img/addContent.png' class='toggleImg addContentImg'><img src='../../img/reduceContent.png' class='toggleImg reduceContentImg'></div>";
+                if(subject.resp.jiaocanReferenceModel[0].JiaoXueJianYi){
+                    var JiaoXueJianYi=subject.resp.jiaocanReferenceModel[0].JiaoXueJianYi.replace("三、教学建议","");
+                }
+                str += "<div id='jxjyContent' class='conttent'>" + JiaoXueJianYi + "</div>";
+                str += "<div><hr/><span style=font-weight:bold;>Exercise</span></div>";
+            }
+            $.each(subject.SubjectItemList, function (ind, val) {
+                var queArray = val.Title.split('@');
+                str += '<div id="' + val.Id + '" class="wanxingtiankognQue">' + val.Sort + '.&nbsp';
+                for (var i = 0; i < queArray.length; i++) {
+                    str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i] + '" /><span> ' + optionDic[i] + '. </span>';
+                    str += queArray[i] + '</div>';
+                }
+                str += '</div>';
+            });
+            break;
+        case '语法词汇填空':
+            var content = subject.Title;
+            $.each(subject.SubjectItemList, function (ind, val) {
+                content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+            });
+            str += content + '<hr/>';
+            break;
+        case '选词填空':
+            var xuanxiang = subject.WordSentence.split('|');
+            str += '<table class="import">';
+            str += '<tr>';
+            for (var i = 0; i < xuanxiang.length; i++) {
+                if ((i + 1) % 5 == 0 && i != 0) {
+                    str += '<td>' + xuanxiang[i] + '</td></tr><tr>';
+                } else {
+                    str += '<td>' + xuanxiang[i] + '</td>';
+                }
+            }
+            str += '</tr>';
+            str += ' </table>';
+            var content = subject.Title;
+            $.each(subject.SubjectItemList, function (ind, val) {
+                content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText  ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+            });
+            str += content;
+            break;
+        case '表格填空':
+            str += subject.Title + '<hr/>';
+            if (IsNormal(subject.JiaoCanId)) {
+                str += " <div id='jxjyTitle' class='title'>三、教学建议（Teaching tips）<img src='../../img/addContent.png' class='toggleImg addContentImg'><img src='../../img/reduceContent.png' class='toggleImg reduceContentImg'></div>";
+                if(subject.resp.jiaocanReferenceModel[0].JiaoXueJianYi){
+                    var JiaoXueJianYi=subject.resp.jiaocanReferenceModel[0].JiaoXueJianYi.replace("三、教学建议","");
+                }
+                str += "<div id='jxjyContent' class='conttent'>" + JiaoXueJianYi + "</div>";
+                str += "<div><hr/><span style=font-weight:bold;>Exercise</span></div>";
+            }
+            $.each(subject.SubjectItemList, function (ind, val) {
+                var queArray = val.Title.split('@');
+                str += '<div id="' + val.Id + '" class="wanxingtiankognQue">' + val.Sort + '.&nbsp';
+                for (var i = 0; i < queArray.length; i++) {
+                    str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i] + '" /><span> ' + optionDic[i] + '. </span>';
+                    str += queArray[i] + '</div>';
+                }
+                str += '</div>';
+            });
+            break;
+        case '选句填空':
+            var xuanxiang = subject.WordSentence.split('|');
+            str += '<table class="import">';
+            for (var i = 0; i < xuanxiang.length; i++) {
+                str += '<tr><td>' + xuanxiang[i] + '</td></tr>';
+            }
+            str += ' </table>';
+            var content = subject.Title;
+            $.each(subject.SubjectItemList, function (ind, val) {
+                content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+            });
+            str += content;
+            break;
+        case '段落标题匹配':
+            var xuanxiang = subject.WordSentence.split('|');
+            str += '<table class="import">';
+            for (var i = 0; i < xuanxiang.length; i++) {
+                str += '<tr><td>' + xuanxiang[i] + '</td></tr>';
+            }
+            str += ' </table>';
+            var content = subject.Title;
+            $.each(subject.SubjectItemList, function (ind, val) {
+                content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+            });
+            str += content;
+            break;
+        case '阅读填空':
+            str += subject.Title + '<hr/>';
+            if (IsNormal(subject.JiaoCanId)) {
+                str += " <div id='jxjyTitle' class='title' >三、教学建议（Teaching tips）<img src='../../img/addContent.png' class='toggleImg addContentImg'><img src='../../img/reduceContent.png' class='toggleImg reduceContentImg'></div>";
+                if(subject.resp.jiaocanReferenceModel[0].JiaoXueJianYi){
+                    var JiaoXueJianYi=subject.resp.jiaocanReferenceModel[0].JiaoXueJianYi.replace("三、教学建议","");
+                }
+                str += "<div id='jxjyContent' class='conttent'>" + JiaoXueJianYi + "</div>";
+                str += "<div><hr/><span style=font-weight:bold;>Exercise</span></div>";
+            }
+            $.each(subject.SubjectItemList, function (ind, val) {
+                var answerStr = val.Answer;
+                answerStr = answerStr.indexOf('^') == -1 ? answerStr : answerStr.split('^')[0];
+                var answerArray = answerStr.indexOf('|') == -1 ? new Array(answerStr) : answerStr.split('|');
+                var content = val.Title;
+                content = content.replace('<div>', '');
+                content = content.replace('</div>', '');
+                for (var i = 0; i < answerArray.length; i++) {
+                    var relIndex = i + 1;
+                    content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+                }
+                str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
+            });
+            break;
+        case '回答问题':
+            str += subject.Title + '<hr/>';
+            if (IsNormal(subject.JiaoCanId)) {
+                str += " <div id='jxjyTitle' class='title' >三、教学建议（Teaching tips）<img src='../../img/addContent.png' class='toggleImg addContentImg'><img src='../../img/reduceContent.png' class='toggleImg reduceContentImg'></div>";
+                if(subject.resp.jiaocanReferenceModel[0].JiaoXueJianYi){
+                    var JiaoXueJianYi=subject.resp.jiaocanReferenceModel[0].JiaoXueJianYi.replace("三、教学建议","");
+                }
+                str += "<div id='jxjyContent' class='conttent'>" + JiaoXueJianYi + "</div>";
+                str += "<div><hr/><span style=font-weight:bold;>Exercise</span></div>";
+            }
+            $.each(subject.SubjectItemList, function (ind, val) {
+                var answerStr = val.Answer;
+                answerStr = answerStr.indexOf('^') == -1 ? answerStr : answerStr.split('^')[0];
+                var answerArray = answerStr.indexOf('|') == -1 ? new Array(answerStr) : answerStr.split('|');
+                var content = val.Title;
+                content = content.replace('<div>', '');
+                content = content.replace('</div>', '');
+                for (var i = 0; i < answerArray.length; i++) {
+                    var relIndex = i + 1;
+                    content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+                }
+                str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
+            });
+            break;
+        case '综合阅读':
+            str += subject.Title + '<hr/>';
+            if (IsNormal(subject.JiaoCanId)) {
+                str += " <div id='jxjyTitle' class='title' >三、教学建议（Teaching tips）<img src='../../img/addContent.png' class='toggleImg addContentImg'><img src='../../img/reduceContent.png' class='toggleImg reduceContentImg'></div>";
+                if(subject.resp.jiaocanReferenceModel[0].JiaoXueJianYi){
+                    var JiaoXueJianYi=subject.resp.jiaocanReferenceModel[0].JiaoXueJianYi.replace("三、教学建议","");
+                }
+                str += "<div id='jxjyContent' class='conttent'>" + JiaoXueJianYi + "</div>";
+                str += "<div><hr/><span style=font-weight:bold;>Exercise</span></div>";
+            }
+            $.each(subject.SubjectItemList, function (ind, val) {
+                var answerStr = val.Answer;
+                var answerArray = answerStr.indexOf('|') == -1 ? new Array(answerStr) : answerStr.split('|');
+                var content = val.Title;
+                content = content.replace('<div>', '');
+                content = content.replace('</div>', '');
+                for (var i = 0; i < answerArray.length; i++) {
+                    var relIndex = i + 1;
+                    content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+                }
+                str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
+            });
+            break;
+        case '选词填空-所给词的适当形式填空':
+            str += '<p style="text-align:center" ><span style="border:1px solid;padding:5px">' + subject.WordSentence + '</span></p>';
+            var content = subject.Title;
+            $.each(subject.SubjectItemList, function (ind, val) {
+                content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+            });
+            str += content;
+            break;
+        case '给首字母完形填空':
+            var content = subject.Title;
+            $.each(subject.SubjectItemList, function (ind, val) {
+                content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+            });
+            str += content + '<hr/>';
+            break;
+        case '信息匹配':
+            var content = subject.Title;
+            $.each(subject.SubjectItemList, function (ind, val) {
+                content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+            });
+            str += content + '<hr/>';
+            break;
+        default:;
+    }
+    str += '</div>';
+    //说文解词
+    if (IsNormal(subject.JiaoCanId)) {
+        str += " <div id='swjcTitle' class='title'>四、说文解词<img src='../../img/addContent.png' class='toggleImg addContentImg'><img src='../../img/reduceContent.png' class='toggleImg reduceContentImg'></div>";
+        if(subject.resp.jiaocanReferenceModel[0].ShuoWenJieCi){
+                    var ShuoWenJieCi=subject.resp.jiaocanReferenceModel[0].JiaoXueJianYi.replace("三、教学建议","");
+                }
+        str += "<div id='swjcContent' class='conttent'>" + ShuoWenJieCi + "</div>";
+    }
+    //Vocabulary ladder
+    if (IsNormal(subject.CiHuiLianXiId)) {
+        str += '<br/><b>Vocabulary Ladder</b>';
+        str += taskItem(subject.resp.CihuiLianXi);
+    }
+    //语法指津
+    if (IsNormal(subject.JiaoCanId)) {
+        str += " <div id='yfzjTitle' class='title'>五、语法指津 Language tips<img src='../../img/addContent.png' class='toggleImg addContentImg'><img src='../../img/reduceContent.png' class='toggleImg reduceContentImg'></div>";
+        if(subject.resp.jiaocanReferenceModel[0].YuFaZhiJin){
+            var YuFaZhiJin = subject.resp.jiaocanReferenceModel[0].YuFaZhiJin.replace("五、语法指津（Language tips）","");
+        }
+        str += "<div id='yfzjContent' class='conttent''>" + YuFaZhiJin + "</div>";
+    }
+    //language tips    
+    if (IsNormal(subject.CiHuiLianXiId)) {
+        str += '<br/>' + subject.resp.CiHuiLianXiTitle[0].YuFaZhiJin;
+    }
+    //学习策略
+    if (IsNormal(subject.JiaoCanId)) {
+        str += " <div id='xxclTitle' class='title'>六、学习策略 Learning strategy<img src='../../img/addContent.png' class='toggleImg addContentImg'><img src='../../img/reduceContent.png' class='toggleImg reduceContentImg'></div>";
+        if(subject.resp.jiaocanReferenceModel[0].XueXiCeLue){
+            var XueXiCeLue = subject.resp.jiaocanReferenceModel[0].XueXiCeLue.replace("<span style=font-weight:bold;>六</span><span style=font-weight:bold;>、学习策略</span><span style=font-weight:bold;>（</span><span style=font-weight:bold;>Learning </span><span style=font-weight:bold;>s</span><span style=font-weight:bold;>trategy</span><span style=font-weight:bold;>）</span>","");
+        }
+        str += "<div id='xxclContent' class='conttent' >" + XueXiCeLue + "</div>";
+    }
+    //learning strategy
+    if (IsNormal(subject.CiHuiLianXiId)) {
+        str += '<br/>' + subject.resp.CiHuiLianXiTitle[0].XueXiCeLue;
+    }
+    //作业
+    if (IsNormal(subject.JiaoCanId)) {
+        str += " <div id='zyTitle' class='title'>七、作业<img src='../../img/addContent.png' class='toggleImg addContentImg'><img src='../../img/reduceContent.png' class='toggleImg reduceContentImg'></div>";
+        if(subject.resp.jiaocanReferenceModel[0].ZuoYe){
+            var ZuoYe = subject.resp.jiaocanReferenceModel[0].ZuoYe.replace("七、作业","");
+        }
+        str += "<div id='zyContent' class='conttent' >" + ZuoYe + "</div>";
+    }
+    //Task
+    if (IsNormal(subject.ZuoYeId)) {
+        str += '<br/><b>Task</b>';
+        str += taskItem(subject.resp.ZuoYeLianXi);
+    }
+    str == '</form>';
+    return str;
+}
 
+function taskItem(taskItemList) {
+    var str = '';
+    $.each(taskItemList, function (i, value) {
+        switch (value.QuestionType) {
+            case '选择':
+                var queArray = value.Content.split('@');
+                str += value.Sort + '. ' + queArray[0] + '<br/>';
+                for (var i = 1; i < queArray.length; i++) {
+                    str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + value.Id + '" name="' + value.Id + '" id="' + value.Id + '" value="' + optionDic[i - 1] + '" /><span> ' + optionDic[i - 1] + '. </span>';
+                    str += queArray[i] + '</div><br/>';
+                }
+                str += '<br/>';
+                break;
+            case '填空':
+                var content = value.Content;
+                do {
+                    content = content.replace('{1}', '<input type="text" class="inputText ' + value.Id + '" id="' + value.Id + '" name="' + value.Id + '">');
+                } while (content.indexOf('{1}') != -1);
+                str += '<div id="' + value.Id + '" class="TiankongQue">' + value.Sort + '. ' + content + '</div><br/>';
+                break;
+            case '写句子':
+                var content = value.Content;
+                do {
+                    content = content.replace('{1}', '<textarea class="inputTextarea ' + value.Id + '" id="' + value.Id + '" name="' + value.Id + '"></textarea>');
+                } while (content.indexOf('{1}') != -1);
+                str += '<div id="' + value.Id + '" class="TiankongQue">' + value.Sort + '. ' + content + '<br/></div><br/>';
+                break;
+            case '写段落':
+                var content = value.Content;
+                do {
+                    content = content.replace('{1}', '<textarea class="inputTextareaWriting ' + value.Id + '" id="' + value.Id + '" name="' + value.Id + '"></textarea>');
+                } while (content.indexOf('{1}') != -1);
+                str += '<div id="' + value.Id + '" class="TiankongQue">' + value.Sort + '. ' + content + '<br/></div><br/>';
+                break;
+            case '填图题':
+                var content = value.Content;
+                do {
+                    content = content.replace('{1}', '<input type="text" class="inputText ' + value.Id + '" id="' + value.Id + '" name="' + value.Id + '">');
+                } while (content.indexOf('{1}') != -1);
+                str += '<div id="' + value.Id + '" class="TiankongQue">' + value.Sort + '. ' + content + '</div><br/>';
+                break;
+            case '阅读':
+                var content = value.Content;
+                str += content;
+                break;
+            default:;
+        }
+    })
+    return str;
+}
 
 //写作技巧拼接
 function WritingSkillString(WritingSkillDetail) {
@@ -508,112 +1085,112 @@ function WritingSkillString(WritingSkillDetail) {
 function SubjectStringWrong(subject) {
     var existError = false;
     var str = '';
-    str += '<form id = "form1" autocomplete="off" style=" overflow:auto;padding:0 10px;" ><div id="' + subject.id + '">';
-    str += '<p class="specialFontTitle" >话题：' + subject.topic + '&nbsp|&nbsp文体：' + subject.literaryForm + '&nbsp|&nbsp';
-    str += '题型：' + subject.questionsType + '&nbsp|&nbsp难度：' + subject.difficulty + '&nbsp|&nbsp;';
-    str += '词数：' + subject.words + '&nbsp|&nbsp分数：' + subject.score + '</p>';
-    str += '<h3 style="margin-top: 20px;">' + subject.SubjectName + '</h3><br/>';
+    str += '<form id = "form1" autocomplete="off" style=" overflow:auto;padding:0 10px;" ><div id="' + subject.Id + '">';
+    str += '<p class="specialFontTitle" >话题：' + subject.Topic + '&nbsp|&nbsp文体：' + subject.LiteraryForm + '&nbsp|&nbsp';
+    str += '题型：' + subject.QuestionsType + '&nbsp|&nbsp难度：' + subject.Difficulty + '&nbsp|&nbsp;';
+    str += '词数：' + subject.Words + '&nbsp|&nbsp分数：' + subject.Score + '</p>';
+    str += '<h3 style="margin-top: 20px;">' + subject.Name + '</h3><br/>';
     str += '<p class="specialFont" >文章导读：' + subject.WenZhangDaoDu + '</p><br/>';
     str += '<p class="specialFont" >词语指津：' + subject.CiYuZhiJin + '</p><br/>';
     str += audioLocation(subject.Audio);
-    switch (subject.questionsType) {
+    switch (subject.QuestionsType) {
         case '阅读判断':
-            str += subject.name + '<hr>';
-            $.each(subject.englishArticleQuestionItem, function (ind, val) {
-                if (val.isError == null) {
+            str += subject.Title + '<hr>';
+            $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
+                // if (val.isError == null) {
                     existError = true;
-                    str += '<div id="' + val.id + '" class="Readingjudgment"> ';
+                    str += '<div id="' + val.Id + '" class="Readingjudgment"> ';
                     str += '<p>' + val.Sort + ' . ' + val.Title + '</p>';
-                    str += '<div class="fr"><input type="radio" class="' + val.id + '" name="' + val.id + '" id="' + val.id + '" value="F" />×</div>';
-                    str += '<div class="fr"><input type="radio" class="' + val.id + '" name="' + val.id + '" id="' + val.id + '" value="T" />√</div></div>';
-                    str += '正确答案：' + val.answer + '<br/>';
-                    str += '大能力：' + val.bigKnowledge + '<br/>';
-                    str += '小能力：' + SmallSubString(val.smallKnowledge) + '<br/>';
-                    str += '解析：' + val.analysis + '<br/>';
-                }
+                    str += '<div class="fr"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="F" />×</div>';
+                    str += '<div class="fr"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="T" />√</div></div>';
+                    str += '正确答案：' + val.Answer + '<br/>';
+                    str += '大能力：' + val.BigKnowledge + '<br/>';
+                    str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    str += '解析：' + val.Analysis + '<br/>';
+                // }
             });
             break;
         case '图片选择':
-            str += subject.name + '<hr/>';
-            $.each(subject.englishArticleQuestionItem, function (ind, val) {
-                if (val.isError == null) {
+            str += subject.Title + '<hr/>';
+            $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
+                // if (val.isError == null) {
                     existError = true;
-                    var queArray = val.title.split('@');
-                    str += val.sort + '. ' + queArray[0] + '<br/>';
+                    var queArray = val.Title.split('@');
+                    str += val.Sort + '. ' + queArray[0] + '<br/>';
                     for (var i = 1; i < queArray.length; i++) {
-                        str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.id + '" name="' + val.id + '" id="' + val.id + '" value="' + optionDic[i - 1] + '" /><span> ' + optionDic[i - 1] + '. </span>';
+                        str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i - 1] + '" /><span> ' + optionDic[i - 1] + '. </span>';
                         str += queArray[i] + '</div>';
                     }
                     str += '<br/><br/>';
 
-                    str += '正确答案：' + val.answer + '<br/>';
-                    str += '大能力：' + val.bigKnowledge + '<br/>';
-                    str += '小能力：' + SmallSubString(val.smallKnowledge) + '<br/>';
-                    str += '解析：' + val.analysis + '<br/>';
-                }
+                    str += '正确答案：' + val.Answer + '<br/>';
+                    str += '大能力：' + val.BigKnowledge + '<br/>';
+                    str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    str += '解析：' + val.Analysis + '<br/>';
+                // }
             });
             break;
         case '阅读选择':
-            str += subject.name + '<hr/>';
-            $.each(subject.englishArticleQuestionItem, function (ind, val) {
-                if (val.isError == null) {
+            str += subject.Title + '<hr/>';
+            $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
+                // if (val.isError == null) {
                     existError = true;
-                    var queArray = val.title.split('@');
-                    str += val.sort + '. ' + queArray[0] + '<br/>';
+                    var queArray = val.Title.split('@');
+                    str += val.Sort + '. ' + queArray[0] + '<br/>';
                     for (var i = 1; i < queArray.length; i++) {
-                        str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.id + '" name="' + val.id + '" id="' + val.id + '" value="' + optionDic[i - 1] + '" /><span> ' + optionDic[i - 1] + '. </span>';
+                        str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i - 1] + '" /><span> ' + optionDic[i - 1] + '. </span>';
                         str += queArray[i] + '</div><br/>';
                     }
                     str += '<br/>';
 
-                    str += '正确答案：' + val.answer + '<br/>';
-                    str += '大能力：' + val.bigKnowledge + '<br/>';
-                    str += '小能力：' + SmallSubString(val.smallKnowledge) + '<br/>';
-                    str += '解析：' + val.analysis + '<br/>';
-                }
+                    str += '正确答案：' + val.Answer + '<br/>';
+                    str += '大能力：' + val.BigKnowledge + '<br/>';
+                    str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    str += '解析：' + val.Analysis + '<br/>';
+                // }
             });
             break;
         case '完形填空':
-            str += subject.name + '<hr/>';
-            $.each(subject.englishArticleQuestionItem, function (ind, val) {
-                if (val.isError == null) {
+            str += subject.Title + '<hr/>';
+            $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
+                // if (val.isError == null) {
                     existError = true;
-                    var queArray = val.title.split('@');
-                    str += '<div id="' + val.id + '" class="wanxingtiankognQue">' + val.sort + '.&nbsp';
+                    var queArray = val.Title.split('@');
+                    str += '<div id="' + val.Id + '" class="wanxingtiankognQue">' + val.Sort + '.&nbsp';
                     for (var i = 0; i < queArray.length; i++) {
-                        str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.id + '" name="' + val.id + '" id="' + val.id + '" value="' + optionDic[i] + '" /><span> ' + optionDic[i] + '. </span>';
+                        str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i] + '" /><span> ' + optionDic[i] + '. </span>';
                         str += queArray[i] + '</div>';
                     }
                     str += '</div>';
 
-                    str += '正确答案：' + val.answer + '<br/>';
-                    str += '大能力：' + val.bigKnowledge + '<br/>';
-                    str += '小能力：' + SmallSubString(val.smallKnowledge) + '<br/>';
-                    str += '解析：' + val.analysis + '<br/>';
-                }
+                    str += '正确答案：' + val.Answer + '<br/>';
+                    str += '大能力：' + val.BigKnowledge + '<br/>';
+                    str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    str += '解析：' + val.Analysis + '<br/>';
+                // }
             });
             break;
         case '语法词汇填空':
-            var content = subject.name;
+            var newStr = subject.Title;
             var newStr = '';
-            $.each(subject.englishArticleQuestionItem, function (ind, val) {
-                if (val.isError == null) {
+            $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
+                // if (val.isError == null) {
                     existError = true;
-                    content = content.replace('{' + val.sort + '}', '<input type="text" class="inputText ' + val.id + '" id="' + val.id + '" name="' + val.id + '">');
+                    newStr = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
 
-                    newStr += val.sort + ' . ';
-                    newStr += '正确答案：' + val.answer + '<br/>';
-                    newStr += '大能力：' + val.bigKnowledge + '<br/>';
-                    newStr += '小能力：' + SmallSubString(val.smallKnowledge) + '<br/>';
-                    newStr += '解析：' + val.analysis + '<br/>';
-                } else {
-                    content = content.replace('{' + val.sort + '}', '<u>' + val.answer + '</u>');
-                }
+                    newStr += val.Sort + ' . ';
+                    newStr += '正确答案：' + val.Answer + '<br/>';
+                    newStr += '大能力：' + val.BigKnowledge + '<br/>';
+                    newStr += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    newStr += '解析：' + val.Analysis + '<br/>';
+                // } else {
+                //     content = content.replace('{' + val.sort + '}', '<u>' + val.answer + '</u>');
+                // }
             });
             str += content + '<hr/>' + newStr;
             break;
         case '选词填空':
-            /*var xuanxiang = subject.wordSentence.split('|');
+            var xuanxiang = subject.WordSentence.split('|');
             str += '<table class="import">';
             str += '<tr>';
             for (var i = 0; i < xuanxiang.length; i++) {
@@ -622,45 +1199,45 @@ function SubjectStringWrong(subject) {
                 } else {
                     str += '<td>' + xuanxiang[i] + '</td>';
                 }
-            }*/
+            }
             str += '</tr>';
             str += ' </table>';
-            var content = subject.name;
+            var content = subject.Title;
             var newStr = '';
-            $.each(subject.englishArticleQuestionItem, function (ind, val) {
-                if (val.isError == null) {
+            $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
+                // if (val.isError == null) {
                     existError = true;
-                    content = content.replace('{' + val.sort + '}', '<input type="text" class="inputText ' + val.id + '" id="' + val.id + '" name="' + val.id + '">');
+                    content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
 
-                    newStr += val.sort + ' . ';
-                    newStr += '正确答案：' + val.answer + '<br/>';
-                    newStr += '大能力：' + val.bigKnowledge + '<br/>';
-                    newStr += '小能力：' + SmallSubString(val.smallKnowledge) + '<br/>';
-                    newStr += '解析：' + val.analysis + '<br/>';
-                } else {
-                    content = content.replace('{' + val.sort + '}', '<u>' + val.answer + '</u>');
-                }
+                    newStr += val.Sort + ' . ';
+                    newStr += '正确答案：' + val.Answer + '<br/>';
+                    newStr += '大能力：' + val.BigKnowledge + '<br/>';
+                    newStr += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    newStr += '解析：' + val.Analysis + '<br/>';
+                // } else {
+                //     content = content.replace('{' + val.sort + '}', '<u>' + val.answer + '</u>');
+                // }
             });
             str += content + '<hr/>' + newStr;
             break;
         case '表格填空':
-            str += subject.name + '<hr/>';
-            $.each(subject.englishArticleQuestionItem, function (ind, val) {
-                if (val.isError == null) {
+            str += subject.Title + '<hr/>';
+            $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
+                // if (val.isError == null) {
                     existError = true;
-                    var queArray = val.title.split('@');
-                    str += '<div id="' + val.id + '" class="wanxingtiankognQue">' + val.sort + '.&nbsp';
+                    var queArray = val.Title.split('@');
+                    str += '<div id="' + val.Id + '" class="wanxingtiankognQue">' + val.Sort + '.&nbsp';
                     for (var i = 0; i < queArray.length; i++) {
-                        str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.id + '" name="' + val.id + '" id="' + val.id + '" value="' + optionDic[i] + '" /><span> ' + optionDic[i] + '. </span>';
+                        str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i] + '" /><span> ' + optionDic[i] + '. </span>';
                         str += queArray[i] + '</div>';
                     }
                     str += '</div>';
 
-                    str += '正确答案：' + val.answer + '<br/>';
-                    str += '大能力：' + val.bigKnowledge + '<br/>';
-                    str += '小能力：' + SmallSubString(val.smallKnowledge) + '<br/>';
-                    str += '解析：' + val.analysis + '<br/>';
-                }
+                    str += '正确答案：' + val.Answer + '<br/>';
+                    str += '大能力：' + val.BigKnowledge + '<br/>';
+                    str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    str += '解析：' + val.Analysis + '<br/>';
+                // }
             });
             break;
         case '选句填空':
@@ -670,181 +1247,181 @@ function SubjectStringWrong(subject) {
             //     str += '<tr><td>' + xuanxiang[i] + '</td></tr>';
             // }
             // str += ' </table>';
-            var content = subject.name;
+            var content = subject.Title;
             var newStr = '';
-            $.each(subject.englishArticleQuestionItem, function (ind, val) {
-                if (val.isError == null) {
+            $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
+                // if (val.isError == null) {
                     existError = true;
-                    content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.id + '" id="' + val.id + '" name="' + val.id + '">');
+                    content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
 
-                    newStr += val.sort + ' . ';
-                    newStr += '正确答案：' + val.answer + '<br/>';
-                    newStr += '大能力：' + val.bigKnowledge + '<br/>';
-                    newStr += '小能力：' + SmallSubString(val.smallKnowledge) + '<br/>';
-                    newStr += '解析：' + val.analysis + '<br/>';
-                } else {
-                    content = content.replace('{' + val.sort + '}', '<u>' + val.answer + '</u>');
-                }
+                    newStr += val.Sort + ' . ';
+                    newStr += '正确答案：' + val.Answer + '<br/>';
+                    newStr += '大能力：' + val.BigKnowledge + '<br/>';
+                    newStr += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    newStr += '解析：' + val.Analysis + '<br/>';
+                // } else {
+                //     content = content.replace('{' + val.sort + '}', '<u>' + val.answer + '</u>');
+                // }
             });
             str += content + '<hr/>' + newStr;
             break;
         case '段落标题匹配':
-            var xuanxiang = subject.sordSentence.split('|');
+            var xuanxiang = subject.SordSentence.split('|');
             str += '<table class="import">';
             for (var i = 0; i < xuanxiang.length; i++) {
                 str += '<tr><td>' + xuanxiang[i] + '</td></tr>';
             }
             str += ' </table>';
-            var content = subject.name;
+            var content = subject.Title;
             var newStr = '';
-            $.each(subject.englishArticleQuestionItem, function (ind, val) {
-                if (val.isError == null) {
+            $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
+                // if (val.isError == null) {
                     existError = true;
-                    content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.id + '" id="' + val.id + '" name="' + val.id + '">');
+                    content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
 
-                    newStr += val.sort + ' . ';
-                    newStr += '正确答案：' + val.answer + '<br/>';
-                    newStr += '大能力：' + val.bigKnowledge + '<br/>';
-                    newStr += '小能力：' + SmallSubString(val.smallKnowledge) + '<br/>';
-                    newStr += '解析：' + val.analysis + '<br/>';
-                } else {
-                    content = content.replace('{' + val.sort + '}', '<u>' + val.answer + '</u>');
-                }
+                    newStr += val.Sort + ' . ';
+                    newStr += '正确答案：' + val.Answer + '<br/>';
+                    newStr += '大能力：' + val.BigKnowledge + '<br/>';
+                    newStr += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    newStr += '解析：' + val.Analysis + '<br/>';
+                // } else {
+                //     content = content.replace('{' + val.sort + '}', '<u>' + val.answer + '</u>');
+                // }
             });
             str += content + '<hr/>' + newStr;
             break;
         case '阅读填空':
-            str += subject.name + '<hr/>';
-            $.each(subject.englishArticleQuestionItem, function (ind, val) {
-                var answerStr = val.answer;
+            str += subject.Title + '<hr/>';
+            $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
+                var answerStr = val.Answer;
                 answerStr = answerStr.indexOf('^') == -1 ? answerStr : answerStr.split('^')[0];
                 var answerArray = answerStr.indexOf('|') == -1 ? new Array(answerStr) : answerStr.split('|');
-                var content = val.title;
+                var content = val.Title;
                 content = content.replace('<div>', '');
                 content = content.replace('</div>', '');
                 for (var i = 0; i < answerArray.length; i++) {
                     var relIndex = i + 1;
-                    if (val.isError == null) {
+                    // if (val.isError == null) {
                         existError = true;
-                        content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.id + '" id="' + val.id + '" name="' + val.id + '">');
-                    } else {
-                        content = content.replace('{' + relIndex + '}', '<u>' + answerArray[i] + '</u>');
-                    }
+                        content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+                    // } else {
+                    //     content = content.replace('{' + relIndex + '}', '<u>' + answerArray[i] + '</u>');
+                    // }
                 }
-                str += '<div id="' + val.id + '" class="yuedutiankongQue">' + val.sort + '. ' + content + '</div>';
+                str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
 
-                str += '正确答案：' + val.answer + '<br/>';
-                str += '大能力：' + val.bigKnowledge + '<br/>';
-                str += '小能力：' + SmallSubString(val.smallKnowledge) + '<br/>';
-                str += '解析：' + val.analysis + '<br/>';
+                str += '正确答案：' + val.Answer + '<br/>';
+                str += '大能力：' + val.BigKnowledge + '<br/>';
+                str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                str += '解析：' + val.Analysis + '<br/>';
             });
             break;
         case '回答问题':
-            str += subject.name + '<hr/>';
-            $.each(subject.englishArticleQuestionItem, function (ind, val) {
-                var answerStr = val.answer;
+            str += subject.Title + '<hr/>';
+            $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
+                var answerStr = val.Answer;
                 answerStr = answerStr.indexOf('^') == -1 ? answerStr : answerStr.split('^')[0];
                 var answerArray = answerStr.indexOf('|') == -1 ? new Array(answerStr) : answerStr.split('|');
-                var content = val.title;
+                var content = val.Title;
                 content = content.replace('<div>', '');
                 content = content.replace('</div>', '');
                 for (var i = 0; i < answerArray.length; i++) {
                     var relIndex = i + 1;
-                    if (val.isError == null) {
+                    // if (val.isError == null) {
                         existError = true;
-                        content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.id + '" id="' + val.id + '" name="' + val.id + '">');
-                    } else {
-                        content = content.replace('{' + relIndex + '}', '<u>' + answerArray[i] + '</u>');
-                    }
+                        content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+                    // } else {
+                    //     content = content.replace('{' + relIndex + '}', '<u>' + answerArray[i] + '</u>');
+                    // }
                 }
-                str += '<div id="' + val.id + '" class="yuedutiankongQue">' + val.sort + '. ' + content + '</div>';
+                str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
 
-                str += '正确答案：' + val.answer + '<br/>';
-                str += '大能力：' + val.bigKnowledge + '<br/>';
-                str += '小能力：' + SmallSubString(val.smallKnowledge) + '<br/>';
-                str += '解析：' + val.analysis + '<br/>';
+                str += '正确答案：' + val.Answer + '<br/>';
+                str += '大能力：' + val.BigKnowledge + '<br/>';
+                str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                str += '解析：' + val.Analysis + '<br/>';
             });
             break;
         case '综合阅读':
-            str += subject.name + '<hr/>';
-            $.each(subject.englishArticleQuestionItem, function (ind, val) {
-                var answerStr = val.answer;
+            str += subject.Title + '<hr/>';
+            $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
+                var answerStr = val.Answer;
                 var answerArray = answerStr.indexOf('|') == -1 ? new Array(answerStr) : answerStr.split('|');
-                var content = val.title;
+                var content = val.Title;
                 content = content.replace('<div>', '');
                 content = content.replace('</div>', '');
                 for (var i = 0; i < answerArray.length; i++) {
                     var relIndex = i + 1;
-                    if (val.isError == null) {
+                    // if (val.isError == null) {
                         existError = true;
-                        content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.id + '" id="' + val.id + '" name="' + val.id + '">');
-                    } else {
-                        content = content.replace('{' + relIndex + '}', '<u>' + answerArray[i] + '</u>');
-                    }
+                        content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
+                    // } else {
+                    //     content = content.replace('{' + relIndex + '}', '<u>' + answerArray[i] + '</u>');
+                    // }
                 }
-                str += '<div id="' + val.id + '" class="yuedutiankongQue">' + val.sort + '. ' + content + '</div>';
+            str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
 
-                str += '正确答案：' + val.answer + '<br/>';
-                str += '大能力：' + val.bigKnowledge + '<br/>';
-                str += '小能力：' + SmallSubString(val.smallKnowledge) + '<br/>';
-                str += '解析：' + val.analysis + '<br/>';
+                str += '正确答案：' + val.Answer + '<br/>';
+                str += '大能力：' + val.BigKnowledge + '<br/>';
+                str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                str += '解析：' + val.Analysis + '<br/>';
             });
             break;
         case '选词填空-所给词的适当形式填空':
             str += '<p style="text-align:center" ><span style="border:1px solid;padding:5px">' + subject.wordSentence + '</span></p>';
             var content = subject.Title;
             var newStr = '';
-            $.each(subject.englishArticleQuestionItem, function (ind, val) {
-                if (val.isError == null) {
+            $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
+                // if (val.isError == null) {
                     existError = true;
-                    content = content.replace('{' + val.sort + '}', '<input type="text" class="inputText ' + val.id + '" id="' + val.id + '" name="' + val.id + '">');
+                    content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
 
-                    newStr += val.sort + ' . ';
-                    newStr += '正确答案：' + val.answer + '<br/>';
-                    newStr += '大能力：' + val.bigKnowledge + '<br/>';
-                    newStr += '小能力：' + SmallSubString(val.smallKnowledge) + '<br/>';
-                    newStr += '解析：' + val.analysis + '<br/>';
-                } else {
-                    content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
-                }
+                    newStr += val.Title + ' . ';
+                    newStr += '正确答案：' + val.Answer + '<br/>';
+                    newStr += '大能力：' + val.BigKnowledge + '<br/>';
+                    newStr += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    newStr += '解析：' + val.Analysis + '<br/>';
+                // } else {
+                //     content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
+                // }
             });
             str += content + '<hr/>' + newStr;
             break;
         case '给首字母完形填空':
-            var content = subject.name;
+            var content = subject.Title;
             var newStr = '';
-            $.each(subject.englishArticleQuestionItem, function (ind, val) {
-                if (val.isError == null) {
+            $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
+                // if (val.isError == null) {
                     existError = true;
-                    content = content.replace('{' + val.sort + '}', '<input type="text" class="inputText ' + val.id + '" id="' + val.id + '" name="' + val.id + '">');
+                    content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
 
                     newStr += val.Sort + ' . ';
-                    newStr += '正确答案：' + val.answer + '<br/>';
-                    newStr += '大能力：' + val.bigKnowledge + '<br/>';
-                    newStr += '小能力：' + SmallSubString(val.smallKnowledge) + '<br/>';
-                    newStr += '解析：' + val.analysis + '<br/>';
-                } else {
-                    content = content.replace('{' + val.sort + '}', '<u>' + val.answer + '</u>');
-                }
+                    newStr += '正确答案：' + val.Answer + '<br/>';
+                    newStr += '大能力：' + val.BigKnowledge + '<br/>';
+                    newStr += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    newStr += '解析：' + val.Analysis + '<br/>';
+                // } else {
+                //     content = content.replace('{' + val.sort + '}', '<u>' + val.answer + '</u>');
+                // }
             });
             str += content + '<hr/>' + newStr;
             break;
         case '信息匹配':
-            var content = subject.name;
+            var content = subject.Title;
             var newStr = '';
-            $.each(subject.englishArticleQuestionItem, function (ind, val) {
-                if (val.isError == null) {
+            $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
+                // if (val.isError == null) {
                     existError = true;
-                    content = content.replace('{' + val.sort + '}', '<input type="text" class="inputText ' + val.id + '" id="' + val.id + '" name="' + val.id + '">');
+                    content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
 
-                    newStr += val.Sosortrt + ' . ';
-                    newStr += '正确答案：' + val.answer + '<br/>';
-                    newStr += '大能力：' + val.bigKnowledge + '<br/>';
-                    newStr += '小能力：' + SmallSubString(val.smallKnowledge) + '<br/>';
-                    newStr += '解析：' + val.analysis + '<br/>';
-                } else {
-                    content = content.replace('{' + val.sort + '}', '<u>' + val.answer + '</u>');
-                }
+                    newStr += val.Sort + ' . ';
+                    newStr += '正确答案：' + val.Answer + '<br/>';
+                    newStr += '大能力：' + val.BigKnowledge + '<br/>';
+                    newStr += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
+                    newStr += '解析：' + val.Analysis + '<br/>';
+                // } else {
+                //     content = content.replace('{' + val.sort + '}', '<u>' + val.answer + '</u>');
+                // }
             });
             str += content + '<hr/>' + newStr;
             break;
@@ -969,11 +1546,12 @@ function SubjectStringStatistic(subject) {
                 str += '<div id="' + val.Id + '" class="Readingjudgment"> ';
                 str += '<p>' + val.Sort + ' . ' + val.Title + '</p>';
                 //答案对错显示
-                str += val.IsError == 1 ? '<img style="width:3%" src="../../assets/img/r.png" />' : '<img style="width:3%" src="../../assets/img/w.png" />';
+                str += val.IsError == 1 ? '<img style="width:3%" src="../../img/r.png" />' : '<img style="width:3%" src="../../img/w.png" />';
                 //答案对错显示
                 str += '<div class="fr"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="F" />×</div>';
                 str += '<div class="fr"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="T" />√</div></div>';
 
+                str += '学生答案：' + val.StudentAnswer + '<br/>';
                 str += '正确答案：' + val.Answer + '<br/>';
                 str += '大能力：' + val.BigKnowledge + '<br/>';
                 str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
@@ -991,10 +1569,10 @@ function SubjectStringStatistic(subject) {
                     str += '</div>';
                 }
                 //答案对错显示
-                str += val.IsError == 1 ? '<img style="width:3%" src="../../assets/img/r.png" />' : '<img style="width:3%" src="../../assets/img/w.png" />';
+                str += val.IsError == 1 ? '<img style="width:3%" src="../../img/r.png" />' : '<img style="width:3%" src="../../img/w.png" />';
                 //答案对错显示
                 str += '<br/>';
-
+                str += '学生答案：' + val.StudentAnswer + '<br/>';
                 str += '<br/>正确答案：' + val.Answer + '<br/>';
                 str += '大能力：' + val.BigKnowledge + '<br/>';
                 str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
@@ -1007,7 +1585,7 @@ function SubjectStringStatistic(subject) {
                 var queArray = val.Title.split('@');
                 str += val.Sort + '. ' + queArray[0];
                 //答案对错显示
-                str += val.IsError == 1 ? '<img style="width:3%" src="../../assets/img/r.png" />' : '<img style="width:3%" src="../../assets/img/w.png" />';
+                str += val.IsError == 1 ? '<img style="width:3%" src="../../img/r.png" />' : '<img style="width:3%" src="../../img/w.png" />';
                 //答案对错显示
                 str += '<br/>';
                 for (var i = 1; i < queArray.length; i++) {
@@ -1016,7 +1594,7 @@ function SubjectStringStatistic(subject) {
                     str += '</div>';
                 }
                 str += '<br/>';
-
+                str += '学生答案：' + val.StudentAnswer + '<br/>';
                 str += '正确答案：' + val.Answer + '<br/>';
                 str += '大能力：' + val.BigKnowledge + '<br/>';
                 str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
@@ -1033,10 +1611,10 @@ function SubjectStringStatistic(subject) {
                     str += queArray[i] + '</div>';
                 }
                 //答案对错显示
-                str += val.IsError == 1 ? '<img style="width:3%" src="../../assets/img/r.png" />' : '<img style="width:3%" src="../../assets/img/w.png" />';
+                str += val.IsError == 1 ? '<img style="width:3%" src="../../img/r.png" />' : '<img style="width:3%" src="../../img/w.png" />';
                 //答案对错显示
                 str += '</div>';
-
+                str += '学生答案：' + val.StudentAnswer + '<br/>';
                 str += '正确答案：' + val.Answer + '<br/>';
                 str += '大能力：' + val.BigKnowledge + '<br/>';
                 str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
@@ -1049,11 +1627,12 @@ function SubjectStringStatistic(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 var newStr = '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">';
                 //答案对错显示
-                newStr += val.IsError == 1 ? '<img style="width:3%" src="../../assets/img/r.png" />' : '<img style="width:3%" src="../../assets/img/w.png" />';
+                newStr += val.IsError == 1 ? '<img style="width:3%" src="../../img/r.png" />' : '<img style="width:3%" src="../../img/w.png" />';
                 //答案对错显示
                 content = content.replace('{' + val.Sort + '}', newStr);
 
                 analysis += val.Sort + ' . ';
+                analysis += '学生答案：' + val.StudentAnswer + '<br/>';
                 analysis += '正确答案：' + val.Answer + '<br/>';
                 analysis += '大能力：' + val.BigKnowledge + '<br/>';
                 analysis += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
@@ -1079,10 +1658,10 @@ function SubjectStringStatistic(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 var newStr = '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">';
                 //答案对错显示
-                newStr += val.IsError == 1 ? '<img style="width:3%" src="../../assets/img/r.png" />' : '<img style="width:3%" src="../../assets/img/w.png" />';
+                newStr += val.IsError == 1 ? '<img style="width:3%" src="../../img/r.png" />' : '<img style="width:3%" src="../../img/w.png" />';
                 //答案对错显示
                 content = content.replace('{' + val.Sort + '}', newStr);
-
+                analysis += '学生答案：' + val.StudentAnswer + '<br/>';
                 analysis += '正确答案：' + val.Answer + '<br/>';
                 analysis += '大能力：' + val.BigKnowledge + '<br/>';
                 analysis += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
@@ -1100,10 +1679,10 @@ function SubjectStringStatistic(subject) {
                     str += queArray[i] + '</div>';
                 }
                 //答案对错显示
-                str += val.IsError == 1 ? '<img style="width:3%" src="../../assets/img/r.png" />' : '<img style="width:3%" src="../../assets/img/w.png" />';
+                str += val.IsError == 1 ? '<img style="width:3%" src="../../img/r.png" />' : '<img style="width:3%" src="../../img/w.png" />';
                 //答案对错显示
                 str += '</div>';
-
+                str += '学生答案：' + val.StudentAnswer + '<br/>';
                 str += '正确答案：' + val.Answer + '<br/>';
                 str += '大能力：' + val.BigKnowledge + '<br/>';
                 str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
@@ -1122,10 +1701,10 @@ function SubjectStringStatistic(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 var newStr = '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">';
                 //答案对错显示
-                newStr += val.IsError == 1 ? '<img style="width:3%" src="../../assets/img/r.png" />' : '<img style="width:3%" src="../../assets/img/w.png" />';
+                newStr += val.IsError == 1 ? '<img style="width:3%" src="../../img/r.png" />' : '<img style="width:3%" src="../../img/w.png" />';
                 //答案对错显示
                 content = content.replace('{' + val.Sort + '}', newStr);
-
+                analysis += '学生答案：' + val.StudentAnswer + '<br/>';
                 analysis += '正确答案：' + val.Answer + '<br/>';
                 analysis += '大能力：' + val.BigKnowledge + '<br/>';
                 analysis += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
@@ -1145,10 +1724,10 @@ function SubjectStringStatistic(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 var newStr = '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">';
                 //答案对错显示
-                newStr += val.IsError == 1 ? '<img style="width:3%" src="../../assets/img/r.png" />' : '<img style="width:3%" src="../../assets/img/w.png" />';
+                newStr += val.IsError == 1 ? '<img style="width:3%" src="../../img/r.png" />' : '<img style="width:3%" src="../../img/w.png" />';
                 //答案对错显示
                 content = content.replace('{' + val.Sort + '}', newStr);
-
+                analysis += '学生答案：' + val.StudentAnswer + '<br/>';
                 analysis += '正确答案：' + val.Answer + '<br/>';
                 analysis += '大能力：' + val.BigKnowledge + '<br/>';
                 analysis += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
@@ -1170,8 +1749,8 @@ function SubjectStringStatistic(subject) {
                     content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
                 }
                 str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content;
-                str += val.IsError == 1 ? '<img style="width:3%" src="../../assets/img/r.png" /></div>' : '<img style="width:3%" src="../../assets/img/w.png" /></div>';
-
+                str += val.IsError == 1 ? '<img style="width:3%" src="../../img/r.png" /></div>' : '<img style="width:3%" src="../../img/w.png" /></div>';
+                str += '学生答案：' + val.StudentAnswer + '<br/>';
                 str += '正确答案：' + val.Answer + '<br/>';
                 str += '大能力：' + val.BigKnowledge + '<br/>';
                 str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
@@ -1192,8 +1771,8 @@ function SubjectStringStatistic(subject) {
                     content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
                 }
                 str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content;
-                str += val.IsError == 1 ? '<img style="width:3%" src="../../assets/img/r.png" /></div>' : '<img style="width:3%" src="../../assets/img/w.png" /></div>';
-
+                str += val.IsError == 1 ? '<img style="width:3%" src="../../img/r.png" /></div>' : '<img style="width:3%" src="../../img/w.png" /></div>';
+                str += '学生答案：' + val.StudentAnswer + '<br/>';
                 str += '正确答案：' + val.Answer + '<br/>';
                 str += '大能力：' + val.BigKnowledge + '<br/>';
                 str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
@@ -1213,8 +1792,8 @@ function SubjectStringStatistic(subject) {
                     content = content.replace('{' + relIndex + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
                 }
                 str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content;
-                str += val.IsError == 1 ? '<img style="width:3%" src="../../assets/img/r.png" /></div>' : '<img style="width:3%" src="../../assets/img/w.png" /></div>';
-
+                str += val.IsError == 1 ? '<img style="width:3%" src="../../img/r.png" /></div>' : '<img style="width:3%" src="../../img/w.png" /></div>';
+                str += '学生答案：' + val.StudentAnswer + '<br/>';
                 str += '正确答案：' + val.Answer + '<br/>';
                 str += '大能力：' + val.BigKnowledge + '<br/>';
                 str += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
@@ -1228,10 +1807,10 @@ function SubjectStringStatistic(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 var newStr = '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">';
                 //答案对错显示
-                newStr += val.IsError == 1 ? '<img style="width:3%" src="../../assets/img/r.png" />' : '<img style="width:3%" src="../../assets/img/w.png" />';
+                newStr += val.IsError == 1 ? '<img style="width:3%" src="../../img/r.png" />' : '<img style="width:3%" src="../../img/w.png" />';
                 //答案对错显示
                 content = content.replace('{' + val.Sort + '}', newStr);
-
+                analysis += '学生答案：' + val.StudentAnswer + '<br/>';
                 analysis += '正确答案：' + val.Answer + '<br/>';
                 analysis += '大能力：' + val.BigKnowledge + '<br/>';
                 analysis += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
@@ -1245,10 +1824,10 @@ function SubjectStringStatistic(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 var newStr = '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">';
                 //答案对错显示
-                newStr += val.IsError == 1 ? '<img style="width:3%" src="../../assets/img/r.png" />' : '<img style="width:3%" src="../../assets/img/w.png" />';
+                newStr += val.IsError == 1 ? '<img style="width:3%" src="../../img/r.png" />' : '<img style="width:3%" src="../../img/w.png" />';
                 //答案对错显示
                 content = content.replace('{' + val.Sort + '}', newStr);
-
+                analysis += '学生答案：' + val.StudentAnswer + '<br/>';
                 analysis += '正确答案：' + val.Answer + '<br/>';
                 analysis += '大能力：' + val.BigKnowledge + '<br/>';
                 analysis += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
@@ -1262,10 +1841,10 @@ function SubjectStringStatistic(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 var newStr = '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">';
                 //答案对错显示
-                newStr += val.IsError == 1 ? '<img style="width:3%" src="../../assets/img/r.png" />' : '<img style="width:3%" src="../../assets/img/w.png" />';
+                newStr += val.IsError == 1 ? '<img style="width:3%" src="../../img/r.png" />' : '<img style="width:3%" src="../../img/w.png" />';
                 //答案对错显示
                 content = content.replace('{' + val.Sort + '}', newStr);
-
+                analysis += '学生答案：' + val.StudentAnswer + '<br/>';
                 analysis += '正确答案：' + val.Answer + '<br/>';
                 analysis += '大能力：' + val.BigKnowledge + '<br/>';
                 analysis += '小能力：' + SmallSubString(val.SmallKnowledge) + '<br/>';
@@ -1411,7 +1990,9 @@ function SubjectStringCorrect(subject) {
                     str += '<p>' + val.Sort + ' . ' + val.Title + '</p>';
                     str += '<div class="fr"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="F" />×</div>';
                     str += '<div class="fr"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="T" />√</div></div>';
-                    str += val.Analysis + '<br/>';
+                    // str += '<div>学生答案：'+val.StudentAnswer+'</div>'
+                    // str += '<div>正确答案：'+val.Answer+'</div>'
+                    // str += val.Analysis + '<br/>';
                 // }
             });
             break;
@@ -1427,7 +2008,9 @@ function SubjectStringCorrect(subject) {
                         str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i - 1] + '" /><span> ' + optionDic[i - 1] + '. </span>';
                         str += queArray[i] + '</div>';
                     }
-                    str += val.Analysis + '<br/>';
+                    //  str += '<div>学生答案：'+val.StudentAnswer+'</div>'
+                    // str += '<div>正确答案：'+val.Answer+'</div>'
+                    // str += val.Analysis + '<br/>';
                     str += '<br/>';
                 // }
             });
@@ -1442,7 +2025,9 @@ function SubjectStringCorrect(subject) {
                         str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i - 1] + '" /><span> ' + optionDic[i - 1] + '. </span>';
                         str += queArray[i] + '</div><br/>';
                     }
-                    str += val.Analysis + '<br/>';
+                    // str += '<div>学生答案：'+val.StudentAnswer+'</div>'
+                    // str += '<div>正确答案：'+val.Answer+'</div>'
+                    // str += val.Analysis + '<br/>';
                     str += '<br/>';
                 // }
             });
@@ -1457,7 +2042,9 @@ function SubjectStringCorrect(subject) {
                         str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i] + '" /><span> ' + optionDic[i] + '. </span>';
                         str += queArray[i] + '</div>';
                     }
-                    str += val.Analysis + '<br/>';
+                    // str += '<div>学生答案：'+val.StudentAnswer+'</div>'
+                    // str += '<div>正确答案：'+val.Answer+'</div>'
+                    // str += val.Analysis + '<br/>';
                     str += '</div>';
                 // }
             });
@@ -1467,7 +2054,9 @@ function SubjectStringCorrect(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
-                    content += val.Analysis + '<br/>';
+                    // content += '<div>学生答案：'+val.StudentAnswer+'</div>'
+                    // content += '<div>正确答案：'+val.Answer+'</div>'
+                    // content += val.Analysis + '<br/>';
                 // } else {
                     // content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
                 // }
@@ -1491,7 +2080,9 @@ function SubjectStringCorrect(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
-                    content += val.Analysis + '<br/>';
+                    // content += '<div>学生答案：'+val.StudentAnswer+'</div>'
+                    // content += '<div>正确答案：'+val.Answer+'</div>'
+                    // content += val.Analysis + '<br/>';
                 // } else {
                     // content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
                 // }
@@ -1508,7 +2099,9 @@ function SubjectStringCorrect(subject) {
                         str += '<div class="question" style="min-width:20%;margin-right:20px; display: inline-block;"><input type="radio" class="' + val.Id + '" name="' + val.Id + '" id="' + val.Id + '" value="' + optionDic[i] + '" /><span> ' + optionDic[i] + '. </span>';
                         str += queArray[i] + '</div>';
                     }
-                    str += val.Analysis + '<br/>';
+                    // str += '<div>学生答案：'+val.StudentAnswer+'</div>'
+                    // str += '<div>正确答案：'+val.Answer+'</div>'
+                    // str += val.Analysis + '<br/>';
                     str += '</div>';
                 // }
             });
@@ -1524,7 +2117,9 @@ function SubjectStringCorrect(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
-                    content += val.Analysis + '<br/>';
+                    // content += '<div>学生答案：'+val.StudentAnswer+'</div>'
+                    // content += '<div>正确答案：'+val.Answer+'</div>'
+                    // content += val.Analysis + '<br/>';
                 // } else {
                     // content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
                 // }
@@ -1542,7 +2137,9 @@ function SubjectStringCorrect(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
-                    content += val.Analysis + '<br/>';
+                    // content += '<div>学生答案：'+val.StudentAnswer+'</div>'
+                    // content += '<div>正确答案：'+val.Answer+'</div>'
+                    // content += val.Analysis + '<br/>';
                 // } else {
                     // content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
                 // }
@@ -1567,7 +2164,9 @@ function SubjectStringCorrect(subject) {
                     // }
                 }
                 str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
-                str += val.Analysis + '<br/>';
+                // str += '<div>学生答案：'+val.StudentAnswer+'</div>'
+                // str += '<div>正确答案：'+val.Answer+'</div>'
+                // str += val.Analysis + '<br/>';
             });
             break;
         case '回答问题':
@@ -1588,7 +2187,9 @@ function SubjectStringCorrect(subject) {
                     // }
                 }
                 str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
-                str += val.Analysis + '<br/>';
+                // str += '<div>学生答案：'+val.StudentAnswer+'</div>'
+                // str += '<div>正确答案：'+val.Answer+'</div>'
+                // str += val.Analysis + '<br/>';
             });
             break;
         case '综合阅读':
@@ -1608,7 +2209,9 @@ function SubjectStringCorrect(subject) {
                     // }
                 }
                 str += '<div id="' + val.Id + '" class="yuedutiankongQue">' + val.Sort + '. ' + content + '</div>';
-                str += val.Analysis + '<br/>';
+                // str += '<div>学生答案：'+val.StudentAnswer+'</div>'
+                // str += '<div>正确答案：'+val.Answer+'</div>'
+                // str += val.Analysis + '<br/>';
             });
             break;
         case '选词填空-所给词的适当形式填空':
@@ -1617,7 +2220,9 @@ function SubjectStringCorrect(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
-                    content += val.Analysis + '<br/>';
+                    // content += '<div>学生答案：'+val.StudentAnswer+'</div>'
+                    // content += '<div>正确答案：'+val.Answer+'</div>'
+                    // content += val.Analysis + '<br/>';
                 // } else {
                 //     content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
                 // }
@@ -1629,7 +2234,9 @@ function SubjectStringCorrect(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
-                    content += val.Analysis + '<br/>';
+                    // content += '<div>学生答案：'+val.StudentAnswer+'</div>'
+                    // content += '<div>正确答案：'+val.Answer+'</div>'
+                    // content += val.Analysis + '<br/>';
                 // } else {
                 //     content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
                 // }
@@ -1641,7 +2248,9 @@ function SubjectStringCorrect(subject) {
             $.each(subject.EnglishArticleQuestionItem, function (ind, val) {
                 // if (val.IsError == 0) {
                     content = content.replace('{' + val.Sort + '}', '<input type="text" class="inputText ' + val.Id + '" id="' + val.Id + '" name="' + val.Id + '">');
-                    content += val.Analysis + '<br/>';
+                    // content += '<div>学生答案：'+val.StudentAnswer+'</div>'
+                    // content += '<div>正确答案：'+val.Answer+'</div>'
+                    // content += val.Analysis + '<br/>';
                 // } else {
                 //     content = content.replace('{' + val.Sort + '}', '<u>' + val.Answer + '</u>');
                 // }
@@ -2989,13 +3598,13 @@ function OpenTopic(bName) {
     var datas = jsonPost("Topic/GetTopic", options);
 
     var bgArr = [
-        "../../assets/img/topic/1.png",
-        "../../assets/img/topic/2.png",
-        "../../assets/img/topic/3.png",
-        "../../assets/img/topic/4.png"
+        "../../img/topic/1.png",
+        "../../img/topic/2.png",
+        "../../img/topic/3.png",
+        "../../img/topic/4.png"
     ];
     var n = parseInt(Math.random() * (0 - 4) + 4);
-    var str = '<div class="yulanTopic" style="background-image:url(' + bgArr[n] + ')"><img class="yulancloseimg" src="../../assets/img/closeRed.png" onclick="hidTopic();" />';
+    var str = '<div class="yulanTopic" style="background-image:url(' + bgArr[n] + ')"><img class="yulancloseimg" src="../../img/error.png" onclick="hidTopic();" />';
 
     str += "<div style='padding:10px;'><center><strong class='title'>" + datas.Id + "</strong></center><br/><strong>";
     str += datas.Content + "</strong></div></div>";
@@ -3008,7 +3617,7 @@ function OpenSamllTopic(sName) {
         Id: sName
     };
     var datas = jsonPost("Topic/GetSmallTopic", options);
-    var str = '<div class="yulanSTopic" ><img class="yulancloseimg" src="../../assets/img/closeRed.png" onclick="hidSTopic();" />';
+    var str = '<div class="yulanSTopic" ><img class="yulancloseimg" src="../../img/error.png" onclick="hidSTopic();" />';
     str += "<div style='padding:20px'><center><strong>" + datas.Id + "</strong></center><br/>";
     str += datas.Content + "</div></div>";
     $('body').append(str);

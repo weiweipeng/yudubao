@@ -355,6 +355,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
     line-height: 80px;
     margin-right: 40px;
     position: relative;
+    box-sizing: border-box;
 }
 .tags{
 	vertical-align: middle;
@@ -396,7 +397,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 }
 .message_list{
 	position: absolute;
-	top: 84px;
+	top: 80px;
 	left: 0px;
 	width: 160px;
 	text-align: center;
@@ -485,7 +486,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 }
 /*居中部分*/
 .dbtn{
-    width: 50px;
+    width: 60px;
     line-height: 22px;
     text-align: center;
     border:1px solid #999;
@@ -496,7 +497,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
     background: -moz-linear-gradient(left,#f0f0f0 ,  #ADADAD); /* Firefox 3.6 - 15 */
     background: linear-gradient(to left,#f0f0f0 ,  #ADADAD); /* 标准的语法 */
     color: red;
-    font-size: 14px;
+    font-size: 12px;
     margin: 0 auto;
     display: inline-block;
     /*transform: scale(0.8);*/
@@ -514,9 +515,10 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
     bottom: -30px;
     height: 30px;
     width: 60px;
-    left: 4%;
+    left: 35%;
     line-height: 30px;
-    background: rgba(98, 201, 210, 1);
+    /*background: rgba(98, 201, 210, 1);*/
+    background: #FF5722;
     color: #fff;
     text-align: center;
     border-radius: 2px;
@@ -533,9 +535,9 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
     height: 30px;
     width: 60px;
     /*left: 54%;*/
-    right: 4%;
+    right: 35%;
     line-height: 30px;
-    background: rgba(98, 201, 210, 1);
+    background: #FF5722;
     color: #fff;
     text-align: center;
     border-radius: 2px;
@@ -617,7 +619,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 }
 .choose{
 	margin-top: 17px;
-	border:1px solid #999;
+	/*border:1px solid #999;*/
 }
 .chosec{
     width: 100%;
@@ -644,7 +646,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 }
 .chofir,.cholast{
 	height: 57px;
-	width: 50%;
+	/*width: 50%;*/
 	color: #fff;
 	/*font-weight: 600;*/
 }
@@ -663,7 +665,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 	line-height: 23px;
 }
 .chosec>div>p:first-child{
-	margin-top: 5px;
+	/*margin-top: 5px;*/
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -673,8 +675,8 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 }
 .task_list{
 	position: absolute;
-	top: -30px;
-	left: 0px;
+	bottom: -30px;
+	right: 5%;
     padding: 0px 10px;
 	line-height: 30px;
 	background-color: rgba(100, 200, 211, 1);
@@ -750,7 +752,17 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
     /*border-right: 1px solid #999;*/
 }
 
-
+.allcounts{
+    position: absolute;
+    left: 570px;
+    bottom: -30px;
+    width: 50px;
+    text-align: center;
+    line-height: 30px;
+    height: 30px;
+    background-color: rgba(98, 201, 210, 1);
+    color: #fff;
+}
 .count{
 	position: absolute;
 	bottom: -20px;
@@ -762,6 +774,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 	background-size: 100% 100%;
 	width: 40px;
 	line-height: 40px;
+    height: 40px;
     text-align: center;
     font-size: 16px;
     color: #fff;
@@ -770,7 +783,7 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 }
 .release{
 	position: absolute;
-    bottom: -5%;
+    bottom: -30px;
     right: 20%;
     width: 80px;
     text-align: center;
@@ -780,7 +793,103 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
     font-size: 16px;
     border-radius: 2px;
 }
- 
+.getback{
+    position: absolute;
+    bottom: -30px;
+    right: 10%;
+    width: 60px;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+    background-color: rgba(98, 201, 210, 1);
+    font-size: 14px;
+    border-radius: 2px;
+    display: none;
+}
+.skip{
+    position: absolute;
+    bottom: -30px;
+    left: 100px;
+    width: 160px;
+    height: 30px;
+}
+.skip input{
+    float: left;
+    width: 50px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    border: 0px;
+}
+.skipBtn{
+    background-color: rgba(98, 201, 210, 1);
+    color: #fff;
+    width: 40px;
+    margin-left: 6px;
+    text-align: center;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+}
+.allcount{
+    float: left;
+    width: 50px;
+    text-align: center;
+    line-height: 30px;
+    height: 30px;
+    background-color: rgba(98, 201, 210, 1);
+    color: #fff;
+    margin-left: 6px;
+}
+.tarskName{
+    background-color:rgba(98, 201, 210, 1);
+    margin-top: 10px;
+}
+.tarskName p{
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+}
+.tarskName input{
+    width: 99%;
+    border: 1px solid #999;
+    line-height: 30px;
+    height: 30px;
+    text-align: center;
+    background-color: rgba(98, 201, 210, 1);
+    color: #fff;
+    cursor: pointer;
+}
+.listTimes input,.tarskSetName input{
+    width: 90px;
+    line-height: 26px;
+    margin: 0px!important;
+    border-radius: 2px;
+    border: 1px solid #999;
+}
+.listTimes,.tarskSetName{
+    width: 160px;
+    background-color: #fff;
+    padding-top: 36px;
+    padding-bottom: 106px;
+    border-radius: 5px;
+    display: none;
+    height: 110px;
+    padding-left: 6px;
+    box-sizing: border-box;
+}
+.listTimes label,.tarskSetName label{
+    line-height: 32px;
+    text-align: center;
+    float: left;
+}
+
+.listTimes p,.tarskSetName p{
+    color: red;
+    font-size: 12px;
+    margin-top: 36px;
+}
 .serial{
    width: 24px;
    line-height: 24px;
@@ -929,7 +1038,7 @@ cursor: pointer;
 .lists{
      position: relative;
      width: 160px;
-     left: 50%;
+     left: 82%;
     margin-left: -80px;
     margin-top: 150px;
 }
@@ -950,6 +1059,11 @@ cursor: pointer;
     margin-left: 30%;
     margin-top: 8px;
     margin-right: 6px;
+   
+}
+.lists input[type="radio"]{
+     height: 16px;
+    width: 16px;
 }
 .triangle_border_right{
     width:0;
@@ -1061,7 +1175,7 @@ cursor: pointer;
 
 
 
-.box,.chofirTime,.selSemester,.selUnit,.classLf,.classRf,#selectTime,.che,.left_btn,.right_btn,.nav_list>li,.task_list,.release,.ope_first ,.exit,.message_list>li{
+.box,.getback,.chofirTime,.selSemester,.selUnit,.classLf,.classRf,#selectTime,.che,.left_btn,.right_btn,.nav_list>li,.task_list,.release,.ope_first ,.exit,.message_list>li{
 	cursor: pointer;
 }
 /*警告弹出层*/
@@ -1129,6 +1243,17 @@ cursor: pointer;
   -webkit-animation: rotateplane 1.2s infinite ease-in-out;
   animation: rotateplane 1.2s infinite ease-in-out;
 }
+.loadBox p{
+    position: absolute;
+    bottom: 30%;
+    left: 50%;
+    font-size: 26px;
+    font-weight: 600;
+    text-align: center;
+    width: 400px;
+    margin-left: -160px;
+    color: #67CF22;
+}
 .over:after{
     content: '';
     display: block;
@@ -1176,4 +1301,489 @@ cursor: pointer;
 }
 .gestures{
     cursor: pointer;
+}
+.comfigBtn{
+    width: 60px!important;
+    line-height: 28px!important;
+    border-radius: 5px;
+    background-color: #5FB878;
+    margin: 0 auto;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+}
+.comfigBtnline{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+#xxclTitle,#jxgyTitle,#bjzsTitle,#jxjyTitle,#swjcTitle,#yfzjTitle,#zyTitle,#yfzjTitle{
+    background-color: #48D1CC;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+#jxgyContent,#bjzsContent,#zyContent,#jxjyContent,#swjcContent,#yfzjContent,#xxclContent,#yfzjContent,#zyContent{
+    display: none;
+    border: 5px solid #48D1CC;
+}
+.toggleImg{
+    height: 20px;
+    margin-left: 20px;
+}
+.reduceContentImg{
+    display: none;
+}
+.seletstu{
+    margin-top: 10px;
+}
+.seleclasses,.seletstu{
+    background-color: #5FB878;
+}
+.seleclasses p,.seletstu p{
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+}
+.seleclasses input,.seletstu input{
+    width: 99%;
+    border: 1px solid #999;
+    line-height: 30px;
+    height: 30px;
+    text-align: center;
+    background-color: #5FB878;
+    color: #fff;
+    cursor: pointer;
+}
+.mask_sure{
+    background-color: #5FB878;
+    line-height: 34px;
+    width: 100%;
+    border-radius: 3px;
+    text-align: center;
+    color: #fff;
+    position: absolute;
+    /*bottom: 0px;*/
+    margin-top: -30px;
+    font-size: 16px;
+    font-weight: 600;
+    /*right: 56px;*/
+    cursor: pointer;
+}
+.mainContainer {
+    margin-top: 22px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    height: 89%;
+    font-size: 18px;
+}
+a {
+    text-decoration: none;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.Readingjudgment {
+    margin: 5px 0px;
+}
+
+    .Readingjudgment > p {
+        display: inline-block;
+    }
+
+    .Readingjudgment > div > input[type=radio] {
+        /*float: right;*/
+        margin: 0px 3px;
+        margin-top: 1px;
+    }
+
+.inputText {
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 1px black;
+    /*font-size: 22px;*/
+    float: none;
+    outline: medium;
+    text-align: center;
+    width: 100px;
+    margin: 0 4px;
+}
+
+
+.PictureSelect {
+}
+
+    .PictureSelect > div > img {
+        display: inline-block;
+    }
+
+.wanxingtiankognQue {
+    margin: 5px 0px;
+}
+
+hr {
+    margin-bottom: 10px;
+    border-top:1px solid black;
+}
+
+.yuedutiankongQue {
+    margin: 5px 0px;
+}
+
+.TiankongQue {
+    margin: 5px 0px;
+}
+courseActive {
+    background-color: #b2f3e5;
+}
+
+.import {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    .import td {
+        border: 1px solid #000;
+        font-size: 22px;
+        color: #000;
+        font-weight: normal;
+        text-align: left;
+        vertical-align: middle;
+        background-color: #fff;
+        border-collapse: inherit;
+    }
+
+    .import tr:hover td {
+        background-color: #fff;
+    }
+
+.specialFont {
+    font-family: "隶书";
+    font-size: 30px;
+}
+
+.specialFontTitle {
+    font-family: "隶书";
+    font-size: 22px;
+}
+
+.inputTextarea {
+    height: auto;
+    width: 99%;
+    background-color: rgba(0,0,0,0.1);
+    border: 1.8px solid #6088BB;
+}
+
+
+.inputTextareaWriting {
+    height: 150px;
+    width: 99%;
+    background-color: rgba(0,0,0,0.1);
+    border: 1.8px solid #6088BB;
+}
+
+.closeimg {
+    cursor: pointer;
+    width: 10%;
+    margin-top: 0%;
+    margin-right: -6%;
+    display: inline-block;
+}
+
+.yulancloseimg {
+    cursor: pointer;
+    position: absolute;
+    width: 2.5%;
+    top: 1%;
+    left: 97%;
+}
+
+
+.yulanTopic {
+    font-size: 16px;
+    border: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 60vw;
+    min-height: 40vh;
+    background: #F6F6F6 url(../../img/public/1.png) no-repeat 0 0/100% 100%;
+    /* padding: 10vw; */
+    margin-left: -30vw;
+    /* margin-top: -40vh; */
+    transform: translateY(-50%);
+    text-indent: 2em;
+    border-radius: 10px;
+    animation: showUp .4s linear;
+    max-height: 60vh;
+    overflow: auto;
+}
+
+.yulanSTopic {
+    overflow: auto;
+    max-height: 60vh;
+    font-size: 16px;
+    border: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 50vw;
+    min-height: 30vh;
+    background: #F6F6F6 url(../../assets/img/topic/mintopic.png) no-repeat 0 0/100% 100%;
+    margin-left: -25vw;
+    /* margin-top: -30vh; */
+    transform: translateY(-50%);
+}
+
+    .yulanTopic center .title,
+    .yulanSTopic center > strong {
+        font-size: 32px;
+    }
+
+    .yulanSTopic center {
+        padding-top: 5px;
+    }
+
+#form1 > div > div {
+    margin: 10px 0px;
+}
+
+.title {
+    font-weight: bold;
+    padding-left: 50px;
+    text-align: left;
+    height: auto;
+    background-color: rgba(104,189,225,0.3);
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.showIcon {
+    background-image: url("../img/open.png");
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+.hideIcon {
+    background-image: url("../img/hide.png");
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+.conttent {
+    height: auto;
+    display: none;
+    padding: 10px 15px;
+    border-radius:8px;
+}
+
+#jxgyContent {
+    background-color: rgba(252,251,197,0.7);
+    color: black;
+    border: 3px solid rgb(116,257,254);
+}
+
+#bjzsContent {
+    background-color: rgba(251,210,180,0.7);
+    color: black;
+    border: 3px solid rgb(116,257,254);
+}
+
+#jxjyContent {
+    background-color: rgba(201,242,179,0.7);
+    color: black;
+    border: 3px solid rgb(96,162,100);
+}
+
+#swjcContent {
+    background-color: rgba(34,64,66,0.7);
+    color: white;
+    border: 8px solid rgb(207,219,29);
+}
+
+#yfzjContent {
+    background-color: rgba(255,255,255,0.7);
+    color: black;
+}
+
+#xxclContent {
+    background-color: rgba(251,243,181,0.7);
+    color: black;
+}
+
+#zyContent {
+    background-color: rgba(220,242,179,0.7);
+    color: black;
+}
+#form1 input[type="radio"] {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+u, ins{
+    text-decoration: none!important;
+}
+
+
+/*个人信息弹出层*/
+.notice_mask{
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background: rgba(0,0,0,0.4);
+    display: none;
+}
+.notice_list{
+    position: fixed;
+    top: 50%;
+    width: 600px;
+    height: 600px;
+    left: 50%;
+    margin-top: -300px;
+    margin-left: -300px;
+    background: #fff;
+}
+.tab_list{
+    padding-top: 30px;
+    width: 100px;
+    float: left;
+}
+.tab_list li{
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    border-bottom: 1px solid #999;
+}
+.tab_list img{
+    width: 78px;
+    height: 78px;
+    margin-top: 11px;
+    cursor: pointer;
+}
+.notice_close{
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+.notice_close img{
+    width: 100%;
+    height: 100%;
+}
+.nav_content{
+    width: 498px;
+    float: left;
+    border-left: 2px solid #cccccc;
+    height: 600px;
+}
+.Modify_header{
+    text-align: center;
+    padding-top: 20px;
+    height: 131px;
+    border-bottom: 1px solid #999;
+    box-sizing: border-box;
+}
+.Modify_header:after{
+    content: "";
+    display: block;
+    clear: both;
+}
+.Modify_header>div{
+    float: left;
+}
+.Modify_headLeft{
+    width: 140px;
+}
+.Modify_headLeft>img{
+    width: 70px;
+    height: 70px;
+}
+.Modify_headRight{
+    width: 330px;
+}
+.Modify_headRight>p{
+    width: 100%;
+    line-height: 22px;
+    font-size: 14px;
+}
+.signs{
+    width: 100px;
+    color: #fff;
+    background: rgba(18, 196, 152, 1);
+    text-align: center;
+    line-height: 24px;
+    border-radius: 10px;
+    float: right;
+    cursor: pointer;
+}
+.Modify_content{
+    padding-top: 20px;
+    box-sizing: border-box;
+}
+.Modify_line{
+    height: 80px;
+    line-height: 80px;
+    position: relative;
+}
+.Modify_line input{
+    height: 60px;
+    border-radius: 5px;
+    width: 80%;
+    margin-left: 10%;
+    border:1px solid #999;
+    padding-left: 60px;
+    box-sizing: border-box;
+    background: rgba(52, 45, 53, 1);
+    color: #fff;
+}
+.Modify_line label{
+    position: absolute;
+    top: 10px;
+    left: 10%;
+    line-height: 60px;
+    width: 60px;
+    text-align: center;
+    color: #fff;
+}
+.Modify_line p{
+    color: red;
+    line-height: 14px;
+    padding-left: 10%;
+    box-sizing: border-box;
+}
+.Modify_submit{
+    text-align: center;
+    margin-top: 20px;
+}
+.Modify_submit input{
+    background: rgba(18, 196, 152, 1);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    color: #fff;
+    border:0px;
+    cursor: pointer;
+}
+.Modify_line input::-webkit-input-placeholder{
+       text-align: center;
+}
+.Modify_line input::-moz-placeholder{  
+        text-align: center;    
+}
+.Modify_line input:-ms-input-placeholder{ 
+        text-align: center;     
 }

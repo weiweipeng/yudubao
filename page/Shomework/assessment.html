@@ -20,7 +20,8 @@
             font-weight: 600;
             margin-bottom: 4px;
             margin-left: 4px;
-            float: left;
+            /*float: left;*/
+            width: 60px;
         }
         .decorates{
             float: right;
@@ -209,6 +210,14 @@
     　　    color:#fff;
 
     　　}
+        /*.lists{
+            padding-bottom: 40px;
+            background: #fff;
+        }
+        .classSec{
+            height: 200px;
+            overflow-y: auto;
+        }*/
 	</style>
 
 </head>
@@ -260,15 +269,16 @@
                        
                         <li class="navactive"><a href="assessment.html">评估</a></li>
                         <li><a href="ranking.html">排行榜</a></li>
+                        <li><a href="../buy/buy.html">更多篇章</a></li>
                     </ul>
                 </div>
                 <div class="maincenter">
                     
                     <div class="cen_content">
-                        <div class="task_list">任务列表</div>
+                        <!-- <div class="task_list">任务列表</div> -->
                         <div class="decorate">评估</div>
-                        <div class="dec">可以选择多个班级</div>
-                        <div id="mains" style="height:400px;">
+                        
+                        <div id="mains" style="height:470px;">
                             <div id="main" style="width: 99%;height:100%;"></div>
                             <div id="tab" style="width: 99%;height:95%; overflow-y:auto;display: none;"></div>
                         </div>
@@ -325,7 +335,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="classes">
+                    <!-- <div class="classes">
                         <div class="sec">
                             
                          </div>
@@ -334,24 +344,37 @@
                             <div class="lf classcount">1</div>
                             <div class="lf classRf">></div>
                         </div>
+                    </div> -->
+                    <div class="seleclasses">
+                        <p>选择班级</p>
+                        <input type="text" class="selectNum" value="未选择">
                     </div>
-                    
                 </div>
             </div>
             </div>
             <div class="bg-line">
-                <!-- <a href="../buy/buy.html"><img src="../../img/buy.png"></a> -->
             </div>    
         </div>
+    </div>
+    <div class="mask">
+       <div class="maskflex">
+            <div class="lists">
+                <span class="close_list">×</span>
+                
+                <ul class="classSec"></ul>
+               
+                <p class="mask_sure">确定</p>
+            </div>
+       </div>
     </div>
       <div class="layerMask"></div>
     <div class="loading">
         <div class="loadBox">
             <div class="spinner"></div>
+            <p>加载中，请稍后。。。</p>
         </div>
     </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
-    <!-- <script type="text/javascript" src="../../js/jquer_shijian.js"></script> -->
     <script type="text/javascript" src="../../js/laydate.js"></script>
     <script type="text/javascript" src="../../js/common.js"></script>
     <script type="text/javascript" src="../../js/request.js"></script>
@@ -360,37 +383,27 @@
     	$(function () {
             var paramClass={
                 "IndexPage": 1,
-                "IndexSize":6
+                "IndexSize":100
             }
-            var srtudent={
-                "IndexPage":1,
-                "IndexSize":10
-            }
+            // var srtudent={
+            //     "IndexPage":1,
+            //     "IndexSize":6
+            // }
             var echeatData={
-                'TaskType':'0',
+                'TaskType':'1',
                 'AfterSchool':true
             }
-            var classListId=[],gradeid='',gradeName='';//班级id列表
-            paramClass.StudentId=localStorage.getItem('studentId');
-            echeatData.StudentId=localStorage.getItem('studentId');
+            var accountName=sessionStorage.getItem('accountName');
+            // var classListId=[],gradeid='',gradeName='';//班级id列表
+            paramClass.studentId=accountName;
+            // echeatData.StudentId=localStorage.getItem('studentId');
+            echeatData.StudentId=accountName;
              
              if(localStorage.getItem('studentName')){
                 $('.names').text(localStorage.getItem('studentName'));
             }
              //选择需要显示的
-            // $("#selectStartTime").shijian({
-            //     // y:-20,//当前年份+10
-            //     Hour:false,//是否显示小时
-            //     Minute:false,//是否显分钟
-            //     // success:function(){}
-            // })
-            //  //选择需要显示的
-            // $("#selectEndTime").shijian({
-            //     // y:-20,//当前年份+10
-            //     Hour:false,//是否显示小时
-            //     Minute:false,//是否显分钟
-            //     // success:function(){}
-            // })
+    
             laydate.render({
                elem: '#selectStartTime' //指定元素
             });
@@ -398,7 +411,7 @@
                elem: '#selectEndTime' //指定元素
             });
              //获取班级列表
-
+             var accountName=sessionStorage.getItem('accountName');
             getClassData();
             var classNum=0;
             function getClassData(){
@@ -407,20 +420,14 @@
             }
             function successGetclass(classData) {
                 if(classData.Result==1){
-                    $(".classcount").text(paramClass.IndexPage);
+                    
                     createClassList(classData.Data);
-                    setClassCheck();
-                    // echeatData.ClassId=classData.data[1].id;
-                    echeatData.ClassId='aaa';
-                    // getdata();
-                    // classCount=classData.count;
-                    if(classData.Count%paramClass.IndexSize>0){
-                        classCount=parseInt(classData.Count/paramClass.IndexSize)+1;
-                    }else{
-                        classCount=parseInt(classData.Count/paramClass.IndexSize);
-                    }
+                    
+                    echeatData.ClassId=classData.Data[0].ClassId;
+                 
+                   
                 }else{
-                    paramClass.IndexPage-=classNum;
+                    
                     C.layer(1,classData.Message);
                 }
             }
@@ -428,53 +435,43 @@
                 console.log(data);
                 var list='';
                 for(var i=0;i<data.length;i++){
-           
-                    list+='<div id='+data[i].Id+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].StudentName+'<span>选中</span></div>'
-                }
-                $(".sec").html(list);
-
-            }
-            
-            $(".classLf").on("click",function(){
-                C.leftPage(paramClass,classNum,getClassData);
-                
-            });
-            $(".classRf").on("click",function(){
-                C.rightPage(paramClass,classNum,classCount,getClassData);
-                
-            });
-            $(".classes").on("click",'.classtable',function(){
-                $('.classes').find('span').hide();
-                //判断是否所有的班级选中全部清除
-                var spanbox=$('.classes').find('span');
-                // var boxBool=true;
-                var spanBool=$(this).find('span').css("display");
-                var spanId=$(this).attr('id');
-                var grades=$(this).attr('gradeid');  
-            
-                
-                gradeid = spanId;
-                 // param.ClassId=spanId;
-                // getdata();
-                gradeName = $(this).attr('gradeName');
-                srtudent.ClassId='aaa';
-                // getStudent();//获取学生列表
-                 $(this).find('span').show();
-                 // getdata();
-            });
-            //翻页后班级是否选中
-            function setClassCheck(){
-                console.log(classListId);
-                var ids=$(".classes").find('.classtable');
-                for(var i=0;i<ids.length;i++){
-                    var ID=$(ids).eq(i).attr('id');
-                    if(gradeid==ID){
-                        $(".classes").find('.classtable').eq(i).find('span').show();
+                    if(data[i].AfterSchool){
+                        xiaowai="(校外)";
+                    }else{
+                        xiaowai="";
                     }
+                    list+='<li><input type="radio" id='+data[i].ClassId+' name="seleclasses" gradeid='+data[i].GradeId+' dataName='+data[i].ClassesName+'><span>'+data[i].ClassesName+xiaowai+'</span></li>'
                 }
-                console.log(ids); 
-            }
+                $(".classSec").html(list);
 
+            }
+            
+           
+            $(".classSec").on("click",'input',function(){
+                // $('.classes').find('span').hide();
+         
+                var spanId=$(this).attr('id');
+              
+            
+                echeatData.ClassId=spanId;
+              
+                 var classname=$(this).attr('dataName');
+                $('.selectNum').val(classname);
+            });
+            $('.seleclasses').on('click',function(){
+                $(".mask").show();
+                $(".classSec").show();
+            });
+            $(".classSec").on("click",function(e){
+                e.stopPropagation();
+            });
+            $(".mask,.close_list,.mask_sure").on("click",function(){
+                $('.mask').hide();
+                $('.mask').find("ul").hide();
+
+            });
+          
+        
             //获取评估信息
             // var title='图表',names=[],datas=[];
             // //问题统计
@@ -505,12 +502,13 @@
             var ctData = new Array();//班级平均用时
             $.each(datas.Data, function (index, val) {
                 xData.push(val.Name);
-                sData.push(Math.floor(val.clsStudentScore/val.clsTotalScore).toFixed(2));
+                sData.push(parseFloat(val.clsStudentScore/val.clsTotalScore).toFixed(4)*100);
                 fData.push(val.TotalCount);
-                xsData.push(Math.floor(val.StudentScore/val.TotalScore).toFixed(2));//学生得分率
+                xsData.push(parseFloat(val.StudentScore/val.TotalScore).toFixed(2)*100);//学生得分率
                 rData.push(val.RightCount);
                 stData.push(val.Time);
                 ctData.push(val.clsTime);
+                console.log(sData);
                 
             });
             var myChart = echarts.init(document.getElementById('main'));
@@ -531,7 +529,7 @@
                         name += "<br />班级得分率：" + sData[params[0].dataIndex] + ' %';
                         name += "<br />个人平均用时：" + stData[params[0].dataIndex] + ' s';
                         name += "<br />班级平均用时：" + ctData[params[0].dataIndex] + ' s';
-
+                        console.log(name);
                         return name;
                     }
                 },
@@ -549,7 +547,7 @@
                     {
                         type: 'value',
                         axisLabel: {
-                            formatter: '{value}% '
+                             formatter: '{value}% '
                         }
                     }
                 ],
@@ -921,7 +919,12 @@
             var str = "<table>";
             str += "<thead><th>序号</th><th>小能力点</th><th>总题数</th><th>答对题数</th><th>班级得分率</th></thead>"
             $.each(datas.Data, function (index, val) {
-                val.Name = val.Name.indexOf('|') == -1 ? val.Name : val.Name.split('|')[0];
+                
+                if(val.Name!=null){
+                    val.Name = val.Name.indexOf('|') == -1 ? val.Name : val.Name.split('|')[0];
+                }else{
+                    val.Name = "没数据";
+                }
                 str += '<tr><td>' + i + '</td>';
                 str += '<td>' + val.Name + '</td>';
                 str += '<td>' + val.TotalCount + '</td>';
@@ -1041,12 +1044,7 @@
                     $(".message_list").hide();
                 }
             });
-            $("#selectTime").shijian({
-                // y:-20,//当前年份+10
-                Hour:false,//是否显示小时
-                Minute:false,//是否显分钟
-                // success:function(){}
-            })
+           
     	});
     </script>
 </body>

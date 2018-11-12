@@ -5,7 +5,6 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 	<link rel="stylesheet" type="text/css" href="../../css/common.css">
-    <link rel="stylesheet" type="text/css" href="../../css/shijian.css">
 	<style type="text/css">
 
         .decorate,.decorates{
@@ -250,20 +249,19 @@
                     <div class="maincenter">
                         
                         <div class="cen_content">
-                            
                             <div class="decorate">评估</div>
-                            <div class="dec">可以选择多个班级</div>
+                            <!-- <div class="dec">可以选择多个班级</div> -->
                             <div id="mains" style="height:500px;">
-                                <div id="main" sty】‘le="width: 99%;height:100%;"></div>
+                                <div id="main" style="width: 99%;height:100%;"></div>
                                 <div id="tab" style="width: 99%;height:100%; overflow-y:auto;display: none;"></div>
                             </div>
                             <!-- 左右翻页 -->
-                            <!-- <div class="left_btn">
-                                上一页
-                            </div>
-                            <div class="right_btn">
-                                下一页
-                            </div> -->
+                            <!-- <div class="left_btn"> -->
+                                <!-- <img src="../../img/homework/u1878.gif"> -->
+                            <!-- </div> -->
+                            <!-- <div class="right_btn"> -->
+                                <!-- <img src="../../img/homework/u1879.gif"> -->
+                            <!-- </div> -->
                         </div>
                     </div>
                     <div class="mainright">
@@ -272,7 +270,7 @@
                                 <div class="lf starttime">
                                     <p>开始时间</p>
                                     <p class="box">
-                                        <input type="text"  id="selectStartTime" value="未选择"/>
+                                        <input type="text"  id="selectStartTime" placeholder="未选择"/>
                                            
                                     </p>
                                     
@@ -280,7 +278,7 @@
                                 <div class="lf endtime">
                                     <p>结束时间</p>
                                     <p class="box">
-                                        <input type="text"  id="selectEndTime" value="未选择"/>
+                                        <input type="text"  id="selectEndTime" placeholder ="未选择"/>
                                         
                                     </p>
                                 </div>
@@ -310,23 +308,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="classes">
-                            <div class="sec">
-                                
-                             </div>
-                            <div class="lastsec">
-                                <div class="lf classLf"><</div>
-                                <div class="lf classcount">1</div>
-                                <div class="lf classRf" onclick="">></div>
-                            </div>
-                        </div>
+                        <div class="seleclasses">
+                        <p>选择班级</p>
+                            <input type="text" class="selectNum" value="未选择">
+                    </div>
                         <div class="students">
-                            <div class="stusline">
-                            
-                            </div>
-                          
-
-                       
+                            <div class="stusline"></div>
                             <div class="laststusline">
                                 <div class="stu stuleft lf bg2"><</div>
                                 <div class="stu stucenter lf bg2">1</div>
@@ -336,19 +323,27 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-line">
-                <!-- <a href="../buy/buy.html"><img src="../../img/buy.png"></a> -->
-            </div>    
+            <div class="bg-line"></div>    
         </div>
+    </div>
+    <div class="mask">
+       <div class="maskflex">
+            <div class="lists">
+                <span class="close_list">×</span>
+                <ul class="classSec"></ul>
+                <p class="mask_sure">确定</p>
+            </div>
+       </div>
     </div>
     <div class="layerMask"></div>
     <div class="loading">
         <div class="loadBox">
             <div class="spinner"></div>
+            <p>加载中，请稍后。。。</p>
         </div>
     </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../../js/jquer_shijian.js"></script>
+    <script type="text/javascript" src="../../js/laydate.js"></script>
     <script type="text/javascript" src="../../js/common.js"></script>
     <script type="text/javascript" src="../../js/request.js"></script>
     <script type="text/javascript" src="../../js/echarts.min.js"></script>
@@ -356,135 +351,97 @@
     	$(function () {
             var paramClass={
                 "IndexPage": 1,
-                "IndexSize":6
+                "IndexSize":100
             }
             var srtudent={
                 "IndexPage":1,
                 "IndexSize":3
             }
             var echeatData={
-                'TaskType':'0',
-                'AfterSchool':true
+                'TaskType':'0'
+                // 'AfterSchool':true
             }
             var echeatDatas={
-                'TaskType':'0',
-                'AfterSchool':true
+                'TaskType':'1'
+                // 'AfterSchool':true
             }
-            $("#selectStartTime").shijian({
-                // y:-20,//当前年份+10
-                Hour:false,//是否显示小时
-                Minute:false,//是否显分钟
-                // success:function(){}
-            })
-             //选择需要显示的
-            $("#selectEndTime").shijian({
-                // y:-20,//当前年份+10
-                Hour:false,//是否显示小时
-                Minute:false,//是否显分钟
-                // success:function(){}
-            })
+        
+            laydate.render({
+                elem: '#selectStartTime' //指定元素
+           
+                ,format: 'yyyy-MM-dd'
+            });
+            laydate.render({
+                elem: '#selectEndTime' //指定元素
+               
+                ,format: 'yyyy-MM-dd'
+            });
             var stuAndtea=true;
             var classListId=[],gradeid='',gradeName='';//班级id列表
             var classnum=0,stuNum=0;
             var studentId='';
-            paramClass.TeacherId=localStorage.getItem('TeacherIds');
+            var accountName=sessionStorage.getItem('accountName');
+            paramClass.TeacherId=accountName;
              if(localStorage.getItem('teacherNames')){
                 $(".ope_first").find('span').text(localStorage.getItem('teacherNames'));
              }
              //获取班级列表
+            $('.seleclasses').on('click',function(){
+                $(".mask").show();
+                $(".classSec").show();
+            });
+            $(".classSec").on("click",function(e){
+                e.stopPropagation();
+            });
+            $(".mask,.close_list,.mask_sure").on("click",function(){
+                $('.mask').hide();
+                $('.mask').find("ul").hide();
 
+            });
+            $('.classSec').on('click','input',function(){
+         
+                var spanId=$(this).attr('id');
+             
+                srtudent.ClassId=spanId;
+                
+                echeatDatas.ClassId=spanId;
+                 echeatData.ClassId=spanId;
+                stuAndtea=true;
+                var classname=$(this).attr('dataName');
+                $('.selectNum').val(classname);
+                getStudent();
+               
+            });
             getClassData();
             function getClassData(){
-                console.log(paramClass);
                 var classData=C.POST(paramClass,httpUrl.GetClassListByTeacherID,successGetclass);
             }
             function successGetclass(classData) {
                 if(classData.Result==1){
                     createClassList(classData.Data);
-                    setClassCheck();
-                    // echeatData.ClassId=classData.data[1].id;
-                    echeatData.ClassId='aaa';
-                    // getdata();
-                    // classCount=classData.count;
-                    if(classData.Count%paramClass.IndexSize>0){
-                        classCount=parseInt(classData.Count/paramClass.IndexSize)+1;
-                    }else{
-                        classCount=parseInt(classData.Count/paramClass.IndexSize);
-                    }
-                    $(".classcount").text(paramClass.IndexPage);
+                    echeatDatas.ClassId=classData.Data[0].Id;;
+                    echeatData.ClassId=classData.Data[0].Id;;
+                    
                 }else{
-                    paramClass.IndexPage-=classnum;
                     C.layer(1,classData.message);
                 }
             }
             function createClassList(data){
-                console.log(data);
                 var list='';
                 for(var i=0;i<data.length;i++){
-                    // if(param.ClassId==''){
-                    //     // param.ClassId=data[i].id;
-                    //     // getdata();
-                    // }
-                    list+='<div id='+data[i].Id+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].Name+'<span>选中</span></div>'
+                    var xiaowai="";
+                    if(data[i].IsAfterSchool){
+                        xiaowai="(校外)";
+                    }else{
+                        xiaowai="";
+                    }
+                    list+='<li><input type="radio" id='+data[i].Id+' name="seleclasses" gradeid='+data[i].GradeId+' dataName='+data[i].Name+'><span>'+data[i].Name+xiaowai+'</span></li>'
                 }
-                $(".sec").html(list);
+                $(".classSec").html(list);
 
             }
             
-            $(".classLf").on("click",function(){
-                C.leftPage(paramClass,classnum,getClassData);
-                // if(paramClass.IndexPage>1){
-                //     classnum=-1;
-                //     paramClass.IndexPage+=classnum;
-                    
-                    
-                //     getClassData();
-                // }else{
-                //     paramClass.IndexPage=1;
-                //     C.layer(2,"已经是第一页啦！");
-                // }
-            });
-            $(".classRf").on("click",function(){
-                // if(paramClass.IndexPage<classCount){
-                   
-                //     classnum=1;
-                //     paramClass.IndexPage+=classnum;
-                //     getClassData();
-
-                // }else{
-                //     paramClass.IndexPage=classCount;
-                //     C.layer(2,"已经是最后一页啦！");
-                // }
-                C.rightPage(paramClass,classnum,classCount,getClassData);
-            });
-            $(".classes").on("click",'.classtable',function(){
-              
-                //判断是否所有的班级选中全部清除
-               
-                var spanId=$(this).attr('id');
-                $('.classes').find('span').hide();
-                studentId='';
-                gradeid = spanId; 
-                srtudent.ClassId=spanId;
-                
-                echeatDatas.ClassId=spanId;
-                echeatData.ClassId=spanId;
-                stuAndtea=true;
-                 $(this).find('span').show();
-                getStudent();//获取学生列表
-                
-            });
-            //翻页后班级是否选中
-            function setClassCheck(){
-         
-                var ids=$(".classes").find('.classtable');
-                for(var i=0;i<ids.length;i++){
-                    var ID=$(ids).eq(i).attr('id');
-                    if(gradeid==ID){
-                        $(".classes").find('.classtable').eq(i).find('span').show();
-                    }
-                }
-            }
+            
             //获取学生信息
              var studentCount=0;
              function getStudent(){
@@ -510,19 +467,16 @@
                     }else{
                         studentCount=parseInt(studentData.Count/srtudent.IndexSize);
                     }
-                    // studentCount=2;
-                    console.log(studentCount);
+                    
                  }else{
                     srtudent.IndexPage-=stuNum;
                     C.layer(1,studentData.Message);
                  }
              }
             function studentList(data){
-                console.log(4444444444444);
-                console.log(data);
                 var htmls='';
                 for(var i=0;i<data.length;i++){
-                    htmls+='<div class="stusection lf bg2" id="'+data[i].Id+'">'+data[i].StudentName+'</div>'
+                    htmls+='<div class="stusection lf bg2" id="'+data[i].StudentId+'">'+data[i].StudentName+'</div>'
                 }
                 
                 $('.stusline').html(htmls);
@@ -531,7 +485,6 @@
             
             $(".stusline").on("click",".stusection",function(){
                 $('.stusline').find('.stusection').removeClass('bg1');
-                console.log(33333333333);
                 studentId=$(this).attr('id');
                 
                 echeatDatas.StudentId=studentId;
@@ -540,7 +493,6 @@
             });
             function stucheck(data){
                 var stu=$('.stusline').find('.stusection');
-                console.log(stu);
                 $.each(data,function(index,val){
                     if(studentId==val.Id){
                        $(stu).eq(index).addClass('bg1');
@@ -548,31 +500,11 @@
                 });
             }
             $(".stuleft").on("click",function(){
-                // if(srtudent.IndexPage>1){
-                //     stuNum=-1;
-                //     srtudent.IndexPage+=stuNum;
-                //     // $(".classcount").text(srtudent.IndexPage);
-                    
-                //     getStudent();
-                // }else{
-                //     srtudent.IndexPage=1;
-                    
-                //     C.layer(2,"已经是第一页啦！");
-                // }
+            
                 C.leftPage(srtudent,stuNum,getStudent);
             });
             $(".sturight").on("click",function(){
-                // if(srtudent.IndexPage<studentCount){
-                //     stuNum=1;
-                //     srtudent.IndexPage+=stuNum;
-                //     getStudent();
-
-                // }else{
-                //     srtudent.IndexPage=studentCount;
-                   
-                //     C.layer(2,"已经是最后一页啦！");
-                // }
-                
+              
                 C.rightPage(srtudent,stuNum,studentCount,getStudent);
             });
             //获取评估信息
@@ -590,7 +522,7 @@
             if(stuAndtea){
                 var datas = C.POST(echeatData,httpUrl.LiteraryStyle,successStuStyle);
             }else{
-                var datas = C.POST(echeatData,httpUrl.SLiteraryStyle,successStuStyles);
+                var datas = C.POST(echeatDatas,httpUrl.SLiteraryStyle,successStuStyles);
             }  
         }
         //学生问题统计
@@ -710,7 +642,6 @@
                         name += "<br />总题量：" + fData[params[0].dataIndex];
                         name += "<br />得分率：" + sData[params[0].dataIndex] + ' %';
                         name += "<br />平均用时：" + tData[params[0].dataIndex] + ' s';
-                        console.log(name);
                         return name;
                     }
                 },

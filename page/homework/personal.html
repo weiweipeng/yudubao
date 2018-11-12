@@ -35,12 +35,13 @@
                 margin: 0 auto;
             }
             #selectTime{
-                background-color: #1E9FFF;
+                background-color: rgba(136,200,155,1);
                 border: 0px;
                 text-align: center;
                 color: #fff;
                 width: 100%;
                 line-height: 30px;
+                height: 30px;
                 margin-top: 4px;
             }
            .cell1{
@@ -50,13 +51,13 @@
             width: 6%;
            }
            .cell3{
-            width: 20%;
+            width: 24%;
            }
            .cell4{
-            width: 7%;
+            width: 10%;
            }
            .cell5{
-            width: 9%;
+            width: 12%;
            }
            .cell6{
             width: 8%;
@@ -65,25 +66,25 @@
             width: 4%;
            }
            .cell8{
-            width: 8%;
+            width: 10%;
            }
 
-           .cell9{
+           /*.cell9{
             width: 8%;
-           }
+           }*/
            .cell10{
             width: 6%;
            }
            .cell11{
-            width: 4%;
+            width: 6%;
            }
 
            .cell12{
-            width: 8%;
+            width: 10%;
            }
-           .cell13{
-            width: 8%;
-           }
+          /* .cell13{
+            width: 10%;
+           }*/
            .serial{
             display: inline-block;
            }
@@ -152,30 +153,8 @@
             .bg-line{
                 bottom: 0px;
             }
-            .listTimes input{
-            width: 90px;
-            line-height: 26px;
-            margin: 0px!important;
-            border-radius: 2px;
-            border: 1px solid #999;
-        }
-        .listTimes{
-            width: 160px;
-            background-color: #fff;
-            padding-top: 36px;
-            padding-bottom: 106px;
-            border-radius: 5px;
-            display: none;
-            height: 110px;
-            padding-left: 6px;
-            box-sizing: border-box;
-        }
-        .listTimes label{
-            line-height: 32px;
-            text-align: center;
-            float: left;
-        }
-        .mask_sure{
+         
+       /* .mask_sure{
             background-color: #5FB878;
             line-height: 26px;
             width: 50px;
@@ -187,10 +166,25 @@
             right: 56px;
             cursor: pointer;
         }
-        .listTimes p{
-            color: red;
-            font-size: 12px;
-            margin-top: 36px;
+        */
+        /*.classes{
+            background-color: #48D1CC;
+        }
+        .classes p{
+            text-align: center;
+            line-height: 30px;
+            color: #fff;
+        }
+        .classes input{
+            width: 99%;
+            border: 1px solid #999;
+            line-height: 30px;
+            text-align: center;
+            background-color: #48D1CC;
+            color: #fff;
+        }*/
+        .chosec2{
+            margin-bottom: 10px;
         }
         input::-webkit-outer-spin-button, input::-webkit-inner-spin-button{                -webkit-appearance: none !important;            }
 	</style>
@@ -252,9 +246,13 @@
                 <div class="maincenter">
                     
                     <div class="cen_content">
-                        <div class="task_list">任务列表</div>
+                        <div class="task_list">查看已布置任务</div>
                         <div class="decorate">布置班级作业</div>
-
+                        <div class="skip">
+                            <input type="number" name="skip" min="0">
+                            <p class="allcount">共<span></span>页</p>
+                            <div class="skipBtn">跳转</div>
+                        </div>
                         <!-- 表格 -->
                         <ul class="tablelist"></ul>
                         <!-- 页码 -->
@@ -273,51 +271,43 @@
                     </div>
                 </div>
                 <div class="mainright">
-                    <div class="classes">
-                        <div class="sec">
-                            
-                         </div>
-                        <div class="lastsec">
-                            <div class="lf classLf"><</div>
-                            <div class="lf classcount">1</div>
-                            <div class="lf classRf">></div>
-                        </div>
-                    
+                    <div class="seleclasses">
+                        <p>选择班级</p>
+                            <input type="text" class="selectNum" value="未选择">
                     </div>
                     <div class="choose">
-                        <div class="chosec chosec1">
-                            <p>做题时间</p>
-                            <div class="box">
-                                <input type="text"  id="selectTime" placeholder ="未选择"/>
-                                <div class="jsbox">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="chosec">
-                            <div class="lf chofir">
-                                <p>限制</p>
-                                <p class="chofirTime">未选择</p>
-                            </div>
-                            <div class="lf cholast">
-                                <p>学期</p>
+                            
+                            <div class="chosec  cholast">
+                                <p>选择学期</p>
                                 <p class="selSemester ">未选择</p>
                             </div>
+                            <div class="chosec  chosec2">
+                                <p>选择单元</p>
+                                <P class="selUnit">未选择</P>
+                            </div>
+                            <div class="chosec chosec1" >
+                                <p id="times-1">选择布置日期</p>
+                                <div class="box">
+                                    <input type="text"  id="selectTime" placeholder="未选择" />
+                                    
+                                </div>
+                            </div>
+                            <div class="chosec">
+                                <div class=" chofir">
+                                    <p>限时</p>
+                                    <p class="chofirTime">未选择</p>
+                                </div>
+                                
+                            </div>
+                            
                         </div>
-                        <div class="chosec chosec2">
-                            <p>单元</p>
-                            <P class="selUnit">未选择</P>
-                        </div>
+                    <div class="tarskName">
+                        <p>任务名称</p>
+                        <input type="text" name="tarskName" value="未选择">
                     </div>
-                    <div class="students">
-                        <div class="stusline">
-                          
-                        </div>
-                      
-                        <div class="laststusline">
-                            <div class="stu stuleft lf bg2"><</div>
-                            <div class="stu stucenter lf bg2">1</div>
-                            <div class="stu sturight lf bg2">></div>
-                        </div>
+                    <div class="seletstu">
+                        <p>选择学生</p>
+                        <input type="text" class="selectstuNum" value="未选择">
                     </div>
                 </div>
             </div>
@@ -337,9 +327,15 @@
 
                     <p>*时间单位：分钟</p>
                 </div>
+                <div class="tarskSetName">
+                    <label>名称：</label>
+                    <input type="text" name="tarskname">
+                </div>
                  <ul class="semester">
                     
                 </ul>
+                <ul class="classSec"></ul>
+                <ul class="stuSec"></ul>
                 <ul class="unit"></ul>
                 <p class="mask_sure">确定</p>
             </div>
@@ -350,6 +346,7 @@
     <div class="loading">
         <div class="loadBox">
             <div class="spinner"></div>
+            <p>加载中，请稍后。。。</p>
         </div>
     </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
@@ -367,14 +364,15 @@
       //       })
             laydate.render({
                elem: '#selectTime' //指定元素
+               ,min:0
             });
             var paramClass={
                 "IndexPage": 1,
-                "IndexSize":6
+                "IndexSize":100
             }
             var srtudent={
                 "IndexPage":1,
-                "IndexSize":10
+                "IndexSize":9
             }
             var pertarsk={
                 'type':1,
@@ -391,28 +389,53 @@
             if(localStorage.getItem('teacherNames')){
                 $(".ope_first").find('span').text(localStorage.getItem('teacherNames'));
              }
-            var schoolId = sessionStorage.getItem('schoolId');
+              var gradeid=0,spanid='',len=0;
+            var schoolId = localStorage.getItem('schoolId');
             var TeacherId = sessionStorage.getItem('TeacherId');
             pertarsk.publisherId=localStorage.getItem('publisherId');
             pertarsk.publisherName = localStorage.getItem('publisherName');
+            var accountName=sessionStorage.getItem('accountName');
+            var Pgradeid = sessionStorage.getItem("Pgradeid");
+            var Pspanid = sessionStorage.getItem("Pspanid");
+            var PclassName=sessionStorage.getItem('PclassName');
+            var PgradeName = sessionStorage.getItem('PgradeName');
+            var Pterms = sessionStorage.getItem('Pterms');
+            var PgradeShowName=sessionStorage.getItem("PgradeShowName");
+            var Punits=sessionStorage.getItem('Punits');
+            if(Pgradeid){
+                param.Unit=Punits;
+                param.Grade=PgradeName;
+                if(Pterms=='0'){
+                    param.Term="上学期";
+                }else if(Pterms=='1'){
+                    param.Term="下学期";
+
+                }
+                pertarsk.ClassId=Pspanid;
+                srtudent.ClassId=Pspanid;
+                getStudent();
+            }
             pertarsk.schoolId=schoolId;
-            pertarsk.TeacherId=TeacherId;
+            pertarsk.TeacherId=accountName;
             var classListId=[],gradeid='',gradeName='';//班级id列表
            $(".release").on("click",function () {
-                // console.log(window.doQuestions);
                 pertarsk.doQuestions  = $("#selectTime").val();
                 pertarsk.classIdList   = studentArr;
                 pertarsk.gradeId = gradeid;
            
                 pertarsk.questionList =questionList;
+                if(pertarsk.questionList.length!=0){
+                    var data=C.POSTS(JSON.stringify(pertarsk),httpUrl.SendPersonalTask,successSend);
+                }else{
+                    C.layer(2,"请选择篇章！");
+                }
                 
-                var data=C.POSTS(JSON.stringify(pertarsk),httpUrl.SendPersonalTask,successSend);
                 
             });
            function successSend(data){
                 if(data.Result==1){
-                    C.layer(3,"发送成功！");
-                    location.reload();
+                    C.comfig("发送成功！",'check');
+                    // location.reload();
                 }else{
                     C.layer(1,data.Message);
                 }
@@ -429,9 +452,11 @@
                 if(studentData.Result==1){
                     
                     $(".classcount").text(srtudent.IndexPage);
-                    studentList(studentData.Data);
+                    if(studentData.Data!=null){
+                        studentList(studentData.Data);
+                    }
+                    
 
-                    // studentCount=studentData.count;
                     if(studentData.Count%srtudent.IndexSize>0){
                         studentCount=parseInt(studentData.Count/srtudent.IndexSize)+1;
                     }else{
@@ -443,30 +468,27 @@
                  }
             }
             function studentList(data){
-                // console.log(4444444444444);
-                // console.log(data);
+
                 var htmls='';
                 for(var i=0;i<data.length;i++){
-                    htmls+='<div class="stusection lf bg2" id="'+data[i].Id+'">'+data[i].StudentName+'</div>'
+
+                    htmls+='<li><input type="checkbox" id='+data[i].StudentId+' name="selectstu" ><span>'+data[i].StudentName+'</span></li>'
                 }
-                $('.stusline').html(htmls);
+                $('.stuSec').html(htmls);
             }
             var studentArr=[];
             
-            $(".stusline").on("click",".stusection",function(){
-                console.log(33333333333);
+            $(".stuSec").on("click","input",function(){
+                var bools=$(this).is(":checked");
                 var bgId=$(this).attr('id');
-                if($(this).hasClass('bg2')){
-                    $(this).removeClass('bg2');
-                    $(this).addClass('bg1');
+                if(bools){
                     studentArr.push(bgId);
                 }else{
-                    $(this).removeClass('bg1');
-                    $(this).addClass('bg2');
                     var len=studentArr.indexOf(bgId);
                     studentArr.splice(len,1);
                 }
-                console.log(studentArr);
+                var lens=studentArr.length;
+                $('.selectstuNum').val('您选择了'+lens+'个学生！');
             });
             $(".stuleft").on("click",function(){
                 C.leftPage(srtudent,stuNum,getStudent);
@@ -477,7 +499,8 @@
                 
             });
              //获取班级数据
-             paramClass.TeacherId=TeacherId;
+            var accountName=sessionStorage.getItem('accountName');
+            paramClass.TeacherId=accountName;
              getClassData();
              var classnum=0,classCount=0;
              function getClassData(){
@@ -491,129 +514,126 @@
                      
                     $(".classcount").text(paramClass.IndexPage);
                     createClassList(classData.Data);
-                    if(classData.Count%paramClass.IndexSize>0){
-                        classCount=parseInt(classData.Count/paramClass.IndexSize)+1;
-                    }else{
-                        classCount=parseInt(classData.Count/paramClass.IndexSize);
-                    }
-                    setClassCheck();
+                
                 }else{
                     paramClass.IndexPage-=classnum;
                     C.layer(1,classData.Message);
                 }
             }
             function createClassList(data){
-                console.log(data);
                 var list='';
                 for(var i=0;i<data.length;i++){
-                    list+='<div id='+data[i].Id+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].Name+'<span>选中</span></div>'
-                }
-                $(".sec").html(list);
-
-            }
-          
-            $(".classLf").on("click",function(){
-                C.leftPage(paramClass,classnum,getClassData);
-             
-            });
-            $(".classRf").on("click",function(){
-                C.rightPage(paramClass,classnum,classCount,getClassData);
-          
-            });
-              //选中班级id
-           
-            $(".classes").on("click",'.classtable',function(){
-                $(this).find('span').toggle();
-                //判断是否所有的班级选中全部清除
-                var spanbox=$('.classes').find('span');
-                var boxBool=true;
-                var spanBool=$(this).find('span').css("display");
-                var spanId=$(this).attr('id');
-                var grades=$(this).attr('gradeid');  
-                // console.log(spanbox);
-                
-                if(spanBool=='block' || spanBool=='inline'){
-                    if(gradeid==''){
-                        gradeid = grades;
-                         paramClass.Id=gradeid;
-                        getdata();
-                        Semester(gradeid);
-                        param.IndexPage=1;
-                        srtudent.ClassId=spanId;
-                        pertarsk.ClassId=spanId;
-                        // srtudent.ClassId='aaa';
-                        // pertarsk.ClassId='aaa';
-                        getStudent();//获取学生列表
-                        gradeName = $(this).attr('gradeName');
-                        // return false; 
+                    if(data[i].IsAfterSchool){
+                        xiaowai="(校外)";
                     }else{
-                        // alert("不能同时选择两个班级！");
-                        C.layer(2,"不能同时选择两个班级！");
-                        $(this).find('span').hide();
-                        return false;
+                        xiaowai="";
                     }
-                }else{
-                    gradeid='';
+                    if(Pspanid == data[i].Id){
+                        list+='<li><input type="radio" id='+data[i].Id+' name="seleclasses" dataName='+data[i].Name+' gradeid='+data[i].GradeId+' checked><span>'+data[i].Name+xiaowai+'</span></li>';
+                    }else{
+                        list+='<li><input type="radio" id='+data[i].Id+' name="seleclasses" dataName='+data[i].Name+' gradeid='+data[i].GradeId+'><span>'+data[i].Name+xiaowai+'</span></li>';
+                    }
+                    
                 }
-   
-                if(spanBool=='block' || spanBool=='inline'){
-                    classListId.push(spanId);
-                }else{
-                    var j=classListId.indexOf(spanId);
-                    classListId.splice(j,1);
+                if(PclassName){
+                    $('.selectNum').val(PclassName);
+                    Semester(Pgradeid);
                 }
-            });
-            //翻页后班级是否选中
-            function setClassCheck(){
-                console.log(classListId);
-                if(classListId.length!=0){
-                    var spanRember=$(".classtable");
-                    for(var i=0;i<spanRember.length;i++){
-                        var ids=spanRember[i].id;
-                        if(classListId.indexOf(ids,0)!=-1){
-                            $(spanRember).eq(i).find('span').show();
-                        }else{
-                            $(spanRember).eq(i).find('span').hide();//可以不要
-                        }
+                $(".classSec").html(list);
 
+            }
+           
+            $('.classSec').on('click','input',function(){
+                classListId=[];
+                var checkFool=$(this).is(':checked');
+                spanid=$(this).attr('id');
+                gradeid=$(this).attr('gradeid');
+                sessionStorage.setItem("Pgradeid",gradeid);
+                sessionStorage.setItem("Pspanid",spanid);
+                sessionStorage.setItem('PclassName',$(this).attr('dataName'));
+                Semester(gradeid);
+                $('.selectNum').val($(this).attr('dataName'));
+        
+            });
+            $('.mask_sure').on('click',function(){
+                var tarskBool=$('.tarskSetName').css('display');
+                var bools=$('.classSec').css('display');
+                var v=$('.tarskSetName').find('input').val();
+                
+                if(tarskBool == 'inline' || tarskBool == "block"){
+                    if(v.length >0){
+                        $(".tarskName").find('input').val(v);
+                        pertarsk.Name=v;
+                    }
+                    
+                }
+               
+                if(bools=='block' || bools=='inline'){
+                    param.IndexPage=1;
+                    console.log();
+                    srtudent.ClassId=spanid;
+                    pertarsk.ClassId=spanid;
+                    if(srtudent.ClassId!=''){
+                        getStudent();//获取学生列表
+                    }else{
+                        C.layer(3,"请选择班级！");
+                    }
+                    if(len==0){
+                        $('.stusline').empty();
                     }
                 }
-            }
+
+            });
+            $('body').on('click','#xxclTitle,#jxgyTitle,#bjzsTitle,#jxjyTitle,#swjcTitle,#yfzjTitle，#zyTitle,#yfzjTitle,#zyTitle',function(){
+                
+                C.toggleImg(this);
+            });
             //学期列表
             function Semester(id){
-                console.log('id',id);
                 var htmls='';
                 switch(id)
                 {
                 case '7':
-                    htmls='<li><input type="radio" name="semester" value="七年级上" data-id="0">七年级上</li>';
-                    htmls+='<li><input type="radio" name="semester" value="七年级下" data-id="1">七年级下</li>';
+                    htmls='<li><input type="radio" name="semester" dataName="七年级上" value="七年级" data-id="0">七年级上</li>';
+                    htmls+='<li><input type="radio" dataName="七年级下" name="semester" value="七年级" data-id="1">七年级下</li>';
                     break;
                 case '8':
-                    htmls='<li><input type="radio" name="semester" value="八年级上" data-id="0">八年级上</li>';
-                    htmls+='<li><input type="radio" name="semester" value="八年级下" data-id="1">八年级下</li>';
+                    htmls='<li><input type="radio" name="semester" dataName="八年级上" value="八年级" data-id="0">八年级上</li>';
+                    htmls+='<li><input type="radio" name="semester" dataName="八年级下" value="八年级" data-id="1">八年级下</li>';
                     break;
                 case '9':
-                    htmls='<li><input type="radio" name="semester" value="九年级上" data-id="0">九年级上</li>';
-                    htmls+='<li><input type="radio" name="semester" value="九年级下" data-id="1">九年级下</li>';
+                    htmls='<li><input type="radio" name="semester" dataName="九年级上" value="九年级" data-id="0">九年级上</li>';
+                    htmls+='<li><input type="radio" name="semester" dataName="九年级下" value="九年级" data-id="1">九年级下</li>';
                     break;
                 case '10':
-                    htmls='<li><input type="radio" name="semester" value="高一上" data-id="0">高一上</li>';
-                    htmls+='<li><input type="radio" name="semester" value="高一下" data-id="1">高一下</li>';
+                    htmls='<li><input type="radio" name="semester"  dataName="高一上" value="高一" data-id="0">高一上</li>';
+                    htmls+='<li><input type="radio" name="semester"  dataName="高一下" value="高一" data-id="1">高一下</li>';
                     break;
                 case '11':
-                    htmls='<li><input type="radio" name="semester" value="高二上" data-id="0">高二上</li>';
-                    htmls+='<li><input type="radio" name="semester" value="高二下" data-id="1">高二下</li>';
+                    htmls='<li><input type="radio" name="semester" value="高二"  dataName="高二上"data-id="0">高二上</li>';
+                    htmls+='<li><input type="radio" name="semester" dataName="高二下" value="高二" data-id="1">高二下</li>';
                     break;
                 case '12':
-                    htmls='<li><input type="radio" name="semester" value="高三上" data-id="0">高三上</li>';
-                    htmls+='<li><input type="radio" name="semester" value="高三下" data-id="1">高三下</li>';
+                    htmls='<li><input type="radio" name="semester" value="高三"  dataName="高三上"data-id="0">高三上</li>';
+                    htmls+='<li><input type="radio" name="semester" dataName="高三下" value="高三" data-id="1">高三下</li>';
                     break;
                 default:
                     htmls='没有这个年级';
                     break;
                 }
                 $(".semester").html(htmls);
+                if(Pterms){
+                    $('.semester').find('li').eq(Pterms).find('input').attr('checked',true);
+                    $('.selSemester ').text(PgradeShowName);
+                    param.Grade=PgradeName;
+                    if(Pterms=='0'){
+                        param.Term="上学期";
+                    }else if(Pterms=='1'){
+                        param.Term="下学期";
+
+                    }
+                    getunitData(param.Grade,param.Term)
+                }
             }
              //页面自适应
              
@@ -622,7 +642,6 @@
             });
             C.resezes(1);
            
-            console.log(httpUrl);
             
             var count=1;
             $(".ope_first").on({
@@ -638,15 +657,29 @@
             // 左翻页
             var tablenum=0;
             $(".left_btn").on("click",function(){
+                var nums=parseInt($('.count').text());
+                if(param.IndexPage!=nums){
+                    param.IndexPage=nums;
+                }
                 C.leftPage(param,tablenum,getdata);
              
             });
             $(".right_btn").on("click",function(){
+                var nums=$('.count').text();
+                if(param.IndexPage!=nums){
+                    param.IndexPage=parseInt(nums);
+                }
                 C.rightPage(param,tablenum,count,getdata);
                 
             });
            
-            
+            //跳转页面
+            $('.skipBtn').on('click',function () {
+                var num=$('.skip').find('input').val();
+                // if(){}
+                param.IndexPage=num;
+                getdata();
+            });
            
              //获取篇章列表数据
             function getdata(){
@@ -663,7 +696,7 @@
                     }else{
                         count=parseInt(tableData.Count/param.IndexSize);
                     }
-
+                    $('.allcount').find('span').text(count);
                     createList(tableData.Data);
                     setChecked();
                 }else{
@@ -672,7 +705,7 @@
                 }
             }
             function createList(data){
-                var list='<li><p class="cell1">编号</p><p class="cell2">选中</p><p class="cell3">篇章名称</p><p class="cell4">话题</p><p class="cell5">题型</p><p class="cell6">文体</p><p class="cell7">难度</p><p class="cell8">阅读策略</p><p class="cell9">写作技巧</p><p class="cell10">词数</p><p class="cell11">分数</p><p class="cell12">操作</p><p class="cell13">教学建议</p></li>';
+                var list='<li><p class="cell1">编号</p><p class="cell2">选中</p><p class="cell3">篇章名称</p><p class="cell4">话题</p><p class="cell5">题型</p><p class="cell6">文体</p><p class="cell7">难度</p><p class="cell8">阅读策略</p><p class="cell10">词数</p><p class="cell11">分数</p><p class="cell12">操作</p></li>';
                 for(var i=0;i<data.length;i++){
                     var index=1;
                     
@@ -685,18 +718,25 @@
                     }
                     list+='<p class="cell1"> <span class="serial">'+index+'</span> </p>';
                         list+='<p class="cell2"><label class="che"><input id='+data[i].Id+' type="checkbox" class="input_che" ><span></span></label></p>';
-                        list+='<p class="chapter cell3" style="text-align:left">'+data[i].Name+'</p>';
-                        list+='<p class="cell4">'+data[i].Topic+'</p>';
-                        list+='<p class="cell5">'+data[i].QuestionsType+'</p>';
+                        list+='<p class="chapter cell3" title="'+data[i].Name+'" style="text-align:left">'+data[i].Name+'</p>';
+                        list+='<p class="cell4" title="'+data[i].Topic+'">'+data[i].Topic+'</p>';
+                        list+='<p class="cell5" title="'+data[i].QuestionsType+'">'+data[i].QuestionsType+'</p>';
                         list+='<p class="cell6">'+data[i].LiteraryForm+'</p>';
                         list+='<p class="cell7">'+data[i].Difficulty+'</p>';
-                        list+='<p class="cell8">'+data[i].ReadingStrategyId+'</p>';
-                        list+='<p class="cell9">'+data[i].WritingSkillId+'</p>';
+                        if(data[i].JiaoCanId){
+                            list+='<p class="cell8">精读</p>';
+                        }else{
+                            list+='<p class="cell8">泛读</p>';
+                        }
                         list+='<p class="cell10">'+data[i].Words+'</p>';
                         list+='<p class="cell11">'+data[i].Score+'</p>';
                        
-                        list+='<p class="cell12"><span class="view dbtn" data-id="' + data[i].Id + '" >预览</span></p>';
-                         list+='<p class="cell13"><span class="preview dbtn">查看</span></p>';
+                        if(data[i].JiaoCanId){
+                            list+='<p class="cell12"><span class="view dbtn" data-id="' + data[i].Id + '" >教参预览</span></p>';
+                        }else{
+                            list+='<p class="cell12"><span class="view dbtn" data-id="' + data[i].Id + '" >预览</span></p>';
+                        }
+                         // list+='<p class="cell13"><span class="preview dbtn">查看</span></p>';
                         list+='</li>';
                 }
                 $(".tablelist").html(list);
@@ -705,8 +745,7 @@
             var questionList =[];//保存篇章列表信息
             //点击input选中篇章列表
             $(".tablelist").on("click",'input',function(){
-                if(classListId.length!=0 && $('.selSemester ').text()!='未选择'){
-                    console.log(classListId);
+                if( $('.selSemester ').text()!='未选择'){
                     if($(this).is(":checked")){
                    
                         if(questionList.length>=5){
@@ -723,14 +762,12 @@
                             questionList[quesLen].Term=terms;
                             questionList[quesLen].Unit=units;
                         }
-                        console.log(questionList);
                          
                      }else{
                          for(var i=0; i<checkedIds.length; i++){
                              if($(this).attr("id") == checkedIds[i]){
                              checkedIds.splice(i, 1);
                              questionList.splice(i,1);
-                             console.log(questionList);
                              break;
                              }
                          }
@@ -755,32 +792,46 @@
                    }
                }
                var arr=$('input[type=checkbox]:checked');
-                       console.log(arr);
             }
              // 时间弹出层
-            $(".mask").on("click",function(){
-                $(this).hide();
-                $(this).find("ul").hide();
+            $(".mask_sure , .close_list").on("click",function(){
+                $('.mask').hide();
+                $('.mask').find("ul").hide();
                 $('.listTimes').hide();
+                $('.tarskSetName').hide();
             });
             //完成时间选择
-            $(".listTimes,.semester,.unit").on("click",function(e){
+            $(".listTimes,.semester,.unit,.classSec").on("click",function(e){
                 e.stopPropagation();
             });
             $(".listTimes input").on("change",function(){
                 var v=$(this).val();
                 $(".chofirTime").text(v);
                 pertarsk.limitedTime=parseInt(v);
-                console.log(v)
             });
             $(".chofir").on("click",function(){
                 $(".mask").show();
                 $(".listTimes").show();
             });
+            //任务名称
+            $('.tarskName').on('click',function () {
+                $(".mask").show();
+                $(".tarskSetName").show();
+            });
+            //班级选择
+            $('.seleclasses').on('click',function(){
+                $(".mask").show();
+                $(".classSec").show();
+            });
+            //选择学生
+            $('.seletstu').on('click',function () {
+                $(".mask").show();
+                $(".stuSec").show();
+            });
             //学期选择
             $(".cholast").on("click",function(){
                 
-                if(classListId.length!=0){
+                if($('.selectNum').text()!='未选择'){
                     $(".mask").show();
                     $(".semester").show();
 
@@ -792,20 +843,25 @@
             });
             var terms='';
             $(".semester").on("click",'input',function(){
-                var v=$(this).val();
-                console.log(v);
+                gradeName=$(this).val();
+                var v=$(this).attr('dataName');
                 $(".selSemester").text(v);
-                 param.Grade=gradeName;
-                 terms=$(this).val();
-                 var Term = $(this).attr('data-id');
-                 if(Term=='0'){
+                
+                terms=$(this).val();
+
+                var Term = $(this).attr('data-id');
+                sessionStorage.setItem("PgradeShowName",v);
+                sessionStorage.setItem('PgradeName',gradeName);
+                sessionStorage.setItem('Pterms',Term);
+                param.Grade=gradeName;
+                if(Term=='0'){
                     param.Term="上学期";
-                 }else if(Term=='1'){
+                }else if(Term=='1'){
                     param.Term="下学期";
 
-                 }
-                 getunitData(param.Grade,param.Term)
-                 getdata();
+                }
+                getunitData(param.Grade,param.Term)
+                getdata();
             });
             //年级选择
 
@@ -824,8 +880,8 @@
                 units=v;
                 $(".selUnit").text(v);
                 param.Unit=v;
+                sessionStorage.setItem('Punits',v);
                 getdata();
-                console.log(v)
             });
             //单元选择
             function getunitData(Grade,Term){
@@ -848,10 +904,19 @@
                     var data=unitDatas.Data;
                     var htmls='';
                     for(var i=0;i<data.length;i++){
-                       htmls+='<li><input type="radio" name="unit" value='+data[i].Unit+' >单元'+data[i].Unit+'</li>';
+                        if(Punits == data[i].Unit){
+                            htmls+='<li><input type="radio" name="unit" value='+data[i].Unit+' checked>单元'+data[i].Unit+'</li>';
+                        }else{
+                            htmls+='<li><input type="radio" name="unit" value='+data[i].Unit+' >单元'+data[i].Unit+'</li>';
+                        }
+                       
                     }
-                    console.log(htmls);
-                    $('.unit').html(htmls);
+                     $('.unit').html(htmls);
+                    if(Punits){
+                       
+                        $('.selUnit').text(Punits);
+                    }
+                    
                 }else{
                     C.layer(1,unitDatas.Message);
                 }
@@ -879,8 +944,11 @@
             function PreviewSubject(datas) {
 
                 var data=datas.Data;
-                var str = TeacherSubjectString(data);
-                console.log(str);
+                if(data.JiaoCanId){
+                    var str = TeacherSubjectString(data);
+                }else{
+                    var str = TeacherSubjectStrings(data);
+                }
             
                 openPopWin('checkDetail', str);
             }

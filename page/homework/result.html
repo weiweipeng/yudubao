@@ -9,8 +9,7 @@
 
         .decorate{
         	color: #008000;
-            background-color: #fff;
-            height: 24px;
+            height: 18px;
             line-height: 24px;
             width: 110px;
             text-align: center;
@@ -21,19 +20,7 @@
             display: inline-block;
 
         }
-        .decorates{
-            color: #008000;
-            background-color: #fff;
-            line-height: 20px;
-            width: 110px;
-            text-align: center;
-            font-size: 14px;
-          
-            margin-bottom: 4px;
-            margin-left: 4px;
-            display: inline-block;
-        }
-       
+
     
         .serial{
            width: 20px;
@@ -44,12 +31,12 @@
            text-align: center;
 
         }
-        .chapter{
+       /* .chapter{
         	font-weight: 600;
         	overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
-        }
+        }*/
         .dbtn{
         	width: 35px;
         	line-height: 22px;
@@ -237,8 +224,8 @@
                         <!-- <div class="task_list">BACK</div> -->
                         
                         <div>
-                            <div class="decorate">布置班级作业</div>
-                            <div class="decorates">班级任务列表</div>
+                            <div class="decorate"></div>
+                            <!-- <div class="decorates"></div> -->
                         </div>
                          <!-- 表格 -->
                         
@@ -248,9 +235,9 @@
                          <!-- 页码 -->
                          <div class="count">1</div>
                          <!-- 发布任务 -->
-                         <div class="release">
+                        <!--  <div class="release">
                             发布任务
-                         </div>
+                         </div> -->
                         <!-- 左右翻页 -->
                         <div class="left_btn">
                             上一页
@@ -263,15 +250,9 @@
                     </div>
                 </div>
                 <div class="mainright">
-                    <div class="classes">
-                        <div class="sec">
-                            
-                         </div>
-                        <div class="lastsec">
-                            <div class="lf classLf"><</div>
-                            <div class="lf classcount">1</div>
-                            <div class="lf classRf">></div>
-                        </div>
+                    <div class="seleclasses">
+                        <p>选择班级</p>
+                            <input type="text" class="selectNum" value="未选择">
                     </div>
                 </div>
             </div>
@@ -283,11 +264,23 @@
             
         </div>
     </div>
+    <div class="mask">
+       <div class="maskflex">
+            <div class="lists">
+                <span class="close_list">×</span>
+                
+                <ul class="classSec"></ul>
+               
+                <p class="mask_sure">确定</p>
+            </div>
+       </div>
+    </div>
     <div id="pop-box"></div>
     <div class="layerMask"></div>
     <div class="loading">
         <div class="loadBox">
             <div class="spinner"></div>
+            <p>加载中，请稍后。。。</p>
         </div>
     </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
@@ -304,19 +297,23 @@
             }
             var paramClass={
                 "IndexPage":1,
-                "IndexSize":6
+                "IndexSize":100
             }
             var count=1;
             var classNums = 0;
             var classDetail={};
             var classListId=[],gradeid='',gradeName='';//班级id列表
-            paramClass.TeacherId=localStorage.getItem('TeacherIds');
+            var accountName=sessionStorage.getItem('accountName');
+            param.TeacherId=accountName;
+            paramClass.TeacherId=accountName;
+            var remenberClassName=sessionStorage.getItem('remenberClass');
             if(localStorage.getItem('teacherNames')){
                 $(".ope_first").find('span').text(localStorage.getItem('teacherNames'));
              }
-            // param.SchoolId=localStorage.getItem('SchoolId');
             //获取成绩列表
-
+            if(!remenberClassName){
+                getdata();
+            }
             function getdata(){
                 
                 var resultData=C.POST(param,httpUrl.TeacherTaskStatisticsList,successGetdata);
@@ -333,11 +330,11 @@
                     }
                     createList(resultData.Data);
                 }else{
-                    C.layer(1,resultData.Message);
+                    // C.layer(1,resultData.Message);
                 }
             }
             function createList(data){
-                var list='<li><p class="cell1">发布日期</p><p class="cell2">任务名称</p><p class="cell3">总分</p><p class="cell4">平均分</p><p class="cell5">平均用时</p><p class="cell6">得分率</p><p class="cell7">平均速度</p><p class="cell8">完成率</p><p class="cell9">查看</p></li>';
+                var list='<li><p class="cell1">发布日期</p><p class="cell2">任务名称</p><p class="cell3">总分</p><p class="cell4">平均分</p><p class="cell5">平均用时(分钟)</p><p class="cell6">得分率</p><p class="cell7">平均速度(词/分)</p><p class="cell8">完成率</p><p class="cell9">查看</p></li>';
                 for(var i=0;i<data.length;i++){
                     // data[i].createDate=data[i].createDate.slice(0,10);
                     // data[i].doQuestions=String(data[i].doQuestions).substring(0,10);
@@ -345,7 +342,13 @@
                     console.log(dates);
                     var rate=data[i].ScoringRate.toFixed(4);
                     console.log(rate);
-                    var completeRate=data[i].CompletionRate.toFixed(4);
+                    if(data[i].CompletionRate!=null){
+                        var completeRate=data[i].CompletionRate.toFixed(4);
+                    }else{
+                        var completeRate=0;
+                    }
+                    
+                    var StudentTimeUse=parseFloat(data[i].StudentTimeUse/60).toFixed(2);
                     if(i<data.length-1){
                         list+='<li class="trline"  style="border-bottom:1px solid">';
                     }else{
@@ -356,11 +359,11 @@
                     list+='<p class="cell2">'+data[i].Name+'</p>';
                     list+='<p class="cell3">'+data[i].TotalScore+'</p>';
                     list+='<p class="cell4">'+data[i].StuScore+'</p>';
-                    list+='<p class="cell5">'+data[i].StudentTimeUse+'</p>';
+                    list+='<p class="cell5">'+StudentTimeUse+'</p>';
                     list+='<p class="cell6">'+(rate*100).toFixed(2)+'%'+'</p>';
                     list+='<p class="cell7">'+data[i].StudentCount+'</p>';
                     list+='<p class="cell8">'+(completeRate*100).toFixed(2)+'%'+'</p>';
-                    list+=' <p class="cell9"><span class="preview dbtn lf" data-id="'+data[i].ClassTaskID+'">班级</span><span class="view dbtn lf">个人</span></p>';
+                    list+=' <p class="cell9"><span class="preview dbtn lf" data-id="'+data[i].ClassTaskID+'">班级</span><span class="view dbtn lf" data-id="'+data[i].ClassTaskID+'">个人</span></p>';
                     list+='</li>';
                 }
                 $(".tablelist").html(list);
@@ -393,92 +396,79 @@
             //获取班级列表
             getClassData();
             
-            // console.log(typeof(classNums));
             function getClassData(){
                 console.log(paramClass);
                 var classData=C.POST(paramClass,httpUrl.GetClassListByTeacherID,successGetclass);
-                
-                
             }
             function successGetclass(classData) {
                 if(classData.Result==1){  
-                    // param.ClassId='aaa';
-
-                    // getdata();
-                    $(".classcount").text(paramClass.IndexPage);
-                    
+                   
                     createClassList(classData.Data);
-                    setClassCheck();
-                    // param.ClassId=classData.data[1].id;
-                    // classDetail.ClassId=classData.data[1].id;
                     
-                    // classDetail.ClassId='aaa';
-                    
-                    // classCount=classData.count;
-                    if(classData.Count%paramClass.IndexSize>0){
-                        classCount=parseInt(classData.Count/paramClass.IndexSize)+1;
-                    }else{
-                        classCount=parseInt(classData.Count/paramClass.IndexSize);
-                    }
                 }else{
-                    paramClass.IndexPage-=classNums;
                     C.layer(1,classData.Message);
                 }
             }
             function createClassList(data){
-                console.log(data);
+                
+
                 var list='';
                 for(var i=0;i<data.length;i++){
-                    // if(param.ClassId==''){
-                    //     param.ClassId=data[i].Id;
-                    //     getdata();
-                    // }
-                    list+='<div id='+data[i].Id+' gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].Name+'<span>选中</span></div>'
-                }
-
-                $(".sec").html(list);
-
-            }
-            
-            $(".classLf").on("click",function(){
-                C.leftPage(paramClass,classNums,getClassData);
-         
-            });
-            $(".classRf").on("click",function(){
-                C.rightPage(paramClass,classNums,classCount,getClassData);
-             
-            });
-            $(".classes").on("click",'.classtable',function(){
-                $('.classes').find('span').hide();
-                //判断是否所有的班级选中全部清除
-
-                var spanId=$(this).attr('id');
-             
-                gradeid=spanId;
-                param.ClassId=spanId;
-                classDetail.ClassId=spanId;
-                $(this).find('span').show();
-                sessionStorage.setItem('classID',spanId);
-                getdata();
-               
-            });
-            //翻页后班级是否选中
-            function setClassCheck(){
-            
-                var ids=$(".classes").find('.classtable');
-                for(var i=0;i<ids.length;i++){
-                    var ID=$(ids).eq(i).attr('id');
-                    if(gradeid==ID){
-                        $(".classes").find('.classtable').eq(i).find('span').show();
+                    if(data[i].IsAfterSchool){
+                        xiaowai="(校外)";
+                    }else{
+                        xiaowai="";
+                    }
+                    if(remenberClassName){
+                        if(remenberClassName==data[i].Id){
+                            list+='<li><input type="radio" id='+data[i].Id+' name="seleclasses" gradeid='+data[i].GradeId+' dataName='+data[i].Name+' checked><span>'+data[i].Name+xiaowai+'</span></li>';
+                            param.ClassId=data[i].Id;
+                            $('.selectNum').val(data[i].Name);
+                            getdata();
+                        }else{
+                            list+='<li><input type="radio" id='+data[i].Id+' name="seleclasses" gradeid='+data[i].GradeId+' dataName='+data[i].Name+'><span>'+data[i].Name+xiaowai+'</span></li>';
+                        }
+                    }else{
+                        list+='<li><input type="radio" id='+data[i].Id+' name="seleclasses" gradeid='+data[i].GradeId+' dataName='+data[i].Name+'><span>'+data[i].Name+xiaowai+'</span></li>';
                     }
                 }
+                $(".classSec").html(list);
             }
+            
+          
+            //班级选择
+            $('.seleclasses').on('click',function(){
+                $(".mask").show();
+                $(".classSec").show();
+            });
+            $(".classSec").on("click",function(e){
+                e.stopPropagation();
+            });
+            $(".mask,.close_list,.mask_sure").on("click",function(){
+                $('.mask').hide();
+                $('.mask').find("ul").hide();
+            });
+            $('.classSec').on('click','input',function(){
+                var spanId=$(this).attr('id');
+                sessionStorage.setItem('remenberClass',spanId);
+                param.ClassId=spanId;
+                classDetail.ClassId=spanId;
+                var classname=$(this).attr('dataName');
+                $('.selectNum').val(classname);
+                getdata();
+            });
+            $('.nav_list').on('click','li',function () {
+                sessionStorage.removeItem('remenberClass');
+            });
             //成绩统计班级信息
             $(".tablelist").on('click','.preview ',function(){
                 classDetail.ClassTaskId=$(this).attr('data-id');
                 console.log($(this).attr('data-id'));
                 C.load(0);
                 var data=C.POSTS(JSON.stringify(classDetail),httpUrl.TeacherTaskStatisticsDetailList,successGetTable);
+                setTimeout(function(){
+                    C.load(1);
+                },5000);
             });
             function successGetTable(ajaxViewData){
                 if(ajaxViewData.Result==1){
@@ -537,10 +527,9 @@
             });
             C.resezes(1);
            
-    		// $(".tablelist").on('click','.preview',function(){
-      //           window.location.href='classResult.html'
-      //       });
             $(".tablelist").on('click','.view',function(){
+                var id=$(this).attr('data-id');
+                sessionStorage.setItem('tarskId',id);
                 window.location.href='sturesult.html';
             });
             $(".ope_first").on({

@@ -198,6 +198,7 @@
 			float: right;
 		    margin-right: 300px;
     		margin-top: 30px;
+            cursor: pointer;
 		}
 		.layerImg{
             position: fixed;
@@ -209,17 +210,35 @@
             margin-top: -145px;
             background-color: #fff;
             display: none;
+            box-shadow: 10px 10px 5px #888888;
         }
-        .layerImg img{
+        .layerImg>.erweima{
             width: 200px;
             height: 200px;
             margin-top: 20px;
             margin-left: 100px;
         }
-        .layerImg p{
+        .layerImg .payTitle{
         	text-align: center;
 		    font-size: 18px;
 		    margin-top: 10px;
+        }
+        .payReload{
+            position: absolute;
+            top: 20px;
+            left: 100px;
+            width: 200px;
+            height: 200px;
+            background-color: rgba(0,0,0,0.7);
+           
+            cursor: pointer;
+            display: none;
+        }
+        .payReload img{
+            width: 40px;
+            height: 40px;
+            margin-left: 80px;
+            margin-top: 80px;
         }
     </style>
 </head>
@@ -319,7 +338,7 @@
         	
         </div>
         <!-- <div class="payLine"> -->
-			<div class="paysubmit">立即支付》</div>
+			<div class="paysubmit" onclick="SaveErweimaOrder()">立即支付》</div>
 		<!-- </div> -->
     </div>
     
@@ -330,8 +349,11 @@
         </div>
     </div>
     <div class="layerImg">
-        <img src="">
-        <p>请付款</p>
+        <img class="erweima" src="">
+        <p class="payReload">
+            <img src="../../img/reload1.png">
+        </p>
+        <p class="payTitle">请付款</p>
     </div>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../js/request.js"></script>
@@ -357,6 +379,18 @@
 
 	        var gooddata=C.POSTS({},httpUrl.GetShoppingCartList,successGetgood);
 	        var goodlist=[];
+            var names=localStorage.getItem('teacherNames');
+            $(".ope_first").find('span').text(names);
+             $(".ope_first").on({
+                mouseover:function (e) {
+                    e.stopPropagation();
+                    $(".message_list").show();
+                },
+                mouseout:function (e) {
+                    e.stopPropagation();
+                    $(".message_list").hide();
+                }
+            });
 	        function successGetgood(data){
 	        	var datas=data.Data;
 	        	if(data.Result==1){
@@ -372,29 +406,41 @@
 	        	erweima.PayType=typeid;
 	        	console.log(typeid);
 	        });
-	    	$('.paysubmit').on('click',function(){
-	            
-
-	            var data=C.POSTS(JSON.stringify(menu),httpUrl.SaveOrders,successSave)
+	    	$('.payReload').on('click',function(){
+	            $(this).hide();
+                getErWeiCode();
+                timeout=0;
 	        });
+            var timeout=0;
+            SaveErweimaOrder=function(){
+                var data=C.POSTS(JSON.stringify(menu),httpUrl.SaveOrders,successSave)
+            }
 	        function successSave(data){
 	            if(data.Result==1){
 	                erweima.OrederID=data.Data;
 	                getmessage.OrderID=data.Data;
-	                var data=C.POSTS(JSON.stringify(erweima),httpUrl.GetPayQRCode,successCode);
+	                getErWeiCode();
 	            }
 	        }
+            getErWeiCode=function(){
+                var data=C.POSTS(JSON.stringify(erweima),httpUrl.GetPayQRCode,successCode);
+            }
 	        var timer=null;
 	        function successCode(data){
 	            if(data.Result==1){
 	                console.log(data.Data);
 	                var url=httpUrl.MakeQRCode+'?data='+data.Data;
-	                $('.layerImg').find('img').attr("src",url);
+	                $('.erweima').attr("src",url);
 	                $('.layerImg').show();
 	                console.log(url);
 
 	                timer=setInterval(function(){
 	                    var data=C.POSTS(JSON.stringify(getmessage),httpUrl.QueryyQrCodeState,successGetMessage);
+                        timeout++;
+                        console.log(timeout);
+                        if(timeout>59){
+                            $('.payReload').show();
+                        }
 	                },1000);
 	            }
 	        }

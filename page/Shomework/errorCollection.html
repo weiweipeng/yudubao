@@ -10,13 +10,12 @@
         .decorate{
             color: #008000;
             background-color: #fff;
-            height: 24px;
-            line-height: 24px;
-            /*width: 90px;*/
+            height: 18px;
+            line-height: 18px;
             padding-left: 10px;
             padding-right: 10px;
             text-align: center;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             margin-bottom: 4px;
             margin-left: 4px;
@@ -25,9 +24,7 @@
         }
         
         .decorate_detail{
-           
             line-height: 20px;
-          
             text-align: center;
             font-size: 12px;
             padding-left: 6px;
@@ -36,17 +33,8 @@
             margin-left: 4px;
             display: inline-block;
         }
-        .de_detail{
-            /*width: 110px!important;*/
-        }
         .practice{
             margin-top: 10px;
-        }
-        .bg1{
-            /*background-color: rgba(0, 128, 0, 1)!important;*/
-        }
-        .bg2{
-            /*background-color: rgba(0, 102, 255, 1)!important;*/
         }
         .bg3{
             background-color: rgba(111, 176, 81, 1);
@@ -59,7 +47,6 @@
             padding-right: 40px;
             box-sizing: border-box;
         }
-     
         .secs>.sbg{
             width: 50%;
             color: #fff;
@@ -85,8 +72,9 @@
             border-radius: 3px;
             background-color: rgba(98, 201, 210, 1);
             color: #fff;
-            right: 0px;
-            top: -30px;
+            right: 200px;
+            bottom: -30px;
+            display: none;
         }
         .time{
             color: red;
@@ -99,7 +87,7 @@
             padding: 10px 20px;
             box-sizing: border-box;
             overflow-y: auto;
-            height: 78%;
+            height: 82%;
         }
         .mainTitle{
             font-size: 16px;
@@ -174,6 +162,86 @@
         .pracBg1{
             background-color: rgba(0, 128, 0, 1)!important;
         }
+        .mainContainer{
+            display: none;
+        }
+        .cell1{
+            width: 6%;
+           }
+           .cell2{
+            width: 18%;
+           }
+           .cell3{
+            width: 18%;
+           }
+           .cell4{
+            width: 8%;
+           }
+           .cell5{
+            width: 8%;
+           }
+           .cell6{
+            width: 8%;
+           }
+           .cell7{
+            width: 10%;
+           }
+           .cell8{
+            width: 12%;
+           }
+           .cell9{
+            width: 12%;
+           }
+           .mainContainer input{
+            height: 24px;
+            line-height: 24px;
+           }
+        .chosec{
+            height: 57px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .chosec>div{
+            width: 50%;
+            text-align: center;
+            line-height: 57px;
+            height: 57px;
+        }
+        .starttime,.endtime{
+            background-color: rgba(0, 204, 153, 1);
+        }
+        .starttime{
+            border-right: 1px solid #999;
+            box-sizing: border-box;
+        }
+        .box>input{
+            background-color: rgba(0, 204, 153, 1);
+            width: 100%;
+            border: 0px;
+            text-align: center;
+            color: #fff;
+        }
+        .box>input::-webkit-input-placeholder { /* WebKit browsers */
+    　　      color:#fff;
+    　　 }
+
+    　　.box>input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    　　     color:#fff;
+    　　}
+
+    　　.box>input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    　　    color:#fff;
+    　　}
+
+    　　.box>input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    　　    color:#fff;
+    　　}
+        .classes{
+            margin-top: 10px;
+        }
+        .task_list{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -191,7 +259,7 @@
                 <div class="ope_first lf">
                     <img src="../../img/120.png">
                     <span class="names"></span>
-                    <img src="../../img/homework/u2104.png" class="tags">
+                    <!-- <img src="../../img/homework/u2104.png" class="tags"> -->
                     <ul class="message_list">
                         <li>
                             <a href="#">基本资料</a>
@@ -222,6 +290,7 @@
                            
                             <li><a href="assessment.html">评估</a></li>
                             <li><a href="ranking.html">排行榜</a></li>
+                            <li><a href="../buy/buy.html">更多篇章</a></li>
                         </ul>
                     </div>
                     <div class="maincenter">
@@ -238,9 +307,14 @@
                             <div class="mainContainer" id="ArticleContent">
                               
                             </div>
-                           
+                           <!-- 表格 -->
+                             <ul class="tablelist">
+                              
+                            </ul>
+                            <div class="task_list">返回列表</div>
                             <!-- 页码 -->
                              <div class="count">1</div>
+                             <div class="allcounts" style="font-size: 12px;">共3页</div>
                             <!-- 左右翻页 -->
                             <div class="left_btn">
                                 上一页
@@ -253,7 +327,24 @@
                         </div>
                     </div>
                     <div class="mainright">
-                        <div class="classes">
+                        <div class="chosec">
+                            <div class="lf starttime">
+                                <p>开始时间</p>
+                                <p class="box">
+                                    <input type="text"  id="selectStartTime" placeholder="未选择"/>
+                                       
+                                </p>
+                                
+                            </div>
+                            <div class="lf endtime">
+                                <p>结束时间</p>
+                                <p class="box">
+                                    <input type="text"  id="selectEndTime" placeholder="未选择"/>
+                                    
+                                </p>
+                            </div>
+                        </div>
+                        <!-- <div class="classes">
                             <div class="sec classSec">
                                 
                              </div>
@@ -263,58 +354,57 @@
                                 <div class="lf classRf">></div>
                             </div>
                         
-                        </div>
-                        <div class="classes practice">
-                            <div class="secs">
-                                <div class="lf sbg personprac">班级练习</div>
-                                <div class="lf sbg classprac">个人练习</div>
-                            </div>
-                            <div class="secs practiceList">
-                                
-                            </div>
-                          
-                            <div class=" lastsec">
-                                <div class="lf pracLf"><</div>
-                                <div class="lf pracCen">1</div>
-                                <div class="lf pracRf">></div>
-                            </div>
+                        </div> -->
+                        <div class="seleclasses">
+                            <p>选择班级</p>
+                            <input type="text" class="selectNum" value="未选择">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="bg-line">
-                <!-- <a href="../buy/buy.html"><img src="../../img/buy.png"></a> -->
             </div>
         </div>
+    </div>
+    <div class="mask">
+       <div class="maskflex">
+            <div class="lists">
+                <span class="close_list">×</span>
+                
+                <ul class="classSec"></ul>
+               
+                <p class="mask_sure">确定</p>
+            </div>
+       </div>
     </div>
     <div class="layerMask"></div>
     <div class="loading">
         <div class="loadBox">
             <div class="spinner"></div>
+            <p>加载中，请稍后。。。</p>
         </div>
     </div>
      <!-- <div id="pop-box"></div> -->
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
+     <script type="text/javascript" src="../../js/laydate.js"></script>
     <script type="text/javascript" src="../../js/subject.js"></script>
     <script type="text/javascript" src="../../js/common.js"></script>
     <script type="text/javascript" src="../../js/request.js"></script>
 
     <script type="text/javascript">
         $(function () {
+
             var paramClass={
                 "IndexPage": 1,
-                "IndexSize":6
+                "IndexSize":100
             }
             var paramList={
                 "IndexPage": 1,
                 "IndexSize":9
-
+                
             }
-            var Tarsk={
-                // "IndexPage": 1,
-                // "IndexSize":1
-            }
-             var Vparams={
+            var Tarsk={}
+            var Vparams={
                 'IndexPage':1,
                 'IndexSize':1
             };
@@ -322,194 +412,206 @@
            var classNum=0,praNum=0;
              var classListId=[],gradeid='',gradeName='';//班级id列表
              var count="";
-            var stuData=C.POST('',httpUrl.GetStudentInfo,successGetstu);
+             paramList.StartTime=getNowFormatDate();
+             paramList.EndTime=getPassWeekDate();
             //学生答案
-            var stuSubQueList = {};
-            console.log(stuData);
+            // var stuSubQueList = {};
+            var studentId=localStorage.getItem('studentId');
+            var accountName=sessionStorage.getItem('accountName');
+            paramClass.studentId =accountName;
+            paramList.studentId =accountName;
             if(localStorage.getItem('studentName')){
                 $('.names').text(localStorage.getItem('studentName'));
             }
-            function successGetstu(stuData){
-                if(stuData.Result==1){
-                    // paramClass.TeacherId=localStorage.getItem('TeacherIds');
-                    // paramClass.studentId =stuData.data.id;
-                    localStorage.setItem('studentId','s004');
-                    paramClass.studentId ='s004';
-                    paramList.studentId ='s004';
-                     // paramList.schoolId=stuData.data.schoolId;
-                     // answer.schoolId=stuData.data.schoolId;
-                     // answer.studentId ='s004';
-                    getClassData();
-                }else{
-                    C.layer(1,stuData.Message);
-                }
-            }
+    
             //获取班级信息
+            $('.seleclasses').on('click',function(){
+                $(".mask").show();
+                $(".classSec").show();
+            });
+            $(".classSec").on("click",function(e){
+                e.stopPropagation();
+            });
+            $(".mask,.close_list,.mask_sure").on("click",function(){
+                $('.mask').hide();
+                $('.mask').find("ul").hide();
+
+            });
             var classCount=0;
+            getClassData();
             function getClassData(){
                 var classData=C.POSTS(JSON.stringify(paramClass),httpUrl.GetPageClassStudent,successGetclass);
             }
             function successGetclass(classData){
 
                 if(classData.Result==1){
-                    $(".classcount").text(paramClass.IndexPage);
+                    if(classData.Data.length!=0){
+                        // $(".classcount").text(paramClass.IndexPage);
 
-                    createClassList(classData.Data);
-                    setClassCheck();
-                    paramList.ClassId=classData.Data[0].ClassId;
-                   
-                   if(classData.Count%paramClass.IndexSize>0){
-                        classCount=parseInt(classData.Count/paramClass.IndexSize)+1;
+                        createClassList(classData.Data);
+                        // setClassCheck();
+                        paramList.ClassId=classData.Data[0].ClassId;
+                       
+                        $('.selectNum').val(classData.Data[0].ClassesName);
+                        getTablelist();
                     }else{
-                        classCount=parseInt(classData.Count/paramClass.IndexSize);
+                        C.layer(2,"您还没有加入班级！");
                     }
-                    getpracData();
                 }else{
                     paramClass.IndexPage-=classNum;
                     C.layer(1,classData.Message);
                 }
             }
             function createClassList(data){
-                console.log(data);
                 var list='';
                 for(var i=0;i<data.length;i++){
-                    list+='<div id='+data[i].ClassId+' Gradeid='+data[i].GradeId+' gradename='+data[i].GradeName+' class="lf classtable">'+data[i].ClassesName+'<span>选中</span></div>'
+                    if(data[i].AfterSchool){
+                        xiaowai="(校外)";
+                    }else{
+                        xiaowai="";
+                    }
+                    list+='<li><input type="radio" id='+data[i].ClassId+' name="seleclasses" gradeid='+data[i].GradeId+' dataName='+data[i].ClassesName+'><span>'+data[i].ClassesName+xiaowai+'</span></li>'
                 }
                 $(".classSec").html(list);
 
             }
-          
-            $(".classLf").on("click",function(){
-                C.leftPage(paramClass,classNum,getClassData);
-            
-            });
-            $(".classRf").on("click",function(){
-                C.rightPage(paramClass,classNum,classCount,getClassData);
-          
-            });
+         
              //选中班级id
            
-             $(".classes").on("click",'.classtable',function(){
+            $(".classSec").on("click",'input',function(){
+                //获取时间
+                var starttime=$('#selectStartTime').val();
+                var endtime=$('#selectEndTime').val();
+                paramList.StartTime=starttime!=''?starttime:paramList.StartTime;
+                paramList.EndTime=endtime!=''?endtime:paramList.EndTime;
                 $('.classes').find('span').hide();
                 //判断是否所有的班级选中全部清除
                 var spanId=$(this).attr('id');
-                var grades=$(this).attr('gradeid');  
+                // var grades=$(this).attr('gradeid');  
                
-                gradeid = spanId; 
+                // gradeid = spanId; 
                 paramList.ClassId=spanId;
-                // answer.classesId=spanId;
-                paramList.IndexPage=1;
-                getpracData();
-                // gradeName = $(this).attr('gradeName'); 
-                 $(this).find('span').show();
+                // paramList.IndexPage=1;
+                getTablelist();
+                 // $(this).find('span').show();
+                var classname=$(this).attr('dataName');
+                $('.selectNum').val(classname);
             });
-            //翻页后班级是否选中
-            function setClassCheck(){
-                
-                var ids=$(".classes").find('.classtable');
-                for(var i=0;i<ids.length;i++){
-                    var ID=$(ids).eq(i).attr('id');
-                    if(gradeid==ID){
-                        $(".classes").find('.classtable').eq(i).find('span').show();
-                    }
-                }
+        
+            //获取错题列表
+            
+            var tableNum=0,tableCount=0,tableId='';
+            var getQuestionBool=false;
+            function getTablelist(){
+                var pracListData=C.POSTS(JSON.stringify(paramList),httpUrl.GetPageEnglishArticleTaskWrongBase,successGetTable);
             }
+            function successGetTable(datas){
+                if(datas.Result==1){
 
-            //获取练习列表
-            var pracIdList=[],pracCount='',pracId='';
-            var personClassBool=true;
-            $(".personprac").on('click',function(){
-                personClassBool=true;
-                paramList.IndexPage=1;
-                getpracData();
-            });
-            $(".classprac").on("click",function(){
-                personClassBool=false;
-                paramList.IndexPage=1;
-                getpracData();
-            });
-            function getpracData(){
-                 var pracListData={};
-                 console.log(paramList);
-                 console.log(personClassBool);
-                if(personClassBool){
-                    paramList.tarskType=0;
+                    if(datas.Data.length>0){
+                        $(".tablelist").empty();
+                        var allTableCount=datas.Data[0].COUNTS;
+                        $('.count').text(paramList.IndexPage);
+                        if(allTableCount%paramList.IndexSize>0){
+                            tableCount=parseInt(allTableCount/paramList.IndexSize)+1;
+                        }else{
+                            tableCount=parseInt(allTableCount/paramList.IndexSize);
+                        }
+                        var str="共"+tableCount+"页";
+                        $('.allcounts').text(str);
+                        createTableList(datas.Data)
                 }else{
-                    paramList.tarskType=1;
+                    C.layer(2,$('.selectNum').val()+"没有任务!");
                 }
-                pracListData=C.POSTS(JSON.stringify(paramList),httpUrl.GetPageEnglishArticleTaskWrongBase,successGetpra);
-                
-            }
-            function successGetpra(pracListData){
-                $('.practiceList').empty();
-                if(pracListData.Result==1){
-                    $(".pracCen").text(paramList.IndexPage);
-                      createPracList(pracListData.Data);
-                      setPracCheck();
-                      var allpracCount=pracListData.Data[0].COUNTS;
-                    if(allpracCount%paramList.IndexSize>0){
-                        pracCount=parseInt(allpracCount/paramList.IndexSize)+1;
-                    }else{
-                        pracCount=parseInt(allpracCount/paramList.IndexSize);
-                    }
-                    console.log(pracListData.Data);
-                   
+                }else{
                     
-                }else{
-                    paramList.IndexPage-=praNum;
-                    C.layer(1,pracListData.Message);
                 }
             }
-            function createPracList(data){
-                 var htmls='',nameArr=[];
-                 for(var i=0;i<data.length;i++){
-                    var times=String(data[i].CreateDate).slice(0,10);
-                    if(data[i].Name.length>7){
-                        nameArr=data[i].Name.split('-');
+            function createTableList(data){
+                var list='<li><p class="cell1">编号</p><p class="cell2">任务名称</p><p class="cell3">做题时间</p><p class="cell4">总分</p><p class="cell5">得分</p><p class="cell6">得分率</p><p class="cell7">是否订正</p><p class="cell8">查看</p><p class="cell9">订正</p>';
+                for(var i=0;i<data.length;i++){
+                    if(i<data.length-1){
+                        var percent=(data[i].QuestionScore/data[i].TotalScore).toFixed(2);;
+                        list+='<li class="trline"  style="border-bottom:1px solid #999">';
+                        
                     }else{
-                        nameArr=[data[i].Name,data[i].Name];
+                        list+='<li class="trline">';
+                       
                     }
+                    var index=i+1+(paramList.IndexPage*9-9);
+                    var tableScore=parseFloat(data[i].StudentScore/data[i].TotalScore);
                   
-                    htmls+='<div class="lf  prac" times="'+data[i].LimitedTime+'" names="'+data[i].Name+'"" id="'+data[i].Id+'"><p>'+nameArr[1]+'</p><p>'+nameArr[0]+'</p><p>'+i+'</p>';
-                    console.log();
-                    htmls+=data[i].IsCorrection==1?'<span class="isReset">已订正</span></div>':'</div>';
-                 }
-                $('.practiceList').html(htmls);
-            }
-           
-            $('.practiceList').on('click','.prac',function(){
-           
-                 C.load(0);
-                $('.practiceList').find('.prac').removeClass('pracBg1');
-                pracId=$(this).attr('id');
-                Tarsk.EnglishArticleTaskWrongBaseId=pracId;
-                nums=1;
-                $(this).addClass('pracBg1');
-                getWrongData();
-
-            });
-            
-            //翻页后练习任务是否选中
-            function setPracCheck(){
-                console.log(pracIdList);
-                var idRember=$(".prac");
-                for(var i=0;i<idRember.length;i++){
-            
-                    if($(idRember).eq(i).attr('id')==pracId){
-                        $(".prac").eq(i).addClass('pracBg1');
+                    var  percent=parseFloat(tableScore*100).toFixed(2)+'%';
+                    var wordPace='';
+                    if(data[i].IsCorrection==1){
+                        wordPace='已订正';
+                    }else{
+                        wordPace='未订正';
                     }
-
+                    var DoQuestions=data[i].DoQuestions.split('T');
+                    DoQuestions[1]=DoQuestions[1].slice(0,5);
+                    list+='<p class="cell1"> <span class="serial">'+index+'</span> </p>';
+                    list+='<p class="chapter cell2">'+data[i].Name+'</p>';
+                    list+='<p class="cell3">'+DoQuestions[0]+' '+DoQuestions[1]+'</p>';
+                    list+='<p class="cell4">'+data[i].TotalScore+'</p>';
+                    list+='<p class="cell5">'+data[i].StudentScore+'</p>';
+                    list+='<p class="cell6">'+percent+'</p>';
+                    // list+='<p class="cell7">'+StudentTimeUse+'</p>';
+                    list+='<p class="cell7">'+wordPace+'</p>';
+                    list+='<p class="cell8"><span class="preview dbtn" data-id="' + data[i].Id + '" >查看</span></p>'
+                    list+='<p class="cell9"><span class="view dbtn" data-id="' + data[i].Id + '" >订正</span></p>';
+                    list+='</li>';
                 }
+                $(".tablelist").html(list);
             }
-            //翻页
-            $(".pracLf").on("click",function(){
-                C.leftPage(paramList,praNum,getpracData);
-           
+            $(".right_btn").on("click",function(){
+                var tableBool=$('.tablelist').css('display');
+                if(tableBool == 'block' || tableBool == 'inline'){
+                    C.rightPage(paramList,tableNum,tableCount,getTablelist,this);
+                }else{
+                    if(nums>=wrongNum){
+                        
+                        C.layer(2,"这是最后一页啦！")
+                    }else if(nums<wrongNum){
+                        $('#ArticleContent').scrollTop(0);
+                        nums++;
+                        resetItem();
+                    }
+                }
+                
             });
-            
-            $(".pracRf").on("click",function(){
-                C.rightPage(paramList,praNum,pracCount,getpracData);
-          
+            $(".left_btn").on("click",function(){
+                var tableBool=$('.tablelist').css('display');
+                if(tableBool == 'block' || tableBool == 'inline'){
+                    
+                    C.leftPage(paramList,tableNum,getTablelist,this);
+                }else{
+                    
+                    if(nums==1){
+                        
+                       C.layer(2,'这已经是第一页啦！');
+                    }else if(nums>1){
+                        $('#ArticleContent').scrollTop(0);
+                        nums--;
+                        resetItem();
+                    }
+                }
+                
+            });
+            var CorrectOrWrong=false;
+            $('.tablelist').on('click','.view',function(){
+                tableId=$(this).attr('data-id');
+                getQuestionBool=true;
+                getQuestionBool=false;
+                Tarsk.EnglishArticleTaskWrongBaseId=tableId;
+                getWrongData();
+            });
+            $('.tablelist').on('click','.preview',function(){
+                tableId=$(this).attr('data-id');
+                getQuestionBool=true;
+                CorrectOrWrong=true;
+                Tarsk.EnglishArticleTaskWrongBaseId=tableId;
+                getWrongData();
             });
             //获取错题
             var wrongNum=0,subjectArray={};
@@ -521,177 +623,52 @@
                 if(data.Result==1){
                     wrongNum=data.Data.length;
                     subjectArray=data.Data;
+                    $('.task_list').show();
+                    if(!CorrectOrWrong){
+                      
+                        $('.reload').show();
+                    }
+                    
+                    if(wrongNum!=0){
+                        $('.allcounts').hide();
+                        $('.tablelist').hide();
+                        $('.mainContainer').show();
+                    }else{
+                        C.layer(2,"没有更多数据");
+                    }
+                   getQuestionBool=true;
                     resetItem();
-                    //写作技巧
-                    // if (subjectArray[subjectIndex].writingSkillId != "") {
-                    //     var WritingQuestions = subjectArray[subjectIndex].WritingSkillDetail.WritingSkillItemList;
-                    //     $.each(WritingQuestions, function (index, value) {
-                    //         var inputDom = $('.' + value.Id);
-                    //         if (value.WritingSkillItemAnswer.indexOf('|') != -1) {
-                    //             if (stuSubQueList[value.Id] != undefined) {
-                    //                 var itemAnsweArry = stuSubQueList[value.Id].split('|');
-                    //                 $.each(inputDom, function (ind, val) {
-                    //                     val.value = itemAnsweArry[ind];
-                    //                 });
-                    //             }
-                    //         } else {
-                    //             $.each(inputDom, function (ind, val) {
-                    //                 if (val.type == "text") {
-                    //                     val.value = stuSubQueList[value.Id] == undefined ? "" : stuSubQueList[value.Id];
-                    //                 } else if (val.type == "radio") {
-                    //                     if (val.value == stuSubQueList[value.Id]) {
-                    //                         val.checked = true;
-                    //                     }
-                    //                 } else if (val.type == "textarea") {
-                    //                     val.innerText = stuSubQueList[value.Id] == undefined ? "" : stuSubQueList[value.Id];
-                    //                 }
-                    //             });
-                    //         }
-                    //     });
-                    // }
+            
                     C.load(1);
                 }else{
+                    getQuestionBool=false;
                     C.load(0);
                     C.layer(1,data.message);
                 }
             }
-            // function createList(){
-            //     var subjectIndex = parseInt(nums)-1;
-            //     var subStr = SubjectStringCorrect(subjectArray[subjectIndex]);
-            //     // console.log(subStr);
-            //     $('#ArticleContent').html(subStr);
-            //      //题目
-            //     // var questions = subjectArray[subjectIndex].englishArticleQuestionItem;
-            //     // $.each(questions, function (index, value) {
-            //     //     var inputDom = $('.' + value.id);
-            //     //     if (value.answer.indexOf('|') != -1) {
-            //     //         if (stuSubQueList[value.id] != undefined) {
-            //     //             var itemAnsweArry = stuSubQueList[value.id].split('|');
-            //     //             $.each(inputDom, function (ind, val) {
-            //     //                 val.value = itemAnsweArry[ind];
-            //     //             });
-            //     //         }
-            //     //     } else {
-            //     //         $.each(inputDom, function (ind, val) {
-            //     //             if (val.type == "text") {
-            //     //                 val.value = stuSubQueList[value.id] == undefined ? "" : stuSubQueList[value.id];
-            //     //             } else if (val.type == "radio") {
-            //     //                 if (val.value == stuSubQueList[value.id]) {
-            //     //                     val.checked = true;
-            //     //                 }
-            //     //             }
-            //     //         });
-            //     //     }
-            //     // });
-            // }
-            $('.left_btn').on('click',function(){
-                if(nums==1){
-                   C.layer(2,'这已经是第一页啦！');
-                }else if(nums>1){
-                    // titleTime();
-                    nums--;
-                    // createList();
-                    resetItem();
-                    
-                    // getresult();
-                 
-                }
+         
+            laydate.render({
+               elem: '#selectStartTime' //指定元素
             });
-            $(".right_btn").on('click',function(){
-                // console.log(nums,pracCount);
-                if(nums>=wrongNum){
-                    // getresult();
-                    C.layer(2,"这是最后一页啦！")
-                }else if(nums<wrongNum){
-                    // titleTime();
-                    nums++;
-                    // createList();
-                    resetItem();
-                    
-                    // getresult();
-
-                }
+            laydate.render({
+               elem: '#selectEndTime' //指定元素
             });
-            // function successGetwrong(errorData){
-            //     if(errorData.result==1){
-            //         C.load(1);
-            //         var result=errorData.data;
-            //         var str = '';
-            //         $.each(result, function (index, value) {
-            //             str += SubjectStringWrong(value);
-            //             str+='<br/>'
-            //         });
-                    
-            //         $('#ArticleContent').html(str);
-            //         //还原学生答案
-            //         for (var i = 0; i < result.length; i++) {
-            //             //题目
-            //             var questions = result[i].englishArticleQuestionItem;
-            //             $.each(questions, function (index, value) {
-            //                 var inputDom = $('.' + value.id);
-            //                 if (value.answer.indexOf('|') != -1) {
-            //                     if (value.studentAnswer != undefined) {
-            //                         var itemAnsweArry = value.studentAnswer.split('|');
-            //                         $.each(inputDom, function (ind, val) {
-            //                             val.value = itemAnsweArry[ind];
-            //                         });
-            //                     }
-            //                 } else {
-            //                     $.each(inputDom, function (ind, val) {
-            //                         if (val.type == "text") {
-            //                             val.value = value.studentAnswer == undefined ? "" : value.studentAnswer;
-            //                         } else if (val.type == "radio") {
-            //                             if (val.value == value.studentAnswer) {
-            //                                 val.checked = true;
-            //                             }
-            //                         }
-            //                     });
-            //                 }
-            //             });
-            //             //写作技巧
-            //             if (result[i].WritingSkillId != "" && result[i].WritingSkillId != null) {
-            //                 var WritingQuestions = result[i].WritingSkillDetail.WritingSkillItemList;
-            //                 $.each(WritingQuestions, function (index, value) {
-            //                     var inputDom = $('.' + value.Id);
-            //                     if (value.WritingSkillItemAnswer.indexOf('|') != -1) {
-            //                         if (value.WritingSkillItemStuAnswer != undefined) {
-            //                             var itemAnsweArry = value.WritingSkillItemStuAnswer.split('|');
-            //                             $.each(inputDom, function (ind, val) {
-            //                                 val.value = itemAnsweArry[ind];
-            //                             });
-            //                         }
-            //                     } else {
-            //                         $.each(inputDom, function (ind, val) {
-            //                             if (val.type == "text") {
-            //                                 val.value = value.WritingSkillItemStuAnswer == undefined ? "" : value.WritingSkillItemStuAnswer;
-            //                             } else if (val.type == "radio") {
-            //                                 if (val.value == value.WritingSkillItemStuAnswer) {
-            //                                     val.checked = true;
-            //                                 }
-            //                             } else if (val.type == "textarea") {
-            //                                 val.innerText = value.WritingSkillItemStuAnswer == undefined ? "" : value.WritingSkillItemStuAnswer;
-            //                             }
-            //                         });
-            //                     }
-            //                 });
-            //             }
-            //         }
-            //         //还原学生答案
-            //         autoLength();
-            //         $('.article2 .article-scroll').scrollTop('0');
-            //         $('.slimScrollBar').css('top', "0");
-            //     }else{
-            //         C.load(1);
-            //         C.layer(1,errorData.data);
-            //     }
-            // }
             //订正错题
             var reload={},stuSubQueList={};
             function resetItem(){
+                C.top();
                 var stuSubQueListTemp = {};
                 var subjectIndex = parseInt(nums)-1;
+                var stuBool=$.isEmptyObject(stuSubQueList)
+                if(stuBool){
+                    for(var i=0;i<subjectArray.length;i++){
+                        var queslist=subjectArray[i].EnglishArticleQuestionItem;
+                        for(var j=0;j<queslist.length;j++){
+                            stuSubQueList[queslist[j].Id]=queslist[j].StudentAnswer;
+                        }
+                    }
+                }
                 $.each($("#form1").serializeArray(), function (i, v) {
-                    // console.log(v);
                    
                     if (stuSubQueListTemp[v.name] != undefined) {
                         stuSubQueListTemp[v.name] += '|' + v.value.trim();
@@ -699,24 +676,24 @@
                         stuSubQueListTemp[v.name] = v.value.trim();
                     }
                 });
-                $.each(stuSubQueListTemp, function (index, value) {
-                    stuSubQueList[index] = value;
-                });
-                console.log(stuSubQueList);
-                $('.count').text(nums);
-                var subStr = SubjectStringCorrect(subjectArray[subjectIndex]);
-                // console.log(subStr);
-                $('#ArticleContent').html(subStr);
-                // console.log(subjectIndex);
 
-                var questions = subjectArray[subjectIndex].EnglishArticleQuestionItem;
-                // console.log(subjectArray[subjectIndex]);
-                // for (var i = 0; i < subjectArray.length; i++) {
+                $.each(stuSubQueList,function (ind,val) {
+                    stuSubQueList[ind]=stuSubQueListTemp[ind]!=undefined?stuSubQueListTemp[ind]:stuSubQueList[ind];
+                });
+                    
+                $('.count').text(nums);
+                if(CorrectOrWrong){
+                    var subStr = SubjectStringWrong(subjectArray[subjectIndex]);
+                }else{
+                    var subStr = SubjectStringCorrect(subjectArray[subjectIndex]);
+                }
+                $('#ArticleContent').html(subStr);
+
+            
                     //题目
                 var questions = subjectArray[subjectIndex].EnglishArticleQuestionItem;
                 $.each(questions, function (index, value) {
                     var inputDom = $("."+value.Id);
-                    console.log(inputDom);
                     if (value.Answer.indexOf('|') != -1) {
                         if (stuSubQueList[value.Id] != undefined) {
                             var itemAnsweArry = stuSubQueList[value.Id].split('|');
@@ -725,12 +702,11 @@
                             });
                         }
                     } else {
-                        console.log(inputDom);
                         $.each(inputDom, function (ind, val) {
-                            console.log(val.value , stuSubQueList[value.Id]);
                             if (val.type == "text") {
                                 val.value = stuSubQueList[value.Id] == undefined ? "" : stuSubQueList[value.Id];
                             } else if (val.type == "radio") {
+
                                 if (val.value == stuSubQueList[value.Id]) {
                                     val.checked = true;
                                 }
@@ -738,19 +714,21 @@
                         });
                     }
                 });
-                   
-                console.log(stuSubQueList);
+           
                 
             }
             $('.reload').on('click',function(){
-                C.load(0);
-                resetItem();
-                var str=JSON.stringify(stuSubQueList);
-                console.log(str)
-                str=str.replace(/"/g,"'");
-                reload.studnetAnswer=str.slice(0,str.length);
-                // reload.studnetAnswer = stuSubQueListTemp;
-                var data=C.POSTS(JSON.stringify(reload),'http://192.168.16.99:10012/api/EnglishArticleTaskWrongBase/EditEditEnglishArticleTaskHistoryBase',successReload);
+                if(getQuestionBool){
+                    C.load(0);
+                    resetItem();
+                    var str=JSON.stringify(stuSubQueList);
+                    str=str.replace(/"/g,"'");
+                    reload.studnetAnswer=str.slice(0,str.length);
+                    // reload.studnetAnswer = stuSubQueListTemp;
+                    var data=C.POSTS(JSON.stringify(reload),httpUrl.EditEditEnglishArticleTaskHistoryBase,successReload);
+                }else{
+                    C.layer(2,"您要先将题目订正才能提交哟！");
+                }
             });
             function successReload(data){
                 if(data.result==1){
@@ -766,7 +744,34 @@
                 
                 C.resezes();
             });
+            function getNowFormatDate() {
+                var date = new Date();
+                var seperator1 = "-";
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var strDate = date.getDate();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                var currentdate = year + seperator1 + month + seperator1 + strDate;
+                return currentdate;
+            }
+            function getPassWeekDate(){
+                var now = new Date();
+                var date = new Date(now.getTime() - 7 * 24 * 3600 * 1000);
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var day = date.getDate();
+                var passWeekDate=year + '-' + month + '-' + day;
+                return passWeekDate;
+            }
             C.resezes(1);
+            $('.task_list').on('click',function(){
+                location.reload(); 
+            });
             $(".ope_first").on({
                 mouseover:function (e) {
                     e.stopPropagation();
